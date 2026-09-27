@@ -14,11 +14,11 @@
   /* HERO kategórie */
   .phero__in { min-height: clamp(212px, 14vw, 300px); padding-top: 20px; padding-bottom: 22px; }
   .phero.phero--narrow .phero__img { width: 100%; }
-  .phero.phero--narrow .phero__img img { width: 125%; max-width: none; margin-left: -25%; -webkit-mask: linear-gradient(180deg, transparent 0px, #000 60px); mask: linear-gradient(180deg, transparent 0px, #000 60px); }
+  .phero.phero--narrow .phero__img img { position: absolute; top: 0; right: 6%; width: auto; height: 172%; max-width: none; object-fit: fill; -webkit-mask: linear-gradient(90deg, transparent 0, #000 30%, #000 82%, transparent 100%); mask: linear-gradient(90deg, transparent 0, #000 30%, #000 82%, transparent 100%); }
   .phero.phero--narrow .phero__img::after { background: linear-gradient(90deg, rgba(11,11,12,.9) 0%, rgba(11,11,12,.72) 28%, rgba(11,11,12,.1) 46%, rgba(11,11,12,0) 60%, rgba(11,11,12,.35) 100%); }
   .phero.phero--narrow .script { right: 3%; top: 42%; }
   @media (max-width: 1240px) { .phero.phero--narrow .script { display: none; } }
-  @media (max-width: 640px) { .phero.phero--narrow .phero__img img { width: 100%; margin-left: 0; object-position: 70% 15% !important; -webkit-mask: none; mask: none; } }
+  @media (max-width: 640px) { .phero.phero--narrow .phero__img img { position: static; height: 100%; width: 100%; object-fit: cover; object-position: 70% 15% !important; -webkit-mask: none; mask: none; } }
   .phero h1 { font-size: clamp(32px, 3.6vw, 52px); margin-top: 18px; }
   .phero .lead { font-size: 15px; max-width: 440px; margin-top: 10px; }
   .phero .trust { padding-top: 18px; gap: 12px 34px; }
