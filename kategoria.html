@@ -14,7 +14,7 @@
   /* HERO kategórie */
   .phero__in { min-height: clamp(212px, 14vw, 300px); padding-top: 20px; padding-bottom: 22px; }
   .phero.phero--narrow .phero__img { width: 100%; }
-  .phero.phero--narrow .phero__img img { width: 125%; max-width: none; margin-left: -25%; -webkit-mask: linear-gradient(180deg, transparent 20px, #000 110px); mask: linear-gradient(180deg, transparent 20px, #000 110px); }
+  .phero.phero--narrow .phero__img img { width: 125%; max-width: none; margin-left: -25%; -webkit-mask: linear-gradient(180deg, transparent 0px, #000 60px); mask: linear-gradient(180deg, transparent 0px, #000 60px); }
   .phero.phero--narrow .phero__img::after { background: linear-gradient(90deg, rgba(11,11,12,.9) 0%, rgba(11,11,12,.72) 28%, rgba(11,11,12,.1) 46%, rgba(11,11,12,0) 60%, rgba(11,11,12,.35) 100%); }
   .phero.phero--narrow .script { right: 3%; top: 42%; }
   @media (max-width: 1240px) { .phero.phero--narrow .script { display: none; } }
@@ -207,7 +207,7 @@
   /* ---------- konfigurácia sekcií ---------- */
   const TRUST = [["shield", "Overená kvalita", "Profesionálne značky"], ["truck", "Rýchle doručenie", "Po celom Slovensku"], ["people", "Odborné poradenstvo", "V predajni aj online"]];
   const SEC = {
-    gastro: { h: "Gastro a biele odevy", lead: "Kvalitné kuchárske oblečenie, biele odevy a doplnky pre gastronómiu, potravinárstvo a hygienické prevádzky.", img: "assets/gen/hero-flambe-wide.webp", pos: "50% 30px", narrow: true,
+    gastro: { h: "Gastro a biele odevy", lead: "Kvalitné kuchárske oblečenie, biele odevy a doplnky pre gastronómiu, potravinárstvo a hygienické prevádzky.", img: "assets/gen/hero-flambe-wide.webp", pos: "50% 8px", narrow: true,
       tiles: [["rondony-a-bluze", "Kuchárske<br>oblečenie", "assets/img/gastro-kuchar-ciapka.webp", "70% 30%"], ["kucharska-obuv", "Obuv<br>do gastronómie", "assets/img/gastro-obuv.webp", "60% 60%"], ["zastery-a-plaste", "Zástery<br>a doplnky", "assets/img/zastery.webp", "60% 40%"], ["kucharske-nohavice", "Biele odevy<br>a nohavice", "assets/img/biele-odevy.webp", "60% 50%"]] },
     zdravotnictvo: { h: "Zdravotníctvo a wellness", lead: "Pohodlné, funkčné a moderné pracovné odevy pre zdravotníkov, opatrovateľov a wellness profesionálov.", img: "assets/gen/zdrav-hero.webp", pos: "55% 30%", light: true,
       trust: [...TRUST, ["shirt", "Široký výber", "Pre ženy aj mužov"]],
