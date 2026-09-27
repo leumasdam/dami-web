@@ -1,0 +1,263 @@
+<!doctype html>
+<html lang="sk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pre firmy – pracovné oblečenie pre celé tímy | DAMI Piešťany</title>
+<meta name="description" content="Kompletné pracovné oblečenie, obuv a doplnky pre firmy, inštitúcie a organizácie. Logo, výšivka a potlač, individuálne ceny a osobná konzultácia.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700;800&family=Nothing+You+Could+Do&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/dami.css">
+<script src="data/catalog.js"></script>
+<script src="assets/js/dami.js"></script>
+<style>
+  /* HERO */
+  .fhero .phero__img { width: 72%; }
+  .fhero .phero__img img { object-position: 50% 22%; }
+  .fhero .phero__img::after { background: linear-gradient(90deg, #0b0b0c 0%, rgba(11,11,12,.8) 18%, rgba(11,11,12,.15) 48%, rgba(11,11,12,0) 100%); }
+  .fhero .phero__in { min-height: 290px; }
+  .fhero h1 { font-size: clamp(36px, 3.6vw, 52px); line-height: .98; max-width: 520px; }
+  .fhero .lead { max-width: 430px; }
+  .fhero .script { top: auto; bottom: 26px; translate: none; right: calc(var(--gut) - 6px); font-size: clamp(22px, 2vw, 30px); }
+
+  /* BENEFITY */
+  .perks { background: #fff; border-bottom: 1px solid var(--line); }
+  .perks__in { display: grid; grid-template-columns: repeat(5, 1fr); }
+  .perk { display: grid; grid-template-columns: 50px 1fr; gap: 14px; padding: 26px 22px 24px; border-left: 1px solid var(--line); }
+  .perk:first-child { border-left: 0; padding-left: 0; }
+  .perk .ico { width: 44px; height: 44px; color: var(--red); stroke-width: 1.5; }
+  .perk h3 { font-size: 16px; letter-spacing: -.02em; margin: 2px 0 7px; }
+  .perk p { font-size: 12.5px; line-height: 1.45; color: var(--muted); }
+
+  /* SEGMENTY */
+  .segs { padding: 22px 0 0; }
+  .segs__grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; }
+  .seg { position: relative; overflow: hidden; border-radius: 3px; min-height: 184px; color: #fff; display: flex; flex-direction: column; justify-content: flex-end; padding: 16px 58px 16px 16px; isolation: isolate; background: #111; }
+  .seg img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: -2; transition: transform .7s var(--ease); }
+  .seg::before { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(0deg, rgba(0,0,0,.88) 0%, rgba(0,0,0,.45) 42%, rgba(0,0,0,0) 70%); }
+  .seg h3 { font-size: clamp(17px, 1.3vw, 19px); line-height: 1.08; letter-spacing: -.025em; }
+  .seg p { font-size: 11.5px; line-height: 1.35; margin-top: 6px; opacity: .9; }
+  .seg .circ { position: absolute; right: 14px; bottom: 16px; }
+  .seg:hover img { transform: scale(1.05); }
+  .seg:hover .circ { background: var(--red); border-color: var(--red); }
+
+  /* PROCES */
+  .proc { padding: 30px 0 26px; }
+  .proc__in { display: grid; grid-template-columns: 210px repeat(4, 1fr); align-items: start; }
+  .proc h2 { font-size: clamp(26px, 2.1vw, 30px); line-height: 1.02; }
+  .proc h2::after { content: ""; display: block; width: 62px; height: 3px; background: var(--red); margin-top: 12px; border-radius: 2px; }
+  .step { display: grid; grid-template-columns: auto 1fr; gap: 6px 16px; padding: 0 20px; border-left: 1px solid var(--line); }
+  .step:nth-child(2) { border-left: 0; }
+  .step__n { grid-row: span 2; font-size: 70px; font-weight: 800; line-height: .82; color: #d9d8d4; letter-spacing: -.05em; }
+  .step__t { display: flex; align-items: center; gap: 10px; }
+  .step__t .ico { width: 30px; height: 30px; color: var(--red); }
+  .step h3 { font-size: 15px; letter-spacing: -.02em; }
+  .step p { font-size: 12.5px; line-height: 1.45; color: var(--muted); padding-left: 40px; }
+
+  /* SPODOK: partnerstvá + formulár */
+  .fbot { display: grid; grid-template-columns: 1.02fr 1fr; gap: 10px; padding-bottom: 28px; }
+  .ref { position: relative; overflow: hidden; border-radius: 3px; background: #f1f1ef; padding: 20px 20px 22px 18px; min-height: 200px; isolation: isolate; display: flex; flex-direction: column; }
+  .ref > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 100% 12%; z-index: -2; }
+  .ref::before { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(90deg, #f1f1ef 0%, rgba(241,241,239,.9) 34%, rgba(241,241,239,0) 58%); }
+  .ref h2 { font-size: clamp(20px, 1.6vw, 23px); line-height: 1.08; margin: 8px 0 10px; max-width: 290px; }
+  .ref p { font-size: 12.5px; line-height: 1.55; color: #333; max-width: 320px; }
+  .ref__big { position: absolute; right: 22px; top: 20px; color: var(--ink); background: rgba(255,255,255,.82); padding: 10px 12px 8px; border-radius: 2px; backdrop-filter: blur(4px); font-weight: 800; font-size: clamp(20px, 1.8vw, 26px); line-height: 1.02; text-transform: uppercase; text-align: right; letter-spacing: -.01em; }
+  .ref__big i { font-style: normal; display: inline-block; border-bottom: 3px solid var(--red); }
+  .ref__stats { display: flex; gap: 22px; margin-top: auto; padding-top: 16px; flex-wrap: wrap; }
+  .ref__stats div { display: flex; gap: 8px; align-items: center; font-size: 11.5px; line-height: 1.3; font-weight: 500; }
+  .ref__stats .ico { width: 20px; height: 20px; color: var(--red); }
+
+  .offer { background: var(--ink); color: #fff; border-radius: 3px; display: grid; grid-template-columns: 1fr 190px; overflow: hidden; }
+  .offer__form { padding: 18px 20px 20px; }
+  .offer h2 { font-size: clamp(19px, 1.5vw, 22px); margin: 6px 0 4px; }
+  .offer__sub { font-size: 12px; opacity: .75; margin-bottom: 12px; }
+  .fgrid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .fld { position: relative; }
+  .fld input, .fld select, .fld textarea { width: 100%; height: 36px; background: #19191c; border: 1px solid #2e2e33; border-radius: 3px; color: #fff; padding: 0 11px; font-size: 12.5px; outline: 0; transition: border-color .2s; }
+  .fld textarea { height: 100%; min-height: 80px; padding: 9px 11px; resize: vertical; }
+  .fld select { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='2'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 10px center; background-size: 14px; padding-right: 30px; }
+  .fld select option { color: #111; }
+  .fld input::placeholder, .fld textarea::placeholder { color: #9a9aa0; }
+  .fld input:focus, .fld select:focus, .fld textarea:focus { border-color: #77777e; }
+  .fld.is-err input, .fld.is-err select { border-color: var(--red); }
+  .fld small { display: none; color: #ff6b70; font-size: 10.5px; margin-top: 3px; }
+  .fld.is-err small { display: block; }
+  .fld--msg { grid-row: span 2; }
+  .offer .btn { height: 40px; margin-top: 2px; }
+  .offer__ok { display: none; padding: 30px 6px; text-align: left; }
+  .offer__ok .ico { width: 44px; height: 44px; color: #4ade80; margin-bottom: 12px; }
+  .offer__ok h3 { font-size: 22px; margin-bottom: 8px; }
+  .offer__ok p { font-size: 13px; opacity: .8; line-height: 1.5; }
+  .offer.is-sent .offer__fields { display: none; }
+  .offer.is-sent .offer__ok { display: block; }
+  .offer__side { border-left: 1px solid var(--line-dark); padding: 20px 16px; }
+  .offer__side .info-list { gap: 14px; font-size: 12px; }
+  .offer__side .info-list .ico { width: 18px; height: 18px; }
+  .offer__side p { font-size: 11.5px; line-height: 1.5; opacity: .8; }
+
+  @media (max-width: 1240px) {
+    .perks__in { grid-template-columns: repeat(3, 1fr); }
+    .perk { border-left: 0; border-top: 1px solid var(--line); padding: 20px 18px 18px 0; }
+    .perk:nth-child(-n+3) { border-top: 0; }
+    .segs__grid { grid-template-columns: repeat(3, 1fr); }
+    .proc__in { grid-template-columns: repeat(2, 1fr); gap: 26px 0; }
+    .proc__in > h2 { grid-column: 1 / -1; }
+    .step:nth-child(2), .step:nth-child(4) { border-left: 0; padding-left: 0; }
+    .fbot { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 760px) {
+    .perks__in { grid-template-columns: 1fr 1fr; }
+    .perk { grid-template-columns: 40px 1fr; gap: 10px; }
+    .perk:nth-child(3) { border-top: 1px solid var(--line); }
+    .perk .ico { width: 34px; height: 34px; }
+    .segs__grid { display: flex; width: auto; overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding-left: var(--gut); margin: 0; padding: 0 var(--gut) 4px; scrollbar-width: none; }
+    .segs__grid::-webkit-scrollbar { display: none; }
+    .seg { flex: 0 0 72%; scroll-snap-align: start; min-height: 220px; }
+    .offer { grid-template-columns: 1fr; }
+    .offer__side { border-left: 0; border-top: 1px solid var(--line-dark); }
+  }
+  @media (max-width: 640px) {
+    .fhero .phero__in { min-height: 420px; justify-content: flex-end; }
+    .fhero .phero__img img { object-position: 62% 20%; }
+    .fhero .phero__img::after { background: linear-gradient(0deg, rgba(11,11,12,.96) 30%, rgba(11,11,12,.25) 75%); }
+    .fhero .phero__img { opacity: 1; }
+    .fhero .phero__in > .crumbs { margin-bottom: auto; }
+    .perks__in { grid-template-columns: 1fr; }
+    .perk { border-top: 1px solid var(--line) !important; padding-right: 0; }
+    .perk:first-child { border-top: 0 !important; }
+    .proc__in { grid-template-columns: 1fr; }
+    .step { border-left: 0 !important; padding: 0; }
+    .step__n { font-size: 56px; }
+    .fgrid { grid-template-columns: 1fr; }
+    .fld--msg { grid-row: auto; }
+    .ref { min-height: 380px; }
+    .ref::before { background: linear-gradient(180deg, #f1f1ef 0%, rgba(241,241,239,.92) 48%, rgba(241,241,239,0) 72%); }
+    .ref__big { top: auto; bottom: 20px; }
+    .ref__stats { display: none; }
+  }
+</style>
+</head>
+<body>
+<script>DAMI.mount("dark", "firmy")</script>
+
+<main>
+  <section class="phero fhero">
+    <div class="phero__img"><img src="assets/img/tim.webp" alt="Tím v pracovnom oblečení – robotník, zdravotná sestra, kuchár a technici pred predajňou" fetchpriority="high"></div>
+    <div class="wrap phero__in">
+      <nav class="crumbs" aria-label="Omrvinky"><a href="index.html">Domov</a><span>›</span><b>Pre firmy</b></nav>
+      <h1>Spoľahlivý partner<br>pre vaše tímy</h1>
+      <p class="lead">Kompletné pracovné oblečenie, obuv a doplnky pre firmy, inštitúcie a organizácie. Od malých tímov po veľké spoločnosti.</p>
+      <div class="trust" data-trust></div>
+      <div data-script></div>
+    </div>
+  </section>
+
+  <section class="perks"><div class="wrap perks__in" data-perks></div></section>
+
+  <section class="segs" aria-label="Segmenty"><div class="wrap segs__grid" data-segs></div></section>
+
+  <section class="proc">
+    <div class="wrap proc__in" data-proc><h2 class="rv">Ako prebieha spolupráca?</h2></div>
+  </section>
+
+  <section class="wrap fbot">
+    <div class="ref rv">
+      <img src="assets/gen/firmy-referencia.webp" alt="Stavební robotníci v reflexných bundách a prilbách na stavenisku" loading="lazy">
+      <span class="eyebrow">Rodinná firma z Piešťan</span>
+      <h2>Staráme sa o tímy, ktoré robia Slovensko lepším</h2>
+      <p>Oblečenie a obuv pre stavbárov, kuchárov, zdravotníkov aj výrobu vyberáme s dôrazom na odolnosť a pohodlie. Poradíme osobne v predajni alebo pripravíme ponuku na mieru pre celú prevádzku.</p>
+      <p class="ref__big" aria-hidden="true">Stabilné<br>partnerstvá<br><i>v reálnom svete</i></p>
+    </div>
+
+    <div class="offer rv" id="ponuka">
+      <form class="offer__form" novalidate data-offer>
+        <div class="offer__fields">
+          <span class="eyebrow">Nezáväzná ponuka</span>
+          <h2>Máte záujem o firemnú ponuku?</h2>
+          <p class="offer__sub">Vyplňte formulár a ozveme sa vám s riešením na mieru.</p>
+          <div class="fgrid">
+            <div class="fld"><input name="firma" placeholder="Názov spoločnosti *" required aria-label="Názov spoločnosti"><small>Vyplňte názov spoločnosti.</small></div>
+            <div class="fld"><select name="segment" aria-label="Segment firmy"><option value="">Segment firmy</option><option>Priemysel a výroba</option><option>Zdravotníctvo a sociálne služby</option><option>Gastro a hotelierstvo</option><option>Stavebníctvo a remeslá</option><option>Firemné oblečenie a reprezentácia</option><option>Iné</option></select></div>
+            <div class="fld"><input name="meno" placeholder="Vaše meno *" required aria-label="Vaše meno"><small>Vyplňte vaše meno.</small></div>
+            <div class="fld"><input name="email" type="email" placeholder="E-mail *" required aria-label="E-mail"><small>Zadajte platný e-mail.</small></div>
+            <div class="fld"><input name="tel" type="tel" placeholder="Telefón *" required aria-label="Telefón"><small>Zadajte telefónne číslo.</small></div>
+            <div class="fld fld--msg"><textarea name="sprava" placeholder="Vaša správa / požiadavky (počet ľudí, typ oblečenia, logo…)" aria-label="Správa"></textarea></div>
+            <button class="btn btn--red" type="submit" data-send-btn></button>
+          </div>
+        </div>
+        <div class="offer__ok" role="status">
+          <div data-ok-ico></div>
+          <h3>Ďakujeme, dopyt je pripravený.</h3>
+          <p>Otvorili sme vám e-mail s vyplnenými údajmi pre damiobchod@gmail.com – stačí ho odoslať. Ozveme sa zvyčajne do jedného pracovného dňa.</p>
+        </div>
+      </form>
+      <aside class="offer__side">
+        <div class="info-list" data-contact></div>
+      </aside>
+    </div>
+  </section>
+</main>
+
+<script>
+(() => {
+  const { ico, script, FIRM, esc, catUrl } = DAMI;
+  const $ = s => document.querySelector(s);
+  const arrow = ico("arrow");
+  $("[data-trust]").innerHTML = [["shield", "Overená kvalita", "Profesionálne značky"], ["truck", "Rýchle dodanie", "po celom Slovensku"], ["people", "Osobné poradenstvo", "v predajni aj online"]]
+    .map(([i, a, b]) => `<div class="trust__i">${ico(i)}<div><b>${a}</b><span>${b}</span></div></div>`).join("");
+  $("[data-script]").outerHTML = script("Profesionálne tímy", "nosia DAMI!");
+
+  $("[data-perks]").innerHTML = [
+    ["people", "Firemné objednávky", "Oblečieme tímy každej veľkosti – od pár ľudí po celé prevádzky."],
+    ["stitch", "Logo, výšivka a potlač", "Personalizácia oblečenia podľa vášho loga a dizajnu."],
+    ["percent", "Individuálne ceny", "Cenové podmienky pre firmy a dlhodobú spoluprácu."],
+    ["box", "Rýchle dodanie", "Tovar skladom a spoľahlivé doručenie po celom Slovensku."],
+    ["headset", "Osobná konzultácia", "Pomôžeme s výberom, veľkosťami a riešením na mieru."],
+  ].map(([i, h, p], n) => `<div class="perk rv" data-d="${n * 60}">${ico(i)}<div><h3>${h}</h3><p>${p}</p></div></div>`).join("");
+
+  $("[data-segs]").innerHTML = [
+    ["Priemysel<br>a výroba", "Odolné pracovné odevy<br>a bezpečnostná obuv", "assets/gen/firmy-priemysel.webp", catUrl("pracovne"), "60% 30%"],
+    ["Zdravotníctvo<br>a sociálne služby", "Pohodlné a funkčné oblečenie<br>pre zdravotníkov", "assets/img/zdravotnictvo.webp", "zdravotnictvo.html", "58% 25%"],
+    ["Gastro<br>a hotelierstvo", "Kuchárske oblečenie,<br>obuv a doplnky", "assets/img/gastro-kuchar.webp", catUrl("gastro"), "62% 30%"],
+    ["Stavebníctvo<br>a remeslá", "Pracovné odevy<br>s vysokou odolnosťou", "assets/gen/firmy-stavebnictvo.webp", catUrl("reflexne-odevy"), "62% 30%"],
+    ["Firemné oblečenie<br>a reprezentácia", "Tričká, mikiny, polokošele<br>a bundy s logom firmy", "assets/img/firmy-polokosela.webp", catUrl("tricka-kosele-polokosele"), "50% 25%"],
+  ].map(([h, p, img, href, pos], n) => `<a class="seg rv" data-d="${n * 60}" href="${href}"><img src="${img}" alt="" loading="lazy" style="object-position:${pos}"><h3>${h}</h3><p>${p}</p><span class="circ">${arrow}</span></a>`).join("");
+
+  $("[data-proc]").insertAdjacentHTML("beforeend", [
+    ["cart", "Výber produktov", "Spoločne vyberieme vhodné oblečenie, obuv a doplnky pre váš tím."],
+    ["stitch", "Logo a branding", "Pripravíme návrh výšivky alebo potlače s vaším logom."],
+    ["tag", "Cenová ponuka", "Vypracujeme individuálnu ponuku podľa množstva a požiadaviek."],
+    ["truck", "Dodanie", "Po schválení objednávku pripravíme na odber alebo doručíme."],
+  ].map(([i, h, p], n) => `<div class="step rv" data-d="${n * 70}"><span class="step__n">${n + 1}</span><div class="step__t">${ico(i)}<h3>${h}</h3></div><p>${p}</p></div>`).join(""));
+
+
+  const tel = FIRM.phone.replace(/\s/g, "");
+  $("[data-contact]").innerHTML = `<div>${ico("pin")}<div><b>${FIRM.street}</b><br>${FIRM.city}</div></div>
+    <div>${ico("phone")}<div><a href="tel:${tel}"><b>${FIRM.phone}</b></a><br>Po – Pi: 9:30 – 17:00</div></div>
+    <div>${ico("mail")}<div><a href="mailto:${FIRM.mail}">${FIRM.mail}</a></div></div>
+    <div>${ico("people")}<p>Radi vám poradíme osobne v predajni v Piešťanoch. Ukážeme vzorky a pomôžeme s výberom.</p></div>`;
+  $("[data-send-btn]").innerHTML = `${ico("send")} Odoslať dopyt`;
+  $("[data-ok-ico]").outerHTML = ico("checkC");
+
+  const form = $("[data-offer]");
+  const check = f => {
+    const v = f.value.trim();
+    const ok = !f.required || (f.type === "email" ? /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v) : f.type === "tel" ? v.replace(/\D/g, "").length >= 9 : v.length > 1);
+    f.closest(".fld").classList.toggle("is-err", !ok); return ok;
+  };
+  form.querySelectorAll("[required]").forEach(f => f.addEventListener("blur", () => check(f)));
+  form.addEventListener("submit", e => {
+    e.preventDefault();
+    const req = [...form.querySelectorAll("[required]")];
+    const bad = req.filter(f => !check(f));
+    if (bad.length) return bad[0].focus();
+    const d = Object.fromEntries(new FormData(form));
+    const body = `Spoločnosť: ${d.firma}\nSegment: ${d.segment || "-"}\nMeno: ${d.meno}\nE-mail: ${d.email}\nTelefón: ${d.tel}\n\n${d.sprava || ""}`;
+    location.href = `mailto:${FIRM.mail}?subject=${encodeURIComponent("Firemná ponuka – " + d.firma)}&body=${encodeURIComponent(body)}`;
+    form.closest(".offer").classList.add("is-sent");
+  });
+})();
+</script>
+<script>DAMI.mountFooter()</script>
+</body>
+</html>

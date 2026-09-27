@@ -1,0 +1,399 @@
+<!doctype html>
+<html lang="sk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kategória | DAMI pracovné odevy</title>
+<meta name="description" content="Pracovné oblečenie, gastro a zdravotnícke odevy, obuv a doplnky. Online aj v našej predajni v Piešťanoch.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700;800&family=Nothing+You+Could+Do&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/dami.css">
+<script src="data/catalog.js"></script>
+<script src="assets/js/dami.js"></script>
+<style>
+  /* HERO kategórie */
+  .phero__in { min-height: clamp(212px, 14vw, 300px); padding-top: 20px; padding-bottom: 22px; }
+  .phero.phero--narrow .phero__in { min-height: clamp(212px, 19vw, 400px); }
+  .phero.phero--narrow .phero__img { width: 100%; }
+  .phero.phero--narrow .phero__img::after { background: linear-gradient(90deg, rgba(11,11,12,.9) 0%, rgba(11,11,12,.72) 28%, rgba(11,11,12,.1) 46%, rgba(11,11,12,0) 60%, rgba(11,11,12,.35) 100%); }
+  .phero.phero--narrow .script { right: 3%; top: 42%; }
+  @media (max-width: 1240px) { .phero.phero--narrow .script { display: none; } }
+  @media (max-width: 640px) { .phero.phero--narrow .phero__img img { object-position: 62% 20%; } }
+  .phero h1 { font-size: clamp(32px, 3.6vw, 52px); margin-top: 18px; }
+  .phero .lead { font-size: 15px; max-width: 440px; margin-top: 10px; }
+  .phero .trust { padding-top: 18px; gap: 12px 34px; }
+  .phero .trust__i .ico { width: 30px; height: 30px; }
+  .phero .script { right: 4%; top: 46%; font-size: clamp(24px, 2.3vw, 32px); }
+  .phero--full .phero__img { width: 100%; }
+  .phero--full .phero__img::after { background: linear-gradient(90deg, #0b0b0c 0%, rgba(11,11,12,.86) 28%, rgba(11,11,12,.15) 55%, rgba(11,11,12,.35) 100%); }
+  .phero--light .phero__img::after { background: linear-gradient(90deg, #0b0b0c 0%, rgba(11,11,12,.82) 26%, rgba(11,11,12,.35) 55%, rgba(11,11,12,.25) 100%); }
+
+  /* zdravotnícke karty podkategórií (19_07_55-3) */
+  .subcards { display: grid; grid-template-columns: repeat(6, 1fr); gap: 12px; padding-top: 16px; }
+  .subcard { display: grid; grid-template-columns: 44% 1fr; align-items: center; min-height: 74px; background: var(--card); border-radius: 3px; overflow: hidden; transition: background .2s; }
+  .subcard img { width: 100%; height: 74px; object-fit: contain; mix-blend-mode: multiply; padding: 6px 0 0; transition: transform .4s var(--ease); }
+  .subcard div { padding: 8px 10px 8px 6px; font-size: 13px; font-weight: 600; line-height: 1.2; }
+  .subcard svg { display: block; width: 15px; height: 15px; margin-top: 8px; transition: transform .25s var(--ease); }
+  .subcard:hover { background: #e7e5e0; }
+  .subcard:hover img { transform: scale(1.06); }
+  .subcard:hover svg { transform: translateX(4px); }
+
+  /* layout sidebar + obsah */
+  .cat { display: grid; grid-template-columns: 172px 1fr; gap: 24px; padding-top: 18px; padding-bottom: 0; align-items: start; }
+  .side { padding-right: 18px; border-right: 1px solid var(--line); min-height: 100%; padding-bottom: 30px; }
+  .fg { border-bottom: 1px solid var(--line); padding: 12px 0 16px; }
+  .fg:first-child { padding-top: 0; }
+  .fg__hd { display: flex; justify-content: space-between; align-items: center; width: 100%; font-size: 14px; font-weight: 700; letter-spacing: -.01em; padding: 2px 0 10px; }
+  .fg__hd svg { width: 13px; height: 13px; transform: rotate(180deg); transition: transform .25s; }
+  .fg.is-closed .fg__hd svg { transform: none; }
+  .fg.is-closed .fg__bd { display: none; }
+  .chk { display: flex; align-items: center; gap: 9px; font-size: 12.5px; padding: 4px 0; cursor: pointer; line-height: 1.25; }
+  .chk input { appearance: none; width: 16px; height: 16px; border: 1.5px solid #c9c7c2; border-radius: 3px; background: #fff; flex: none; display: grid; place-items: center; margin: 0; cursor: pointer; transition: background .15s, border-color .15s; }
+  .chk input:checked { background: var(--red); border-color: var(--red); }
+  .chk input:checked::after { content: ""; width: 8px; height: 4px; border: 2px solid #fff; border-top: 0; border-right: 0; transform: rotate(-45deg) translate(1px, -1px); }
+  .chk span { flex: 1; }
+  .chk small { color: var(--muted-2); font-size: 11.5px; }
+  .more { font-size: 12.5px; font-weight: 500; margin-top: 8px; display: inline-flex; gap: 6px; align-items: center; }
+  .more:hover { color: var(--red); }
+  .sizes { display: flex; flex-wrap: wrap; gap: 6px; }
+  .sz { min-width: 32px; height: 30px; padding: 0 6px; border: 1px solid #d3d1cc; background: #fff; border-radius: 3px; font-size: 11.5px; font-weight: 500; transition: border-color .15s, background .15s, color .15s; }
+  .sz:hover { border-color: var(--ink); }
+  .sz.is-on { border-color: var(--red); background: var(--red); color: #fff; }
+  .cols { display: flex; flex-wrap: wrap; gap: 9px; }
+  .cl { width: 24px; height: 24px; border-radius: 50%; box-shadow: inset 0 0 0 1px rgba(0,0,0,.2); position: relative; transition: transform .15s; }
+  .cl:hover { transform: scale(1.1); }
+  .cl.is-on::after { content: ""; position: absolute; inset: -4px; border: 2px solid var(--red); border-radius: 50%; }
+  .range { position: relative; height: 22px; margin: 6px 6px 0; }
+  .range__track { position: absolute; left: 0; right: 0; top: 9px; height: 3px; background: #dcdad5; border-radius: 2px; }
+  .range__fill { position: absolute; top: 9px; height: 3px; background: var(--red); border-radius: 2px; }
+  .range input { position: absolute; left: -6px; width: calc(100% + 12px); top: 0; height: 22px; margin: 0; appearance: none; background: none; pointer-events: none; }
+  .range input::-webkit-slider-thumb { appearance: none; width: 14px; height: 14px; border-radius: 50%; background: var(--red); border: 0; pointer-events: auto; cursor: pointer; box-shadow: 0 0 0 3px #fff, 0 1px 4px rgba(0,0,0,.3); }
+  .range input::-moz-range-thumb { width: 14px; height: 14px; border-radius: 50%; background: var(--red); border: 0; pointer-events: auto; cursor: pointer; }
+  .range__val { font-size: 12px; margin-top: 8px; }
+  .side__reset { font-size: 12.5px; color: var(--red); font-weight: 600; margin-top: 14px; display: none; }
+  .side__reset.is-on { display: inline-block; }
+  .sheet__hd, .sheet__ft { display: none; }
+
+  /* toolbar */
+  .bar { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; min-height: 36px; }
+  .bar h2 { font-size: 14px; font-weight: 700; letter-spacing: -.01em; margin-right: auto; }
+  .vbtn { width: 34px; height: 34px; border: 1px solid var(--line); border-radius: 3px; display: grid; place-items: center; background: #fff; color: var(--muted); }
+  .vbtn .ico { width: 17px; height: 17px; }
+  .vbtn.is-on { color: var(--ink); border-color: #bbb; }
+  .sort { position: relative; }
+  .sort select { appearance: none; height: 34px; border: 1px solid var(--line); border-radius: 3px; background: #fff; padding: 0 34px 0 12px; font-size: 12px; cursor: pointer; }
+  .sort svg { position: absolute; right: 10px; top: 10px; width: 14px; height: 14px; pointer-events: none; }
+  .fbtn { display: none; }
+  .chips { display: flex; gap: 6px; flex-wrap: wrap; margin: -4px 0 14px; }
+  .chips:empty { display: none; }
+  .chip { display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 10px; background: #fff; border: 1px solid var(--line); border-radius: 14px; font-size: 12px; }
+  .chip svg { width: 12px; height: 12px; }
+  .chip:hover { border-color: var(--ink); }
+
+  /* grid */
+  .main .pgrid { grid-template-columns: repeat(auto-fill, minmax(clamp(210px, 15vw, 300px), 1fr)); }
+  .main .pc { background: #fff; padding: 0 0 10px; border-radius: 3px; }
+  .main .pc__img { border-radius: 3px 3px 0 0; background: #f1f0ed; }
+  .main .pc__body { padding: 10px 8px 0; }
+  .main .pc__add { margin-top: auto; }
+  .main .pc .sw { margin-bottom: 10px; }
+  .pgrid.is-list { grid-template-columns: 1fr !important; }
+  .pgrid.is-list .pc { flex-direction: row; gap: 16px; align-items: center; padding: 8px; }
+  .pgrid.is-list .pc__img { width: 130px; flex: none; border-radius: 3px; }
+  .pgrid.is-list .pc__body { flex-direction: column; padding: 0; }
+  .pgrid.is-list .pc__name { font-size: 15px; -webkit-line-clamp: 1; }
+  .pgrid.is-list .pc__add { align-self: flex-start; padding: 0 22px; margin-top: 10px; }
+  .loadmore { display: flex; flex-direction: column; align-items: center; gap: 10px; margin: 26px 0 6px; font-size: 12.5px; color: var(--muted); }
+  .loadmore__bar { width: 200px; height: 3px; background: var(--line); border-radius: 2px; overflow: hidden; }
+  .loadmore__bar i { display: block; height: 100%; background: var(--ink); }
+  .empty { padding: 60px 20px; text-align: center; background: #fff; border-radius: 4px; display: grid; gap: 14px; justify-items: center; }
+  .empty h3 { font-size: 22px; }
+
+  /* dlaždice + predajňa */
+  .main .tiles { margin-top: 18px; gap: 8px; }
+  .main .tile { border-radius: 3px; }
+  .main .tile h3 { font-size: clamp(19px, 1.6vw, 23px); max-width: 70%; }
+  .main .tile p { max-width: none; margin-top: 8px; }
+  .main .tile .circ { bottom: 16px; right: 16px; }
+  .band { display: grid; grid-template-columns: 1.3fr 1.5fr 1.05fr; margin-top: 12px; min-height: 180px; background: var(--ink); color: #fff; }
+  .band__img { position: relative; overflow: hidden; }
+  .band__img img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .band__box { display: grid; grid-template-columns: 1fr auto; gap: 24px; padding: 20px 24px; }
+  .band__box h2 { font-size: clamp(20px, 1.7vw, 25px); letter-spacing: -.03em; line-height: 1.05; margin: 8px 0 8px; }
+  .band__box p { font-size: 11.5px; line-height: 1.5; opacity: .85; max-width: 240px; }
+  .band__box .btn { margin-top: 14px; }
+  .band__box .info-list { gap: 10px; font-size: 11.5px; border-left: 1px solid var(--line-dark); padding-left: 18px; }
+  .band__box .info-list .ico { width: 17px; height: 17px; }
+  .main { min-width: 0; padding-bottom: 40px; }
+
+  @media (max-width: 1360px) { .subcards { grid-template-columns: repeat(3, 1fr); } }
+  @media (max-width: 1180px) {
+    .band { grid-template-columns: 1fr 1.4fr; } .band__img:last-child { display: none; }
+  }
+  @media (max-width: 900px) {
+    .cat { grid-template-columns: 1fr; }
+    .fbtn { display: inline-flex; margin-right: auto; }
+    .bar h2 { display: none; }
+    .side { position: fixed; left: 0; right: 0; bottom: 0; z-index: 92; background: #fff; max-height: 84vh; overflow: auto; border: 0; border-radius: 14px 14px 0 0; padding: 0 18px 90px; transform: translateY(105%); transition: transform .4s var(--ease); box-shadow: 0 -20px 50px rgba(0,0,0,.25); }
+    body.sheet-open .side { transform: none; }
+    body.sheet-open .sheet-bg { opacity: 1; visibility: visible; }
+    .sheet-bg { position: fixed; inset: 0; background: rgba(0,0,0,.45); z-index: 91; opacity: 0; visibility: hidden; transition: opacity .3s; }
+    .sheet__hd { display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; background: #fff; padding: 16px 0 12px; z-index: 2; border-bottom: 1px solid var(--line); margin-bottom: 12px; }
+    .sheet__hd b { font-size: 18px; letter-spacing: -.02em; }
+    .sheet__ft { display: block; position: fixed; left: 0; right: 0; bottom: 0; padding: 12px 18px 16px; background: #fff; border-top: 1px solid var(--line); }
+    .fg:first-of-type { padding-top: 0; }
+    .sz { height: 36px; min-width: 42px; }
+    .cl { width: 30px; height: 30px; }
+    .band { grid-template-columns: 1fr; } .band__img:first-child { min-height: 200px; }
+  }
+  @media (max-width: 640px) {
+    .main .pgrid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+    .subcards { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+    .main .tiles { grid-template-columns: 1fr 1fr; }
+    .main .tile { padding: 14px; }
+    .main .tile h3 { font-size: 17px; max-width: 100%; }
+    .main .tile p { display: none; }
+    .band__box { grid-template-columns: 1fr; }
+    .band__box .info-list { border: 0; padding: 0; }
+    .phero .trust__i:nth-child(n+3) { display: none; }
+    .pgrid.is-list .pc__img { width: 96px; }
+  }
+</style>
+</head>
+<body>
+<script>
+  window.CAT = (() => {
+    const { D, qp, sectionOf } = DAMI;
+    const c = qp("c") || "all";
+    const isSec = !!D.sections[c] || Object.values(D.sections).some(s => s.root === c);
+    const sec = D.sections[c] ? c : sectionOf(c) || "";
+    return { c, sec, isSec: isSec || !D.cats[c] };
+  })();
+  DAMI.mount("dark", CAT.sec);
+</script>
+
+<main>
+  <section class="phero" data-hero></section>
+  <div class="wrap" data-subcards></div>
+  <div class="sheet-bg" data-sheet-close></div>
+  <div class="wrap cat">
+    <aside class="side" aria-label="Filtre" data-side></aside>
+    <div class="main">
+      <div class="bar">
+        <button class="btn btn--line btn--sm fbtn" data-sheet-open></button>
+        <h2 data-count></h2>
+        <button class="vbtn is-on" data-view="grid" aria-label="Mriežka"></button>
+        <button class="vbtn" data-view="list" aria-label="Zoznam"></button>
+        <label class="sort"><span class="sr">Zoradiť</span><select data-sort>
+          <option value="pop">Najobľúbenejšie</option><option value="asc">Najlacnejšie</option><option value="desc">Najdrahšie</option><option value="name">Názov A–Z</option>
+        </select></label>
+      </div>
+      <div class="chips" data-chips></div>
+      <div class="pgrid" data-grid></div>
+      <div class="loadmore" data-more></div>
+      <div class="tiles" data-tiles></div>
+      <section class="band" data-band></section>
+    </div>
+  </div>
+</main>
+
+<script>
+(() => {
+  const { D, P, ico, script, card, esc, eur, qp, catUrl, secProducts, catProducts, favs, search, FIRM, reveal } = DAMI;
+  const $ = s => document.querySelector(s);
+  const { c, sec, isSec } = CAT;
+  const q = qp("q") || "";
+
+  /* ---------- konfigurácia sekcií ---------- */
+  const TRUST = [["shield", "Overená kvalita", "Profesionálne značky"], ["truck", "Rýchle doručenie", "Po celom Slovensku"], ["people", "Odborné poradenstvo", "V predajni aj online"]];
+  const SEC = {
+    gastro: { h: "Gastro a biele odevy", lead: "Kvalitné kuchárske oblečenie, biele odevy a doplnky pre gastronómiu, potravinárstvo a hygienické prevádzky.", img: "assets/gen/gastro-hero-wide.webp", pos: "50% 0%", narrow: true,
+      tiles: [["rondony-a-bluze", "Kuchárske<br>oblečenie", "assets/img/gastro-kuchar-ciapka.webp", "70% 30%"], ["kucharska-obuv", "Obuv<br>do gastronómie", "assets/img/gastro-obuv.webp", "60% 60%"], ["zastery-a-plaste", "Zástery<br>a doplnky", "assets/img/zastery.webp", "60% 40%"], ["kucharske-nohavice", "Biele odevy<br>a nohavice", "assets/img/biele-odevy.webp", "60% 50%"]] },
+    zdravotnictvo: { h: "Zdravotníctvo a wellness", lead: "Pohodlné, funkčné a moderné pracovné odevy pre zdravotníkov, opatrovateľov a wellness profesionálov.", img: "assets/gen/zdrav-hero.webp", pos: "55% 30%", light: true,
+      trust: [...TRUST, ["shirt", "Široký výber", "Pre ženy aj mužov"]],
+      tiles: [["zdrav-bluzy", "Blúzy<br>a tuniky", "assets/gen/zdrav-tile-bluzy.webp", "70% 30%"], ["zdrav-nohavice", "Nohavice", "assets/gen/zdrav-tile-nohavice.webp", "70% 45%"], ["zdrav-obuv", "Zdravotnícka<br>obuv", "assets/gen/zdrav-tile-obuv.webp", "70% 60%"], ["@zdravotnictvo.html", "Wellness<br>a kozmetika", "assets/gen/zdrav-tile-wellness.webp", "70% 30%"]] },
+    pracovne: { h: "Pracovné odevy", lead: "Odolné nohavice, bundy, mikiny a reflexné odevy pre stavbu, dielňu, sklad aj exteriér.", img: "assets/gen/cat-pracovne.webp", pos: "50% 40%",
+      tiles: [["bundy", "Bundy<br>a blúzy", "assets/img/pracovne-odevy.webp", "65% 30%"], ["reflexne-odevy", "Reflexné<br>odevy", "assets/gen/firmy-stavebnictvo.webp", "65% 30%"], ["nohavice", "Pracovné<br>nohavice", "assets/gen/firmy-priemysel.webp", "60% 40%"], ["tricka-kosele-polokosele", "Tričká<br>a polokošele", "assets/img/firmy-polokosela.webp", "55% 30%"]] },
+    obuv: { h: "Pracovná a bezpečnostná obuv", lead: "Bezpečnostná obuv S1 – S3, pracovná obuv O1 – O2, gastro a zdravotnícka obuv aj gumáky.", img: "assets/img/obuv-bezpecnostna.webp", pos: "60% 55%",
+      tiles: [["s1-s1p-s3-ocelovou-vystuzou", "Bezpečnostná<br>obuv S1 – S3", "assets/img/obuv-bezpecnostna.webp", "60% 55%"], ["o1-o2-bez-ocelovej-spice", "Pracovná<br>obuv O1, O2", "assets/img/predajna-obuv.webp", "50% 50%"], ["kucharska-obuv", "Gastro<br>a biela obuv", "assets/img/gastro-obuv.webp", "60% 60%"], ["doplnky-k-obuvi", "Doplnky<br>k obuvi", "assets/gen/cat-doplnky.webp", "80% 50%"]] },
+    doplnky: { h: "Doplnky a ochranné pomôcky", lead: "Rukavice, ochranné pomôcky, opasky, traky, šatky a ďalšie doplnky, bez ktorých sa v práci nezaobídete.", img: "assets/gen/cat-rukavice.webp", pos: "60% 50%",
+      tiles: [["rukavice", "Pracovné<br>rukavice", "assets/gen/cat-rukavice.webp", "75% 50%"], ["ochranne-pomocky", "Ochranné<br>pomôcky", "assets/gen/cat-ochranne.webp", "70% 55%"], ["doplnky", "Opasky, traky<br>a šatky", "assets/gen/cat-doplnky.webp", "75% 50%"], ["doplnky-k-obuvi", "Doplnky<br>k obuvi", "assets/img/predajna-obuv.webp", "50% 50%"]] },
+  };
+  const CAT_IMG = { rukavice: "assets/gen/cat-rukavice.webp", "ochranne-pomocky": "assets/gen/cat-ochranne.webp", doplnky: "assets/gen/cat-doplnky.webp" };
+  const SEC_TILES = [["gastro", "Gastro<br>a biele odevy", "assets/img/gastro-kuchar.webp", "70% 30%"], ["@zdravotnictvo.html", "Zdravotníctvo<br>a wellness", "assets/img/zdravotnictvo.webp", "70% 25%"], ["pracovne", "Pracovné<br>odevy", "assets/img/pracovne-odevy.webp", "68% 30%"], ["obuv", "Obuv", "assets/img/obuv-bezpecnostna.webp", "70% 55%"]];
+
+  /* ---------- zdroj produktov ---------- */
+  let base, title, lead, crumbs = [["index.html", "Domov"]];
+  const S = SEC[sec];
+  if (c === "oblubene") { base = favs().map(id => P[id]).filter(Boolean); title = "Obľúbené produkty"; lead = "Produkty, ktoré ste si označili srdiečkom. Ukladajú sa vo vašom prehliadači."; }
+  else if (c === "all" || (!S && !D.cats[c])) { base = D.products; title = q ? `Výsledky pre „${q}“` : "Všetky produkty"; lead = "Gastro, zdravotníctvo, pracovné odevy, obuv a doplnky. Online aj v našej predajni v Piešťanoch."; }
+  else if (isSec) { base = secProducts(sec); title = S.h; lead = S.lead; }
+  else { base = secProducts(sec); title = D.cats[c].name; lead = S.lead; }
+  if (sec) crumbs.push([sec === "zdravotnictvo" ? "zdravotnictvo.html" : catUrl(sec), D.sections[sec].name]);
+  if (!isSec && D.cats[c]) crumbs.push(["", D.cats[c].name]);
+  if (q) base = search(q).filter(p => base.includes(p));
+  if (c === "all" && !q) crumbs.push(["", "Všetky produkty"]);
+  if (c === "oblubene") crumbs.push(["", "Obľúbené"]);
+  document.title = `${title} | DAMI pracovné odevy`;
+
+  /* ---------- hero ---------- */
+  const heroImg = (!isSec && CAT_IMG[c]) || S?.img || "assets/img/hero-kuchar-2.webp";
+  const trust = S?.trust || TRUST;
+  $("[data-hero]").classList.toggle("phero--light", !!S?.light);
+  $("[data-hero]").classList.toggle("phero--narrow", !!S?.narrow && isSec);
+  $("[data-hero]").classList.toggle("phero--full", !!S?.full && !(!isSec && CAT_IMG[c]));
+  $("[data-hero]").innerHTML = `<div class="phero__img"><img src="${heroImg}" alt="" style="object-position:${S?.pos || "60% 40%"}" fetchpriority="high"></div>
+    <div class="wrap phero__in">
+      <nav class="crumbs" aria-label="Omrvinky">${crumbs.map(([h, t], i) => i === crumbs.length - 1 ? `<b>${esc(t)}</b>` : `<a href="${h}">${esc(t)}</a><span>›</span>`).join("")}</nav>
+      <h1>${esc(title)}</h1><p class="lead">${esc(lead)}</p>
+      <div class="trust">${trust.map(([i, a, b]) => `<div class="trust__i">${ico(i)}<div><b>${a}</b><span>${b}</span></div></div>`).join("")}</div>
+      ${script()}
+    </div>`;
+
+  /* ---------- zdravotnícke karty (19_07_55-3) ---------- */
+  if (sec === "zdravotnictvo") {
+    const pick = (k, i = 0) => catProducts(k)[i]?.img[0];
+    const cards = [["zdrav-bluzy", "Dámske<br>zdravotnícke blúzy", pick("zdrav-bluzy", 3)], ["zdrav-bluzy", "Tuniky<br>a tričká", pick("zdrav-bluzy", 6)], ["zdrav-nohavice", "Zdravotnícke<br>nohavice", pick("zdrav-nohavice", 1)],
+      ["zdrav-obuv", "Zdravotnícka<br>obuv", pick("zdrav-obuv", 5)], ["zastery-a-plaste", "Plášte<br>a zástery", pick("zastery-a-plaste", 15)], ["doplnky-k-obuvi", "Doplnky<br>a príslušenstvo", pick("doplnky-k-obuvi", 10)]];
+    $("[data-subcards]").innerHTML = `<div class="subcards">${cards.map(([k, t, img], i) => `<a class="subcard rv" data-d="${i * 40}" href="${catUrl(k)}"><img src="${img}" alt="" loading="lazy"><div>${t}${ico("arrow")}</div></a>`).join("")}</div>`;
+  }
+
+  /* ---------- fasety ---------- */
+  const SIZE_ORDER = ["XXS", "XS", "S", "M", "L", "XL", "XXL", "2XL", "XXXL", "3XL", "4XL", "5XL", "6XL", "7XL"];
+  const sizeKey = s => { const i = SIZE_ORDER.indexOf(s.toUpperCase()); if (i >= 0) return i; const n = parseFloat(s); return isNaN(n) ? 999 : 100 + n; };
+  const subs = sec ? D.sections[sec].subs.filter(k => D.cats[k] && base.some(p => p.cats.includes(k))) : [];
+  const count = (arr, fn) => { const m = new Map(); arr.forEach(p => fn(p).forEach(v => m.set(v, (m.get(v) || 0) + 1))); return m; };
+  const brands = [...count(base, p => p.brand ? [p.brand] : [])].sort((a, b) => b[1] - a[1]);
+  const sizes = [...count(base, p => p.sizes)].map(([s]) => s).sort((a, b) => sizeKey(a) - sizeKey(b) || a.localeCompare(b, "sk", { numeric: true }));
+  const colMap = new Map(); base.forEach(p => p.colors.forEach(cl => { if (cl.h.length === 1) { const e = colMap.get(cl.h[0]) || { h: cl.h[0], n: cl.n, k: 0 }; e.k++; colMap.set(cl.h[0], e); } }));
+  const colors = [...colMap.values()].sort((a, b) => b.k - a.k).slice(0, 14);
+  const prices = base.map(p => p.price).filter(Boolean);
+  const LO = Math.floor(Math.min(...prices, 0)), HI = Math.ceil(Math.max(...prices, 1));
+
+  /* ---------- stav (z URL) ---------- */
+  const list = k => (qp(k) || "").split(",").filter(Boolean);
+  const pr = (qp("p") || "").split("-").map(Number);
+  const st = {
+    cats: list("k").length ? list("k") : (!isSec && D.cats[c] ? [c] : []),
+    brands: list("b"), sizes: list("s"), colors: list("f").map(h => "#" + h),
+    min: pr[0] >= LO ? pr[0] : LO, max: pr[1] <= HI && pr[1] > 0 ? pr[1] : HI,
+    sort: qp("o") || "pop", view: qp("v") || "grid", shown: 24,
+  };
+  if (!isSec && D.cats[c] && !subs.includes(c)) subs.unshift(c);
+
+  const sideState = { brand: false, size: false };
+  function renderSide() {
+    const chkList = (items, sel, key) => items.map(([v, lab, n]) => `<label class="chk"><input type="checkbox" data-f="${key}" value="${esc(v)}" ${sel.includes(v) ? "checked" : ""}><span>${esc(lab)}</span><small>(${n})</small></label>`).join("");
+    const catItems = subs.map(k => [k, D.cats[k].name, base.filter(p => p.cats.includes(k)).length]);
+    const br = sideState.brand ? brands : brands.slice(0, 5);
+    const sz = sideState.size ? sizes : sizes.slice(0, 10);
+    const grp = (id, t, body) => `<div class="fg" data-g="${id}"><button class="fg__hd" data-toggle>${t}${ico("chev")}</button><div class="fg__bd">${body}</div></div>`;
+    $("[data-side]").innerHTML = `<div class="sheet__hd"><b>Filtre</b><button class="drawer__x" data-sheet-close aria-label="Zavrieť">${ico("x")}</button></div>
+      ${catItems.length ? grp("k", "Kategórie", chkList(catItems, st.cats, "cats")) : ""}
+      ${brands.length ? grp("b", "Značka", chkList(br.map(([b, n]) => [b, b, n]), st.brands, "brands") + (brands.length > 5 ? `<button class="more" data-more-f="brand">${sideState.brand ? "Zobraziť menej −" : "Zobraziť viac +"}</button>` : "")) : ""}
+      ${sizes.length ? grp("s", "Veľkosť", `<div class="sizes">${sz.map(s => `<button class="sz ${st.sizes.includes(s) ? "is-on" : ""}" data-f="sizes" value="${esc(s)}">${esc(s)}</button>`).join("")}</div>` + (sizes.length > 10 ? `<button class="more" data-more-f="size">${sideState.size ? "Zobraziť menej −" : "Zobraziť viac +"}</button>` : "")) : ""}
+      ${colors.length ? grp("f", "Farba", `<div class="cols">${colors.map(cl => `<button class="cl ${st.colors.includes(cl.h) ? "is-on" : ""}" data-f="colors" value="${cl.h}" title="${esc(cl.n)}" aria-label="${esc(cl.n)}" style="background:${cl.h}"></button>`).join("")}</div>`) : ""}
+      ${prices.length ? grp("p", "Cena", `<div class="range"><div class="range__track"></div><div class="range__fill" data-fill></div>
+          <input type="range" min="${LO}" max="${HI}" value="${st.min}" data-r="min" aria-label="Cena od"><input type="range" min="${LO}" max="${HI}" value="${st.max}" data-r="max" aria-label="Cena do"></div>
+          <div class="range__val" data-rv></div>`) : ""}
+      <button class="side__reset" data-reset>Zrušiť všetky filtre</button>
+      <div class="sheet__ft"><button class="btn btn--red btn--block" data-sheet-close data-sheet-count></button></div>`;
+    paintRange();
+  }
+  function paintRange() {
+    const f = $("[data-fill]"); if (!f) return;
+    const w = HI - LO || 1;
+    f.style.left = (st.min - LO) / w * 100 + "%"; f.style.right = (HI - st.max) / w * 100 + "%";
+    $("[data-rv]").textContent = `${st.min} € – ${st.max} €`;
+  }
+
+  /* ---------- filtrovanie ---------- */
+  const active = () => st.cats.length + st.brands.length + st.sizes.length + st.colors.length + (st.min > LO || st.max < HI ? 1 : 0);
+  function filtered() {
+    let r = base.filter(p =>
+      (!st.cats.length || st.cats.some(k => p.cats.includes(k))) &&
+      (!st.brands.length || st.brands.includes(p.brand)) &&
+      (!st.sizes.length || st.sizes.some(s => p.sizes.includes(s))) &&
+      (!st.colors.length || p.colors.some(cl => st.colors.includes(cl.h[0]))) &&
+      (!p.price || (p.price >= st.min && p.price <= st.max)));
+    const cmp = { asc: (a, b) => (a.price || 1e9) - (b.price || 1e9), desc: (a, b) => b.price - a.price, name: (a, b) => a.name.localeCompare(b.name, "sk") }[st.sort];
+    return cmp ? [...r].sort(cmp) : r;
+  }
+  const plural = n => n === 1 ? "produkt" : n >= 2 && n <= 4 ? "produkty" : "produktov";
+  function render() {
+    const r = filtered();
+    $("[data-count]").textContent = `Nájdených ${r.length} ${plural(r.length)}`;
+    const n = active();
+    $("[data-sheet-open]").innerHTML = `${ico("filter")} Filtrovať${n ? ` (${n})` : ""}`;
+    const sc = $("[data-sheet-count]"); if (sc) sc.textContent = `Zobraziť ${r.length} ${plural(r.length)}`;
+    $("[data-reset]")?.classList.toggle("is-on", n > 0);
+    const g = $("[data-grid]");
+    g.classList.toggle("is-list", st.view === "list");
+    document.querySelectorAll("[data-view]").forEach(b => b.classList.toggle("is-on", b.dataset.view === st.view));
+    $("[data-sort]").value = st.sort;
+    g.innerHTML = r.length ? r.slice(0, st.shown).map(p => card(p, { add: true })).join("") :
+      `<div class="empty" style="grid-column:1/-1"><h3>${c === "oblubene" ? "Zatiaľ nemáte obľúbené produkty" : "Nič sme nenašli"}</h3><p class="muted">${c === "oblubene" ? "Kliknite na srdiečko pri produkte a uložíte si ho sem." : `Skúste zrušiť niektorý filter alebo nám zavolajte na ${FIRM.phone}. Radi poradíme.`}</p>${n ? `<button class="btn btn--line btn--sm" data-reset>Zrušiť filtre</button>` : `<a class="btn btn--red btn--sm" href="${catUrl("gastro")}">Pozrieť kolekcie</a>`}</div>`;
+    $("[data-more]").innerHTML = r.length > st.shown ? `<span>Zobrazených ${Math.min(st.shown, r.length)} z ${r.length}</span><div class="loadmore__bar"><i style="width:${st.shown / r.length * 100}%"></i></div><button class="btn btn--line" data-loadmore>Načítať ďalšie</button>` : "";
+    const chips = [
+      ...st.cats.map(v => ["cats", v, D.cats[v]?.name || v]), ...st.brands.map(v => ["brands", v, v]), ...st.sizes.map(v => ["sizes", v, "Veľkosť " + v]),
+      ...st.colors.map(v => ["colors", v, colMap.get(v)?.n || "Farba"]),
+      ...(st.min > LO || st.max < HI ? [["price", "", `${st.min} – ${st.max} €`]] : [])];
+    $("[data-chips]").innerHTML = chips.length ? chips.map(([k, v, t]) => `<button class="chip" data-chip="${k}" value="${esc(v)}">${esc(t)} ${ico("x")}</button>`).join("") : "";
+    writeUrl();
+  }
+  function writeUrl() {
+    const u = new URLSearchParams(); u.set("c", c); if (q) u.set("q", q);
+    const def = !isSec && D.cats[c] && st.cats.length === 1 && st.cats[0] === c;
+    if (st.cats.length && !def) u.set("k", st.cats.join(","));
+    if (st.brands.length) u.set("b", st.brands.join(",")); if (st.sizes.length) u.set("s", st.sizes.join(","));
+    if (st.colors.length) u.set("f", st.colors.map(h => h.slice(1)).join(","));
+    if (st.min > LO || st.max < HI) u.set("p", `${st.min}-${st.max}`);
+    if (st.sort !== "pop") u.set("o", st.sort); if (st.view !== "grid") u.set("v", st.view);
+    history.replaceState(null, "", "?" + u.toString().replace(/%2C/g, ","));
+  }
+  const toggle = (arr, v) => { const i = arr.indexOf(v); i < 0 ? arr.push(v) : arr.splice(i, 1); };
+
+  /* ---------- udalosti ---------- */
+  const side = $("[data-side]");
+  side.addEventListener("change", e => { const t = e.target; if (t.dataset.f) { toggle(st[t.dataset.f], t.value); st.shown = 24; render(); } });
+  side.addEventListener("input", e => {
+    const t = e.target; if (!t.dataset.r) return;
+    let v = +t.value;
+    if (t.dataset.r === "min") { v = Math.min(v, st.max - 1); st.min = v; } else { v = Math.max(v, st.min + 1); st.max = v; }
+    t.value = v; paintRange(); clearTimeout(side._t); side._t = setTimeout(render, 120);
+  });
+  document.addEventListener("click", e => {
+    const t = e.target.closest("button, [data-sheet-close]"); if (!t) return;
+    if (t.matches(".sz, .cl")) { toggle(st[t.dataset.f], t.value); t.classList.toggle("is-on"); st.shown = 24; render(); }
+    else if (t.matches("[data-toggle]")) t.parentElement.classList.toggle("is-closed");
+    else if (t.matches("[data-more-f]")) { sideState[t.dataset.moreF] = !sideState[t.dataset.moreF]; renderSide(); }
+    else if (t.matches("[data-reset]")) { Object.assign(st, { cats: [], brands: [], sizes: [], colors: [], min: LO, max: HI, shown: 24 }); renderSide(); render(); }
+    else if (t.matches("[data-chip]")) { const k = t.dataset.chip; k === "price" ? (st.min = LO, st.max = HI) : toggle(st[k], t.value); renderSide(); render(); }
+    else if (t.matches("[data-view]")) { st.view = t.dataset.view; render(); }
+    else if (t.matches("[data-loadmore]")) { st.shown += 24; render(); }
+    else if (t.matches("[data-sheet-open]")) document.body.classList.add("sheet-open");
+    if (t.matches("[data-sheet-close]")) document.body.classList.remove("sheet-open");
+  });
+  $("[data-sort]").addEventListener("change", e => { st.sort = e.target.value; render(); });
+  document.querySelector('[data-view="grid"]').innerHTML = ico("grid");
+  document.querySelector('[data-view="list"]').innerHTML = ico("list");
+  $(".sort").insertAdjacentHTML("beforeend", ico("chev"));
+
+  /* ---------- dlaždice + pás predajne ---------- */
+  const tiles = S ? S.tiles : SEC_TILES;
+  const tileHref = k => k.startsWith("@") ? k.slice(1) : (D.sections[k] ? catUrl(k) : (sec === "doplnky" && k === "doplnky" ? catUrl("doplnky") + "&k=doplnky" : catUrl(k)));
+  const tileCount = k => k.startsWith("@") ? "" : (D.sections[k] ? secProducts(k).length : D.cats[k]?.products.length || 0);
+  $("[data-tiles]").innerHTML = tiles.map(([k, h, img, pos], i) => { const n = tileCount(k); return `<a class="tile rv" data-d="${i * 60}" href="${tileHref(k)}"><img src="${img}" alt="" style="object-position:${pos}" loading="lazy"><h3>${h}</h3><p>${n ? n + " " + plural(n) : "Objavte kolekciu"}</p><span class="circ">${ico("arrow")}</span></a>`; }).join("");
+  $("[data-band]").innerHTML = `<div class="band__img"><img src="assets/img/predajna-odevy.webp" alt="Regály s pracovným oblečením v predajni DAMI" loading="lazy"></div>
+    <div class="band__box"><div><span class="eyebrow">Naša predajňa</span><h2>Navštívte nás<br>v Piešťanoch.</h2><p>Široký výber oblečenia, obuvi a doplnkov skladom. Radi vám poradíme s výberom aj veľkosťou.</p>
+      <a class="btn btn--red btn--sm" href="${FIRM.map}" target="_blank" rel="noopener">Zobraziť na mape ${ico("arrow")}</a></div>
+      <div class="info-list"><div>${ico("pin")}<div>${FIRM.street}<br>${FIRM.city}</div></div><div>${ico("clock")}<div>Po – Pi<br>9:30 – 17:00<br>So<br>9:00 – 12:00</div></div>
+      <div>${ico("phone")}<div><a href="tel:${FIRM.phone.replace(/\s/g, "")}"><b>${FIRM.phone}</b></a></div></div><div>${ico("parking")}<div>Parkovanie<br>priamo pri predajni</div></div></div></div>
+    <div class="band__img"><img src="assets/img/predajna-exterier.webp" alt="Budova predajne DAMI pracovné odevy a obuv v Piešťanoch" loading="lazy"></div>`;
+
+  renderSide(); render();
+})();
+</script>
+<script>DAMI.mountFooter()</script>
+</body>
+</html>

@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="sk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Predajňa v Piešťanoch – Gaštanová 6396 | DAMI pracovné odevy</title>
+<meta name="description" content="Kamenná predajňa DAMI v Piešťanoch: pracovné oblečenie, obuv, gastro a zdravotnícke odevy skladom. Gaštanová 6396, Po–Pi 9:30–17:00, So 9:00–12:00.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700;800&family=Nothing+You+Could+Do&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/dami.css">
+<link rel="preload" as="image" href="assets/img/predajna-exterier.webp">
+<script src="data/catalog.js"></script>
+<script src="assets/js/dami.js"></script>
+<style>
+  /* HERO */
+  .shero .phero__img { width: 66%; }
+  .shero .phero__img img { object-position: 50% 30%; }
+  .shero .phero__img::after { background: linear-gradient(90deg, #0b0b0c 0%, rgba(11,11,12,.82) 16%, rgba(11,11,12,.25) 42%, rgba(11,11,12,0) 70%); }
+  .shero .phero__in { min-height: 258px; }
+  .shero h1 { font-size: clamp(38px, 4.3vw, 60px); line-height: .96; }
+  .shero .lead { max-width: 400px; }
+
+  /* NAVŠTÍVTE NÁS */
+  .visit { padding: 20px 0 22px; }
+  .visit__grid { display: grid; grid-template-columns: 250px 500px 1fr; gap: 20px; align-items: stretch; }
+  .visit__txt h2 { font-size: clamp(28px, 2.3vw, 32px); line-height: 1; margin: 12px 0 14px; }
+  .visit__txt p { font-size: 13px; line-height: 1.55; color: #333; }
+  .visit__txt .btn { margin-top: 22px; }
+  .vcards { display: grid; grid-template-columns: 1fr 1.3fr .95fr; grid-template-rows: auto auto 1fr; gap: 8px; }
+  .vcard { background: #fff; border: 1px solid var(--line); border-radius: 4px; padding: 15px 12px; display: grid; grid-template-columns: 24px 1fr; gap: 10px; align-items: start; font-size: 12px; line-height: 1.45; }
+  .vcard .ico { width: 21px; height: 21px; color: var(--red); stroke-width: 1.6; }
+  .vcard b { display: block; font-size: 12.5px; font-weight: 700; margin-bottom: 4px; }
+  .vcard a:hover { color: var(--red); }
+  .vcard a, .vcard dd, .vcard dt, .vcard .nw { white-space: nowrap; }
+  .vcard--park { grid-row: span 2; align-content: center; }
+  .vcard dl { margin: 0; display: grid; grid-template-columns: auto 1fr; gap: 1px 14px; }
+  .vcard dd { margin: 0; }
+  .vmap { grid-column: 1 / -1; position: relative; border-radius: 4px; overflow: hidden; border: 1px solid var(--line); min-height: 150px; background: #e9ecef; }
+  .vmap iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; filter: grayscale(.35) contrast(1.02); }
+  .vmap__pin { position: absolute; left: 50%; top: 50%; translate: -12px -100%; display: flex; align-items: center; gap: 6px; pointer-events: none; }
+  .vmap__pin svg { width: 26px; height: 26px; fill: var(--red); stroke: #fff; stroke-width: 1.2; filter: drop-shadow(0 2px 3px rgba(0,0,0,.3)); }
+  .vmap__pin span { background: var(--red); color: #fff; font-size: 11px; font-weight: 600; padding: 4px 8px; border-radius: 3px; translate: 0 -6px; }
+  .vmap .btn { position: absolute; right: 10px; bottom: 24px; height: 32px; font-size: 12px; padding: 0 12px; background: #fff; border-color: var(--line); }
+  .vphotos { display: grid; grid-template-columns: 1.55fr 1fr; gap: 8px; min-height: 100%; }
+  .vphotos figure { margin: 0; position: relative; overflow: hidden; border-radius: 4px; min-height: 260px; }
+  .vphotos img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform .8s var(--ease); }
+  .vphotos figure:hover img { transform: scale(1.04); }
+
+  /* ČO NÁJDETE */
+  .find { padding: 18px 0 10px; }
+  .find__grid { display: grid; grid-template-columns: 1fr 360px; gap: 24px; align-items: start; }
+  .find__grid > *, .visit__grid > * { min-width: 0; }
+  .find__hd { display: flex; justify-content: space-between; align-items: flex-end; gap: 20px; margin-bottom: 14px; flex-wrap: wrap; }
+  .find__hd h2 { font-size: clamp(26px, 2.2vw, 31px); }
+  .find__hd p { font-size: 12.5px; color: #444; margin-top: 8px; max-width: 420px; }
+  .stiles { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; }
+  .stile { position: relative; overflow: hidden; border-radius: 4px; min-height: 118px; color: #fff; display: flex; flex-direction: column; justify-content: flex-end; padding: 10px 10px 10px; isolation: isolate; background: #111; }
+  .stile img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: -2; transition: transform .7s var(--ease); }
+  .stile::before { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(0deg, rgba(0,0,0,.88) 0%, rgba(0,0,0,.35) 50%, rgba(0,0,0,.05)); }
+  .stile div { display: grid; grid-template-columns: 22px 1fr; gap: 8px; align-items: center; }
+  .stile .ico { width: 20px; height: 20px; stroke-width: 1.5; }
+  .stile b { display: block; font-size: 12.5px; line-height: 1.2; }
+  .stile small { display: block; font-size: 10.5px; opacity: .8; line-height: 1.3; margin-top: 2px; }
+  .stile:hover img { transform: scale(1.06); }
+  .about { background: #efeeeb; border-radius: 4px; padding: 20px 20px 22px; display: flex; flex-direction: column; gap: 10px; }
+  .about h3 { font-size: 20px; letter-spacing: -.03em; }
+  .about p { font-size: 12.5px; line-height: 1.55; color: #333; }
+  .about__firm { display: grid; grid-template-columns: 44px 1fr; gap: 12px; align-items: center; background: #fff; border-radius: 4px; padding: 12px; margin-top: 4px; }
+  .about__firm i { width: 44px; height: 44px; border-radius: 50%; background: var(--ink); display: grid; place-items: center; }
+  .about__firm img { width: 30px; }
+  .about__firm b { display: block; font-size: 13px; }
+  .about__firm span { font-size: 11.5px; color: var(--muted); }
+  .about__links { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 4px; }
+  .about__links .btn { height: 36px; font-size: 12.5px; padding: 0 14px; }
+  .about__links .ico { width: 16px; height: 16px; }
+
+  /* PREČO OSOBNE */
+  .why { padding: 16px 0 28px; }
+  .why h2 { font-size: 16px; letter-spacing: -.02em; margin-bottom: 14px; }
+  .why__list { display: grid; grid-template-columns: repeat(5, 1fr); gap: 0; }
+  .why__list div { display: grid; grid-template-columns: 30px 1fr; gap: 12px; align-items: center; padding: 0 18px; border-left: 1px solid var(--line); font-size: 11.5px; line-height: 1.35; color: #444; }
+  .why__list div:first-child { padding-left: 0; border-left: 0; }
+  .why__list .ico { width: 28px; height: 28px; color: var(--red); stroke-width: 1.4; }
+  .why__list b { display: block; font-size: 12.5px; color: var(--ink); }
+
+  @media (max-width: 1240px) {
+    .visit__grid { grid-template-columns: 1fr 1.3fr; }
+    .vphotos { grid-column: 1 / -1; }
+    .find__grid { grid-template-columns: 1fr; }
+    .why__list { grid-template-columns: repeat(3, 1fr); gap: 18px 0; }
+    .why__list div:nth-child(4) { padding-left: 0; border-left: 0; }
+  }
+  @media (max-width: 860px) {
+    .visit__grid { grid-template-columns: 1fr; }
+    .stiles { grid-template-columns: repeat(3, 1fr); }
+  }
+  @media (max-width: 640px) {
+    .shero .phero__img { width: 100%; opacity: 1; }
+    .shero .phero__img img { object-position: 62% 45%; }
+    .shero .phero__img::after { background: linear-gradient(0deg, rgba(11,11,12,.96) 18%, rgba(11,11,12,.45) 58%, rgba(11,11,12,.2)); }
+    .shero .phero__in { min-height: 470px; justify-content: flex-end; }
+    .shero h1 { font-size: 42px; }
+    .shero .trust { display: grid; grid-template-columns: 1fr 1fr; gap: 12px 16px; }
+    .vcards { grid-template-columns: 1fr 1fr; }
+    .vcard--park { grid-row: auto; }
+    .vmap { min-height: 220px; }
+    .vphotos { grid-template-columns: 1fr 1fr; }
+    .vphotos figure { min-height: 180px; }
+    .stiles { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding-inline: var(--gut); margin: 0 calc(-1 * var(--gut)); padding: 0 var(--gut) 4px; scrollbar-width: none; }
+    .stiles::-webkit-scrollbar { display: none; }
+    .stile { flex: 0 0 62%; min-height: 150px; scroll-snap-align: start; }
+    .why__list { grid-template-columns: 1fr; gap: 14px; }
+    .why__list div { padding: 0; border-left: 0; }
+  }
+</style>
+</head>
+<body>
+<script>DAMI.mount("dark", "predajna")</script>
+
+<main>
+  <section class="phero shero">
+    <div class="phero__img"><img src="assets/img/predajna-exterier.webp" alt="Predajňa DAMI pracovné odevy a obuv v Piešťanoch, pohľad z ulice" fetchpriority="high"></div>
+    <div class="wrap phero__in">
+      <nav class="crumbs" aria-label="Omrvinky"><a href="index.html">Domov</a><span>›</span><b>Predajňa v Piešťanoch</b></nav>
+      <h1>Predajňa<br>v Piešťanoch</h1>
+      <p class="lead">Široký výber pracovného oblečenia, obuvi a doplnkov skladom. Odborné poradenstvo priamo na predajni.</p>
+      <div class="trust" data-trust></div>
+    </div>
+  </section>
+
+  <section class="visit" id="kontakt">
+    <div class="wrap visit__grid">
+      <div class="visit__txt rv">
+        <h2>Navštívte nás<br>v Piešťanoch</h2>
+        <p>Naša predajňa DAMI v Piešťanoch ponúka široký sortiment pracovného oblečenia, obuvi a doplnkov pre profesionálov aj domácich majstrov. Príďte si produkty vyskúšať, poradiť sa s nami a vybrať si to najlepšie pre vašu prácu.</p>
+        <a class="btn btn--red" data-map target="_blank" rel="noopener" href="#"><svg class="ico" viewBox="0 0 24 24"><path d="M12 21s-6.5-6-6.5-11.2A6.5 6.5 0 0 1 12 3.3a6.5 6.5 0 0 1 6.5 6.5C18.5 15 12 21 12 21z"/><circle cx="12" cy="9.8" r="2.4"/></svg> Ako sa k nám dostať <svg class="ico" viewBox="0 0 24 24"><path d="M4 12h15M13 6l6 6-6 6"/></svg></a>
+      </div>
+      <div class="vcards" data-vcards></div>
+      <div class="vphotos">
+        <figure><img src="assets/img/predajna-obuv.webp" alt="Regály s pracovnou a bezpečnostnou obuvou a policami oblečenia v predajni DAMI" loading="lazy"></figure>
+        <figure><img src="assets/img/predajna-odevy.webp" alt="Vešiaky s pracovnými bundami a nohavicami v predajni DAMI" loading="lazy"></figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="find">
+    <div class="wrap find__grid">
+      <div>
+        <div class="find__hd">
+          <div><h2>Čo nájdete v predajni</h2><p>Kompletný sortiment pre prácu aj voľný čas. Všetko si môžete pozrieť, vyskúšať a zakúpiť priamo na predajni.</p></div>
+          <a class="link-red" href="kategoria.html?c=all">Zobraziť všetky kategórie <svg class="ico" viewBox="0 0 24 24"><path d="M4 12h15M13 6l6 6-6 6"/></svg></a>
+        </div>
+        <div class="stiles" data-stiles></div>
+      </div>
+      <aside class="about rv">
+        <span class="eyebrow">O nás</span>
+        <h3>Rodinná firma z Piešťan</h3>
+        <p>DAMI je rodinná predajňa pracovného oblečenia. Okrem overených značiek máme aj vlastnú výrobu kuchárskych nohavíc a záster. Radi vám poradíme osobne, telefonicky aj e-mailom.</p>
+        <div class="about__firm"><i><img src="assets/img/logo-dark.png" alt=""></i><div><b>Adriána Piknová – DAMI</b><span>IČO 40 749 797 · Gaštanová 6396, Piešťany</span></div></div>
+        <div class="about__links" data-about></div>
+      </aside>
+    </div>
+  </section>
+
+  <section class="why">
+    <div class="wrap">
+      <h2>Prečo sa oplatí prísť osobne?</h2>
+      <div class="why__list" data-why></div>
+    </div>
+  </section>
+</main>
+
+<script>
+(() => {
+  const { ico, FIRM } = DAMI;
+  const $ = s => document.querySelector(s);
+  const tel = n => n.replace(/\s/g, "");
+  $("[data-trust]").innerHTML = [["people", "Osobné poradenstvo", "Pomôžeme s výberom"], ["shirt", "Veľký výber skladom", "Odevy, obuv aj doplnky"], ["hanger", "Možnosť vyskúšania", "Odevy aj pracovná obuv"], ["parking", "Jednoduché parkovanie", "Priamo pri predajni"]]
+    .map(([i, a, b]) => `<div class="trust__i">${ico(i)}<div><b>${a}</b><span>${b}</span></div></div>`).join("");
+  $("[data-map]").href = FIRM.map;
+
+  // OSM mapa – Gaštanová, Piešťany
+  const lat = 48.5870, lon = 17.8181, d = .0065;
+  const osm = `https://www.openstreetmap.org/export/embed.html?bbox=${lon - d * 1.8},${lat - d * .7},${lon + d * 1.8},${lat + d * .7}&layer=mapnik`;
+  $("[data-vcards]").innerHTML = `
+    <div class="vcard rv">${ico("pin")}<div><b>Adresa</b><span class="nw">${FIRM.street}</span><br><span class="nw">${FIRM.city}</span></div></div>
+    <div class="vcard rv" data-d="60">${ico("clock")}<div><b>Otváracie hodiny</b><dl>${FIRM.hours.map(([a, b]) => `<dt>${a}</dt><dd>${b}</dd>`).join("")}</dl></div></div>
+    <div class="vcard vcard--park rv" data-d="120">${ico("parking")}<div><b>Parkovanie</b>Bezplatné parkovanie priamo pred predajňou.</div></div>
+    <div class="vcard rv">${ico("phone")}<div><b>Telefón</b><a href="tel:${tel(FIRM.phone)}">${FIRM.phone}</a><br><a href="tel:${tel(FIRM.phone2)}">${FIRM.phone2}</a></div></div>
+    <div class="vcard rv" data-d="60">${ico("mail")}<div><b>E-mail</b><a href="mailto:${FIRM.mail}">${FIRM.mail}</a></div></div>
+    <div class="vmap"><iframe src="${osm}" title="Mapa – predajňa DAMI, Gaštanová 6396, Piešťany" loading="lazy"></iframe>
+      <div class="vmap__pin"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s-7-6.4-7-12a7 7 0 0 1 14 0c0 5.6-7 12-7 12z"/><circle cx="12" cy="10" r="2.6" fill="#fff"/></svg><span>DAMI Piešťany</span></div>
+      <a class="btn btn--line" href="${FIRM.map}" target="_blank" rel="noopener">Zobraziť väčšiu mapu <svg class="ico" viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></a></div>`;
+
+  const tiles = [
+    ["kategoria.html?c=pracovne", "shirt", "Pracovné oblečenie", "Bundy, nohavice, mikiny, tričká", "assets/img/predajna-odevy.webp", "40% 50%"],
+    ["kategoria.html?c=obuv", "boot", "Pracovná a bezpečnostná obuv", "Veľký výber skladom", "assets/img/predajna-obuv.webp", "20% 60%"],
+    ["kategoria.html?c=gastro", "layers", "Gastro a biele odevy", "Rondony, nohavice, zástery", "assets/img/biele-odevy.webp", "50% 50%"],
+    ["kategoria.html?c=doplnky", "vest", "Ochranné pomôcky a doplnky", "Rukavice, okuliare, opasky", "assets/gen/cat-ochranne.webp", "60% 50%"],
+    ["znacky.html", "box", "Značky a odborné poradenstvo", "Pomôžeme s výberom", "assets/img/predajna-pult.webp", "50% 40%"],
+  ];
+  $("[data-stiles]").innerHTML = tiles.map(([h, i, t, s, img, pos], n) => `<a class="stile rv" data-d="${n * 60}" href="${h}"><img src="${img}" alt="" style="object-position:${pos}" loading="lazy">
+    <div>${ico(i)}<span><b>${t}</b><small>${s}</small></span></div></a>`).join("");
+  $("[data-about]").innerHTML = `<a class="btn btn--red" href="tel:${tel(FIRM.phone)}">${ico("phone")} ${FIRM.phone}</a><a class="btn btn--line" href="mailto:${FIRM.mail}">${ico("mail")} Napísať e-mail</a>`;
+  $("[data-why]").innerHTML = [["checkC", "Tovar ihneď k odberu", "Stovky produktov skladom"], ["shirt", "Vyskúšanie produktov", "Správna veľkosť a strih"], ["people", "Odborné poradenstvo", "Poradíme s výberom"], ["store", "Osobný odber zadarmo", "Objednávky z e-shopu"], ["tag", "Pre firmy aj jednotlivcov", "Výhodné podmienky pre firmy"]]
+    .map(([i, a, b]) => `<div>${ico(i)}<span><b>${a}</b>${b}</span></div>`).join("");
+})();
+</script>
+<script>DAMI.mountFooter()</script>
+</body>
+</html>

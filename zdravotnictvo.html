@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="sk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Zdravotníctvo a wellness – zdravotnícke oblečenie a obuv | DAMI Piešťany</title>
+<meta name="description" content="Zdravotnícke blúzy, tuniky, nohavice a obuv pre zdravotníkov, opatrovateľov a wellness. Online aj v predajni DAMI v Piešťanoch.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700;800&family=Nothing+You+Could+Do&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/dami.css">
+<link rel="preload" as="image" href="assets/gen/zdrav-hero-wide.webp">
+<script src="data/catalog.js"></script>
+<script src="assets/js/dami.js"></script>
+<style>
+  body { background: #fff; }
+  /* HERO */
+  .zhero { position: relative; overflow: hidden; isolation: isolate; background: #eef1f3; }
+  .zhero__img { position: absolute; inset: 0; z-index: -2; }
+  .zhero__img img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 0%; animation: zZoom 14s var(--ease) both; }
+  @keyframes zZoom { from { transform: scale(1.05); } }
+  .zhero::before { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(90deg, rgba(248,249,250,.9) 0%, rgba(248,249,250,.7) 24%, rgba(248,249,250,0) 42%); }
+  .zhero__in { position: relative; min-height: clamp(360px, 24vw, 480px); padding-top: 26px; padding-bottom: 30px; display: flex; flex-direction: column; justify-content: center; }
+  .zhero .eyebrow { color: #6b7076; font-weight: 600; font-size: 10.5px; }
+  .zhero h1 { font-size: clamp(38px, 4.1vw, 58px); line-height: .98; letter-spacing: -.034em; max-width: 520px; margin-top: 18px; color: var(--ink); }
+  .zhero .lead { margin-top: 18px; max-width: 390px; font-size: 14px; color: #3c3f43; }
+  .zhero__cta { display: flex; gap: 12px; margin-top: 22px; flex-wrap: wrap; }
+  .zben { position: absolute; left: 66.5%; top: 50%; translate: 0 -50%; display: grid; gap: 14px; }
+  @media (max-width: 1240px) { .zben { display: none; } }
+  .zben div { display: flex; align-items: center; gap: 12px; font-size: clamp(12px, .8vw, 14.5px); line-height: 1.3; color: #2c2f33; }
+  .zben i { width: 40px; height: 40px; border-radius: 8px; background: #fff; display: grid; place-items: center; box-shadow: 0 6px 18px rgba(20,30,40,.08); flex: none; }
+  .zben .ico { width: 19px; height: 19px; stroke-width: 1.5; }
+  .zben span { font-weight: 500; }
+
+  /* TILES */
+  .ztiles { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; padding-top: 14px; }
+  .ztile { position: relative; overflow: hidden; border-radius: 4px; aspect-ratio: 1.9 / 1; color: #fff; padding: 22px 20px 18px; display: flex; flex-direction: column; isolation: isolate; background: #9aa3ab; }
+  .ztile img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: -2; transition: transform .7s var(--ease); }
+  .ztile::before { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(90deg, rgba(58,64,72,.82) 0%, rgba(58,64,72,.55) 38%, rgba(58,64,72,0) 68%); }
+  .ztile h3 { font-size: clamp(19px, 1.6vw, 23px); line-height: 1.04; max-width: 62%; }
+  .ztile p { font-size: 11.5px; line-height: 1.35; margin-top: 8px; max-width: 52%; opacity: .92; }
+  .ztile .circ { margin-top: auto; width: 26px; height: 26px; background: #fff; color: var(--ink); border: 0; }
+  .ztile .circ svg { width: 13px; height: 13px; }
+  .ztile:hover img { transform: scale(1.05); }
+  .ztile:hover .circ { background: var(--red); color: #fff; transform: translateX(3px); }
+
+  /* PRODUKTY */
+  .zpop { padding: 22px 0 22px; }
+  .zpop__hd { display: flex; align-items: center; gap: 20px; margin-bottom: 12px; flex-wrap: wrap; }
+  .zpop__hd h2 { font-size: 20px; letter-spacing: -.03em; margin-right: auto; }
+  .ztabs { display: flex; gap: 4px; }
+  .ztabs button { font-size: 12.5px; padding: 6px 10px; color: #444; position: relative; }
+  .ztabs button::after { content: ""; position: absolute; left: 10px; right: 10px; bottom: 0; height: 2px; background: var(--red); transform: scaleX(0); transition: transform .25s var(--ease); }
+  .ztabs button.is-on { color: var(--red); font-weight: 600; }
+  .ztabs button.is-on::after { transform: scaleX(1); }
+  .zpop__all { font-size: 12.5px; font-weight: 600; display: inline-flex; align-items: center; gap: 6px; }
+  .zpop__all svg { width: 14px; height: 14px; }
+  .zpop .pgrid { grid-template-columns: repeat(4, minmax(0, 1fr)); transition: opacity .25s; }
+  .zpop .pgrid.is-swap { opacity: 0; }
+  .zpop .pc__img { aspect-ratio: 1 / .82; background: #f1f2f3; }
+  .zpop .pc__brand { display: none; }
+  .zpop__empty { grid-column: 1 / -1; color: var(--muted); font-size: 13px; padding: 30px 0; }
+
+  /* BENEFITY */
+  .zperks { background: #f5f6f6; border-top: 1px solid #eceeef; border-bottom: 1px solid #eceeef; }
+  .zperks__in { display: grid; grid-template-columns: repeat(6, 1fr); gap: 20px; padding-top: 16px; padding-bottom: 16px; }
+  .zperks__in > div { display: flex; align-items: center; justify-content: center; gap: 12px; font-size: 11.5px; line-height: 1.3; }
+  .zperks__in .ico { width: 26px; height: 26px; stroke-width: 1.4; }
+
+  /* SPLIT */
+  .zsplit { display: grid; grid-template-columns: 63.2fr 36.8fr; gap: 10px; padding: 10px 0 0; background: #fff; }
+  .zshop { display: grid; grid-template-columns: 350px 1fr auto; align-items: center; gap: 0; background: #fff; min-height: 146px; }
+  .zshop__img { align-self: stretch; position: relative; overflow: hidden; min-height: 146px; }
+  .zshop__img img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 45%; }
+  .zshop__txt { padding: 14px 20px; }
+  .zshop__txt h2 { font-size: 19px; letter-spacing: -.03em; margin: 6px 0 8px; }
+  .zshop__txt p { font-size: 12px; color: #444; line-height: 1.45; }
+  .zshop__meta { display: flex; gap: 26px; margin-top: 12px; font-size: 11.5px; line-height: 1.35; }
+  .zshop__meta div { display: flex; gap: 8px; align-items: flex-start; }
+  .zshop__meta .ico { width: 17px; height: 17px; }
+  .zshop__btns { display: grid; gap: 10px; padding-right: 18px; }
+  .zshop__btns .btn { height: 38px; font-size: 12.5px; }
+  .zshop__btns .btn .ico { width: 16px; height: 16px; }
+  .zteam { position: relative; overflow: hidden; isolation: isolate; background: #f2f4f6; padding: 18px 22px; display: flex; flex-direction: column; justify-content: center; min-height: 146px; }
+  .zteam img { position: absolute; top: 0; right: 0; height: 100%; width: 72%; object-fit: cover; object-position: 60% 20%; z-index: -2; }
+  .zteam::before { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(90deg, #f2f4f6 0%, #f2f4f6 34%, rgba(242,244,246,.6) 52%, rgba(242,244,246,0) 72%); }
+  .zteam h2 { font-size: 22px; letter-spacing: -.03em; margin: 6px 0 8px; }
+  .zteam p { font-size: 12px; max-width: 230px; color: #333; line-height: 1.45; }
+  .zteam .btn { margin-top: 12px; align-self: flex-start; height: 34px; font-size: 12.5px; }
+  .ztop-gap { height: 20px; }
+
+  @media (max-width: 1240px) {
+    .zpop .pc:nth-child(n+7) { display: none; }
+    .zsplit { grid-template-columns: 1fr; }
+    .zperks__in { grid-template-columns: repeat(3, 1fr); }
+    .zperks__in > div { justify-content: flex-start; }
+  }
+  @media (max-width: 1060px) {
+    .ztiles { grid-template-columns: repeat(2, 1fr); }
+    .zpop .pgrid { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding-inline: var(--gut); margin: 0 calc(-1 * var(--gut)); padding: 0 var(--gut) 6px; scrollbar-width: none; }
+    .zpop .pgrid::-webkit-scrollbar { display: none; }
+    .zpop .pc { flex: 0 0 64%; scroll-snap-align: start; display: flex !important; }
+  }
+  @media (max-width: 760px) {
+    .zhero { background: #f7f8f9; }
+    .zhero::before { display: none; }
+    .zhero__img { position: relative; inset: auto; height: 440px; order: 2; }
+    .zhero__img img { object-position: 42% 35%; }
+    .zhero { display: flex; flex-direction: column; }
+    .zhero__in { min-height: 0; padding-top: 28px; padding-bottom: 22px; }
+    .zhero h1 { font-size: 40px; margin-top: 14px; }
+    .zben { position: absolute; left: auto; right: var(--gut); top: auto; bottom: 20px; translate: none; z-index: 2; }
+    .zben { display: none; }
+    .zshop { grid-template-columns: 1fr; }
+    .zshop__img { min-height: 220px; }
+    .zshop__txt { padding: 20px var(--gut) 8px; }
+    .zshop__meta { flex-direction: column; gap: 10px; }
+    .zshop__btns { grid-template-columns: 1fr 1fr; padding: 8px var(--gut) 22px; }
+    .zteam { min-height: 300px; justify-content: flex-end; padding: 22px var(--gut); }
+    .zteam img { width: 100%; height: 62%; object-position: 55% 20%; }
+    .zteam::before { background: linear-gradient(0deg, #f2f4f6 38%, rgba(242,244,246,0) 70%); }
+  }
+  @media (max-width: 640px) {
+    .ztiles { gap: 8px; }
+    .ztile { aspect-ratio: auto; min-height: 150px; padding: 16px 14px 14px; }
+    .ztile p { display: none; }
+    .ztile h3 { max-width: 80%; font-size: 18px; }
+    .zpop .pc { flex-basis: 44%; }
+    .zpop__hd h2 { font-size: 22px; width: 100%; }
+    .ztabs { overflow-x: auto; }
+    .zpop__all { display: none; }
+    .zperks__in { grid-template-columns: 1fr 1fr; gap: 14px; }
+  }
+</style>
+</head>
+<body>
+<script>DAMI.mount("light", "zdravotnictvo")</script>
+
+<main>
+  <section class="zhero">
+    <div class="zhero__img"><img src="assets/gen/zdrav-hero-wide.webp" alt="Zdravotná sestra v svetlomodrej zdravotníckej blúze v modernej ambulancii" fetchpriority="high"></div>
+    <div class="wrap zhero__in">
+      <span class="eyebrow eyebrow--wide">Zdravotníctvo a wellness</span>
+      <h1>Pohodlie,<br>ktoré vám<br>pomáha každý deň.</h1>
+      <p class="lead">Moderné zdravotnícke oblečenie a obuv pre profesionálov, ktorí sa starajú o druhých. Kvalitné materiály, pohodlné strihy a štýl, v ktorom sa budete cítiť skvelo.</p>
+      <div class="zhero__cta">
+        <a class="btn btn--red" href="kategoria.html?c=zdravotnictvo">Zobraziť kolekciu <svg class="ico" viewBox="0 0 24 24"><path d="M4 12h15M13 6l6 6-6 6"/></svg></a>
+        <a class="btn btn--line" href="pre-firmy.html">Pre kliniky a salóny</a>
+      </div>
+      <div class="zben" data-zben></div>
+    </div>
+  </section>
+
+  <div class="wrap">
+    <div class="ztiles" data-ztiles></div>
+  </div>
+
+  <section class="zpop">
+    <div class="wrap">
+      <div class="zpop__hd">
+        <h2>Najobľúbenejšie produkty</h2>
+        <div class="ztabs" role="tablist" data-ztabs></div>
+        <a class="zpop__all" href="kategoria.html?c=zdravotnictvo">Zobraziť všetky <svg class="ico" viewBox="0 0 24 24"><path d="M4 12h15M13 6l6 6-6 6"/></svg></a>
+      </div>
+      <div class="pgrid" data-zgrid></div>
+    </div>
+  </section>
+
+  <section class="zperks" aria-label="Prečo DAMI"><div class="wrap zperks__in" data-zperks></div></section>
+
+  <section class="wrap zsplit">
+    <div class="zshop">
+      <div class="zshop__img"><img src="assets/img/predajna-odevy.webp" alt="Regály s pracovným a zdravotníckym oblečením v predajni DAMI v Piešťanoch" loading="lazy"></div>
+      <div class="zshop__txt">
+        <span class="eyebrow eyebrow--wide">Navštívte nás</span>
+        <h2>Predajňa v Piešťanoch.</h2>
+        <p>Radi vám poradíme s výberom, veľkosťou aj materiálom. Blúzky aj obuv si u nás môžete vyskúšať.</p>
+        <div class="zshop__meta" data-zmeta></div>
+      </div>
+      <div class="zshop__btns">
+        <a class="btn btn--line" href="" data-zmap target="_blank" rel="noopener"><svg class="ico" viewBox="0 0 24 24"><path d="M12 21s-6.5-6-6.5-11.2A6.5 6.5 0 0 1 12 3.3a6.5 6.5 0 0 1 6.5 6.5C18.5 15 12 21 12 21z"/><circle cx="12" cy="9.8" r="2.4"/></svg> Zobraziť na mape</a>
+        <a class="btn btn--red" href="predajna.html#kontakt"><svg class="ico" viewBox="0 0 24 24"><rect x="3" y="5.5" width="18" height="13" rx="1.5"/><path d="m3.5 6.5 8.5 6.5 8.5-6.5"/></svg> Kontaktovať nás</a>
+      </div>
+    </div>
+    <div class="zteam">
+      <img src="assets/gen/zdrav-tile-nohavice.webp" alt="Zdravotník v tmavomodrej blúze a bielych nohaviciach" loading="lazy">
+      <span class="eyebrow eyebrow--wide">Pre firmy</span>
+      <h2>Vybavte celý tím.</h2>
+      <p>Pre ambulancie, kliniky, opatrovateľské služby aj wellness. Poradíme s množstvom, veľkosťami a podmienkami.</p>
+      <a class="btn btn--line" href="pre-firmy.html">Zistiť viac</a>
+    </div>
+  </section>
+  <div class="ztop-gap"></div>
+</main>
+
+<script>
+(() => {
+  const { ico, card, D, FIRM, catProducts, secProducts } = DAMI;
+  const $ = s => document.querySelector(s);
+  $("[data-zben]").innerHTML = [["layers", "Priedušné<br>materiály"], ["heart", "Pohodlie<br>po celý deň"], ["shirt", "Moderné<br>strihy"], ["ruler", "Široká ponuka<br>veľkostí"]]
+    .map(([i, t]) => `<div><i>${ico(i)}</i><span>${t}</span></div>`).join("");
+
+  const tiles = [
+    ["kategoria.html?c=zdrav-bluzy", "Blúzy, tuniky<br>a tričká", "Zdravotnícke blúzy<br>vo farbách aj bielej.", "assets/gen/zdrav-tile-bluzy.webp", "68% 30%"],
+    ["kategoria.html?c=zdrav-nohavice", "Nohavice", "Pohodlné nohavice<br>s elastanom.", "assets/gen/zdrav-tile-nohavice.webp", "70% 30%"],
+    ["kategoria.html?c=zdrav-obuv", "Zdravotnícka<br>obuv", "Pohodlná, bezpečná<br>a štýlová.", "assets/gen/zdrav-tile-obuv.webp", "70% 60%"],
+    ["pre-firmy.html", "Pre kliniky<br>a salóny", "Vybavenie pre celé<br>tímy a prevádzky.", "assets/gen/zdrav-tile-wellness.webp", "66% 25%"],
+  ];
+  $("[data-ztiles]").innerHTML = tiles.map(([h, t, p, img, pos], i) => `<a class="ztile rv" data-d="${i * 70}" href="${h}">
+    <img src="${img}" alt="" style="object-position:${pos}" loading="lazy"><h3>${t}</h3><p>${p}</p><span class="circ">${ico("arrow", "")}</span></a>`).join("");
+
+  const tabs = [["zdrav-bluzy", "Blúzy"], ["zdrav-nohavice", "Nohavice"], ["zdrav-obuv", "Obuv"], ["all", "Všetko"]];
+  const list = k => (k === "all" ? secProducts("zdravotnictvo") : catProducts(k)).filter(p => p.price > 0);
+  const grid = $("[data-zgrid]"), tabEl = $("[data-ztabs]");
+  tabEl.innerHTML = tabs.map(([k, l], i) => `<button role="tab" data-t="${k}" class="${i === 3 ? "is-on" : ""}" aria-selected="${i === 3}">${l}</button>`).join("");
+  function render(k, anim) {
+    const ps = list(k).slice(0, 8);
+    const html = ps.length ? ps.map(p => card(p, { compact: true, noSw: true })).join("") : `<p class="zpop__empty">V tejto kategórii zatiaľ nemáme produkty.</p>`;
+    if (!anim) { grid.innerHTML = html; return; }
+    grid.classList.add("is-swap");
+    setTimeout(() => { grid.innerHTML = html; grid.classList.remove("is-swap"); }, 200);
+  }
+  render("all");
+  tabEl.addEventListener("click", e => {
+    const b = e.target.closest("[data-t]"); if (!b || b.classList.contains("is-on")) return;
+    tabEl.querySelectorAll("button").forEach(x => { x.classList.toggle("is-on", x === b); x.setAttribute("aria-selected", x === b); });
+    render(b.dataset.t, true);
+  });
+
+  $("[data-zperks]").innerHTML = [["family", "Rodinná firma<br>s tradíciou"], ["chat", "Odborné<br>poradenstvo"], ["pin", "Predajňa<br>v Piešťanoch"], ["shield", "Overené<br>značky"], ["user", "Individuálne<br>ponuky pre firmy"], ["truck", "Rýchle<br>doručenie"]]
+    .map(([i, t]) => `<div>${ico(i)}<span>${t}</span></div>`).join("");
+  $("[data-zmeta]").innerHTML = `<div>${ico("pin")}<span><b>${FIRM.street}</b><br>${FIRM.city}</span></div>
+    <div>${ico("clock")}<span>Po – Pi 9:30 – 17:00<br>So 9:00 – 12:00</span></div>`;
+  $("[data-zmap]").href = FIRM.map;
+})();
+</script>
+<script>DAMI.mountFooter()</script>
+</body>
+</html>

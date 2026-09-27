@@ -1,0 +1,6 @@
+.env
+.env*
+tools/
+social/
+HANDOFF.md
+*.backup.html

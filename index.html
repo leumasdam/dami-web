@@ -1,0 +1,257 @@
+<!doctype html>
+<html lang="sk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DAMI pracovné odevy – oblečenie do práce, ktoré vydrží | Piešťany</title>
+<meta name="description" content="Gastro a biele odevy, zdravotnícke oblečenie, pracovné odevy a obuv. Online aj v našej predajni v Piešťanoch.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700;800&family=Nothing+You+Could+Do&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/dami.css">
+<link rel="preload" as="image" href="assets/gen/hero-flambe-wide.webp">
+<script src="data/catalog.js"></script>
+<script src="assets/js/dami.js"></script>
+<style>
+  /* HERO (nižší než pôvodne) */
+  .hero { position: relative; background: #0a0a0b; color: #fff; overflow: hidden; isolation: isolate; }
+  .hero__img { position: absolute; top: 0; bottom: 0; left: -2%; width: 96%; z-index: -2; -webkit-mask-image: linear-gradient(270deg, transparent 0, #000 7%); mask-image: linear-gradient(270deg, transparent 0, #000 7%); }
+  @media (max-width: 640px) { .hero__img { left: 0; width: 100%; -webkit-mask-image: none; mask-image: none; } }
+  .hero__img img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 0%; animation: heroZoom 2.4s var(--ease) both; }
+  @keyframes heroZoom { from { transform: scale(1.04); } }
+  .hero::before { content: ""; position: absolute; inset: 0; z-index: -1; background:
+      radial-gradient(ellipse 55% 60% at 0 0, rgba(8,8,9,.75), rgba(8,8,9,0) 100%),
+      linear-gradient(90deg, rgba(8,8,9,.88) 0%, rgba(8,8,9,.62) 24%, rgba(8,8,9,.18) 44%, rgba(8,8,9,0) 58%),
+      linear-gradient(0deg, rgba(8,8,9,.35), rgba(8,8,9,0) 18%); }
+  .hero__in { position: relative; padding-top: calc(var(--hdr-h) + clamp(4px, .6vw, 20px)); padding-bottom: clamp(16px, 1.4vw, 30px); min-height: clamp(360px, 27.6vw, 620px); display: flex; flex-direction: column; }
+  .hero .eyebrow { font-size: clamp(11px, .78vw, 14px); letter-spacing: .04em; }
+  .hero h1 { margin-top: clamp(8px, .7vw, 14px); font-size: clamp(40px, 3.9vw, 84px); line-height: .93; letter-spacing: -.036em; }
+  .hero h1 span { display: block; }
+  .hero h1 .red { color: var(--red); }
+  .hero .lead { margin-top: clamp(10px, .8vw, 18px); max-width: 30em; font-size: clamp(14px, 1vw, 18px); line-height: 1.45; opacity: .95; }
+  .hero__cta { display: flex; gap: 14px; margin-top: clamp(14px, 1.1vw, 22px); flex-wrap: wrap; }
+  .hero__cta .btn { height: clamp(40px, 2.6vw, 50px); }
+  .hero .trust { margin-top: auto; padding-top: clamp(14px, 1.2vw, 24px); gap: 12px clamp(24px, 2.5vw, 48px); }
+  .hero .trust__i { font-size: clamp(11px, .76vw, 14px); line-height: 1.35; }
+  .hero .trust__i .ico { width: clamp(24px, 1.7vw, 32px); height: clamp(24px, 1.7vw, 32px); }
+  .hero .script { position: absolute; right: 3.2%; top: 32%; font-size: clamp(24px, 2.4vw, 50px); }
+
+  /* DLAŽDICE */
+  .home-tiles { padding: 3px 0 0; }
+  .home-tiles .tiles { gap: 3px; }
+  .home-tiles .tile { aspect-ratio: 2.72 / 1; border-radius: 2px; }
+
+  /* PRODUKTY */
+  .popular .pgrid { width: 92.5%; }
+  @media (max-width: 1240px) { .popular .pgrid { width: auto; } }
+  .popular .wrap { padding-left: clamp(16px, 3.4vw, 96px); padding-right: clamp(16px, 3.4vw, 96px); }
+  .popular { padding: clamp(12px, 1vw, 22px) 0 clamp(14px, 1.1vw, 24px); }
+  .popular__in { display: grid; grid-template-columns: clamp(210px, 18vw, 420px) 1fr; gap: clamp(16px, 1.4vw, 30px); align-items: center; }
+  .popular__intro h2 { font-size: clamp(25px, 2.05vw, 44px); letter-spacing: -.036em; line-height: 1; margin: 12px 0 clamp(18px, 1.6vw, 28px); }
+  .popular__intro .btn { height: clamp(40px, 2.6vw, 48px); font-size: clamp(13px, .9vw, 15px); padding: 0 16px; }
+  .popular .pgrid { grid-template-columns: repeat(6, minmax(0, 1fr)); gap: clamp(10px, 1vw, 20px); }
+  .popular .pc__name { -webkit-line-clamp: 1; }
+  .popular .pc__img { aspect-ratio: 1.45 / 1; }
+  .popular .pc__body { padding: 4px 12px 11px; }
+
+  /* TRI BOXY */
+  .boxes { display: grid; grid-template-columns: 39.9fr 28.6fr 31.5fr; gap: 2px; background: #fff; }
+  .box { position: relative; min-height: clamp(220px, 16.6vw, 380px); overflow: hidden; }
+  .ph { position: relative; overflow: hidden; }
+  .ph img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform .8s var(--ease); }
+  .box:hover .ph img { transform: scale(1.03); }
+
+  .b-shop { display: grid; grid-template-columns: 63fr 37fr; background: var(--ink); color: #fff; }
+  .b-shop__txt { padding: clamp(18px, 1.5vw, 32px) clamp(16px, 1.4vw, 30px) clamp(16px, 1.3vw, 28px) clamp(16px, 1.6vw, 34px); display: flex; flex-direction: column; }
+  .b-shop h2 { font-size: clamp(20px, 1.6vw, 34px); letter-spacing: -.03em; line-height: 1.04; margin: 6px 0 clamp(12px, 1.1vw, 22px); }
+  .b-shop .eyebrow { font-size: clamp(10px, .7vw, 13px); }
+  .b-shop .info-list { gap: clamp(10px, .9vw, 16px); font-size: clamp(11px, .76vw, 14px); line-height: 1.35; }
+  .b-shop .info-list > div { grid-template-columns: 22px 1fr; gap: 10px; align-items: center; }
+  .b-shop .info-list .ico { width: 19px; height: 19px; }
+  .b-shop .btn { margin-top: auto; height: clamp(36px, 2.3vw, 46px); font-size: clamp(12px, .82vw, 15px); padding: 0 14px; }
+  .b-shop__txt .info-list { margin-bottom: clamp(14px, 1.2vw, 22px); }
+
+  .b-in { display: grid; grid-template-rows: 1fr auto; background: var(--ink); color: #fff; }
+  .b-in__ph { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; }
+  .b-in__ph .ph img { object-position: 50% 40%; }
+  .strip { display: grid; grid-template-columns: repeat(4, auto); justify-content: space-between; gap: 8px; padding: clamp(10px, .9vw, 16px) clamp(12px, 1.1vw, 22px); font-size: clamp(9.5px, .64vw, 12px); line-height: 1.25; }
+  .strip > div { display: flex; align-items: center; gap: 8px; }
+  .strip .ico { width: clamp(20px, 1.45vw, 28px); height: clamp(20px, 1.45vw, 28px); stroke-width: 1.4; }
+
+  .b-firm { display: grid; grid-template-rows: 1fr auto; background: #f3f3f1; isolation: isolate; }
+  .b-firm__top { position: relative; padding: clamp(16px, 1.4vw, 30px) clamp(16px, 1.4vw, 30px) clamp(12px, 1vw, 20px); }
+  .b-firm__top > img { position: absolute; top: 0; right: 0; height: 100%; width: 100%; object-fit: cover; object-position: 100% 20%; z-index: -2; }
+  .b-firm__top::before { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(90deg, #f3f3f1 0%, rgba(243,243,241,.9) 30%, rgba(243,243,241,.6) 44%, rgba(243,243,241,0) 56%); }
+  .b-firm .eyebrow { font-size: clamp(10px, .7vw, 13px); }
+  .b-firm h2 { font-size: clamp(22px, 1.9vw, 40px); letter-spacing: -.035em; margin: 4px 0 8px; }
+  .b-firm p { font-size: clamp(11px, .75vw, 14px); line-height: 1.45; max-width: 20em; color: #333; }
+  .b-firm .btn { margin-top: clamp(12px, 1vw, 20px); height: clamp(36px, 2.3vw, 46px); font-size: clamp(12px, .82vw, 15px); padding: 0 18px; }
+  .b-firm .strip { background: #fff; color: var(--ink); border-top: 1px solid var(--line); }
+
+  /* ZNAČKY */
+  .brands { background: #fff; border-top: 1px solid var(--line); }
+  .brands__in { display: flex; align-items: center; gap: clamp(20px, 2.4vw, 50px); min-height: clamp(62px, 4.8vw, 96px); }
+  .brands__lbl { font-size: clamp(12px, .85vw, 15px); font-weight: 500; flex: none; }
+  .brands__row { display: flex; flex: 1; align-items: center; justify-content: space-around; gap: clamp(16px, 2vw, 40px); min-width: 0; }
+  .brands__row a { color: #222; opacity: .88; transition: opacity .2s, color .2s; line-height: 1; }
+  .brands__row a:hover { opacity: 1; color: var(--red); }
+  .brands__row .wm { font-size: clamp(17px, 1.4vw, 26px); }
+  .brands__row .wm--cxs, .brands__row .wm--batz { font-size: clamp(21px, 1.75vw, 32px); }
+  .brands__row .wm--chefline, .brands__row .wm--cesare { font-size: clamp(14px, 1.15vw, 21px); }
+  .brands__row .wm--armen { font-size: clamp(14px, 1.15vw, 21px); border-width: 2px; }
+  .brands__all { flex: none; font-size: clamp(12px, .85vw, 15px); font-weight: 600; display: inline-flex; align-items: center; gap: 8px; }
+  .brands__all svg { width: 16px; height: 16px; }
+  .brands__all:hover { color: var(--red); }
+
+  @media (max-width: 1240px) {
+    .popular .pgrid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .boxes { grid-template-columns: 1fr 1fr; }
+    .b-shop { grid-column: 1 / -1; min-height: 300px; }
+    .strip { font-size: 11px; }
+  }
+  @media (max-width: 1060px) {
+    .popular__in { grid-template-columns: 1fr; gap: 14px; }
+    .popular__intro { display: flex; justify-content: space-between; align-items: flex-end; gap: 20px; flex-wrap: wrap; }
+    .popular__intro h2 { margin-bottom: 0; }
+    .popular__intro h2 br { display: none; }
+    .popular .pgrid { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding-inline: var(--gut); margin: 0 calc(-1 * var(--gut)); padding: 0 var(--gut) 6px; scrollbar-width: none; }
+    .popular .pgrid::-webkit-scrollbar { display: none; }
+    .popular .pc { flex: 0 0 30%; scroll-snap-align: start; }
+    .hero .script { right: var(--gut); top: auto; bottom: 110px; }
+    .brands__in { flex-wrap: wrap; padding-top: 16px; padding-bottom: 16px; gap: 14px 24px; }
+    .brands__row { order: 3; flex-basis: 100%; flex-wrap: wrap; justify-content: flex-start; gap: 18px 30px; }
+    .brands__all { margin-left: auto; }
+  }
+  @media (max-width: 760px) {
+    .boxes { grid-template-columns: minmax(0, 1fr); }
+    .b-in__ph { min-height: 220px; }
+  }
+  @media (max-width: 640px) {
+    .hero__img img { object-position: 70% 15%; }
+    .hero::before { background: linear-gradient(0deg, rgba(8,8,9,.95) 22%, rgba(8,8,9,.35) 62%, rgba(8,8,9,.55)); }
+    .hero__in { min-height: 580px; justify-content: flex-end; padding-top: 170px; }
+    .hero h1 { font-size: 44px; }
+    .hero .trust { margin-top: 22px; display: grid; grid-template-columns: 1fr 1fr; gap: 14px 12px; }
+    .hero .script { display: none; }
+    .popular .pc { flex-basis: 58%; }
+    .b-shop { grid-template-columns: minmax(0, 1fr); }
+    .b-shop .ph { min-height: 220px; }
+    .strip { grid-template-columns: 1fr 1fr; gap: 12px; font-size: 12px; padding: 14px var(--gut); }
+    .b-firm__top { padding: 190px var(--gut) 24px; }
+    .b-firm__top > img { width: 100%; height: 200px; object-position: 88% 20%; }
+    .b-firm__top::before { background: linear-gradient(0deg, #f3f3f1 calc(100% - 200px), rgba(243,243,241,0) calc(100% - 120px)); }
+  }
+</style>
+</head>
+<body>
+<script>DAMI.mount("over", "")</script>
+
+<main>
+  <section class="hero">
+    <div class="hero__img"><img src="assets/gen/hero-flambe-wide.webp" alt="Kuchár v bielom rondone flambuje na panvici v profesionálnej kuchyni" fetchpriority="high"></div>
+    <div class="wrap hero__in">
+      <span class="eyebrow">Profesionálne pracovné oblečenie</span>
+      <h1><span>Oblečenie</span><span>do práce,</span><span class="red">ktoré vydrží.</span></h1>
+      <p class="lead">Gastro, zdravotníctvo, pracovné odevy a obuv.<br>Kvalita, na ktorú sa môžete spoľahnúť.</p>
+      <div class="hero__cta">
+        <a class="btn btn--red" href="kategoria.html?c=all">Prezrieť kolekcie <svg class="ico" viewBox="0 0 24 24"><path d="M4 12h15M13 6l6 6-6 6"/></svg></a>
+        <a class="btn btn--ghost" href="predajna.html">Navštíviť predajňu</a>
+      </div>
+      <div class="trust" data-trust></div>
+      <div data-script></div>
+    </div>
+  </section>
+
+  <section class="home-tiles" aria-label="Kategórie">
+    <div class="tiles" data-tiles></div>
+  </section>
+
+  <section class="popular">
+    <div class="wrap popular__in">
+      <div class="popular__intro rv">
+        <div><span class="eyebrow">Obľúbené produkty</span>
+        <h2>Overená <br>kvalita <br><span style="white-space:nowrap">pre profesionálov.</span></h2></div>
+        <a class="btn btn--line" href="kategoria.html?c=all">Zobraziť všetky produkty <svg class="ico" viewBox="0 0 24 24"><path d="M4 12h15M13 6l6 6-6 6"/></svg></a>
+      </div>
+      <div class="pgrid" data-popular></div>
+    </div>
+  </section>
+
+  <section class="boxes">
+    <div class="box b-shop">
+      <div class="ph"><img src="assets/img/predajna-exterier.webp" alt="Predajňa DAMI pracovné odevy a obuv na Gaštanovej ulici v Piešťanoch" loading="lazy"></div>
+      <div class="b-shop__txt">
+        <span class="eyebrow">Naša predajňa</span>
+        <h2>Navštívte nás<br>v Piešťanoch.</h2>
+        <div class="info-list" data-info></div>
+        <a class="btn btn--red btn--block" data-map target="_blank" rel="noopener">Zobraziť na mape <svg class="ico" viewBox="0 0 24 24"><path d="M4 12h15M13 6l6 6-6 6"/></svg></a>
+      </div>
+    </div>
+    <a class="box b-in" href="predajna.html" aria-label="Predajňa – široký výber skladom">
+      <div class="b-in__ph">
+        <div class="ph"><img src="assets/img/predajna-obuv.webp" alt="Regály s pracovnou a bezpečnostnou obuvou v predajni" loading="lazy"></div>
+        <div class="ph"><img src="assets/img/predajna-odevy.webp" alt="Stojany s pracovným oblečením v predajni" loading="lazy"></div>
+      </div>
+      <div class="strip" data-strip-shop></div>
+    </a>
+    <div class="box b-firm">
+      <div class="b-firm__top">
+        <img src="assets/gen/home-firmy-box.webp" alt="Zdravotná sestra, pracovník v softshellovej bunde a kuchár" loading="lazy">
+        <span class="eyebrow">Pre firmy</span>
+        <h2>Vybavte celý tím.</h2>
+        <p>Pomôžeme vám s výberom, množstvom a odporučíme vhodné riešenie pre vašu prevádzku. Možnosť logovania, individuálne podmienky a spoľahlivé dodanie.</p>
+        <a class="btn btn--red" href="pre-firmy.html">Kontaktovať nás <svg class="ico" viewBox="0 0 24 24"><path d="M4 12h15M13 6l6 6-6 6"/></svg></a>
+      </div>
+      <div class="strip" data-strip-firm></div>
+    </div>
+  </section>
+
+  <section class="brands" aria-label="Naše značky">
+    <div class="wrap brands__in">
+      <span class="brands__lbl">Naše značky:</span>
+      <div class="brands__row" data-brands></div>
+      <a class="brands__all" href="znacky.html">Všetky značky <svg class="ico" viewBox="0 0 24 24"><path d="M4 12h15M13 6l6 6-6 6"/></svg></a>
+    </div>
+  </section>
+</main>
+
+<script>
+(() => {
+  const { ico, script, card, P, FIRM, esc } = DAMI;
+  const $ = s => document.querySelector(s);
+  const D = window.DAMI_DATA;
+  const pair = ([i, a, b]) => `<div class="trust__i">${ico(i)}<div>${a}<br>${b}</div></div>`;
+  $("[data-trust]").innerHTML = [["shield", "Overená kvalita", "profesionálne značky"], ["truck", "Doručenie", "po celom Slovensku"],
+    ["people", "Osobné poradenstvo", "v predajni aj online"], ["box", "Veľký výber", `viac ako ${Math.floor(D.products.length / 10) * 10} produktov`]].map(pair).join("");
+  $("[data-script]").outerHTML = script();
+
+  const tiles = [
+    ["gastro", "Gastro a<br>biele odevy", "Pre kuchárov, čašníkov<br>a gastro prevádzky.", "assets/img/gastro-kuchar.webp", "72% 30%"],
+    ["zdravotnictvo", "Zdravotníctvo<br>a wellness", "Pohodlné, funkčné<br>a moderné oblečenie.", "assets/img/zdravotnictvo.webp", "70% 25%"],
+    ["pracovne", "Pracovné<br>odevy", "Odolné riešenia<br>pre každodennú prácu.", "assets/img/pracovne-odevy.webp", "68% 30%"],
+    ["obuv", "Obuv", "Bezpečná, pohodlná<br>a spoľahlivá.", "assets/img/obuv-bezpecnostna.webp", "70% 55%"],
+  ];
+  $("[data-tiles]").innerHTML = tiles.map(([k, h, p, img, pos], i) => `<a class="tile rv" data-d="${i * 70}" href="${k === "zdravotnictvo" ? "zdravotnictvo.html" : DAMI.catUrl(k)}">
+      <img src="${img}" alt="" style="object-position:${pos}" loading="lazy"><h3>${h}</h3><p>${p}</p><span class="circ">${ico("arrow", "")}</span></a>`).join("");
+
+  const picks = ["chefline-rondon-kratky-rukav-cierny-cvoky", "taruca", "justina-zdravotnicka-bluza",
+    "cool-trend-nohavice-do-pasa-sivo-oranzove", "bezpecnostna-poltopanka-evo-icon-s3s", "kucharsky-rondon-biely-c733-kratky-rukav-a-cvoky"];
+  $("[data-popular]").innerHTML = picks.map((id, i) => P[id] ? card({ ...P[id], name: P[id].name.replace(/^(CXS|ARDON®?|Batz|CHEFLINE)\s+/i, "") }).replace('class="pc ', 'class="rv pc ').replace("<article", `<article data-d="${i * 50}"`) : "").join("");
+
+  $("[data-info]").innerHTML = `<div>${ico("pin")}<div>${FIRM.street}<br>${FIRM.city}</div></div>
+    <div>${ico("clock")}<div>${FIRM.hours.slice(0, 2).map(([d, h]) => `${d}: ${h}`).join("<br>")}</div></div>
+    <div>${ico("phone")}<div><a href="tel:${FIRM.phone.replace(/\s/g, "")}"><b>${FIRM.phone}</b></a></div></div>`;
+  $("[data-map]").href = FIRM.map;
+
+  const strip = list => list.map(([i, t]) => `<div>${ico(i)}<span>${t}</span></div>`).join("");
+  $("[data-strip-shop]").innerHTML = strip([["box", "Široký výber<br>skladom"], ["chat", "Odborné<br>poradenstvo"], ["hanger", "Možnosť<br>vyskúšania"], ["shield", "Overené<br>značky"]]);
+  $("[data-strip-firm]").innerHTML = strip([["user", "Individuálne<br>poradenstvo"], ["percent", "Firemné<br>cenové podmienky"], ["stitch", "Logovanie<br>oblečenia"], ["truck", "Spoľahlivé<br>dodanie"]]);
+
+  const count = {}; D.products.forEach(p => p.brand && (count[p.brand] = (count[p.brand] || 0) + 1));
+  const CLS = { CXS: "cxs", ARDON: "ardon", Batz: "batz", Giblors: "giblors", CHEFLINE: "chefline", CESARE: "cesare", ARMEN: "armen" };
+  $("[data-brands]").innerHTML = Object.keys(CLS).filter(b => count[b]).map(b =>
+    `<a href="znacky.html?b=${encodeURIComponent(b)}" aria-label="${esc(b)}"><span class="wm wm--${CLS[b]}">${b === "CHEFLINE" ? "CHEF<b>LINE</b>" : esc(b)}</span></a>`).join("");
+})();
+</script>
+<script>DAMI.mountFooter()</script>
+</body>
+</html>

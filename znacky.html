@@ -1,0 +1,269 @@
+<!doctype html>
+<html lang="sk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Značky – overené značky pracovného oblečenia a obuvi | DAMI Piešťany</title>
+<meta name="description" content="CXS, ARDON, Batz, Giblors a ďalšie overené značky pracovného, gastro a zdravotníckeho oblečenia a obuvi. Online aj v predajni v Piešťanoch.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700;800;900&family=Nothing+You+Could+Do&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/dami.css">
+<script src="data/catalog.js"></script>
+<script src="assets/js/dami.js"></script>
+<style>
+  .bhero .phero__img { width: 66%; }
+  .bhero .phero__img img { object-position: 60% 30%; }
+  .bhero .phero__in { min-height: 256px; }
+  .bhero h1 { font-size: clamp(32px, 3.2vw, 44px); line-height: 1; max-width: 720px; }
+  .bhero .lead { max-width: 480px; }
+
+  /* filter */
+  .bfilter { display: flex; align-items: center; gap: 10px; padding: 18px 0 16px; flex-wrap: wrap; }
+  .bfilter__lbl { font-size: 13px; font-weight: 700; margin-right: 8px; }
+  .pill { height: 32px; padding: 0 16px; border-radius: 4px; background: #e9e8e4; font-size: 12.5px; font-weight: 500; transition: background .2s, color .2s; }
+  .pill:hover { background: #dedcd7; }
+  .pill.is-on { background: var(--red); color: #fff; }
+  .bsearch { margin-left: auto; display: flex; align-items: center; gap: 8px; height: 36px; width: 200px; padding: 0 12px; border: 1px solid var(--line); border-radius: var(--r); background: #fff; }
+  .bsearch input { border: 0; outline: 0; background: none; flex: 1; min-width: 0; font-size: 12.5px; }
+  .bsearch .ico { width: 16px; height: 16px; color: var(--muted); }
+
+  /* mriežka značiek */
+  .bgrid { display: grid; grid-template-columns: repeat(8, 1fr); gap: 6px; }
+  .btile { position: relative; height: 84px; border-radius: 3px; background: #ecebe7; display: grid; place-items: center; text-align: center; transition: background .2s, box-shadow .2s, transform .25s var(--ease); color: #1a1a1a; }
+  .btile:hover { background: #e3e2dd; }
+  .btile.is-on { background: #fff; box-shadow: inset 0 0 0 2px var(--ink); }
+  .btile small { position: absolute; bottom: 7px; left: 0; right: 0; font-size: 10px; color: var(--muted-2); }
+  .btile[hidden] { display: none; }
+  .btile--more { font-size: 12.5px; font-weight: 600; gap: 2px; align-content: center; }
+  .btile--more .ico { width: 18px; height: 18px; margin: 0 auto 4px; }
+  /* typografické wordmarky (nie oficiálne logá) */
+  .wm { line-height: 1; display: block; margin-top: -8px; }
+
+  /* featured */
+  .bfeat { display: grid; grid-template-columns: 50.5fr 49.5fr; gap: 0; margin-top: 14px; background: #fff; border-radius: 3px; overflow: hidden; }
+  .bban { position: relative; background: #000; color: #fff; min-height: 238px; padding: 24px 28px 24px; display: flex; flex-direction: column; isolation: isolate; overflow: hidden; }
+  .bban img { position: absolute; top: 0; right: 0; height: 100%; width: 72%; object-fit: cover; z-index: -2; transition: opacity .4s; }
+  .bban::before { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(90deg, #000 28%, rgba(0,0,0,.55) 52%, rgba(0,0,0,0) 78%); }
+  .bban .wm { color: #fff; margin: 0 0 14px; transform-origin: left; }
+  .bban .wm--cxs { font-size: 60px; } .bban .wm--ardon { font-size: 44px; } .bban .wm--batz { font-size: 56px; } .bban .wm--giblors { font-size: 48px; }
+  .bban .wm--chefline { font-size: 38px; } .bban .wm--cesare { font-size: 38px; } .bban .wm--armen { font-size: 40px; align-self: flex-start; }
+  .bban h2 { font-size: clamp(20px, 1.7vw, 25px); line-height: 1.08; max-width: 300px; }
+  .bban p { font-size: 12.5px; line-height: 1.5; opacity: .85; max-width: 300px; margin-top: 10px; }
+  .bban .btn { margin-top: auto; align-self: flex-start; }
+  .bban__count { position: absolute; top: 20px; right: 20px; background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.22); backdrop-filter: blur(6px); font-size: 11px; padding: 6px 10px; border-radius: 3px; }
+  .bprods { padding: 14px 14px 16px; }
+  .bprods__hd { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; margin-bottom: 12px; }
+  .bprods__hd h3 { font-size: 15px; letter-spacing: -.02em; }
+  .bprods .pgrid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .bprods .pc:nth-child(n+4) { display: none; }
+  .bprods .pc__add { height: 30px; font-size: 11.5px; margin-top: 8px; }
+  .bprods .pc__name { font-size: 12px; }
+  .bfeat.is-swap .bban > *, .bfeat.is-swap .bprods .pgrid { animation: swap .45s var(--ease) both; }
+  @keyframes swap { from { opacity: 0; transform: translateY(8px); } }
+
+  /* podľa odboru */
+  .bodb { display: grid; grid-template-columns: 250px repeat(3, 1fr); gap: 12px; padding: 16px 0 18px; align-items: stretch; }
+  .bodb__intro h2 { font-size: 20px; letter-spacing: -.025em; margin: 6px 0 8px; }
+  .bodb__intro p { font-size: 12.5px; color: var(--muted); line-height: 1.5; margin-bottom: 16px; }
+  .ocard { border-radius: 3px; overflow: hidden; background: #fff; display: flex; flex-direction: column; box-shadow: 0 0 0 1px var(--line); }
+  .ocard__img { position: relative; height: 124px; color: #fff; padding: 14px 16px; isolation: isolate; overflow: hidden; }
+  .ocard__img img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: -2; transition: transform .6s var(--ease); }
+  .ocard__img::before { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(90deg, rgba(0,0,0,.85), rgba(0,0,0,.35) 60%, rgba(0,0,0,.1)); }
+  .ocard__img h3 { font-size: 19px; line-height: 1.05; letter-spacing: -.025em; max-width: 60%; }
+  .ocard__img p { font-size: 11.5px; margin-top: 6px; opacity: .88; max-width: 58%; line-height: 1.35; }
+  .ocard__img .circ { position: absolute; right: 14px; top: 14px; }
+  .ocard:hover .ocard__img img { transform: scale(1.05); }
+  .ocard__brands { display: flex; gap: 14px; align-items: center; padding: 10px 14px; flex-wrap: wrap; min-height: 44px; }
+  .ocard__brands .wm { font-size: 15px !important; margin: 0; padding: 0; border-width: 1.5px; }
+  .ocard__brands .wm--cxs { font-size: 18px !important; }
+  .ocard__brands .wm--batz { font-size: 18px !important; }
+
+  /* prečo + predajňa */
+  .bwhy { display: grid; grid-template-columns: 1fr 660px; background: #fff; border-top: 1px solid var(--line); }
+  .bwhy__txt { padding: 20px 0 22px var(--gut); }
+  .bwhy__txt h2 { font-size: 17px; letter-spacing: -.02em; margin-bottom: 16px; }
+  .bwhy__list { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+  .bwhy__list div { display: flex; gap: 10px; font-size: 12px; line-height: 1.35; }
+  .bwhy__list .ico { width: 24px; height: 24px; flex: none; }
+  .bwhy__list b { display: block; font-weight: 600; }
+  .bstore { display: grid; grid-template-columns: 1fr 1fr; background: var(--ink); color: #fff; }
+  .bstore > img { width: 100%; height: 100%; object-fit: cover; min-height: 120px; }
+  .bstore__txt { padding: 16px 18px; display: grid; grid-template-columns: 1fr auto; gap: 12px; }
+  .bstore__txt h3 { font-size: 14px; letter-spacing: -.01em; margin-bottom: 6px; }
+  .bstore__txt p { font-size: 11px; opacity: .8; line-height: 1.45; }
+  .bstore__txt .btn { margin-top: 10px; height: 30px; font-size: 11.5px; padding: 0 12px; }
+  .bstore .info-list { font-size: 11px; gap: 8px; }
+  .bstore .info-list > div { grid-template-columns: 18px 1fr; gap: 8px; }
+  .bstore .info-list .ico { width: 15px; height: 15px; }
+
+  .bempty { grid-column: 1 / -1; padding: 22px; text-align: center; color: var(--muted); font-size: 13px; background: #ecebe7; border-radius: 3px; }
+
+  @media (max-width: 1240px) {
+    .bgrid { grid-template-columns: repeat(4, 1fr); }
+    .bfeat { grid-template-columns: 1fr; }
+    .bodb { grid-template-columns: repeat(3, 1fr); }
+    .bodb__intro { grid-column: 1 / -1; display: flex; gap: 20px; align-items: flex-end; justify-content: space-between; }
+    .bodb__intro p { margin-bottom: 0; max-width: 520px; }
+    .bwhy { grid-template-columns: 1fr; }
+    .bwhy__txt { padding-right: var(--gut); }
+  }
+  @media (max-width: 760px) {
+    .bsearch { margin-left: 0; width: 100%; order: -1; }
+    .bfilter__lbl { width: 100%; }
+    .bfilter { gap: 8px; }
+    .bprods .pgrid { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; }
+    .bprods .pc { flex: 0 0 44%; scroll-snap-align: start; }
+    .bodb { grid-template-columns: 1fr; }
+    .bodb__intro { display: block; }
+    .bwhy__list { grid-template-columns: 1fr 1fr; }
+    .bstore { grid-template-columns: 1fr; }
+    .bstore > img { max-height: 180px; }
+  }
+  @media (max-width: 640px) {
+    .bhero .phero__in { min-height: 330px; }
+    .bgrid { grid-template-columns: repeat(2, 1fr); }
+    .bban { min-height: 300px; padding: 20px; }
+    .bban img { width: 100%; opacity: .55; }
+    .bban .wm--cxs { font-size: 46px; }
+    .bodb__intro .btn { margin-top: 4px; }
+    .bstore__txt { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<script>DAMI.mount("dark", "znacky")</script>
+
+<main>
+  <section class="phero bhero">
+    <div class="phero__img"><img src="assets/img/hero-kuchar.webp" alt="Kuchár v bielom rondone pri práci" fetchpriority="high"></div>
+    <div class="wrap phero__in">
+      <nav class="crumbs" aria-label="Omrvinky"><a href="index.html">Domov</a><span>›</span><b>Značky</b></nav>
+      <h1>Overené značky,<br>na ktoré sa môžete spoľahnúť</h1>
+      <p class="lead">V našej ponuke nájdete overené značky pracovného oblečenia, obuvi a doplnkov pre gastronómiu, zdravotníctvo aj priemysel.</p>
+      <div class="trust" data-trust></div>
+      <div data-script></div>
+    </div>
+  </section>
+
+  <section class="wrap">
+    <div class="bfilter">
+      <span class="bfilter__lbl">Filtrovať značky podľa oblasti:</span>
+      <div data-pills style="display:contents"></div>
+      <label class="bsearch"><svg class="ico" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><input type="search" placeholder="Hľadať značku…" aria-label="Hľadať značku" data-bq></label>
+    </div>
+    <div class="bgrid" data-bgrid role="list"></div>
+
+    <div class="bfeat" data-feat aria-live="polite">
+      <div class="bban" data-ban></div>
+      <div class="bprods">
+        <div class="bprods__hd"><h3 data-ph></h3><a class="link-red" data-pall href="#">Zobraziť všetky produkty</a></div>
+        <div class="pgrid" data-pgrid></div>
+      </div>
+    </div>
+
+    <div class="bodb">
+      <div class="bodb__intro rv">
+        <div><h2>Značky podľa vášho odboru</h2>
+        <p>Vybrali sme pre vás overené značky, ktoré najlepšie vyhovujú požiadavkám jednotlivých profesií.</p></div>
+        <a class="btn btn--red btn--sm" href="predajna.html">Poradiť s výberom <svg class="ico" viewBox="0 0 24 24"><path d="M4 12h15M13 6l6 6-6 6"/></svg></a>
+      </div>
+      <div data-odb style="display:contents"></div>
+    </div>
+  </section>
+
+  <section class="bwhy">
+    <div class="bwhy__txt"><h2>Prečo nakupovať značky u DAMI?</h2><div class="bwhy__list" data-why></div></div>
+    <div class="bstore">
+      <img src="assets/img/predajna-exterier.webp" alt="Predajňa DAMI v Piešťanoch zvonka" loading="lazy">
+      <div class="bstore__txt">
+        <div><h3>Navštívte našu predajňu v Piešťanoch</h3><p>Široký výber značkového pracovného oblečenia, obuvi a doplnkov. Poradíme priamo na mieste.</p>
+          <a class="btn btn--ghost" href="predajna.html">Zobraziť na mape <svg class="ico" viewBox="0 0 24 24"><path d="M4 12h15M13 6l6 6-6 6"/></svg></a></div>
+        <div class="info-list" data-sinfo></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<script>
+(() => {
+  const { D, ico, script, card, FIRM, esc, catUrl } = DAMI;
+  const $ = s => document.querySelector(s);
+  const arrow = ico("arrow");
+
+  $("[data-trust]").innerHTML = [["shield", "Originálne produkty", "od oficiálnych dodávateľov"], ["truck", "Široký výber", "overených značiek"], ["people", "Odborné poradenstvo", "pri výbere značky"]]
+    .map(([i, a, b]) => `<div class="trust__i">${ico(i)}<div><b>${a}</b><span>${b}</span></div></div>`).join("");
+  $("[data-script]").outerHTML = script();
+
+  /* značky z reálnych dát */
+  const INFO = {
+    CXS: { cls: "cxs", h: "Pracovné odevy a obuv pre každý deň", p: "Česká značka pracovného oblečenia, bezpečnostnej obuvi a doplnkov. Najširšie zastúpená značka v našej ponuke.", img: "assets/gen/znacky-banner.webp" },
+    ARDON: { cls: "ardon", h: "Bezpečnostná obuv a ochrana pri práci", p: "Česká značka pracovnej a bezpečnostnej obuvi, odevov a ochranných pomôcok pre náročné prostredie.", img: "assets/gen/znacky-banner.webp" },
+    Batz: { cls: "batz", h: "Pohodlná obuv na celý pracovný deň", p: "Zdravotná a pracovná obuv – papuče, šľapky a nazúvaky pre gastro, zdravotníctvo aj domácnosť.", img: "assets/img/gastro-obuv.webp" },
+    Giblors: { cls: "giblors", h: "Talianske oblečenie pre gastro a zdravotníctvo", p: "Kuchárske rondony, nohavice, tuniky a zástery s dôrazom na strih a moderný vzhľad.", img: "assets/img/gastro-kuchar.webp" },
+    CHEFLINE: { cls: "chefline", h: "Kuchárske rondony pre profesionálov", p: "Kuchárske oblečenie v klasickom aj modernom strihu pre reštaurácie a hotely.", img: "assets/img/hero-kuchar-2.webp" },
+    CESARE: { cls: "cesare", h: "Zdravotnícke súpravy blúza a nohavice", p: "Praktické a pohodlné zdravotnícke oblečenie na celý pracovný deň.", img: "assets/img/zdravotnictvo.webp" },
+    ARMEN: { cls: "armen", h: "Pracovné sandále s pevnou oporou", p: "Pracovná obuv a sandále vhodné do gastro prevádzok, výroby aj zdravotníctva.", img: "assets/img/gastro-obuv.webp" },
+  };
+  const wm = b => b === "CHEFLINE" ? `<span class="wm wm--chefline">CHEF<b>LINE</b></span>` : `<span class="wm wm--${INFO[b].cls}">${esc(b)}</span>`;
+  const byBrand = {};
+  D.products.forEach(p => p.brand && (byBrand[p.brand] ||= []).push(p));
+  const brands = Object.keys(INFO).filter(b => byBrand[b]).sort((a, b) => byBrand[b].length - byBrand[a].length);
+  const secsOf = b => new Set(byBrand[b].flatMap(p => p.sec));
+
+  const PILLS = [["", "Všetky značky"], ["gastro", "Gastro"], ["zdravotnictvo", "Zdravotníctvo"], ["pracovne", "Pracovné odevy"], ["obuv", "Obuv"], ["doplnky", "Doplnky"]];
+  let sec = "", q = "", cur = new URLSearchParams(location.search).get("b");
+  if (!brands.includes(cur)) cur = brands[0];
+
+  $("[data-pills]").innerHTML = PILLS.map(([k, l]) => `<button class="pill ${k === sec ? "is-on" : ""}" data-sec="${k}">${l}</button>`).join("");
+  $("[data-bgrid]").innerHTML = brands.map(b => `<button class="btile" role="listitem" data-b="${esc(b)}" aria-label="${esc(b)} – ${byBrand[b].length} produktov">${wm(b)}<small>${byBrand[b].length} produktov</small></button>`).join("") +
+    `<a class="btile btile--more" href="kategoria.html?c=all">${ico("grid")}<span>Všetky produkty</span></a><div class="bempty" data-bempty hidden>Takú značku zatiaľ nemáme. Opýtajte sa nás na ${FIRM.phone} – radi ju zoženieme.</div>`;
+
+  function filter() {
+    const n = q.trim().toLowerCase(); let vis = 0;
+    document.querySelectorAll("[data-b]").forEach(t => {
+      const b = t.dataset.b, ok = (!sec || secsOf(b).has(sec)) && (!n || b.toLowerCase().includes(n));
+      t.hidden = !ok; vis += ok;
+    });
+    $("[data-bempty]").hidden = !!vis;
+  }
+  document.addEventListener("click", e => {
+    const p = e.target.closest("[data-sec]");
+    if (p) { sec = p.dataset.sec; document.querySelectorAll("[data-sec]").forEach(x => x.classList.toggle("is-on", x === p)); filter(); }
+    const t = e.target.closest("[data-b]");
+    if (t) { show(t.dataset.b, true); history.replaceState(null, "", "?b=" + encodeURIComponent(t.dataset.b)); if (innerWidth < 1240) $("[data-feat]").scrollIntoView({ behavior: "smooth", block: "start" }); }
+  });
+  $("[data-bq]").addEventListener("input", e => { q = e.target.value; filter(); });
+
+  function show(b, anim) {
+    cur = b; const i = INFO[b], list = byBrand[b];
+    document.querySelectorAll("[data-b]").forEach(t => t.classList.toggle("is-on", t.dataset.b === b));
+    const url = `kategoria.html?c=all&b=${encodeURIComponent(b)}`;
+    $("[data-ban]").innerHTML = `<img src="${i.img}" alt="" loading="lazy"><span class="bban__count">${list.length} ${list.length === 1 ? "produkt" : list.length < 5 ? "produkty" : "produktov"} v ponuke</span>
+      ${wm(b)}<h2>${esc(i.h)}</h2><p>${esc(i.p)}</p><a class="btn btn--red" href="${url}">Zobraziť všetky produkty ${esc(b)} ${arrow}</a>`;
+    $("[data-ph]").textContent = `Obľúbené produkty značky ${b}`;
+    $("[data-pall]").href = url; $("[data-pall]").innerHTML = `Zobraziť všetky produkty ${arrow}`;
+    const pick = [...list].filter(p => p.price > 0).sort((a, c) => (c.img.length - a.img.length) || (c.colors.length - a.colors.length)).slice(0, 5);
+    $("[data-pgrid]").innerHTML = pick.map(p => card(p, { add: true })).join("");
+    if (anim) { const f = $("[data-feat]"); f.classList.remove("is-swap"); void f.offsetWidth; f.classList.add("is-swap"); }
+  }
+  show(cur);
+
+  const ODB = [
+    ["gastro", "Gastro oblečenie<br>a obuv", "Odolné, pohodlné a štýlové riešenia pre kuchárov a gastro prevádzky.", "assets/img/gastro-kuchar.webp", catUrl("gastro")],
+    ["zdravotnictvo", "Zdravotnícke<br>oblečenie a obuv", "Pohodlie, hygiena a spoľahlivosť pre zdravotníkov.", "assets/img/zdravotnictvo.webp", "zdravotnictvo.html"],
+    ["pracovne", "Pracovné odevy<br>a bezpečnostná obuv", "Maximálna ochrana a odolnosť pre náročné pracovné podmienky.", "assets/gen/firmy-priemysel.webp", catUrl("pracovne")],
+  ];
+  $("[data-odb]").innerHTML = ODB.map(([k, h, p, img, href], n) => `<a class="ocard rv" data-d="${n * 70}" href="${href}">
+      <div class="ocard__img"><img src="${img}" alt="" loading="lazy" style="object-position:62% 30%"><h3>${h}</h3><p>${p}</p><span class="circ">${arrow}</span></div>
+      <div class="ocard__brands">${brands.filter(b => secsOf(b).has(k)).map(wm).join("")}</div></a>`).join("");
+
+  $("[data-why]").innerHTML = [["shield", "Originálne produkty", "z oficiálnej distribúcie"], ["user", "Odborné poradenstvo", "pri výbere značky"], ["box", "Široký výber", "pre každé odvetvie"], ["store", "Dostupnosť na predajni", "v Piešťanoch"]]
+    .map(([i, a, b]) => `<div>${ico(i)}<span><b>${a}</b>${b}</span></div>`).join("");
+  $("[data-sinfo]").innerHTML = `<div>${ico("pin")}<div>${FIRM.street}<br>${FIRM.city}</div></div>
+    <div>${ico("clock")}<div>Po – Pi 9:30 – 17:00<br>So 9:00 – 12:00</div></div>
+    <div>${ico("phone")}<div><a href="tel:${FIRM.phone.replace(/\s/g, "")}">${FIRM.phone}</a></div></div>`;
+})();
+</script>
+<script>DAMI.mountFooter()</script>
+</body>
+</html>

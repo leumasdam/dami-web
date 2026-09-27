@@ -1,0 +1,382 @@
+<!doctype html>
+<html lang="sk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Košík a objednávka | DAMI pracovné odevy</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700;800&family=Nothing+You+Could+Do&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/dami.css">
+<script src="data/catalog.js"></script>
+<script src="assets/js/dami.js"></script>
+<style>
+  /* HERO */
+  .khero { position: relative; background: #0b0b0c; color: #fff; overflow: hidden; isolation: isolate; }
+  .khero > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: -2; opacity: .9; }
+  .khero::before { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(90deg, rgba(11,11,12,.92) 0%, rgba(11,11,12,.6) 40%, rgba(11,11,12,.3) 100%); }
+  .khero__in { display: grid; grid-template-columns: auto 1fr auto; gap: 40px; align-items: center; padding-top: 20px; padding-bottom: 26px; min-height: 158px; }
+  .khero h1 { font-size: clamp(32px, 3.5vw, 50px); margin-top: 10px; }
+  .khero .lead { margin-top: 10px; max-width: 420px; font-size: 14.5px; opacity: .9; }
+  .khero .script { font-size: clamp(22px, 2vw, 30px); }
+
+  .steps { display: flex; justify-content: center; list-style: none; margin: 0; padding: 0; counter-reset: s; }
+  .steps li { position: relative; flex: 1; max-width: 170px; display: grid; justify-items: center; gap: 9px; font-size: 13px; text-align: center; opacity: .82; }
+  .steps li::before { counter-increment: s; content: counter(s); width: 30px; height: 30px; border-radius: 50%; background: #5c5c62; display: grid; place-items: center; font-weight: 700; font-size: 13px; position: relative; z-index: 1; transition: background .3s; }
+  .steps li:not(:last-child)::after { content: ""; position: absolute; top: 15px; left: calc(50% + 15px); right: calc(-50% + 15px); height: 1.5px; background: #5c5c62; }
+  .steps li.is-on { opacity: 1; font-weight: 700; }
+  .steps li.is-on::before { background: var(--red); box-shadow: 0 0 0 4px rgba(227,21,29,.25); }
+  .steps li.is-done::before { content: "✓"; background: #fff; color: var(--ink); }
+  .steps li.is-done::after { background: #fff; }
+  .steps button { color: inherit; font-weight: inherit; }
+
+  /* LAYOUT */
+  .kmain { display: grid; grid-template-columns: 1fr 452px; gap: 18px; align-items: start; padding-top: 16px; padding-bottom: 14px; }
+  .kbox { background: #fff; border-radius: 4px; box-shadow: 0 0 0 1px var(--line); padding: 18px 20px 20px; }
+  .kbox h2 { font-size: clamp(20px, 1.6vw, 23px); letter-spacing: -.025em; margin-bottom: 14px; }
+
+  /* tabuľka */
+  .ktab { width: 100%; border-collapse: collapse; }
+  .ktab th { background: var(--paper-2); font-size: 12.5px; font-weight: 500; text-align: left; padding: 11px 14px; white-space: nowrap; }
+  .ktab th:first-child { border-radius: 3px 0 0 3px; } .ktab th:last-child { border-radius: 0 3px 3px 0; }
+  .ktab td { padding: 14px; border-bottom: 1px solid var(--line); vertical-align: middle; }
+  .ktab .num { text-align: center; white-space: nowrap; font-weight: 700; font-size: 15px; }
+  .kprod { display: grid; grid-template-columns: 112px 1fr; gap: 18px; align-items: center; }
+  .kprod__img { width: 112px; height: 96px; background: var(--card); border-radius: 3px; display: grid; place-items: center; }
+  .kprod__img img { width: 86%; height: 86%; object-fit: contain; mix-blend-mode: multiply; }
+  .kprod__brand { font-size: 13px; font-weight: 800; text-transform: uppercase; }
+  .kprod__name { font-size: 14px; line-height: 1.3; margin-top: 2px; }
+  .kprod__name a:hover { color: var(--red); }
+  .kprod__var { font-size: 12.5px; color: var(--muted); margin-top: 6px; display: flex; gap: 14px; flex-wrap: wrap; }
+  .kprod__var b { color: var(--text); font-weight: 500; }
+  .kprod__stock { font-size: 12px; color: var(--ok); margin-top: 7px; display: flex; gap: 6px; align-items: center; }
+  .kprod__stock::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: currentColor; }
+  .kqty { display: inline-flex; align-items: center; border: 1px solid var(--line); border-radius: 3px; height: 38px; }
+  .kqty button { width: 34px; height: 100%; font-size: 18px; display: grid; place-items: center; }
+  .kqty button:hover { background: var(--paper); }
+  .kqty span { width: 38px; text-align: center; font-weight: 600; border-left: 1px solid var(--line); border-right: 1px solid var(--line); line-height: 36px; }
+  .krm { width: 34px; height: 34px; display: grid; place-items: center; border-radius: 50%; }
+  .krm:hover { background: var(--paper); color: var(--red); }
+  .krm .ico { width: 18px; height: 18px; }
+
+  .kcode { display: flex; align-items: center; gap: 18px; background: var(--paper-2); padding: 10px 12px 10px 20px; border-radius: 3px; margin-top: 16px; max-width: 510px; flex-wrap: wrap; }
+  .kcode b { display: flex; gap: 10px; align-items: center; font-size: 14px; }
+  .kcode form { display: flex; flex: 1; min-width: 220px; }
+  .kcode input { flex: 1; min-width: 0; height: 38px; border: 1px solid var(--line); border-right: 0; border-radius: 3px 0 0 3px; padding: 0 12px; font-size: 13px; outline: 0; background: #fff; }
+  .kcode button { height: 38px; padding: 0 22px; background: var(--red); color: #fff; font-weight: 600; font-size: 13px; border-radius: 0 3px 3px 0; }
+  .kcode__msg { width: 100%; font-size: 12px; color: var(--red); display: none; }
+  .kcode__msg.is-on { display: block; }
+
+  /* súhrn */
+  .ksum { display: grid; gap: 8px; font-size: 14px; }
+  .ksum div { display: flex; justify-content: space-between; }
+  .ksum__tot { border-top: 1px solid var(--line); margin-top: 8px; padding-top: 14px; align-items: flex-start; }
+  .ksum__tot > b { font-size: 16px; }
+  .ksum__tot strong { display: block; font-size: 30px; letter-spacing: -.03em; line-height: 1; text-align: right; }
+  .ksum__tot small { display: block; text-align: right; font-size: 11.5px; color: var(--muted); margin-top: 4px; }
+  .kbox .btn--next { height: 48px; font-size: 15px; margin: 16px 0 6px; width: 100%; }
+  .kback { font-size: 13px; color: var(--muted); display: inline-flex; gap: 6px; align-items: center; }
+  .kback:hover { color: var(--ink); }
+  .kback .ico { width: 15px; height: 15px; }
+  .ksep { border: 0; border-top: 1px solid var(--line); margin: 18px 0 16px; }
+
+  /* možnosti doručenia / platby */
+  .opts { display: grid; gap: 10px; }
+  .opt { display: grid; grid-template-columns: 22px 30px 1fr auto; gap: 12px; align-items: start; padding: 13px 16px; border: 1px solid var(--line); border-radius: 4px; cursor: pointer; transition: border-color .2s, box-shadow .2s; }
+  .opt:hover { border-color: #c9c7c1; }
+  .opt:has(input:checked) { border-color: var(--red); box-shadow: inset 0 0 0 1px var(--red); }
+  .opt input { appearance: none; width: 20px; height: 20px; border-radius: 50%; border: 1.5px solid #9a9aa0; margin: 2px 0 0; display: grid; place-items: center; cursor: pointer; }
+  .opt input:checked { border-color: var(--red); }
+  .opt input:checked::after { content: ""; width: 11px; height: 11px; border-radius: 50%; background: #7a0f13; }
+  .opt .ico { width: 26px; height: 26px; }
+  .opt b { font-size: 13.5px; font-weight: 600; }
+  .opt p { font-size: 12px; color: var(--muted); margin-top: 3px; line-height: 1.45; }
+  .opt__price { text-align: right; font-size: 13.5px; font-weight: 700; white-space: nowrap; }
+  .opt__price small { display: block; font-weight: 400; color: var(--muted); font-size: 11.5px; margin-top: 3px; }
+  .opt__price.is-free { color: var(--red); letter-spacing: .02em; }
+  .opt__store { grid-column: 2 / -1; display: grid; grid-template-columns: 1fr 150px; gap: 12px; align-items: center; }
+  .opt__store img { width: 150px; height: 84px; object-fit: cover; border-radius: 3px; }
+
+  /* formulár */
+  .kform { display: grid; grid-template-columns: 1fr 1fr; gap: 12px 14px; }
+  .kform .full { grid-column: 1 / -1; }
+  .kf label { display: block; font-size: 12.5px; font-weight: 600; margin-bottom: 5px; }
+  .kf input, .kf textarea { width: 100%; height: 42px; border: 1px solid #d4d2cc; border-radius: 3px; padding: 0 12px; font-size: 14px; outline: 0; background: #fff; transition: border-color .2s; }
+  .kf textarea { height: 84px; padding: 10px 12px; resize: vertical; }
+  .kf input:focus, .kf textarea:focus { border-color: var(--ink); }
+  .kf.is-err input { border-color: var(--red); }
+  .kf small { display: none; color: var(--red); font-size: 11.5px; margin-top: 4px; }
+  .kf.is-err small { display: block; }
+  .kchk { display: flex; gap: 10px; align-items: center; font-size: 13px; cursor: pointer; }
+  .kchk input { width: 18px; height: 18px; accent-color: var(--red); }
+  .kform [data-firm] { display: none; }
+  .kform.is-firm [data-firm] { display: block; }
+
+  /* mini zoznam v súhrne (kroky 2-3) */
+  .kmini { display: grid; gap: 10px; margin-bottom: 14px; }
+  .kmini div { display: grid; grid-template-columns: 46px 1fr auto; gap: 10px; align-items: center; font-size: 12.5px; line-height: 1.3; }
+  .kmini img { width: 46px; height: 46px; object-fit: contain; background: var(--card); border-radius: 3px; mix-blend-mode: multiply; }
+  .kmini b { white-space: nowrap; }
+
+  /* potvrdenie */
+  .kdone { text-align: center; padding: 36px 20px 40px; display: grid; justify-items: center; gap: 12px; }
+  .kdone > .ico { width: 64px; height: 64px; color: var(--ok); stroke-width: 1.3; }
+  .kdone h2 { font-size: clamp(26px, 2.6vw, 36px); margin: 4px 0 0; }
+  .kdone p { color: var(--muted); max-width: 520px; font-size: 14.5px; }
+  .kdone__no { font-size: 15px; background: var(--paper-2); padding: 10px 18px; border-radius: 3px; }
+  .kdone__note { font-size: 12px !important; opacity: .8; }
+  .kdone .btn { margin-top: 10px; }
+
+  /* prázdny */
+  .kempty { grid-column: 1 / -1; background: #fff; border-radius: 4px; box-shadow: 0 0 0 1px var(--line); padding: 56px 20px; display: grid; justify-items: center; gap: 14px; text-align: center; }
+  .kempty > .ico { width: 56px; height: 56px; stroke-width: 1.2; color: var(--muted-2); }
+  .kempty h2 { font-size: 28px; }
+  .kempty p { color: var(--muted); max-width: 440px; }
+  .kempty__cta { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; margin-top: 6px; }
+
+  /* benefity */
+  .kben { display: grid; grid-template-columns: repeat(4, 1fr); background: #efeeea; border-radius: 4px; padding: 20px 10px; margin-bottom: 30px; }
+  .kben > div { display: grid; grid-template-columns: 44px 1fr; gap: 14px; padding: 0 22px; border-left: 1px solid #d9d7d1; }
+  .kben > div:first-child { border-left: 0; }
+  .kben .ico { width: 38px; height: 38px; stroke-width: 1.4; }
+  .kben b { display: block; font-size: 14px; margin-bottom: 4px; }
+  .kben span { font-size: 12.5px; color: var(--muted); line-height: 1.45; }
+
+  @media (max-width: 1240px) {
+    .khero__in { grid-template-columns: 1fr; gap: 20px; }
+    .khero .script { display: none; }
+    .steps { justify-content: flex-start; }
+    .kmain { grid-template-columns: 1fr 380px; }
+    .kben { grid-template-columns: 1fr 1fr; gap: 18px 0; }
+    .kben > div:nth-child(3) { border-left: 0; }
+  }
+  @media (max-width: 960px) {
+    .kmain { grid-template-columns: 1fr; }
+    .ktab thead { display: none; }
+    .ktab, .ktab tbody, .ktab tr, .ktab td { display: block; }
+    .ktab tr { display: grid; grid-template-columns: 1fr auto; gap: 10px 12px; padding: 14px 0; border-bottom: 1px solid var(--line); position: relative; }
+    .ktab td { border: 0; padding: 0; }
+    .ktab td:first-child { grid-column: 1 / -1; padding-right: 36px; }
+    .ktab .num--unit { display: none; }
+    .ktab .num--tot { align-self: center; font-size: 16px; }
+    .ktab td.rm { position: absolute; top: 12px; right: 0; }
+  }
+  @media (max-width: 640px) {
+    .khero__in { padding-top: 16px; padding-bottom: 20px; }
+    .steps li { font-size: 10.5px; }
+    .steps li::before { width: 26px; height: 26px; font-size: 12px; }
+    .steps li:not(:last-child)::after { top: 13px; left: calc(50% + 13px); right: calc(-50% + 13px); }
+    .kbox { padding: 16px 14px; }
+    .kprod { grid-template-columns: 84px 1fr; gap: 12px; }
+    .kprod__img { width: 84px; height: 76px; }
+    .kcode { padding: 12px; gap: 10px; }
+    .opt { grid-template-columns: 22px 1fr auto; padding: 12px; }
+    .opt > .ico { display: none; }
+    .opt__store { grid-column: 1 / -1; grid-template-columns: 1fr; }
+    .opt__store img { width: 100%; height: 110px; }
+    .kform { grid-template-columns: 1fr; }
+    .kben { grid-template-columns: 1fr; gap: 16px; }
+    .kben > div { border-left: 0; padding: 0 12px; }
+  }
+</style>
+</head>
+<body>
+<script>DAMI.mount("dark", "")</script>
+
+<main>
+  <section class="khero">
+    <img src="assets/gen/kosik-bg.webp" alt="">
+    <div class="wrap khero__in">
+      <div>
+        <nav class="crumbs" aria-label="Omrvinky"><a href="index.html">Domov</a><span>›</span><b>Košík a objednávka</b></nav>
+        <h1>Košík a objednávka</h1>
+        <p class="lead">Skontrolujte svoje produkty, vyberte spôsob doručenia a dokončite objednávku jednoducho a bezpečne.</p>
+      </div>
+      <ol class="steps" data-steps aria-label="Kroky objednávky"></ol>
+      <div data-script></div>
+    </div>
+  </section>
+
+  <div class="wrap kmain" data-main></div>
+  <div class="wrap"><div class="kben" data-ben></div></div>
+</main>
+
+<script>
+(() => {
+  const { P, ico, script, eur, esc, cart, setQty, cartTotal, cartCount, prodUrl, brandLabel, FIRM, store, FREE, catUrl } = DAMI;
+  const $ = s => document.querySelector(s);
+  const qs = new URLSearchParams(location.search);
+
+  /* demo: ?demo=1 naplní košík 3 produktmi (pre prezentáciu prototypu) */
+  if (qs.has("demo")) {
+    const demo = [["kucharsky-rondon-biely-c733-kratky-rukav-a-cvoky"], ["bezpecnostna-poltopanka-evo-icon-s3s"], ["nohavice-do-pasu-cxs-sirius-brighton"]]
+      .map(([id]) => P[id]).filter(Boolean)
+      .map(p => ({ id: p.id, size: p.sizes[Math.min(2, p.sizes.length - 1)] || "", color: p.colors[0]?.n || "", qty: 1 }));
+    store.set("dami-cart", demo);
+    history.replaceState(null, "", location.pathname);
+    DAMI.syncBadges();
+  }
+
+  $("[data-script]").outerHTML = script();
+  const tel = FIRM.phone.replace(/\s/g, "");
+  $("[data-ben]").innerHTML = [["refresh", "Jednoduché vrátenie tovaru", "Tovar môžete vrátiť do 14 dní bez udania dôvodu."],
+    ["headset", "Odborné poradenstvo", `Pomôžeme vám s výberom.<br><a href="tel:${tel}">${FIRM.phone}</a>`],
+    ["store", "Osobný odber v Piešťanoch", `Navštívte našu predajňu.<br>${FIRM.street}, ${FIRM.city}`],
+    ["shield", "Bezpečný nákup", "Vaše údaje sú chránené a platby sú bezpečné."]]
+    .map(([i, b, t]) => `<div>${ico(i)}<div><b>${b}</b><span>${t}</span></div></div>`).join("");
+
+  /* stav objednávky (per návštevník) */
+  const st = Object.assign({ step: 1, ship: "odber", pay: "odber", c: {} }, store.get("dami-order", {}));
+  const save = () => store.set("dami-order", { ship: st.ship, pay: st.pay, c: st.c });
+  const SHIP = {
+    odber: { ico: "store", t: "Osobný odber – Piešťany", d: "DAMI – Pracovné odevy a obuv", price: 0, store: true },
+    gls: { ico: "truck", t: "Kuriér GLS", d: "Doručenie na adresu", price: 3.9, eta: "2–3 pracovné dni" },
+    packeta: { ico: "box", t: "Kuriér Packeta", d: "Doručenie na výdajné miesto", price: 2.9, eta: "2–3 pracovné dni" },
+  };
+  const PAY = {
+    odber: { ico: "store", t: "Platba pri odbere v predajni", d: "Hotovosť alebo karta priamo v predajni.", only: "odber" },
+    dobierka: { ico: "truck", t: "Dobierka", d: "Zaplatíte kuriérovi pri prevzatí.", price: 1.5, not: "odber" },
+    prevod: { ico: "tag", t: "Bankový prevod", d: "Platobné údaje vám pošleme e-mailom." },
+  };
+  const shipPrice = k => (k !== "odber" && cartTotal() >= FREE) ? 0 : SHIP[k].price;
+  const payPrice = k => PAY[k].price || 0;
+  const payOk = k => !(PAY[k].only && PAY[k].only !== st.ship) && !(PAY[k].not && PAY[k].not === st.ship);
+  const total = () => cartTotal() + shipPrice(st.ship) + (st.step > 1 ? payPrice(st.pay) : 0);
+  const arrow = ico("arrow");
+  const STEPS = ["Košík", "Doprava a platba", "Kontaktné údaje", "Potvrdenie objednávky"];
+
+  function steps() {
+    $("[data-steps]").innerHTML = STEPS.map((s, i) => {
+      const n = i + 1, cls = n === st.step ? "is-on" : n < st.step ? "is-done" : "";
+      return `<li class="${cls}" ${n === st.step ? 'aria-current="step"' : ""}>${n < st.step && st.step < 4 ? `<button data-go="${n}">${s}</button>` : s}</li>`;
+    }).join("");
+  }
+
+  function summary(btnLabel, extra = "") {
+    const sub = cartTotal(), sp = shipPrice(st.ship), pp = st.step > 1 ? payPrice(st.pay) : 0, t = total();
+    return `<h2>Súhrn objednávky</h2>
+      ${st.step > 1 ? `<div class="kmini">${cart().map(l => `<div><img src="${P[l.id].img[0]}" alt=""><span>${l.qty}× ${esc(P[l.id].name)}</span><b>${eur(P[l.id].price * l.qty)}</b></div>`).join("")}</div>` : ""}
+      <div class="ksum">
+        <div><span>Medzisúčet (${cartCount()} ${cartCount() === 1 ? "produkt" : cartCount() < 5 ? "produkty" : "produktov"})</span><span>${eur(sub)}</span></div>
+        <div><span>Zľava</span><span>${eur(0)}</span></div>
+        <div><span>Doprava${st.step > 1 ? ` – ${SHIP[st.ship].t}` : ""}</span><span>${eur(sp)}</span></div>
+        ${pp ? `<div><span>Platba – ${PAY[st.pay].t}</span><span>${eur(pp)}</span></div>` : ""}
+        <div class="ksum__tot"><b>Celkom s DPH</b><span><strong>${eur(t)}</strong><small>Vrátane DPH ${eur(t - t / 1.23)}</small></span></div>
+      </div>
+      <button class="btn btn--red btn--next" data-next>${btnLabel} ${arrow}</button>
+      ${st.step > 1 ? `<button class="kback" data-go="${st.step - 1}">${ico("chevL")} Späť</button>` : `<a class="kback" href="${catUrl("gastro")}">${ico("chevL")} Pokračovať v nákupe</a>`}
+      ${extra}`;
+  }
+
+  function shipOpts() {
+    return `<div class="opts" role="radiogroup" aria-label="Spôsob doručenia">${Object.entries(SHIP).map(([k, s]) => {
+      const pr = shipPrice(k);
+      return `<label class="opt"><input type="radio" name="ship" value="${k}" ${st.ship === k ? "checked" : ""}>${ico(s.ico)}
+        <div><b>${s.t}</b>${s.store ? "" : `<p>${s.d}</p>`}</div>
+        <div class="opt__price ${pr === 0 ? "is-free" : ""}">${pr === 0 ? "ZADARMO" : eur(pr)}${s.eta ? `<small>${s.eta}</small>` : ""}</div>
+        ${s.store ? `<div class="opt__store"><p>${s.d}<br>${FIRM.street}, ${FIRM.city}<br>Po – Pi: 9:30 – 17:00, So: 9:00 – 12:00</p><img src="assets/img/predajna-exterier.webp" alt="Predajňa DAMI v Piešťanoch" loading="lazy"></div>` : ""}
+      </label>`; }).join("")}</div>
+      ${cartTotal() < FREE ? `<p style="font-size:12px;color:var(--muted);margin-top:10px">Pri nákupe nad ${eur(FREE)} je doprava kuriérom zadarmo. Chýba vám ${eur(FREE - cartTotal())}.</p>` : ""}`;
+  }
+
+  function stepCart() {
+    const c = cart();
+    return `<section class="kbox" aria-label="Produkty v košíku"><h2>Produkty v košíku (${cartCount()})</h2>
+      <table class="ktab"><thead><tr><th>Produkt</th><th style="text-align:center">Cena za kus</th><th style="text-align:center">Množstvo</th><th style="text-align:center">Spolu</th><th></th></tr></thead><tbody>
+      ${c.map((l, i) => { const p = P[l.id]; return `<tr>
+        <td><div class="kprod"><a class="kprod__img" href="${prodUrl(p.id)}"><img src="${p.img[0]}" alt="${esc(p.name)}"></a><div>
+          <div class="kprod__brand">${esc(brandLabel(p))}</div><div class="kprod__name"><a href="${prodUrl(p.id)}">${esc(p.name)}</a></div>
+          <div class="kprod__var">${l.color ? `<span>Farba: <b>${esc(l.color)}</b></span>` : ""}${l.size ? `<span>Veľkosť: <b>${esc(l.size)}</b></span>` : ""}</div>
+          <div class="kprod__stock">Dostupné na objednávku</div></div></div></td>
+        <td class="num num--unit">${eur(p.price)}</td>
+        <td style="text-align:center"><div class="kqty"><button data-q="${i}" data-d="-1" aria-label="Menej">−</button><span>${l.qty}</span><button data-q="${i}" data-d="1" aria-label="Viac">+</button></div></td>
+        <td class="num num--tot">${eur(p.price * l.qty)}</td>
+        <td class="rm"><button class="krm" data-q="${i}" data-d="rm" aria-label="Odstrániť">${ico("x")}</button></td></tr>`; }).join("")}
+      </tbody></table>
+      <div class="kcode"><b>${ico("tag")} Zľavový kód</b><form data-code><input placeholder="Zadajte zľavový kód" aria-label="Zľavový kód"><button>Použiť</button></form><span class="kcode__msg" data-code-msg role="alert"></span></div>
+    </section>
+    <aside class="kbox">${summary("Pokračovať v objednávke", `<hr class="ksep"><h2>Spôsoby doručenia</h2>${shipOpts()}`)}</aside>`;
+  }
+
+  function stepShip() {
+    if (!payOk(st.pay)) st.pay = st.ship === "odber" ? "odber" : "dobierka";
+    return `<section class="kbox"><h2>Spôsob doručenia</h2>${shipOpts()}<hr class="ksep"><h2>Spôsob platby</h2>
+      <div class="opts" role="radiogroup" aria-label="Spôsob platby">${Object.entries(PAY).filter(([k]) => payOk(k)).map(([k, p]) => `<label class="opt"><input type="radio" name="pay" value="${k}" ${st.pay === k ? "checked" : ""}>${ico(p.ico)}
+        <div><b>${p.t}</b><p>${p.d}</p></div><div class="opt__price ${p.price ? "" : "is-free"}">${p.price ? eur(p.price) : "ZADARMO"}</div></label>`).join("")}</div></section>
+      <aside class="kbox">${summary("Pokračovať na kontaktné údaje")}</aside>`;
+  }
+
+  function stepContact() {
+    const c = st.c, f = (n, l, t = "text", req = true, cls = "", ac = "") => `<div class="kf ${cls}" ${n === "firma" || n === "ico" ? "data-firm" : ""}><label for="k-${n}">${l}${req ? " *" : ""}</label><input id="k-${n}" name="${n}" type="${t}" value="${esc(c[n] || "")}" ${req ? "required" : ""} ${ac ? `autocomplete="${ac}"` : ""}><small>Vyplňte toto pole.</small></div>`;
+    const addr = st.ship !== "odber";
+    return `<section class="kbox"><h2>Kontaktné údaje</h2><form class="kform ${c.isFirm ? "is-firm" : ""}" data-contact novalidate>
+      ${f("meno", "Meno a priezvisko", "text", true, "", "name")}${f("tel", "Telefón", "tel", true, "", "tel")}${f("email", "E-mail", "email", true, "full", "email")}
+      ${addr ? f("ulica", st.ship === "packeta" ? "Adresa (pre výber výdajného miesta)" : "Ulica a číslo", "text", true, "full", "street-address") + f("mesto", "Mesto", "text", true, "", "address-level2") + f("psc", "PSČ", "text", true, "", "postal-code") : ""}
+      <label class="kchk full"><input type="checkbox" name="isFirm" ${c.isFirm ? "checked" : ""}> Nakupujem na firmu</label>
+      ${f("firma", "Názov firmy", "text", false)}${f("ico", "IČO", "text", false)}
+      <div class="kf full"><label for="k-pozn">Poznámka k objednávke</label><textarea id="k-pozn" name="pozn">${esc(c.pozn || "")}</textarea></div>
+    </form></section>
+    <aside class="kbox">${summary("Odoslať objednávku", `<p style="font-size:11.5px;color:var(--muted);margin-top:12px;line-height:1.5">Odoslaním súhlasíte s obchodnými podmienkami a spracovaním osobných údajov.</p>`)}</aside>`;
+  }
+
+  function stepDone() {
+    const no = st.no || "";
+    return `<section class="kbox kdone" style="grid-column:1/-1">${ico("checkC")}<span class="eyebrow">Objednávka prijatá</span>
+      <h2>Ďakujeme za objednávku!</h2>
+      <div class="kdone__no">Číslo objednávky: <b>${no}</b></div>
+      <p>${st.ship === "odber" ? `Keď bude objednávka pripravená na odber v predajni (${FIRM.street}, ${FIRM.city}), ozveme sa vám.` : "Potvrdenie sme poslali na váš e-mail. O odoslaní vás budeme informovať."} Otázky? Volajte <a href="tel:${tel}"><b>${FIRM.phone}</b></a>.</p>
+      <p class="kdone__note">Toto je prototyp nového e-shopu – objednávka sa v skutočnosti neodoslala.</p>
+      <a class="btn btn--red" href="index.html">Späť na hlavnú stránku ${arrow}</a></section>`;
+  }
+
+  function empty() {
+    return `<div class="kempty">${ico("cart")}<h2>Váš košík je prázdny</h2><p>Vyberte si z gastro, zdravotníckeho alebo pracovného oblečenia a obuvi. Alebo nás navštívte v predajni v Piešťanoch.</p>
+      <div class="kempty__cta"><a class="btn btn--red" href="${catUrl("gastro")}">Gastro a biele odevy ${arrow}</a><a class="btn btn--line" href="${catUrl("pracovne")}">Pracovné odevy</a><a class="btn btn--line" href="zdravotnictvo.html">Zdravotníctvo</a></div></div>`;
+  }
+
+  function render() {
+    steps();
+    const m = $("[data-main]");
+    if (st.step < 4 && !cart().length) { st.step = 1; steps(); m.innerHTML = empty(); return; }
+    m.innerHTML = [, stepCart, stepShip, stepContact, stepDone][st.step]();
+  }
+  function go(n) { st.step = n; render(); scrollTo({ top: 0, behavior: "smooth" }); }
+
+  function validContact() {
+    const form = $("[data-contact]"); let first;
+    form.querySelectorAll("[required]").forEach(i => {
+      const v = i.value.trim();
+      const ok = i.type === "email" ? /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v) : i.type === "tel" ? v.replace(/\D/g, "").length >= 9 : i.name === "psc" ? /^\d{3}\s?\d{2}$/.test(v) : v.length > 1;
+      i.closest(".kf").classList.toggle("is-err", !ok); if (!ok && !first) first = i;
+    });
+    if (first) first.focus();
+    return !first;
+  }
+  function readContact() {
+    const form = $("[data-contact]"); if (!form) return;
+    const d = Object.fromEntries(new FormData(form)); d.isFirm = !!d.isFirm; st.c = d; save();
+  }
+
+  document.addEventListener("click", e => {
+    const g = e.target.closest("[data-go]"); if (g) { readContact(); return go(+g.dataset.go); }
+    if (!e.target.closest("[data-next]")) return;
+    if (st.step === 3) { readContact(); if (!validContact()) return; st.no = "DM" + new Date().toISOString().slice(2, 10).replace(/-/g, "") + String(Math.floor(Math.random() * 900 + 100)); store.set("dami-cart", []); DAMI.syncBadges(); }
+    go(st.step + 1);
+  });
+  document.addEventListener("change", e => {
+    if (e.target.name === "ship") { st.ship = e.target.value; save(); render(); }
+    if (e.target.name === "pay") { st.pay = e.target.value; save(); render(); }
+    if (e.target.name === "isFirm") e.target.closest("form").classList.toggle("is-firm", e.target.checked);
+  });
+  document.addEventListener("submit", e => {
+    if (!e.target.matches("[data-code]")) return;
+    e.preventDefault(); const v = e.target.querySelector("input").value.trim(), m = $("[data-code-msg]");
+    m.textContent = v ? `Kód „${v}“ nie je platný alebo mu vypršala platnosť.` : "Zadajte zľavový kód."; m.classList.add("is-on");
+  });
+  document.addEventListener("dami:cart", () => { if (st.step < 4) render(); });
+  render();
+})();
+</script>
+<script>DAMI.mountFooter()</script>
+</body>
+</html>
