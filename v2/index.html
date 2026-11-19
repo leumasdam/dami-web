@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="sk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DAMI pracovné odevy – oblečenie, čo maká | Piešťany</title>
+<meta name="description" content="Gastro, zdravotnícke a pracovné odevy, obuv a doplnky. E-shop aj predajňa na Gaštanovej 6396 v Piešťanoch.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Figtree:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/dami.css">
+<link rel="stylesheet" href="css/dami2.css">
+<link rel="stylesheet" href="css/home.css">
+<script src="../data/catalog.js"></script>
+<script src="js/dami.js"></script>
+</head>
+<body>
+<script>DAMI.mount("light", "")</script>
+
+<main>
+  <!-- HERO: carousel + dve akčné dlaždice -->
+  <section class="wrap hero2">
+    <div class="car" data-car aria-roledescription="carousel" aria-label="Ponuky">
+      <div class="car__track" data-track></div>
+      <button class="car__arr car__arr--l" data-prev aria-label="Predchádzajúca ponuka"></button>
+      <button class="car__arr car__arr--r" data-next aria-label="Ďalšia ponuka"></button>
+      <div class="car__dots" data-dots role="tablist" aria-label="Ponuky"></div>
+    </div>
+    <div class="hero2__side">
+      <a class="promo promo--dark pat--dark" href="kategoria.html?c=gastro&b=Giblors">
+        <span class="label">Akcia</span>
+        <h2>Giblors<br>až <em>−14 %</em></h2>
+        <p>Nohavice PLUTONE za 16,90 €</p>
+        <span class="link">Pozrieť akcie <svg viewBox="0 0 24 24"><path d="M4 12h15M13 6l6 6-6 6"/></svg></span>
+        <img src="img/trousers.webp" alt="" width="700" height="1055">
+      </a>
+      <a class="promo promo--ticket" href="predajna.html">
+        <div>
+          <span class="eyebrow">Predajňa Piešťany</span>
+          <h2>Odložíme ti tovar z e-shopu.</h2>
+          <span class="link link--red">Ako to funguje <svg viewBox="0 0 24 24"><path d="M4 12h15M13 6l6 6-6 6"/></svg></span>
+        </div>
+        <span class="stamp" aria-hidden="true"><img src="img/hand-red.png" alt=""></span>
+      </a>
+    </div>
+  </section>
+
+  <!-- KATEGÓRIE s ponukami -->
+  <section class="wrap sec--tight">
+    <div class="cats" data-cats></div>
+  </section>
+
+  <!-- NAJPREDÁVANEJŠIE -->
+  <section class="wrap sec">
+    <div class="sec__hd"><h2>Najpredávanejšie</h2><a class="link" href="kategoria.html?c=all">Všetky produkty <svg viewBox="0 0 24 24"><path d="M4 12h15M13 6l6 6-6 6"/></svg></a></div>
+    <div class="pgrid pgrid--4" data-best></div>
+  </section>
+
+  <!-- VLASTNÁ VÝROBA -->
+  <section class="wrap">
+    <a class="made pat" href="vyroba.html">
+      <div class="made__txt">
+        <span class="label label--white">Vlastná výroba</span>
+        <h2>Kuchárske nohavice a zástery šijeme sami.</h2>
+        <p>Kvalitné materiály, poctivé šitie, strih pre celú smenu.</p>
+        <span class="btn btn--white">Viac o výrobe <svg class="ico" viewBox="0 0 24 24"><path d="M4 12h15M13 6l6 6-6 6"/></svg></span>
+      </div>
+      <img class="made__patch" src="img/d-patch.webp" alt="" width="700" height="704" loading="lazy">
+    </a>
+  </section>
+
+  <!-- MENŠIE PONUKY -->
+  <section class="wrap sec">
+    <div class="tiles3">
+      <a class="t3 t3--red" href="produkt.html?p=obuv-nazouvak-cxs-trend-unisex">
+        <span class="label label--white">Obuv</span><h3>Nazúvaky CXS TREND za 9,90 €</h3><p>Dámske, pánske aj unisex</p>
+        <img src="img/tile-nazuvaky.webp" alt="" loading="lazy"></a>
+      <a class="t3 t3--paper" href="produkt.html?p=teesta-tricko-unisex">
+        <span class="label">Gastro</span><h3>Tričká do kuchyne od <span class="ring">4,50 €</span></h3><p>TEESTA a DANIEL · veľkosti až 7XL</p>
+        <img src="img/tile-tricka.webp" alt="" loading="lazy"></a>
+      <a class="t3 t3--card" href="predajna.html">
+        <h3>Nevieš veľkosť?</h3><p>Rezervuj si ju online a vyskúšaj v predajni.</p><span class="btn btn--line btn--sm btn--pill">Rezervovať na vyskúšanie</span>
+        <img src="img/tile-velkost.webp" alt="" loading="lazy"></a>
+    </div>
+  </section>
+
+  <!-- PREDAJŇA -->
+  <section class="wrap">
+    <div class="store">
+      <div class="store__ph photo"><img src="../assets/img/predajna-exterier.webp" alt="Predajňa DAMI pracovné odevy a obuv na Gaštanovej v Piešťanoch" loading="lazy"></div>
+      <div class="store__txt">
+        <h2>Predajňa Piešťany</h2>
+        <div class="infos" data-infos></div>
+        <a class="btn btn--redline" data-map target="_blank" rel="noopener"><svg class="ico" viewBox="0 0 24 24"><path d="M12 21s-6.5-6-6.5-11.2A6.5 6.5 0 0 1 12 3.3a6.5 6.5 0 0 1 6.5 6.5C18.5 15 12 21 12 21z"/><circle cx="12" cy="9.8" r="2.4"/></svg> Zobraziť na mape</a>
+      </div>
+      <img class="store__stk" src="img/stk-oblecenie.webp" alt="" width="420" height="424" loading="lazy">
+    </div>
+  </section>
+
+  <!-- PRE FIRMY -->
+  <section class="wrap sec">
+    <a class="firm" href="pre-firmy.html">
+      <div class="firm__txt"><h2>Pre firmy</h2><p>Vybavíme celý tím, aj s logom.</p><span class="btn btn--red btn--sm">Napísať nám <svg class="ico" viewBox="0 0 24 24"><path d="M4 12h15M13 6l6 6-6 6"/></svg></span></div>
+      <div class="firm__ph"><img src="img/foto-tim.webp" onerror="this.src='../assets/gen/home-firmy-box.webp'" alt="Kuchár, zdravotná sestra a pracovníci v pracovnom oblečení" loading="lazy"></div>
+    </a>
+  </section>
+
+  <section class="wrap"><div class="brands__strip" data-brands aria-label="Naše značky"></div></section>
+</main>
+
+<script>
+(() => {
+  const { P, card, ico, FIRM, esc, catUrl, secProducts } = DAMI;
+  const $ = s => document.querySelector(s);
+  const ARR = '<svg viewBox="0 0 24 24"><path d="M4 12h15M13 6l6 6-6 6"/></svg>';
+  const btn = (cls, href, t) => `<a class="btn ${cls}" href="${href}">${t} ${ARR.replace("<svg", '<svg class="ico"')}</a>`;
+
+  /* ---------- slidy carouselu: obrázok je vrstva bez textu, text je v kóde ---------- */
+  const SLIDES = [
+    { k: "gastro", theme: "red", img: "img/ban-gastro.webp", label: "Gastro a biele odevy", h: "Rondon, ktorý zvládne celú smenu.",
+      line: "CHEFLINE rondon krátky rukáv od 19,90 €", cta: btn("btn--white", catUrl("gastro"), "Nakupovať gastro"), cta2: `<a class="btn btn--ghost" href="predajna.html">Predajňa v Piešťanoch</a>`,
+      stk: `<span class="stk stk--round" style="right:30%;top:10%">Giblors až<b>−14 %</b></span>` },
+    { k: "zdrav", theme: "light", img: "img/ban-zdrav.webp", label: "Zdravotníctvo a wellness", h: "Pohodlne celú zmenu.",
+      line: "CESARE blúza + nohavice za <b>29,80 €</b>", cta: btn("btn--red", "zdravotnictvo.html", "Nakupovať"), cta2: `<a class="link" href="${catUrl("zdrav-bluzy")}">Všetky blúzy</a>`,
+      stk: `<img class="stk" src="img/stk-oblecenie.webp" alt="" style="right:40%;top:6%">` },
+    { k: "pracovne", theme: "dark", img: "img/ban-pracovne.webp", label: "Pracovné odevy", h: "Od kuchyne až po <em>stavbu.</em>",
+      line: "Tričká od 4,50 € · softshell, reflexné a zimné bundy", cta: btn("btn--red", catUrl("pracovne"), "Nakupovať") },
+    { k: "obuv", theme: "red", img: "img/ban-obuv.webp", label: "Pracovná a zdravotná obuv", h: "Istota v každom kroku.",
+      line: "Triedy S1, S1P, S3, O1, O2 · nazúvaky CXS TREND od 9,90 €", cta: btn("btn--white", catUrl("obuv"), "Vybrať obuv"),
+      stk: `<span class="stk stk--round stk--ink" style="right:4%;top:10%">Vyskúšaj<br>v predajni</span>` },
+    { k: "firmy", theme: "light", img: "img/ban-firmy.webp", label: "Pre firmy", h: "Vybavíme celý tím. <em>Aj s logom.</em>",
+      line: "Reštaurácie, ambulancie, stavebné firmy a dielne z okolia", cta: btn("btn--red", "pre-firmy.html", "Napísať dopyt") },
+    { k: "predajna", theme: "red store", img: "", label: "Predajňa Piešťany", h: "Nájdeš nás na Gaštanovej.",
+      line: `${FIRM.street} · Po – Pi 9:30 – 17:00 · So 9:00 – 12:00`, cta: `<a class="btn btn--white" href="${FIRM.map}" target="_blank" rel="noopener">Navigovať ${ARR.replace("<svg", '<svg class="ico"')}</a>`,
+      art: `<div class="slide__store"><div class="frame"><img src="../assets/img/predajna-exterier.webp" alt="Budova predajne DAMI v Piešťanoch"></div>
+        <div class="ticket"><b>Odložíme ti tovar z e-shopu.</b><img src="img/hand-red.png" alt=""></div></div>` },
+  ];
+  $("[data-track]").innerHTML = SLIDES.map((s, i) => `<div class="slide slide--${s.theme.split(" ").join(" slide--")} ${s.theme.includes("red") ? "pat" : ""} ${s.theme === "dark" ? "pat--dark" : ""}" role="group" aria-roledescription="slide" aria-label="${i + 1} zo ${SLIDES.length}">
+      ${s.img ? `<img class="slide__bg" src="${s.img}" alt="" ${i ? 'loading="lazy"' : 'fetchpriority="high"'}>` : `<img class="slide__hand" src="img/hand-white.png" alt="">`}
+      ${s.art || ""}${s.stk || ""}
+      <div class="slide__txt"><span class="label ${s.theme.includes("red") ? "label--white" : ""}">${s.label}</span>
+        <${i ? "h2" : "h1"} class="slide__h">${s.h}</${i ? "h2" : "h1"}><p class="slide__line">${s.line}</p>
+        <div class="slide__cta">${s.cta}${s.cta2 || ""}</div></div></div>`).join("");
+
+  const car = $("[data-car]"), track = $("[data-track]"), dots = $("[data-dots]");
+  dots.innerHTML = SLIDES.map((s, i) => `<button role="tab" aria-label="${esc(s.label)}"></button>`).join("");
+  $("[data-prev]").innerHTML = ico("chevL"); $("[data-next]").innerHTML = ico("chevR");
+  let cur = 0, timer;
+  const reduce = /[?&]static/.test(location.search) || matchMedia("(prefers-reduced-motion: reduce)").matches;
+  function go(i) {
+    cur = (i + SLIDES.length) % SLIDES.length;
+    track.style.transform = `translateX(${-100 * cur}%)`;
+    [...dots.children].forEach((d, j) => d.setAttribute("aria-selected", j === cur));
+    [...track.children].forEach((s, j) => s.toggleAttribute("inert", j !== cur));
+  }
+  const play = () => { if (reduce) return; clearInterval(timer); timer = setInterval(() => go(cur + 1), 6500); };
+  $("[data-prev]").onclick = () => { go(cur - 1); play(); };
+  $("[data-next]").onclick = () => { go(cur + 1); play(); };
+  dots.onclick = e => { const b = e.target.closest("button"); if (b) { go([...dots.children].indexOf(b)); play(); } };
+  car.addEventListener("mouseenter", () => clearInterval(timer));
+  car.addEventListener("mouseleave", play);
+  let x0 = null;
+  car.addEventListener("touchstart", e => { x0 = e.touches[0].clientX; clearInterval(timer); }, { passive: true });
+  car.addEventListener("touchend", e => { if (x0 == null) return; const dx = e.changedTouches[0].clientX - x0; x0 = null; if (Math.abs(dx) > 40) go(cur + (dx < 0 ? 1 : -1)); play(); });
+  go(0); play();
+
+  /* ---------- kategórie s ponukou ---------- */
+  const CATS = [
+    ["Gastro", catUrl("gastro"), "img/cat-gastro.webp", "rondony od 19,90 €"],
+    ["Zdravotníctvo", "zdravotnictvo.html", "img/cat-zdrav.webp", "set 29,80 €"],
+    ["Pracovné odevy", catUrl("pracovne"), "img/cat-pracovne.webp", "tričká od 4,50 €"],
+    ["Obuv", catUrl("obuv"), "img/cat-obuv.webp", "nazúvaky 9,90 €"],
+    ["Doplnky", catUrl("doplnky"), "img/cat-doplnky.webp", "rukavice od 0,90 €"],
+  ];
+  $("[data-cats]").innerHTML = CATS.map(([t, href, img, offer], i) => `<a class="catc rv" data-d="${i * 50}" href="${href}">
+      <img src="${img}" alt="" loading="lazy">
+      <span class="catc__offer">${offer}</span><b>${t}</b><span class="catc__go">${ico("arrow")}</span></a>`).join("");
+
+  /* ---------- najpredávanejšie ---------- */
+  const best = ["chefline-rondon-kratky-rukav-cierny-cvoky", "kucharske-nohavice-plutone-giblors", "cesare-zdrav-noh-belasa", "slapky-ardon-rjuno-white",
+    "tunika-eros-giblors", "teesta-tricko-unisex", "obuv-nazouvak-cxs-trend-unisex", "zastera-na-krk-cierna-dlha"];
+  $("[data-best]").innerHTML = best.filter(id => P[id]).map(id => card(P[id], { add: true, compact: true })).join("");
+
+  /* ---------- predajňa, značky ---------- */
+  $("[data-infos]").innerHTML = `<div>${ico("pin")}<span>${FIRM.street}, Piešťany</span></div><div>${ico("clock")}<span>Po – Pi 9:30 – 17:00 · So 9:00 – 12:00</span></div>
+    <div>${ico("phone")}<a href="tel:${FIRM.phone.replace(/\s/g, "")}"><b>${FIRM.phone}</b></a></div>`;
+  $("[data-map]").href = FIRM.map;
+  const CLS = { CXS: "cxs", ARDON: "ardon", Giblors: "giblors", CHEFLINE: "chefline", CESARE: "cesare" };
+  $("[data-brands]").innerHTML = Object.keys(CLS).map(b => `<a href="znacky.html?b=${encodeURIComponent(b)}" aria-label="${b}"><span class="wm wm--${CLS[b]}">${b === "CHEFLINE" ? "CHEF<b>LINE</b>" : b}</span></a>`).join("");
+})();
+</script>
+<script>DAMI.mountFooter()</script>
+</body>
+</html>

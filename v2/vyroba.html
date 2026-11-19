@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="sk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vlastná výroba záster a kuchárskych nohavíc | DAMI Piešťany</title>
+<meta name="description" content="DAMI je rodinný obchod v Piešťanoch. Okrem značkového oblečenia si časť sortimentu šijeme sami: kuchárske zástery a nohavice.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Figtree:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/dami.css">
+<link rel="stylesheet" href="css/dami2.css">
+<script src="../data/catalog.js"></script>
+<script src="js/dami.js"></script>
+<style>
+  .vhero { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr); gap: clamp(20px, 3vw, 48px); align-items: center; padding-top: 28px; }
+  .vhero h1 { font-size: clamp(44px, 5.4vw, 84px); }
+  .vhero .lead { margin-top: 18px; color: var(--muted); font-size: 18px; max-width: 30em; }
+  .vhero .photo { aspect-ratio: 16 / 10; }
+  .steps3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+  .step { position: relative; aspect-ratio: 4 / 3; border-radius: var(--r); overflow: hidden; color: #fff; display: flex; align-items: flex-end; padding: 18px; isolation: isolate; }
+  .step img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: -2; }
+  .step::before { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(0deg, rgba(0,0,0,.6), transparent 55%); }
+  .step b { font: 900 clamp(26px, 2.6vw, 40px)/.95 var(--f-d); font-stretch: 70%; }
+  .step span { position: absolute; top: 14px; left: 16px; font: 800 13px/1 var(--f); background: #fff; color: var(--ink); padding: 6px 9px; border-radius: 6px; }
+  .cta { position: relative; overflow: hidden; background-color: var(--red); color: #fff; border-radius: var(--r); padding: clamp(28px, 4vw, 56px); display: grid; gap: 18px; justify-items: start; isolation: isolate; }
+  .cta h2 { font-size: clamp(34px, 4vw, 60px); max-width: 12em; }
+  .cta img { position: absolute; right: -2%; bottom: -30%; height: 150%; width: auto; z-index: -1; transform: rotate(-10deg); }
+  .note { color: var(--muted); font-size: 14px; max-width: 60ch; }
+  @media (max-width: 760px) {
+    .vhero { grid-template-columns: minmax(0, 1fr); padding-top: 16px; }
+    .steps3 { grid-template-columns: minmax(0, 1fr); }
+    .step { aspect-ratio: 16 / 9; }
+    .cta img { height: 90%; bottom: -16%; opacity: .5; }
+  }
+</style>
+</head>
+<body>
+<script>DAMI.mount("light", "")</script>
+<main>
+  <section class="wrap vhero">
+    <div>
+      <nav class="crumbs" aria-label="Omrvinky" style="color:var(--muted);margin-bottom:16px"><a href="index.html">Domov</a><span>›</span><b>Vlastná výroba</b></nav>
+      <h1><span class="mk">Šijeme</span> kuchárske nohavice a zástery.</h1>
+      <p class="lead">DAMI je rodinný obchod v Piešťanoch. Okrem značkového oblečenia si časť sortimentu šijeme sami, aby vydržala celú smenu v kuchyni.</p>
+    </div>
+    <div class="photo"><img src="img/vyroba-hero.webp" alt="Šitie čiernej látky na priemyselnom šijacom stroji" fetchpriority="high"></div>
+  </section>
+
+  <section class="wrap sec">
+    <div class="steps3">
+      <div class="step rv"><img src="img/foto-latka.webp" alt="" loading="lazy"><span>01</span><b>Látka</b></div>
+      <div class="step rv" data-d="60"><img src="img/foto-strih.webp" alt="" loading="lazy"><span>02</span><b>Strih</b></div>
+      <div class="step rv" data-d="120"><img src="img/foto-hotovy.webp" alt="" loading="lazy"><span>03</span><b>Hotový kus</b></div>
+    </div>
+  </section>
+
+  <section class="wrap sec" style="padding-top:0">
+    <div class="sec__hd"><h2>Zástery z našej dielne</h2><a class="link" href="kategoria.html?c=zastery-a-plaste">Všetky zástery <svg viewBox="0 0 24 24"><path d="M4 12h15M13 6l6 6-6 6"/></svg></a></div>
+    <div class="pgrid" data-own style="grid-template-columns:repeat(auto-fill,minmax(min(100%,230px),1fr))"></div>
+  </section>
+
+  <section class="wrap" style="padding-bottom:clamp(36px,4.5vw,64px)">
+    <div class="cta pat">
+      <span class="label label--white">Na mieru</span>
+      <h2>Potrebujete inú dĺžku alebo farbu? Ozvite sa.</h2>
+      <a class="btn btn--white" data-tel>Zavolať 0902 482 244</a>
+      <img src="img/hand-white.png" alt="">
+    </div>
+  </section>
+</main>
+<script>
+(() => {
+  const { P, card, FIRM } = DAMI;
+  const own = ["zastera-na-krk-cierna-dlha", "zastera-na-krk-pepito-dlha", "zastera-do-pasa-cierna-kratka-s-vreckom", "zastera-do-pasa-biela-siroka", "zastera-na-krk-biela-dlha"];
+  document.querySelector("[data-own]").innerHTML = own.filter(id => P[id]).map(id => card(P[id], { add: true })).join("");
+  const t = document.querySelector("[data-tel]"); t.href = "tel:" + FIRM.phone.replace(/\s/g, "");
+})();
+</script>
+<script>DAMI.mountFooter()</script>
+</body>
+</html>
