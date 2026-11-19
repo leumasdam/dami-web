@@ -1,0 +1,91 @@
+/* DAMI v2 — predajňa (návrh predajna-desktop / predajna-mobil) */
+.pr-hero { grid-template-columns: minmax(0, 470fr) minmax(0, 767fr); gap: calc(26 * var(--u)); padding-top: max(14px, calc(14 * var(--u))); }
+.pr-hero .hx { font-size: max(44px, calc(120 * var(--u))); line-height: .9; }
+.pr-hero .mk::after { bottom: -.1em; height: .17em; }
+.pr-hero .txt { font-size: max(16px, calc(25 * var(--u))); max-width: 19.5em; }
+.pr-hero .sh__ph { aspect-ratio: 767 / 470; }
+.pr-hero .sh__ph img { object-position: 50% 60%; }
+
+/* adresa + mapa */
+.pr-vis { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: max(16px, calc(25 * var(--u))); padding-top: max(24px, calc(38 * var(--u))); align-items: stretch; }
+.pr-info { background: #f5f3ef; border-radius: var(--r); box-shadow: 0 1px 0 rgba(20,20,20,.03), 0 10px 30px rgba(20,20,20,.04); padding: max(18px, calc(26 * var(--u))) max(18px, calc(28 * var(--u))); display: grid; gap: max(12px, calc(18 * var(--u))); align-content: start; }
+.pr-row { display: grid; grid-template-columns: max(30px, calc(46 * var(--u))) minmax(0, 1fr); gap: max(12px, calc(20 * var(--u))); align-items: start; font-size: max(16px, calc(24 * var(--u))); line-height: 1.38; }
+.pr-row > .ico { width: max(26px, calc(38 * var(--u))); height: max(26px, calc(38 * var(--u))); color: var(--red); stroke-width: 1.7; margin-top: .05em; }
+.pr-row a:hover { color: var(--red); }
+.pr-row--addr { align-items: center; }
+.pr-row--addr h2 { font: 800 max(20px, calc(31 * var(--u)))/1.1 var(--f-d); font-stretch: 84%; letter-spacing: -.005em; }
+.pr-row--addr h2 span { white-space: nowrap; }
+.pr-hours { border-collapse: collapse; width: 100%; max-width: calc(440 * var(--u)); }
+.pr-hours th, .pr-hours td { text-align: left; font-weight: 500; padding: max(5px, calc(7 * var(--u))) 0; border-bottom: 1.5px solid #d9d4cd; }
+.pr-hours th { padding-right: 1em; }
+.pr-hours tr:first-child th, .pr-hours tr:first-child td { padding-top: 0; }
+.pr-hours-m { display: none; }
+.pr-tel { display: grid; }
+.pr-btns { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: max(12px, calc(24 * var(--u))); margin-top: max(4px, calc(10 * var(--u))); }
+.pr-btns .bx { height: max(48px, calc(66 * var(--u))); font-size: max(17px, calc(29 * var(--u))); }
+.pr-btns .ico { width: 1em; height: 1em; stroke-width: 2; }
+
+.pr-map { position: relative; display: block; overflow: hidden; border-radius: var(--r); background: #ecebe7; min-height: max(260px, calc(300 * var(--u))); box-shadow: inset 0 0 0 1px rgba(20,20,20,.05); }
+.pr-map__svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.pr-pin { position: absolute; left: 47%; top: 50%; width: max(46px, calc(70 * var(--u))); translate: -50% -100%; filter: drop-shadow(0 8px 10px rgba(0,0,0,.22)); transition: transform .35s var(--ease); }
+.pr-pin svg { display: block; width: 100%; }
+.pr-pin img { position: absolute; left: 50%; top: 38%; width: 46%; translate: -50% -50%; rotate: -6deg; }
+.pr-pin::after { content: ""; position: absolute; left: 50%; bottom: -6%; width: 44%; height: 12%; translate: -50% 0; border-radius: 50%; background: rgba(0,0,0,.18); filter: blur(2px); z-index: -1; }
+.pr-map:hover .pr-pin { transform: translateY(-6px); }
+.pr-map__chip { position: absolute; left: max(14px, calc(22 * var(--u))); bottom: max(14px, calc(22 * var(--u))); display: inline-flex; align-items: center; gap: 8px; background: #fff; border-radius: 999px; padding: .65em 1.1em; font-weight: 700; font-size: max(13.5px, calc(17 * var(--u))); box-shadow: 0 6px 18px rgba(20,20,20,.12); transition: background .2s, color .2s; }
+.pr-map__chip svg { width: 1.1em; height: 1.1em; fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+.pr-map:hover .pr-map__chip { background: var(--ink); color: #fff; }
+
+/* v predajni nájdete */
+.pr-in { padding-top: max(36px, calc(64 * var(--u))); padding-bottom: 0; }
+.pr-in h2 { margin-bottom: max(18px, calc(34 * var(--u))); }
+.pr-ph { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: max(10px, calc(18 * var(--u))); }
+.pr-ph figure { margin: 0; aspect-ratio: 4 / 3; }
+.pr-ph img { transition: transform .8s var(--ease); }
+.pr-ph figure:hover img { transform: scale(1.04); }
+
+/* tri body */
+.pr-pts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); padding-top: max(32px, calc(60 * var(--u))); padding-bottom: max(44px, calc(76 * var(--u))); }
+.pr-pt { display: grid; grid-template-columns: max(48px, calc(74 * var(--u))) minmax(0, 1fr); gap: max(12px, calc(18 * var(--u))); padding: max(4px, calc(8 * var(--u))) max(16px, calc(34 * var(--u))); border-left: 1.5px solid #d9d4cd; }
+.pr-pt:first-child { border-left: 0; padding-left: 0; }
+.pr-pt > .ico { width: 100%; height: auto; aspect-ratio: 1; color: var(--red); stroke-width: 1.4; }
+.pr-pt h3 { text-wrap: balance; font-size: max(24px, calc(33 * var(--u))); margin: max(4px, calc(10 * var(--u))) 0 max(8px, calc(12 * var(--u))); }
+.pr-pt p { font-size: max(15px, calc(21 * var(--u))); line-height: 1.4; color: #2e2b29; max-width: 18em; }
+
+@media (max-width: 1100px) {
+  .pr-vis { grid-template-columns: minmax(0, 1fr); }
+  .pr-map { min-height: 320px; }
+  .pr-pts { grid-template-columns: minmax(0, 1fr); gap: 22px; }
+  .pr-pt, .pr-pt:first-child { border-left: 0; padding: 0; }
+}
+@media (max-width: 860px) {
+  .pr-hero { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 640px) {
+  .pr-hero .hx { font-size: clamp(44px, 16.2vw, 72px); line-height: .9; }
+  .pr-hero .mk::after { height: .14em; }
+  .pr-hero .sh__ph { aspect-ratio: 1.72; }
+  .pr-hero .txt { display: none; }
+  .pr-vis { padding-top: 18px; gap: 16px; }
+  .pr-info { background: none; box-shadow: none; padding: 0; gap: 9px; }
+  .pr-row { grid-template-columns: 30px minmax(0, 1fr); gap: 14px; font-size: 16px; align-items: center; line-height: 1.3; }
+  .pr-row > .ico { width: 26px; height: 26px; margin: 0; }
+  .pr-row--addr h2 { font: 500 16.5px/1.3 var(--f); }
+  .pr-row--addr h2 span { display: none; }
+  .pr-row--addr h2::after { content: "Piešťany"; }
+  .pr-hours { display: none; }
+  .pr-hours-m { display: block; }
+  .pr-tel { display: flex; gap: 0 14px; flex-wrap: wrap; }
+  .pr-btns { grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 8px; }
+  .pr-btns .bx { height: 48px; font-size: 20px; padding: 0 12px; }
+  .pr-map { min-height: 0; aspect-ratio: 2.4; }
+  .pr-map__chip { font-size: 12.5px; left: 10px; bottom: 10px; }
+  .pr-pin { width: 40px; }
+  .pr-in { padding-top: 34px; }
+  .pr-ph { grid-template-columns: 1fr 1fr; gap: 8px; }
+  .pr-ph figure:first-child { grid-column: 1 / -1; aspect-ratio: 16 / 10; }
+  .pr-pts { padding-top: 30px; padding-bottom: 40px; gap: 20px; }
+  .pr-pt { grid-template-columns: 44px minmax(0, 1fr); gap: 14px; }
+  .pr-pt h3 { font-size: 24px; margin-top: 2px; }
+  .pr-pt p { font-size: 15px; }
+}

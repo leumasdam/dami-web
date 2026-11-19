@@ -3,259 +3,112 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Pre firmy – pracovné oblečenie pre celé tímy | DAMI Piešťany</title>
-<meta name="description" content="Kompletné pracovné oblečenie, obuv a doplnky pre firmy, inštitúcie a organizácie. Logo, výšivka a potlač, individuálne ceny a osobná konzultácia.">
+<title>Pre firmy – pracovné oblečenie pre celý tím aj s logom | DAMI Piešťany</title>
+<meta name="description" content="Vybavíme celý tím, aj s logom. Pracovné, gastro a zdravotnícke oblečenie pre reštaurácie, ambulancie, stavebné firmy a dielne z Piešťan a okolia. Nákup na faktúru pre firmy s IČO.">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Figtree:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../assets/css/dami.css">
 <link rel="stylesheet" href="css/dami2.css">
+<link rel="stylesheet" href="css/sub.css">
+<link rel="stylesheet" href="css/firmy.css">
 <script src="../data/catalog.js"></script>
 <script src="js/dami.js"></script>
-<style>
-  /* HERO */
-  .fhero .phero__img { width: 72%; }
-  .fhero .phero__img img { object-position: 50% 22%; }
-  .fhero .phero__img::after { background: linear-gradient(90deg, #0b0b0c 0%, rgba(11,11,12,.8) 18%, rgba(11,11,12,.15) 48%, rgba(11,11,12,0) 100%); }
-  .fhero .phero__in { min-height: 290px; }
-  .fhero h1 { font-size: clamp(36px, 3.6vw, 52px); line-height: .98; max-width: 520px; }
-  .fhero .lead { max-width: 430px; }
-  .fhero .script { top: auto; bottom: 26px; translate: none; right: calc(var(--gut) - 6px); font-size: clamp(22px, 2vw, 30px); }
-
-  /* BENEFITY */
-  .perks { background: #fff; border-bottom: 1px solid var(--line); }
-  .perks__in { display: grid; grid-template-columns: repeat(5, 1fr); }
-  .perk { display: grid; grid-template-columns: 50px 1fr; gap: 14px; padding: 26px 22px 24px; border-left: 1px solid var(--line); }
-  .perk:first-child { border-left: 0; padding-left: 0; }
-  .perk .ico { width: 44px; height: 44px; color: var(--red); stroke-width: 1.5; }
-  .perk h3 { font-size: 16px; letter-spacing: -.02em; margin: 2px 0 7px; }
-  .perk p { font-size: 12.5px; line-height: 1.45; color: var(--muted); }
-
-  /* SEGMENTY */
-  .segs { padding: 22px 0 0; }
-  .segs__grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; }
-  .seg { position: relative; overflow: hidden; border-radius: 3px; min-height: 184px; color: #fff; display: flex; flex-direction: column; justify-content: flex-end; padding: 16px 58px 16px 16px; isolation: isolate; background: #111; }
-  .seg img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: -2; transition: transform .7s var(--ease); }
-  .seg::before { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(0deg, rgba(0,0,0,.88) 0%, rgba(0,0,0,.45) 42%, rgba(0,0,0,0) 70%); }
-  .seg h3 { font-size: clamp(17px, 1.3vw, 19px); line-height: 1.08; letter-spacing: -.025em; }
-  .seg p { font-size: 11.5px; line-height: 1.35; margin-top: 6px; opacity: .9; }
-  .seg .circ { position: absolute; right: 14px; bottom: 16px; }
-  .seg:hover img { transform: scale(1.05); }
-  .seg:hover .circ { background: var(--red); border-color: var(--red); }
-
-  /* PROCES */
-  .proc { padding: 30px 0 26px; }
-  .proc__in { display: grid; grid-template-columns: 210px repeat(4, 1fr); align-items: start; }
-  .proc h2 { font-size: clamp(26px, 2.1vw, 30px); line-height: 1.02; }
-  .proc h2::after { content: ""; display: block; width: 62px; height: 3px; background: var(--red); margin-top: 12px; border-radius: 2px; }
-  .step { display: grid; grid-template-columns: auto 1fr; gap: 6px 16px; padding: 0 20px; border-left: 1px solid var(--line); }
-  .step:nth-child(2) { border-left: 0; }
-  .step__n { grid-row: span 2; font-size: 70px; font-weight: 800; line-height: .82; color: #d9d8d4; letter-spacing: -.05em; }
-  .step__t { display: flex; align-items: center; gap: 10px; }
-  .step__t .ico { width: 30px; height: 30px; color: var(--red); }
-  .step h3 { font-size: 15px; letter-spacing: -.02em; }
-  .step p { font-size: 12.5px; line-height: 1.45; color: var(--muted); padding-left: 40px; }
-
-  /* SPODOK: partnerstvá + formulár */
-  .fbot { display: grid; grid-template-columns: 1.02fr 1fr; gap: 10px; padding-bottom: 28px; }
-  .ref { position: relative; overflow: hidden; border-radius: 3px; background: #f1f1ef; padding: 20px 20px 22px 18px; min-height: 200px; isolation: isolate; display: flex; flex-direction: column; }
-  .ref > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 100% 12%; z-index: -2; }
-  .ref::before { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(90deg, #f1f1ef 0%, rgba(241,241,239,.9) 34%, rgba(241,241,239,0) 58%); }
-  .ref h2 { font-size: clamp(20px, 1.6vw, 23px); line-height: 1.08; margin: 8px 0 10px; max-width: 290px; }
-  .ref p { font-size: 12.5px; line-height: 1.55; color: #333; max-width: 320px; }
-  .ref__big { position: absolute; right: 22px; top: 20px; color: var(--ink); background: rgba(255,255,255,.82); padding: 10px 12px 8px; border-radius: 2px; backdrop-filter: blur(4px); font-weight: 800; font-size: clamp(20px, 1.8vw, 26px); line-height: 1.02; text-transform: uppercase; text-align: right; letter-spacing: -.01em; }
-  .ref__big i { font-style: normal; display: inline-block; border-bottom: 3px solid var(--red); }
-  .ref__stats { display: flex; gap: 22px; margin-top: auto; padding-top: 16px; flex-wrap: wrap; }
-  .ref__stats div { display: flex; gap: 8px; align-items: center; font-size: 11.5px; line-height: 1.3; font-weight: 500; }
-  .ref__stats .ico { width: 20px; height: 20px; color: var(--red); }
-
-  .offer { background: var(--ink); color: #fff; border-radius: 3px; display: grid; grid-template-columns: 1fr 190px; overflow: hidden; }
-  .offer__form { padding: 18px 20px 20px; }
-  .offer h2 { font-size: clamp(19px, 1.5vw, 22px); margin: 6px 0 4px; }
-  .offer__sub { font-size: 12px; opacity: .75; margin-bottom: 12px; }
-  .fgrid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-  .fld { position: relative; }
-  .fld input, .fld select, .fld textarea { width: 100%; height: 36px; background: #19191c; border: 1px solid #2e2e33; border-radius: 3px; color: #fff; padding: 0 11px; font-size: 12.5px; outline: 0; transition: border-color .2s; }
-  .fld textarea { height: 100%; min-height: 80px; padding: 9px 11px; resize: vertical; }
-  .fld select { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='2'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 10px center; background-size: 14px; padding-right: 30px; }
-  .fld select option { color: #111; }
-  .fld input::placeholder, .fld textarea::placeholder { color: #9a9aa0; }
-  .fld input:focus, .fld select:focus, .fld textarea:focus { border-color: #77777e; }
-  .fld.is-err input, .fld.is-err select { border-color: var(--red); }
-  .fld small { display: none; color: #ff6b70; font-size: 10.5px; margin-top: 3px; }
-  .fld.is-err small { display: block; }
-  .fld--msg { grid-row: span 2; }
-  .offer .btn { height: 40px; margin-top: 2px; }
-  .offer__ok { display: none; padding: 30px 6px; text-align: left; }
-  .offer__ok .ico { width: 44px; height: 44px; color: #4ade80; margin-bottom: 12px; }
-  .offer__ok h3 { font-size: 22px; margin-bottom: 8px; }
-  .offer__ok p { font-size: 13px; opacity: .8; line-height: 1.5; }
-  .offer.is-sent .offer__fields { display: none; }
-  .offer.is-sent .offer__ok { display: block; }
-  .offer__side { border-left: 1px solid var(--line-dark); padding: 20px 16px; }
-  .offer__side .info-list { gap: 14px; font-size: 12px; }
-  .offer__side .info-list .ico { width: 18px; height: 18px; }
-  .offer__side p { font-size: 11.5px; line-height: 1.5; opacity: .8; }
-
-  @media (max-width: 1240px) {
-    .perks__in { grid-template-columns: repeat(3, 1fr); }
-    .perk { border-left: 0; border-top: 1px solid var(--line); padding: 20px 18px 18px 0; }
-    .perk:nth-child(-n+3) { border-top: 0; }
-    .segs__grid { grid-template-columns: repeat(3, 1fr); }
-    .proc__in { grid-template-columns: repeat(2, 1fr); gap: 26px 0; }
-    .proc__in > h2 { grid-column: 1 / -1; }
-    .step:nth-child(2), .step:nth-child(4) { border-left: 0; padding-left: 0; }
-    .fbot { grid-template-columns: 1fr; }
-  }
-  @media (max-width: 760px) {
-    .perks__in { grid-template-columns: 1fr 1fr; }
-    .perk { grid-template-columns: 40px 1fr; gap: 10px; }
-    .perk:nth-child(3) { border-top: 1px solid var(--line); }
-    .perk .ico { width: 34px; height: 34px; }
-    .segs__grid { display: flex; width: auto; overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding-left: var(--gut); margin: 0; padding: 0 var(--gut) 4px; scrollbar-width: none; }
-    .segs__grid::-webkit-scrollbar { display: none; }
-    .seg { flex: 0 0 72%; scroll-snap-align: start; min-height: 220px; }
-    .offer { grid-template-columns: 1fr; }
-    .offer__side { border-left: 0; border-top: 1px solid var(--line-dark); }
-  }
-  @media (max-width: 640px) {
-    .fhero .phero__in { min-height: 420px; justify-content: flex-end; }
-    .fhero .phero__img img { object-position: 62% 20%; }
-    .fhero .phero__img::after { background: linear-gradient(0deg, rgba(11,11,12,.96) 30%, rgba(11,11,12,.25) 75%); }
-    .fhero .phero__img { opacity: 1; }
-    .fhero .phero__in > .crumbs { margin-bottom: auto; }
-    .perks__in { grid-template-columns: 1fr; }
-    .perk { border-top: 1px solid var(--line) !important; padding-right: 0; }
-    .perk:first-child { border-top: 0 !important; }
-    .proc__in { grid-template-columns: 1fr; }
-    .step { border-left: 0 !important; padding: 0; }
-    .step__n { font-size: 56px; }
-    .fgrid { grid-template-columns: 1fr; }
-    .fld--msg { grid-row: auto; }
-    .ref { min-height: 380px; }
-    .ref::before { background: linear-gradient(180deg, #f1f1ef 0%, rgba(241,241,239,.92) 48%, rgba(241,241,239,0) 72%); }
-    .ref__big { top: auto; bottom: 20px; }
-    .ref__stats { display: none; }
-  }
-</style>
 </head>
 <body>
-<script>DAMI.mount("dark", "firmy")</script>
+<script>DAMI.mount("light", "firmy")</script>
 
-<main>
-  <section class="phero fhero">
-    <div class="phero__img"><img src="img/foto-tim.webp" alt="Tím v pracovnom oblečení – robotník, zdravotná sestra, kuchár a technici pred predajňou" fetchpriority="high"></div>
-    <div class="wrap phero__in">
-      <nav class="crumbs" aria-label="Omrvinky"><a href="index.html">Domov</a><span>›</span><b>Pre firmy</b></nav>
-      <h1>Spoľahlivý partner<br>pre vaše tímy</h1>
-      <p class="lead">Kompletné pracovné oblečenie, obuv a doplnky pre firmy, inštitúcie a organizácie. Od malých tímov po veľké spoločnosti.</p>
-      <div class="trust" data-trust></div>
-      <div data-script></div>
+<main class="fpage">
+  <section class="wrap sh fi-hero">
+    <div class="sh__txt">
+      <h1 class="hx">Vybavíme celý tím. Aj&nbsp;s&nbsp;<span class="mk">logom.</span></h1>
+      <p class="txt">Pre reštaurácie, ambulancie, stavebné firmy a dielne z Piešťan a okolia.</p>
+      <a class="btn btn--red bx" href="#dopyt" data-arrow>Napísať dopyt</a>
     </div>
+    <div class="sh__ph"><img src="img/foto-tim.webp" alt="Kuchár, zdravotná sestra a pracovníci v pracovnom oblečení pred budovou" width="1600" height="905" fetchpriority="high"></div>
   </section>
 
-  <section class="perks"><div class="wrap perks__in" data-perks></div></section>
+  <section class="wrap fi-steps" aria-label="Ako to funguje" data-steps></section>
 
-  <section class="segs" aria-label="Segmenty"><div class="wrap segs__grid" data-segs></div></section>
-
-  <section class="proc">
-    <div class="wrap proc__in" data-proc><h2 class="rv">Ako prebieha spolupráca?</h2></div>
+  <section class="wrap fi-emb">
+    <div class="fi-emb__txt">
+      <h2 class="h2x">Firemné logo na výšivke</h2>
+      <p class="txt">Vyšijeme alebo potlačíme vaše logo na pracovné odevy – kvalitne, trvácne a s profesionálnym vzhľadom.</p>
+      <a class="btn btn--red bx" href="#dopyt" data-arrow>Opýtať sa na výšivku</a>
+    </div>
+    <div class="fi-emb__ph"><img src="img/emb-patch.webp" alt="Vyšité logo DAMI – biela ruka s červenými detailmi na čiernej látke" width="850" height="730" loading="lazy"></div>
   </section>
 
-  <section class="wrap fbot">
-    <div class="ref rv">
-      <img src="../assets/gen/firmy-referencia.webp" alt="Stavební robotníci v reflexných bundách a prilbách na stavenisku" loading="lazy">
-      <span class="eyebrow">Rodinná firma z Piešťan</span>
-      <h2>Staráme sa o tímy, ktoré robia Slovensko lepším</h2>
-      <p>Oblečenie a obuv pre stavbárov, kuchárov, zdravotníkov aj výrobu vyberáme s dôrazom na odolnosť a pohodlie. Poradíme osobne v predajni alebo pripravíme ponuku na mieru pre celú prevádzku.</p>
-      <p class="ref__big" aria-hidden="true">Stabilné<br>partnerstvá<br><i>v reálnom svete</i></p>
-    </div>
+  <section class="wrap fi-band-w">
+    <div class="band fi-band"><h2>Nákup na faktúru pre firmy s IČO</h2><img class="band__hand" src="img/hand-white.png" alt="" width="458" height="600"></div>
+  </section>
 
-    <div class="offer rv" id="ponuka">
-      <form class="offer__form" novalidate data-offer>
-        <div class="offer__fields">
-          <span class="eyebrow">Nezáväzná ponuka</span>
-          <h2>Máte záujem o firemnú ponuku?</h2>
-          <p class="offer__sub">Vyplňte formulár a ozveme sa vám s riešením na mieru.</p>
-          <div class="fgrid">
-            <div class="fld"><input name="firma" placeholder="Názov spoločnosti *" required aria-label="Názov spoločnosti"><small>Vyplňte názov spoločnosti.</small></div>
-            <div class="fld"><select name="segment" aria-label="Segment firmy"><option value="">Segment firmy</option><option>Priemysel a výroba</option><option>Zdravotníctvo a sociálne služby</option><option>Gastro a hotelierstvo</option><option>Stavebníctvo a remeslá</option><option>Firemné oblečenie a reprezentácia</option><option>Iné</option></select></div>
-            <div class="fld"><input name="meno" placeholder="Vaše meno *" required aria-label="Vaše meno"><small>Vyplňte vaše meno.</small></div>
-            <div class="fld"><input name="email" type="email" placeholder="E-mail *" required aria-label="E-mail"><small>Zadajte platný e-mail.</small></div>
-            <div class="fld"><input name="tel" type="tel" placeholder="Telefón *" required aria-label="Telefón"><small>Zadajte telefónne číslo.</small></div>
-            <div class="fld fld--msg"><textarea name="sprava" placeholder="Vaša správa / požiadavky (počet ľudí, typ oblečenia, logo…)" aria-label="Správa"></textarea></div>
-            <button class="btn btn--red" type="submit" data-send-btn></button>
-          </div>
-        </div>
-        <div class="offer__ok" role="status">
-          <div data-ok-ico></div>
-          <h3>Ďakujeme, dopyt je pripravený.</h3>
-          <p>Otvorili sme vám e-mail s vyplnenými údajmi pre damiobchod@gmail.com – stačí ho odoslať. Ozveme sa zvyčajne do jedného pracovného dňa.</p>
-        </div>
-      </form>
-      <aside class="offer__side">
-        <div class="info-list" data-contact></div>
-      </aside>
+  <section class="wrap fi-form" id="dopyt">
+    <div class="fi-form__txt">
+      <h2 class="h2x">Pošlite nám dopyt pre vašu firmu</h2>
+      <p class="txt">Pripravíme vám ponuku na mieru, poradíme s výberom a zabezpečíme aj logo.</p>
+      <svg class="fi-clip" viewBox="0 0 320 300" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"><path d="M70 40h-22a14 14 0 0 0-14 14v220a14 14 0 0 0 14 14h168a14 14 0 0 0 14-14V54a14 14 0 0 0-14-14h-22"/><rect x="82" y="22" width="76" height="36" rx="10"/><path d="M104 22a16 16 0 0 1 32 0"/><path d="m66 118 14 14 24-28M124 120h70M66 178l14 14 24-28M124 180h70M66 238l14 14 24-28M124 240h50"/><path d="m300 110-78 120-24 18 4-30 78-120zM266 116l22 14"/></g></svg>
     </div>
+    <form class="fi-card" novalidate data-offer>
+      <div class="fi-fields">
+        <div class="ff"><label for="f-firma">Firma <i>*</i></label><input id="f-firma" name="firma" placeholder="Firma" autocomplete="organization" required><small>Vyplňte názov firmy.</small></div>
+        <div class="ff"><label for="f-ico">IČO <i>*</i></label><input id="f-ico" name="ico" placeholder="IČO" inputmode="numeric" required><small>Zadajte IČO (6 až 8 číslic).</small></div>
+        <div class="ff"><label for="f-meno">Kontaktná osoba <i>*</i></label><input id="f-meno" name="meno" placeholder="Kontaktná osoba" autocomplete="name" required><small>Vyplňte meno.</small></div>
+        <div class="ff"><label for="f-email">E-mail <i>*</i></label><input id="f-email" name="email" type="email" placeholder="E-mail" autocomplete="email" required><small>Zadajte platný e-mail.</small></div>
+        <div class="ff"><label for="f-tel">Telefón <i>*</i></label><input id="f-tel" name="tel" type="tel" placeholder="Telefón" autocomplete="tel" required><small>Zadajte telefónne číslo.</small></div>
+        <div class="ff"><label for="f-pocet">Približný počet ľudí <i>*</i></label><input id="f-pocet" name="pocet" type="number" min="1" placeholder="Približný počet ľudí" inputmode="numeric" required><small>Zadajte počet ľudí.</small></div>
+        <div class="ff full"><label for="f-odv">Odvetvie <i>*</i></label><select id="f-odv" name="odvetvie" required><option value="">Vyberte odvetvie</option><option>Reštaurácia, hotel, gastro</option><option>Ambulancia, zdravotníctvo</option><option>Kozmetika, wellness</option><option>Stavebná firma</option><option>Dielňa, výroba, sklad</option><option>Iné</option></select><small>Vyberte odvetvie.</small></div>
+        <div class="ff full"><label for="f-sprava">Vaša správa</label><textarea id="f-sprava" name="sprava" placeholder="Čo potrebujete – typ oblečenia, veľkosti, logo…"></textarea></div>
+        <button class="btn btn--red bx fi-send" type="submit" data-arrow>Odoslať dopyt</button>
+      </div>
+      <div class="fi-ok" role="status">
+        <div data-ok-ico></div>
+        <h3>Ďakujeme, dopyt je pripravený.</h3>
+        <p>Otvorili sme vám e-mail s vyplnenými údajmi pre <b data-mail></b> – stačí ho odoslať. Alebo nám rovno zavolajte na <a data-tel></a>.</p>
+      </div>
+    </form>
   </section>
 </main>
 
 <script>
 (() => {
-  const { ico, script, FIRM, esc, catUrl } = DAMI;
+  const { ico, FIRM } = DAMI;
   const $ = s => document.querySelector(s);
-  const arrow = ico("arrow");
-  $("[data-trust]").innerHTML = [["shield", "Overená kvalita", "Profesionálne značky"], ["truck", "Rýchle dodanie", "po celom Slovensku"], ["people", "Osobné poradenstvo", "v predajni aj online"]]
-    .map(([i, a, b]) => `<div class="trust__i">${ico(i)}<div><b>${a}</b><span>${b}</span></div></div>`).join("");
-  $("[data-script]").outerHTML = script("Profesionálne tímy", "nosia DAMI!");
-
-  $("[data-perks]").innerHTML = [
-    ["people", "Firemné objednávky", "Oblečieme tímy každej veľkosti – od pár ľudí po celé prevádzky."],
-    ["stitch", "Logo, výšivka a potlač", "Personalizácia oblečenia podľa vášho loga a dizajnu."],
-    ["percent", "Individuálne ceny", "Cenové podmienky pre firmy a dlhodobú spoluprácu."],
-    ["box", "Rýchle dodanie", "Tovar skladom a spoľahlivé doručenie po celom Slovensku."],
-    ["headset", "Osobná konzultácia", "Pomôžeme s výberom, veľkosťami a riešením na mieru."],
-  ].map(([i, h, p], n) => `<div class="perk rv" data-d="${n * 60}">${ico(i)}<div><h3>${h}</h3><p>${p}</p></div></div>`).join("");
-
-  $("[data-segs]").innerHTML = [
-    ["Priemysel<br>a výroba", "Odolné pracovné odevy<br>a bezpečnostná obuv", "../assets/gen/firmy-priemysel.webp", catUrl("pracovne"), "60% 30%"],
-    ["Zdravotníctvo<br>a sociálne služby", "Pohodlné a funkčné oblečenie<br>pre zdravotníkov", "../assets/img/zdravotnictvo.webp", "zdravotnictvo.html", "58% 25%"],
-    ["Gastro<br>a hotelierstvo", "Kuchárske oblečenie,<br>obuv a doplnky", "../assets/img/gastro-kuchar.webp", catUrl("gastro"), "62% 30%"],
-    ["Stavebníctvo<br>a remeslá", "Pracovné odevy<br>s vysokou odolnosťou", "../assets/gen/firmy-stavebnictvo.webp", catUrl("reflexne-odevy"), "62% 30%"],
-    ["Firemné oblečenie<br>a reprezentácia", "Tričká, mikiny, polokošele<br>a bundy s logom firmy", "../assets/img/firmy-polokosela.webp", catUrl("tricka-kosele-polokosele"), "50% 25%"],
-  ].map(([h, p, img, href, pos], n) => `<a class="seg rv" data-d="${n * 60}" href="${href}"><img src="${img}" alt="" loading="lazy" style="object-position:${pos}"><h3>${h}</h3><p>${p}</p><span class="circ">${arrow}</span></a>`).join("");
-
-  $("[data-proc]").insertAdjacentHTML("beforeend", [
-    ["cart", "Výber produktov", "Spoločne vyberieme vhodné oblečenie, obuv a doplnky pre váš tím."],
-    ["stitch", "Logo a branding", "Pripravíme návrh výšivky alebo potlače s vaším logom."],
-    ["tag", "Cenová ponuka", "Vypracujeme individuálnu ponuku podľa množstva a požiadaviek."],
-    ["truck", "Dodanie", "Po schválení objednávku pripravíme na odber alebo doručíme."],
-  ].map(([i, h, p], n) => `<div class="step rv" data-d="${n * 70}"><span class="step__n">${n + 1}</span><div class="step__t">${ico(i)}<h3>${h}</h3></div><p>${p}</p></div>`).join(""));
-
+  document.querySelectorAll("[data-arrow]").forEach(b => b.insertAdjacentHTML("beforeend", " " + ico("arrow")));
+  const svg = d => `<svg class="ico" viewBox="0 0 48 48" aria-hidden="true">${d}</svg>`;
+  const S = {
+    people: svg('<circle cx="24" cy="13" r="6"/><path d="M13 36c0-7 5-11.5 11-11.5S35 29 35 36"/><circle cx="10" cy="18" r="4.5"/><path d="M2.5 37c.5-5 3.5-8.3 7.8-8.6"/><circle cx="38" cy="18" r="4.5"/><path d="M45.5 37c-.5-5-3.5-8.3-7.8-8.6"/>'),
+    shirt: svg('<path d="M17 6 5 12.5l4.5 9 5-2.3V42h19V19.2l5 2.3 4.5-9L31 6c-.6 3.6-3.4 6-7 6s-6.4-2.4-7-6z"/>'),
+    sew: svg('<path d="M4 41h40M7 41v-6h33v6"/><path d="M10 35V15.5A5.5 5.5 0 0 1 15.5 10h19A5.5 5.5 0 0 1 40 15.5V35"/><path d="M10 18h30M17 18v8M14.5 26h5"/><circle cx="32" cy="23.5" r="3.2"/><path d="M33 10V5h4v5M22 30h10"/>'),
+    box: svg('<path d="m24 5 18 9v20l-18 9-18-9V14z"/><path d="m6 14 18 9 18-9M24 23v20M15 9.5l18 9v7"/><path d="M28 31h8v5h-8z"/>'),
+  };
+  $("[data-steps]").innerHTML = [
+    [S.people, "Napíšete,<br>koho obliekame", "Napíšete, koho obliekame"],
+    [S.shirt, "Pripravíme<br>ponuku a vzorky", "Pripravíme ponuku a vzorky"],
+    [S.sew, "Vyšijeme alebo<br>potlačíme logo", "Vyšijeme alebo potlačíme logo"],
+    [S.box, "Odovzdáme po kusoch,<br>označené menami", "Odovzdáme označené menami"],
+  ].map(([i, t, m], n) => `<div class="fi-step rv" data-d="${n * 70}">${i}<b class="fi-step__n">0${n + 1}</b><p><span class="d"><i>${n + 1}</i> ${t}</span><span class="m">${m}</span></p></div>`).join("");
 
   const tel = FIRM.phone.replace(/\s/g, "");
-  $("[data-contact]").innerHTML = `<div>${ico("pin")}<div><b>${FIRM.street}</b><br>${FIRM.city}</div></div>
-    <div>${ico("phone")}<div><a href="tel:${tel}"><b>${FIRM.phone}</b></a><br>Po – Pi: 9:30 – 17:00</div></div>
-    <div>${ico("mail")}<div><a href="mailto:${FIRM.mail}">${FIRM.mail}</a></div></div>
-    <div>${ico("people")}<p>Radi vám poradíme osobne v predajni v Piešťanoch. Ukážeme vzorky a pomôžeme s výberom.</p></div>`;
-  $("[data-send-btn]").innerHTML = `${ico("send")} Odoslať dopyt`;
   $("[data-ok-ico]").outerHTML = ico("checkC");
+  $("[data-mail]").textContent = FIRM.mail;
+  const t = $("[data-tel]"); t.href = "tel:" + tel; t.textContent = FIRM.phone;
 
   const form = $("[data-offer]");
   const check = f => {
     const v = f.value.trim();
-    const ok = !f.required || (f.type === "email" ? /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v) : f.type === "tel" ? v.replace(/\D/g, "").length >= 9 : v.length > 1);
-    f.closest(".fld").classList.toggle("is-err", !ok); return ok;
+    const ok = !f.required || (f.type === "email" ? /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v) : f.type === "tel" ? v.replace(/\D/g, "").length >= 9
+      : f.name === "ico" ? /^\d{6,8}$/.test(v.replace(/\s/g, "")) : f.name === "pocet" ? +v >= 1 : v.length > 1);
+    f.closest(".ff").classList.toggle("is-err", !ok); return ok;
   };
-  form.querySelectorAll("[required]").forEach(f => f.addEventListener("blur", () => check(f)));
+  form.querySelectorAll("[required]").forEach(f => f.addEventListener("blur", () => { if (f.value) check(f); }));
   form.addEventListener("submit", e => {
     e.preventDefault();
-    const req = [...form.querySelectorAll("[required]")];
-    const bad = req.filter(f => !check(f));
+    const bad = [...form.querySelectorAll("[required]")].filter(f => !check(f));
     if (bad.length) return bad[0].focus();
     const d = Object.fromEntries(new FormData(form));
-    const body = `Spoločnosť: ${d.firma}\nSegment: ${d.segment || "-"}\nMeno: ${d.meno}\nE-mail: ${d.email}\nTelefón: ${d.tel}\n\n${d.sprava || ""}`;
-    location.href = `mailto:${FIRM.mail}?subject=${encodeURIComponent("Firemná ponuka – " + d.firma)}&body=${encodeURIComponent(body)}`;
-    form.closest(".offer").classList.add("is-sent");
+    const body = `Firma: ${d.firma}\nIČO: ${d.ico}\nKontaktná osoba: ${d.meno}\nE-mail: ${d.email}\nTelefón: ${d.tel}\nPočet ľudí: ${d.pocet}\nOdvetvie: ${d.odvetvie}\n\n${d.sprava || ""}`;
+    location.href = `mailto:${FIRM.mail}?subject=${encodeURIComponent("Firemný dopyt – " + d.firma)}&body=${encodeURIComponent(body)}`;
+    form.classList.add("is-sent");
   });
 })();
 </script>

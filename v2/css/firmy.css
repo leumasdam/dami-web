@@ -1,0 +1,88 @@
+/* DAMI v2 — pre firmy (návrh firmy-desktop / firmy-mobil) */
+.fpage { display: flex; flex-direction: column; padding-bottom: max(40px, calc(36 * var(--u))); }
+
+/* hero */
+.fi-hero { grid-template-columns: minmax(0, 498fr) minmax(0, 742fr); gap: calc(8 * var(--u)) calc(14 * var(--u)); padding-top: max(14px, calc(14 * var(--u))); }
+.fi-hero .hx { font-size: max(44px, calc(94 * var(--u))); line-height: .9; }
+.fi-hero .sh__txt { gap: max(16px, calc(30 * var(--u))); }
+.fi-hero .txt { max-width: 19em; margin-top: calc(-6 * var(--u)); }
+.fi-hero .sh__ph { aspect-ratio: 742 / 393; }
+.fi-hero .sh__ph img { object-position: 50% 30%; }
+
+/* 4 kroky */
+.fi-steps { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: max(10px, calc(18 * var(--u))); padding-top: max(18px, calc(34 * var(--u))); }
+.fi-step { display: grid; justify-items: center; align-content: center; gap: max(10px, calc(18 * var(--u))); text-align: center; background: var(--card); border-radius: var(--r); min-height: max(160px, calc(196 * var(--u))); padding: max(16px, calc(22 * var(--u))) max(10px, calc(14 * var(--u))); }
+.fi-step > .ico { width: max(60px, calc(108 * var(--u))); height: max(48px, calc(80 * var(--u))); color: var(--red); stroke-width: 2.4; }
+.fi-step__n { display: none; }
+.fi-step p { font: 800 max(17px, calc(27 * var(--u)))/1.08 var(--f-d); font-stretch: 84%; letter-spacing: -.005em; }
+.fi-step p i { font-style: normal; }
+
+/* výšivka */
+.fi-emb { display: grid; grid-template-columns: minmax(0, 455fr) minmax(0, 787fr); gap: max(18px, calc(30 * var(--u))); align-items: center; padding-top: max(36px, calc(46 * var(--u))); }
+.fi-emb__txt { display: grid; justify-items: start; gap: max(14px, calc(24 * var(--u))); }
+.fi-emb h2 { font-size: max(34px, calc(76 * var(--u))); max-width: 7em; }
+.fi-emb .txt { max-width: 18em; }
+.fi-emb__ph { position: relative; aspect-ratio: 787 / 342; border-radius: var(--r); overflow: hidden; display: grid; place-items: center;
+  background: repeating-linear-gradient(-58deg, rgba(255,255,255,.035) 0 2px, rgba(0,0,0,0) 2px 5px), radial-gradient(120% 140% at 50% 40%, #262626 0%, #191919 60%, #111 100%); }
+.fi-emb__ph img { position: absolute; left: 50%; top: 50%; translate: -50% -50%; height: 116%; width: auto; max-width: none; -webkit-mask-image: radial-gradient(closest-side, #000 76%, transparent 100%); mask-image: radial-gradient(closest-side, #000 76%, transparent 100%); transform: rotate(-4deg); transition: transform .8s var(--ease); }
+.fi-emb__ph:hover img { transform: rotate(-2deg) scale(1.03); }
+
+/* červený pás */
+.fi-band-w { padding-top: max(20px, calc(30 * var(--u))); }
+.fi-band { padding-block: max(22px, calc(30 * var(--u))); }
+.fi-band h2 { font-size: max(30px, calc(68 * var(--u))); max-width: none; padding-right: calc(150 * var(--u)); }
+.fi-band .band__hand { height: 190%; bottom: -66%; right: calc(10 * var(--u)); }
+
+/* formulár */
+.fi-form { display: grid; grid-template-columns: minmax(0, 420fr) minmax(0, 805fr); gap: max(20px, calc(42 * var(--u))); align-items: start; padding-top: max(32px, calc(36 * var(--u))); }
+.fi-form__txt { position: relative; display: grid; gap: max(12px, calc(20 * var(--u))); padding-top: max(4px, calc(14 * var(--u))); }
+.fi-form h2 { font-size: max(32px, calc(64 * var(--u))); max-width: 8em; }
+.fi-form .txt { max-width: 17em; }
+.fi-clip { width: 82%; max-width: calc(330 * var(--u)); color: #f2c4c0; margin: calc(14 * var(--u)) 0 0 calc(50 * var(--u)); }
+.fi-card { background: #fff; border-radius: var(--r); box-shadow: 0 1px 0 rgba(20,20,20,.04), 0 18px 46px rgba(20,20,20,.06); padding: max(18px, calc(34 * var(--u))); }
+.fi-fields { display: grid; grid-template-columns: 1fr 1fr; gap: max(14px, calc(18 * var(--u))) max(14px, calc(34 * var(--u))); }
+.fi-fields .full { grid-column: 1 / -1; }
+.fi-fields input::placeholder, .fi-fields textarea::placeholder { color: transparent; }
+.fi-send { justify-self: start; height: max(46px, calc(48 * var(--u))); font-size: max(17px, calc(25 * var(--u))); }
+.fi-ok { display: none; padding: max(20px, calc(40 * var(--u))) 0; }
+.fi-ok .ico { width: 54px; height: 54px; color: var(--red); margin-bottom: 14px; }
+.fi-ok h3 { font-size: max(28px, calc(42 * var(--u))); margin-bottom: 10px; }
+.fi-ok p { font-size: max(15px, calc(20 * var(--u))); color: #3d3a37; max-width: 34em; }
+.fi-ok a { font-weight: 700; color: var(--red); }
+.fi-card.is-sent .fi-fields { display: none; }
+.fi-card.is-sent .fi-ok { display: block; }
+
+@media (max-width: 1100px) {
+  .fi-steps { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .fi-form { grid-template-columns: minmax(0, 1fr); }
+  .fi-clip { display: none; }
+}
+@media (max-width: 860px) {
+  .fi-hero, .fi-emb { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 640px) {
+  .fi-hero .hx { font-size: clamp(36px, 10.9vw, 50px); }
+  .fi-hero .txt, .fi-hero .btn { display: none; }
+  .fi-hero .sh__ph { aspect-ratio: 2.3; }
+  .fi-hero .sh__ph img { object-position: 50% 40%; }
+  .fi-steps { grid-template-columns: minmax(0, 1fr); gap: 8px; padding-top: 12px; }
+  .fi-step { grid-template-columns: 70px auto minmax(0, 1fr); justify-items: start; align-items: center; text-align: left; min-height: 0; gap: 14px; padding: 10px 14px 10px 10px; }
+  .fi-step > .ico { width: 58px; height: 38px; justify-self: center; stroke-width: 2.6; }
+  .fi-step__n { display: block; font: 900 24px/1 var(--f-d); font-stretch: 78%; color: var(--red); padding-left: 12px; border-left: 1.5px solid #cfc9c1; height: 40px; display: flex; align-items: center; }
+  .fi-step p { font: 500 14.5px/1.25 var(--f); }
+  .fpage > .fi-form { order: 3; }
+  .fpage > .fi-emb { order: 4; }
+  .fpage > .fi-band-w { order: 5; }
+  .fi-form { padding-top: 14px; gap: 0; }
+  .fi-form__txt { display: none; }
+  .fi-card { padding: 14px; }
+  .fi-fields { grid-template-columns: minmax(0, 1fr); gap: 10px; }
+  .fi-fields .ff label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+  .fi-fields input::placeholder, .fi-fields textarea::placeholder { color: #77736e; }
+  .fi-fields .ff input, .fi-fields .ff select { height: 50px; font-size: 16.5px; }
+  .fi-send { justify-self: stretch; height: 52px; font-size: 22px; }
+  .fi-emb { padding-top: 34px; gap: 16px; }
+  .fi-emb h2 { font-size: 38px; }
+  .fi-band h2 { font-size: 32px; padding-right: 70px; }
+  .fi-band .band__hand { height: 150%; bottom: -46%; right: -18px; }
+}

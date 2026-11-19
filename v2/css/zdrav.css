@@ -1,0 +1,73 @@
+/* DAMI v2 — zdravotníctvo (návrh zdravotnictvo-desktop) */
+.zd-hero { grid-template-columns: minmax(0, 478fr) minmax(0, 765fr); gap: calc(22 * var(--u)); padding-top: max(14px, calc(14 * var(--u))); }
+.zd-hero .hx { font-size: max(44px, calc(100 * var(--u))); line-height: .9; }
+.zd-hero .sh__txt { gap: max(16px, calc(28 * var(--u))); }
+.zd-hero .txt { max-width: 18.5em; }
+.zd-hero .sh__ph { aspect-ratio: 765 / 390; }
+.zd-hero .sh__ph img { object-position: 46% 30%; transform: scale(1.22); transform-origin: 54% 18%; }
+
+.zd-tiles { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: max(10px, calc(17 * var(--u))); padding-top: max(16px, calc(24 * var(--u))); }
+.zd-tiles .ptile { aspect-ratio: 305 / 250; }
+.zd-tiles .ptile b { font-size: max(24px, calc(41 * var(--u))); }
+
+.zd-pop { padding-top: max(32px, calc(42 * var(--u))); padding-bottom: 0; }
+.zd-pop .sec__hd { margin-bottom: max(16px, calc(26 * var(--u))); }
+.zd-pop .sec__hd h2 { font-size: max(32px, calc(52 * var(--u))); }
+.zd-pop .link { font-size: max(14px, calc(17 * var(--u))); }
+
+/* veľkosti */
+.zd-size { display: grid; grid-template-columns: minmax(0, 320fr) minmax(0, 300fr) minmax(0, 578fr); gap: max(16px, calc(26 * var(--u))); align-items: center; padding-top: max(36px, calc(46 * var(--u))); }
+.zd-size__txt { display: grid; justify-items: start; gap: max(14px, calc(22 * var(--u))); }
+.zd-size h2 { font-size: max(34px, calc(68 * var(--u))); max-width: 6em; }
+.zd-size .txt { font-size: max(16px, calc(23 * var(--u))); }
+.zd-size .bx { height: max(46px, calc(46 * var(--u))); font-size: max(16px, calc(23 * var(--u))); }
+.zd-fig { width: 100%; height: auto; max-height: calc(370 * var(--u)); }
+.zd-tab table { width: 100%; border-collapse: separate; border-spacing: 0; background: #fff; border-radius: var(--r); overflow: hidden; box-shadow: 0 0 0 1.5px #e4e0da; font-size: max(14px, calc(20 * var(--u))); text-align: center; }
+.zd-tab th, .zd-tab td { padding: max(7px, calc(9.5 * var(--u))) 8px; border-bottom: 1px solid #ebe7e1; }
+.zd-tab thead th { background: #ece9e4; font-weight: 700; font-size: max(14px, calc(20 * var(--u))); padding-block: max(10px, calc(13 * var(--u))); }
+.zd-tab tbody th { font-weight: 800; }
+.zd-tab tbody tr:nth-child(even) { background: #f7f5f2; }
+.zd-tab tbody tr:last-child > * { border-bottom: 0; }
+.zd-tab th + th, .zd-tab th + td, .zd-tab td + td { border-left: 1px solid #ebe7e1; }
+.zd-tab__note { margin-top: 10px; font-size: max(12.5px, calc(15 * var(--u))); color: var(--muted); }
+
+/* poznámka pre ambulancie */
+.zd-note-w { padding-top: max(28px, calc(24 * var(--u))); padding-bottom: max(40px, calc(42 * var(--u))); }
+.zd-note { position: relative; display: grid; align-content: center; justify-items: start; gap: max(14px, calc(22 * var(--u))); min-height: max(220px, calc(248 * var(--u))); padding: max(22px, calc(28 * var(--u))) max(20px, calc(30 * var(--u))); border-radius: var(--r); overflow: hidden; isolation: isolate; background: var(--card); }
+.zd-note img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 100% 58%; z-index: -2; transition: transform .9s var(--ease); }
+.zd-note::before { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(90deg, #f1efec 0%, rgba(241,239,236,.94) 34%, rgba(241,239,236,.4) 58%, rgba(241,239,236,0) 76%); }
+.zd-note h2 { font-size: max(32px, calc(62 * var(--u))); max-width: 7.8em; line-height: .96; }
+.zd-note__go { display: inline-flex; align-items: center; gap: 8px; font-weight: 700; font-size: max(15px, calc(19 * var(--u))); border-bottom: 2px solid currentColor; padding-bottom: 2px; }
+.zd-note__go svg { width: 1.1em; height: 1.1em; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; transition: transform .25s var(--ease); }
+.zd-note:hover img { transform: scale(1.03); }
+.zd-note:hover .zd-note__go { color: var(--red); }
+.zd-note:hover .zd-note__go svg { transform: translateX(4px); }
+
+@media (max-width: 1100px) {
+  .zd-tiles { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .zd-size { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+  .zd-size__txt { grid-column: 1 / -1; }
+}
+@media (max-width: 860px) {
+  .zd-hero { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 640px) {
+  .zd-hero .hx { font-size: clamp(42px, 14vw, 60px); }
+  .zd-hero .sh__ph { aspect-ratio: 1.5; }
+  .zd-hero .sh__ph img { object-position: 50% 20%; transform: scale(1.3); transform-origin: 52% 16%; }
+  .zd-tiles { gap: 8px; padding-top: 18px; }
+  .zd-tiles .ptile { aspect-ratio: .95; padding: 12px; }
+  .zd-tiles .ptile b { font-size: 22px; overflow-wrap: normal; }
+  .zd-tiles .ptile .go { position: absolute; top: 10px; right: 10px; width: 28px; height: 28px; }
+  .zd-pop { padding-top: 34px; }
+  .zd-pop .sec__hd { flex-direction: column; align-items: flex-start; gap: 8px; }
+  .zd-pop .sec__hd h2 { font-size: 36px; }
+  .zd-size { grid-template-columns: minmax(0, 1fr); padding-top: 34px; }
+  .zd-size__txt { grid-column: auto; }
+  .zd-fig { display: none; }
+  .zd-tab table { font-size: 14px; }
+  .zd-note { min-height: 300px; align-content: start; padding: 22px 18px; }
+  .zd-note img { object-position: 70% 100%; }
+  .zd-note::before { background: linear-gradient(180deg, #f1efec 0%, rgba(241,239,236,.92) 45%, rgba(241,239,236,0) 80%); }
+  .zd-note h2 { font-size: 34px; }
+}

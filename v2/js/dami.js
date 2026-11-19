@@ -1,5 +1,14 @@
 /* DAMI — zdieľané správanie: header/footer, karty, košík, obľúbené, vyhľadávanie, reveal, View Transitions */
 (function () {
+  /* ---------- veľké obrazovky: dizajn je kreslený na 1440 px, nad tým sa celá stránka plynulo zväčšuje (max 1,8×) ---------- */
+  const root = document.documentElement;
+  function fit() {
+    const z = Math.min(1.8, Math.max(1, innerWidth / 1440));
+    root.style.zoom = z > 1.001 ? z.toFixed(4) : "";
+    root.style.setProperty("--z", z.toFixed(4));
+  }
+  fit(); addEventListener("resize", fit);
+
   const D = window.DAMI_DATA;
   if (!D.__v2) { D.products.forEach(p => p.img = p.img.map(s => "../" + s)); D.__v2 = true; }
   const P = Object.fromEntries(D.products.map(p => [p.id, p]));
@@ -90,11 +99,11 @@
     { k: "zdravotnictvo", label: "Zdravotníctvo", href: "zdravotnictvo.html" },
     { k: "pracovne", label: "Pracovné odevy", href: catUrl("pracovne") },
     { k: "obuv", label: "Obuv", href: catUrl("obuv") },
-    { k: "doplnky", label: "Doplnky", href: catUrl("doplnky") },
+    { k: "doplnky", label: "Doplnky", href: catUrl("doplnky"), noChev: true },
     { k: "firmy", label: "Pre firmy", href: "pre-firmy.html" },
     { k: "predajna", label: "Predajňa", href: "predajna.html" },
   ];
-  const LOGO = (cls = "") => `<img src="img/d-red.png" alt="" width="38" height="41"><span class="logo-t ${cls}"><b>DAMI</b><small>PRACOVNÉ ODEVY</small></span>`;
+  const LOGO = (cls = "") => `<span class="logo-mk"><img src="img/hand-white.png" alt="" width="458" height="600"></span><span class="logo-t ${cls}"><b>DAMI</b><small>PRACOVNÉ ODEVY</small></span>`;
   function mega(k) {
     const s = D.sections[k]; if (!s) return "";
     const subs = s.subs.filter(c => D.cats[c]?.products.length);
@@ -111,45 +120,47 @@
 
   function header(variant = "dark", active = "") {
     const light = variant === "light";
-    return `<div class="topbar"><a href="predajna.html">Predajňa Piešťany</a><span>·</span>${FIRM.street}<span class="tb-opt">·</span><span class="tb-opt" style="opacity:1;margin:0">Po – Pi 9:30 – 17:00</span><span>·</span><a href="tel:${FIRM.phone.replace(/\s/g, "")}">${FIRM.phone}</a></div>
+    return `<div class="topbar"><a href="predajna.html">${ico("pin", "ico tb-pin")}Predajňa Piešťany</a><i class="tb-opt">•</i><span class="tb-opt">${FIRM.street}</span><i>•</i><span>Po–Pi 9:30–17:00</span><i class="tb-opt">•</i><a class="tb-opt" href="tel:${FIRM.phone.replace(/\s/g, "")}">${FIRM.phone}</a></div>
     <header class="hdr">
       <div class="wrap hdr__in">
-        <button class="burger" data-open-nav aria-label="Menu">${ico("menu")}</button>
         <a class="hdr__logo" href="index.html" aria-label="DAMI pracovné odevy – domov">${LOGO()}</a>
-        <nav class="nav" aria-label="Hlavné menu">${NAV.map(n => `<div class="nav__i"><a class="nav__a ${n.red ? "nav__a--red" : ""} ${active === n.k ? "is-on" : ""}" href="${n.href}">${n.label}${D.sections[n.k] ? ico("chev", "") : ""}</a>${mega(n.k)}</div>`).join("")}</nav>
+        <nav class="nav" aria-label="Hlavné menu">${NAV.map(n => `<div class="nav__i"><a class="nav__a ${n.red ? "nav__a--red" : ""} ${active === n.k ? "is-on" : ""}" href="${n.href}">${n.label}${D.sections[n.k] && !n.noChev ? ico("chev", "") : ""}</a>${mega(n.k)}</div>`).join("")}</nav>
         <div class="hdr__tools">
-          <label class="search"><input type="search" placeholder="Hľadať produkty, značky…" aria-label="Hľadať" data-search>${ico("search", "")}<div class="search__res" data-search-res></div></label>
+          <label class="search">${ico("search", "")}<input type="search" placeholder="Hľadať produkty, značky…" aria-label="Hľadať" data-search><div class="search__res" data-search-res></div></label>
           <a class="tool tool--search" href="kategoria.html?c=all" aria-label="Hľadať">${ico("search")}</a>
           <a class="tool tool--acc" href="#" aria-label="Môj účet">${ico("user")}</a>
           <a class="tool tool--fav" href="kategoria.html?c=oblubene" aria-label="Obľúbené">${ico("heart")}<span class="tool__badge" data-fav-count hidden>0</span></a>
-          <button class="tool" data-open-cart aria-label="Košík">${ico("cart")}<span class="tool__badge" data-cart-count>0</span><span class="tool__sum" data-cart-sum>0,00 €</span></button>
+          <button class="tool tool--cart" data-open-cart aria-label="Košík">${ico("cart")}<span class="tool__badge" data-cart-count>0</span><span class="tool__sum" data-cart-sum>0,00 €</span></button>
+          <button class="burger burger--r" data-open-nav aria-label="Menu">${ico("menu")}</button>
         </div>
       </div>
     </header>`;
   }
 
   function footer() {
-    const col = (h, items) => `<div><h5>${h}</h5><ul>${items.map(([href, t]) => `<li><a href="${href}">${t}</a></li>`).join("")}</ul></div>`;
+    const col = (h, items) => `<div class="ftr__col"><h5>${h}</h5><ul>${items.map(([href, t]) => `<li><a href="${href}">${t}</a></li>`).join("")}</ul></div>`;
     return `<footer class="ftr"><div class="wrap">
       <div class="ftr__grid">
-        <div class="ftr__brand"><div><a href="index.html" aria-label="DAMI – domov">${LOGO()}</a><p style="margin-top:16px">Rodinná firma z Piešťan.<br>Oblečenie, čo maká.</p></div></div>
+        <div class="ftr__brand"><a href="index.html" aria-label="DAMI – domov">${LOGO()}</a></div>
         ${col("Produkty", [[catUrl("gastro"), "Gastro"], ["zdravotnictvo.html", "Zdravotníctvo"], [catUrl("pracovne"), "Pracovné odevy"], [catUrl("obuv"), "Obuv"], [catUrl("doplnky"), "Doplnky"]])}
-        ${col("Pre zákazníkov", [["pre-firmy.html", "Pre firmy"], ["vyroba.html", "Vlastná výroba"], ["znacky.html", "Značky"], ["#", "Doprava a platba"], ["#", "Vrátenie a reklamácie"]])}
-        <div class="ftr__nl"><h5>Akcie ako prvý</h5><p>Občas pošleme akciu alebo novinku. Nič viac.</p>
-          <form data-nl><input type="email" required placeholder="Váš e-mail" aria-label="E-mail"><button aria-label="Odoberať">${ico("arrow")}</button></form></div>
-        <div><h5>Predajňa Piešťany</h5><div class="ftr__contact infos" style="font-size:13.5px;gap:8px">
-          <div>${ico("pin")}<span>${FIRM.street}, Piešťany</span></div><div>${ico("clock")}<span>Po – Pi 9:30 – 17:00<br>So 9:00 – 12:00</span></div>
-          <div>${ico("phone")}<a href="tel:${FIRM.phone.replace(/\s/g, "")}">${FIRM.phone}</a></div><div>${ico("mail")}<a href="mailto:${FIRM.mail}">${FIRM.mail}</a></div></div></div>
+        ${col("Pre zákazníkov", [["pre-firmy.html", "Pre firmy"], ["predajna.html", "Predajňa"], ["#", "Doprava a platba"], ["#", "Vrátenie a reklamácia"], ["predajna.html#kontakt", "Kontakt"]])}
+        <div class="ftr__col"><h5>Predajňa Piešťany</h5><div class="ftr__contact">
+          <div>${ico("pin")}<span>${FIRM.street}, Piešťany</span></div><div>${ico("clock")}<span>Po–Pi 9:30–17:00 · So 9:00–12:00</span></div>
+          <div>${ico("phone")}<a href="tel:${FIRM.phone.replace(/\s/g, "")}">${FIRM.phone}</a></div></div></div>
       </div>
-      <div class="ftr__bottom"><span>© ${new Date().getFullYear()} ${FIRM.legal} · IČO ${FIRM.ico}</span><span>Ceny sú uvedené s DPH.</span></div>
+      <div class="ftr__bottom"><span>© ${new Date().getFullYear()} ${FIRM.legal} · IČO ${FIRM.ico}</span><span><a href="vyroba.html">Vlastná výroba</a> · <a href="znacky.html">Značky</a> · <a href="mailto:${FIRM.mail}">${FIRM.mail}</a></span><span>Ceny sú uvedené s DPH.</span></div>
     </div></footer>`;
   }
 
   function mobileNav() {
-    return `<div class="mnav" aria-hidden="true"><div class="mnav__hd"><a class="hdr__logo" href="index.html">${LOGO()}</a><button class="drawer__x" data-close-nav aria-label="Zavrieť">${ico("x")}</button></div>
-      <div class="mnav__search"><label class="search"><input type="search" placeholder="Hľadať: rondon, kroksy, S3…" aria-label="Hľadať" data-search>${ico("search", "")}<div class="search__res" data-search-res></div></label></div>
-      ${NAV.map(n => D.sections[n.k] ? `<details><summary>${n.label}${ico("chev", "")}</summary><ul><li><a href="${n.href}"><b>Všetko z kategórie</b></a></li>${D.sections[n.k].subs.filter(c => D.cats[c]?.products.length).map(c => `<li><a href="${catUrl(c)}">${esc(D.cats[c].name)}</a></li>`).join("")}</ul></details>` : `<a href="${n.href}" ${n.red ? 'style="color:var(--red)"' : ""}>${n.label}${ico("chevR", "")}</a>`).join("")}
-      <div class="mnav__foot"><b>${FIRM.street}, ${FIRM.city}</b><a href="tel:${FIRM.phone.replace(/\s/g, "")}">${FIRM.phone}</a><span>Po – Pi 9:30 – 17:00 · So 9:00 – 12:00</span></div></div>`;
+    const arr = ico("arrow", "ico mnav__arr");
+    return `<div class="mnav" aria-hidden="true"><div class="mnav__hd"><a class="hdr__logo" href="index.html">${LOGO()}</a>
+        <a class="tool" href="#" aria-label="Môj účet">${ico("user")}</a><button class="tool" data-open-cart aria-label="Košík">${ico("cart")}<span class="tool__badge" data-cart-count>0</span></button>
+        <button class="drawer__x" data-close-nav aria-label="Zavrieť">${ico("x")}</button></div>
+      <div class="mnav__search"><label class="search">${ico("search", "")}<input type="search" placeholder="Hľadať: rondon, kroksy, S3…" aria-label="Hľadať" data-search><div class="search__res" data-search-res></div></label></div>
+      <nav class="mnav__big">${NAV.filter(n => D.sections[n.k]).map(n => `<a href="${n.href}">${esc(D.sections[n.k].name)}${arr}</a>`).join("")}</nav>
+      <nav class="mnav__small"><a href="pre-firmy.html">Pre firmy${arr}</a><a href="predajna.html">Predajňa Piešťany${arr}</a><a href="#">Môj účet${arr}</a></nav>
+      <div class="mnav__foot"><span class="logo-mk"><img src="img/hand-white.png" alt=""></span><span><a href="${FIRM.map}" target="_blank" rel="noopener">${FIRM.street}</a> • <a href="tel:${FIRM.phone.replace(/\s/g, "")}">${FIRM.phone}</a></span></div></div>`;
   }
 
   function chrome() {
@@ -171,9 +182,9 @@
         ${p.img.slice(0, 2).map((src, i) => `<img src="${src}" alt="${i ? "" : esc(p.name)}" loading="lazy" decoding="async" width="700" height="700">`).join("")}</div>
       <div class="pc__body">
         <span class="pc__brand">${esc(brandLabel(p))}</span>
-        <h3 class="pc__name"><a href="${prodUrl(p.id)}">${esc(o.compact ? shortName(p) : p.name)}</a></h3>
+        <h3 class="pc__name"><a href="${prodUrl(p.id)}">${esc(o.name || (o.compact ? shortName(p) : p.name))}</a></h3>
         <div class="pc__price ${sale ? "is-sale" : ""}">${p.price ? eur(p.price) : "Cena na dopyt"}${sale ? `<s>${eur(p.was)}</s>` : ""}</div>
-        ${p.sizes.length && !o.noSz ? `<div class="pc__sizes">${p.sizes.slice(0, 5).map(z => `<i>${esc(z)}</i>`).join("")}${p.sizes.length > 5 ? `<i>+${p.sizes.length - 5}</i>` : ""}</div>` : ""}
+        ${p.sizes.length && !o.noSz ? `<div class="pc__sizes">${p.sizes.slice(0, 5).map(z => `<i>${esc(z)}</i>`).join("")}${p.sizes.length > 5 ? `<i class="more">+${p.sizes.length - 5}</i>` : ""}</div>` : ""}
         ${cols.length && !o.noSw ? `<div class="sw">${cols.map(c => `<i title="${esc(c.n)}" style="background:${c.h.length > 1 ? `linear-gradient(135deg,${c.h[0]} 50%,${c.h[1]} 50%)` : c.h[0]}"></i>`).join("")}${more > 0 ? `<small>+${more}</small>` : ""}</div>` : ""}
         ${o.add ? (p.price ? `<button class="pc__add" data-quick="${esc(p.id)}">${ico("cart2")} Do košíka</button>` : `<a class="pc__add" href="${prodUrl(p.id)}">Opýtať sa na cenu</a>`) : ""}
       </div></article>`;
@@ -261,7 +272,7 @@
   document.addEventListener("click", e => {
     const t = e.target.closest("[data-open-cart],[data-close-cart],[data-fav],[data-quick],[data-q],[data-open-nav],[data-close-nav],.pc a, a.pc-link");
     if (!t) return;
-    if (t.matches("[data-open-cart]")) { e.preventDefault(); openCart(); }
+    if (t.matches("[data-open-cart]")) { e.preventDefault(); document.body.classList.remove("nav-open"); openCart(); }
     else if (t.matches("[data-close-cart]")) closeCart();
     else if (t.matches("[data-open-nav]")) document.body.classList.add("nav-open");
     else if (t.matches("[data-close-nav]")) document.body.classList.remove("nav-open");
@@ -280,6 +291,8 @@
     const img = pc?.querySelector(".pc__img img"); if (img) img.style.viewTransitionName = "pimg";
     try { sessionStorage.setItem("dami-vt", pc.dataset.id); } catch {}
   }
+  const onScroll = () => document.body.classList.toggle("is-scrolled", scrollY > 4);
+  addEventListener("scroll", onScroll, { passive: true });
   window.addEventListener("pageshow", e => { if (e.persisted) document.querySelectorAll(".pc__img img").forEach(x => x.style.viewTransitionName = ""); syncBadges(); });
   document.addEventListener("submit", e => {
     if (e.target.matches("[data-nl]")) { e.preventDefault(); e.target.reset(); toast("Ďakujeme, novinky vám budeme posielať."); }
