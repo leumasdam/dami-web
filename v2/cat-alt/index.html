@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="sk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dlaždice kategórií – varianty</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Figtree:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/css/dami.css">
+<link rel="stylesheet" href="../css/dami2.css?v=1121d">
+<link rel="stylesheet" href="../css/home.css?v=1121e">
+<style>
+  body { background: var(--paper); }
+  .ca-wrap { max-width: 1440px; margin: 0 auto; padding: 28px var(--gut) 60px; }
+  .ca-hd h1 { font: 900 clamp(34px, 4vw, 54px)/.95 var(--f-d); font-stretch: 72%; margin: 0 0 8px; }
+  .ca-hd p { margin: 0 0 8px; color: var(--muted); max-width: 70ch; }
+  .ca-v { margin-top: 44px; }
+  .ca-v__hd { display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; margin-bottom: 16px; }
+  .ca-v__hd h2 { font: 900 34px/1 var(--f-d); font-stretch: 72%; margin: 0; }
+  .ca-v__hd p { margin: 0; color: var(--muted); font-size: 15px; }
+  .ca-row { display: grid; grid-template-columns: minmax(0, 1fr); gap: 22px; align-items: start; }
+  .ca-mob { width: 390px; max-width: 100%; height: 400px; display: block; border: 0; border-radius: 26px; background: var(--paper); box-shadow: 0 0 0 8px #141414, 0 18px 40px rgba(0,0,0,.18); }
+  .ca-cap { font-size: 13px; color: var(--muted); margin: 10px 0 0; }
+  .ca-note { margin-top: 48px; padding: 18px 20px; background: var(--card); border-radius: var(--r); font-size: 14.5px; }
+  @media (max-width: 760px) { .ca-mob, .ca-cap--mob { display: none; } }
+
+  /* variant A – pretŕčanie: farebný panel, postava/produkt vyčnieva nad jeho horný okraj */
+  .cats--a .catc { overflow: visible; box-shadow: none; isolation: isolate; background: none; color: var(--ink); }
+  .cats--a .catc::before { inset: 16% 0 0; border-radius: var(--r); background: var(--t); z-index: -2; box-shadow: 0 4px 12px rgba(20,20,20,.1); }
+  .cats--a .catc img { z-index: -1; inset: auto 0 22% 0; left: 50%; translate: -50% 0; top: auto; bottom: 37%; width: auto; height: 76%; max-width: 92%; object-fit: contain; object-position: 50% 100%; filter: drop-shadow(0 12px 16px rgba(20,20,20,.22)); }
+  .cats--a .catc:hover img { transform: translateY(-4px) scale(1.02); }
+  .cats--a .catc b { text-shadow: none; }
+  .cats--a { margin-top: 64px; }
+  .cats--a .catc--red { color: #fff; }
+  .cats--a .catc--red .catc__offer { background: #fff; color: var(--red); }
+  .cats--a .catc--mul img { mix-blend-mode: multiply; filter: none; height: 44%; bottom: 38%; }
+  .cats--a .catc .catc__go { background: #fff; }
+  /* variant C – štúdio: jemnejší tieň len pod textom */
+  .cats--c .catc::before { background: linear-gradient(0deg, rgba(0,0,0,.55), rgba(0,0,0,0) 46%); }
+  .cats--c .catc img { object-position: center 30%; }
+  .cats--d .catc img { object-position: center center; }
+  /* iframe režim: len jeden variant, mobilné zobrazenie */
+  html.only body { padding: 0; }
+  html.only .ca-hd, html.only .ca-note, html.only .ca-v__hd, html.only .ca-mob, html.only .ca-cap { display: none; }
+  html.only .ca-v { margin: 0; display: none; } html.only .ca-v.is-only { display: block; }
+  html.only .ca-wrap { padding: 16px; }
+  html.only .ca-row { grid-template-columns: 1fr; }
+</style>
+<script>if (/[?&]only=/.test(location.search)) document.documentElement.classList.add("only");</script>
+</head>
+<body>
+<main class="ca-wrap">
+  <header class="ca-hd">
+    <h1>Dlaždice kategórií – varianty</h1>
+    <p>Štyri smery na dlaždice pod bannerom na úvode. Hore ako na počítači, pod tým v mobile. Názvy, šípky a červené štítky s cenou sú presne ako na webe, mení sa len obrázok a jeho podanie.</p>
+  </header>
+  <div data-variants></div>
+  <p class="ca-note"><b>Pozor pred nasadením:</b> B, C a D sú vygenerované (Higgsfield) podľa fotiek reálnych produktov z katalógu – CHEFLINE rondon, CESARE set, bunda CARSON, nazúvak CXS TREND, rukavice CXS ROXY WINTER. Ľudia na fotkách B sú vymyslení, nápisy a logá na rukaviciach boli odstránené. A je poskladané z už použitých výrezov.</p>
+</main>
+<script>
+(() => {
+  const ARR = '<svg class="ico" viewBox="0 0 24 24"><path d="M4 12h15M13 6l6 6-6 6"/></svg>';
+  const CATS = [
+    ["gastro", "Gastro", "rondon 19,90 €"],
+    ["zdrav", "Zdravotníctvo", "set 29,80 €"],
+    ["pracovne", "Pracovné odevy", "tričká od 4,50 €"],
+    ["obuv", "Obuv", "nazúvaky 9,90 €"],
+    ["doplnky", "Doplnky", "rukavice od 0,40 €"],
+  ];
+  const A = { gastro: ["../img/hero/sl-chef.webp", "#E1251B", "red"], zdrav: ["../img/hero/set-bordo.webp", "#F3DFE4"], pracovne: ["../img/hero/sl-worker3.webp", "#E7E1D7"], obuv: ["a/obuv.webp", "#E3E7EB", "mul"], doplnky: ["../img/hero/cut-roxy-winter.png", "#EFE6D8"] };
+  const V = [
+    ["a", "A · Pretŕčanie", "Farebný panel v tóne kategórie, postava alebo produkt vyčnieva nad jeho okraj – rovnaký jazyk ako nové mobilné karty a slidy.", c => [A[c][0], A[c][1], A[c][2]]],
+    ["b", "B · Svetlé pracoviská", "Reálne prostredie za denného svetla – kuchyňa, nemocnica, stavba, dlažba, drevársky dvor. Teplé a vzdušné namiesto tmavých fotiek.", c => [`b/${c}.webp`]],
+    ["c", "C · Štúdio na farbe", "Skutočný produkt z katalógu na hladkom pozadí vo farbe kategórie, ako v katalógu značky.", c => [`c/${c}.webp`]],
+    ["d", "D · Detail", "Makro detail materiálu – stojačik rondonu, výstrih blúzy, zips, perforácia, máčaný úchop. Silná textúra a farba.", c => [`d/${c}.webp`]],
+  ];
+  const only = new URLSearchParams(location.search).get("only");
+  document.querySelector("[data-variants]").innerHTML = V.map(([k, t, d, img]) => `
+    <section class="ca-v${only === k ? " is-only" : ""}">
+      <div class="ca-v__hd"><h2>${t}</h2><p>${d}</p></div>
+      <div class="ca-row">
+        <div><div class="cats cats--${k}">${CATS.map(([c, name, offer]) => { const [src, tint, mod] = img(c);
+          return `<a class="catc${mod ? " catc--" + mod : ""}" href="#" style="${tint ? `--t:${tint}` : ""}"><img src="${src}" alt="" loading="lazy">
+            <span class="catc__row"><b>${name.replace(" ", "<br> ")}</b><span class="catc__go">${ARR}</span></span><span class="catc__offer tg tg-offer">${offer}</span></a>`; }).join("")}</div>
+          <p class="ca-cap">Počítač – riadok piatich dlaždíc pod bannerom.</p></div>
+        <div>${only ? "" : `<iframe class="ca-mob" src="?only=${k}" title="${t} – mobil" loading="lazy"></iframe><p class="ca-cap ca-cap--mob">Mobil – dlaždice dve vedľa seba, prvá cez celú šírku.</p>`}</div>
+      </div>
+    </section>`).join("");
+})();
+</script>
+</body>
+</html>
