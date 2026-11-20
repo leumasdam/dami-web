@@ -24,7 +24,7 @@
 .fi-emb .txt { max-width: 18em; }
 .fi-emb__ph { position: relative; aspect-ratio: 787 / 342; border-radius: var(--r); overflow: hidden; display: grid; place-items: center;
   background: repeating-linear-gradient(-58deg, rgba(255,255,255,.035) 0 2px, rgba(0,0,0,0) 2px 5px), radial-gradient(120% 140% at 50% 40%, #262626 0%, #191919 60%, #111 100%); }
-.fi-emb__ph img { position: absolute; inset: 0; width: 100%; height: 100%; max-width: none; object-fit: contain; object-position: 50% 50%; background: #141414; transition: transform .8s var(--ease); }
+.fi-emb__ph img { position: absolute; inset: 0; width: 100%; height: 100%; max-width: none; object-fit: cover; object-position: 50% 50%; background: #141414; transition: transform .8s var(--ease); }
 .fi-emb__ph:hover img { transform: scale(1.03); }
 
 /* červený pás */

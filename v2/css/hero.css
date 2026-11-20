@@ -44,7 +44,7 @@
 .hv-b__ghost { background: transparent; color: #fff; border: 2px solid rgba(255,255,255,.85); }
 .hv-b__ghost:hover { background: #fff; color: var(--red); }
 .hv-b__trust { display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: 14.5px; margin: auto 0 0; padding-top: 10px; opacity: .95; }
-.hv-b__hand { position: absolute; z-index: -1; right: -17%; bottom: -14%; width: clamp(150px, 15vw, 230px); height: auto; transform: rotate(-12deg); opacity: .95; }
+.hv-b__hand { position: absolute; z-index: -1; right: -27%; bottom: -14%; width: clamp(150px, 15vw, 230px); height: auto; transform: rotate(-12deg); opacity: .95; }
 .hv-b__ph { position: relative; min-height: 280px; }
 .hv-b__ph img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
 
