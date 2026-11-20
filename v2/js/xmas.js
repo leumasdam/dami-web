@@ -13,8 +13,8 @@
   const css = `
   .hdr { isolation: isolate; }
   .hdr > *:not(.xm-garland) { position: relative; z-index: 1; }
-  .xm-garland { position: absolute; left: calc(50% - 50vw); width: 100vw; top: 0; height: 64px; z-index: 0; pointer-events: none; overflow: visible; }
-  .xm-garland svg { display: block; height: 64px; overflow: visible; }
+  .xm-garland { position: absolute; left: calc(50% - 50vw); width: 100vw; top: 0; height: 52px; z-index: 0; pointer-events: none; overflow: visible; }
+  .xm-garland svg { display: block; height: 52px; overflow: visible; }
   .xm-wire { fill: none; stroke: #1d1d1d; stroke-width: 1.6; }
   .xm-b { transform-box: fill-box; transform-origin: 50% 0; }
   .xm-b .g { transition: opacity .6s; }
@@ -26,29 +26,33 @@
   .xm-tgl { position: absolute; right: 12px; top: 50%; translate: 0 -50%; width: 30px; height: 30px; display: grid; place-items: center; border: 0; border-radius: 50%; background: rgba(255,255,255,.1); color: #fff; cursor: pointer; font-size: 16px; line-height: 1; }
   .xm-tgl:hover { background: rgba(255,255,255,.2); }
   .xm-tgl[aria-pressed="false"] { opacity: .55; }
-  @media (max-width: 760px) { .xm-tgl { width: 24px; height: 24px; font-size: 13px; right: 6px; } .xm-garland, .xm-garland svg { height: 48px; } }
+  @media (max-width: 760px) { .xm-tgl { width: 24px; height: 24px; font-size: 13px; right: 6px; } .xm-garland, .xm-garland svg { height: 40px; } }
   `;
 
   function garland(host) {
     const g = document.createElement("div"); g.className = "xm-garland"; g.setAttribute("aria-hidden", "true");
     host.prepend(g);
     const draw = () => {
-      const W = g.clientWidth || innerWidth, mob = W < 760, seg = mob ? 104 : 168, H = mob ? 48 : 64;
-      /* háčiky idú mierne šikmo (zľava vyššie, doprava nižšie), oblúky visia hlbšie a striedajú hĺbku */
-      const n = Math.ceil(W / seg) + 1, cols = ["r", "w", "y", "r", "w"], drop = mob ? 10 : 16;
-      const hook = i => 2 + drop * (i / (n - 1)) + (i % 2 ? 3 : 0);
-      let path = "", bulbs = "", k = 0;
-      for (let i = 0; i < n; i++) {
-        const x0 = i * seg, x1 = x0 + seg, y0 = hook(i), y1 = hook(i + 1), cx = x0 + seg / 2, cy = Math.max(y0, y1) + (mob ? 22 : 30) + (i % 3) * 3;
-        path += `${i ? "" : `M${x0} ${y0.toFixed(1)}`} Q${cx} ${cy} ${x1} ${y1.toFixed(1)} `;
-        [0.2, 0.4, 0.6, 0.8].forEach(t => {
-          const x = (1 - t) ** 2 * x0 + 2 * (1 - t) * t * cx + t * t * x1, y = (1 - t) ** 2 * y0 + 2 * (1 - t) * t * cy + t * t * y1;
-          const dx = 2 * (1 - t) * (cx - x0) + 2 * t * (x1 - cx), dy = 2 * (1 - t) * (cy - y0) + 2 * t * (y1 - cy);
-          const rot = Math.atan2(dy, dx) * 180 / Math.PI;
-          bulbs += `<g class="xm-b ${cols[k++ % cols.length]}" transform="translate(${x.toFixed(1)} ${y.toFixed(1)}) rotate(${(rot * .4).toFixed(1)})"><rect class="c" x="-2.6" y="-1" width="5.2" height="4.6" rx="1"/><path class="g" d="M0 3.4c3.6 0 4.6 4.4 4.1 7.2-.5 2.6-2.2 4.4-4.1 4.4s-3.6-1.8-4.1-4.4C-4.6 7.8-3.6 3.4 0 3.4z"/></g>`;
-        });
-      }
-      g.innerHTML = `<svg viewBox="0 0 ${W} ${H}" width="${W}" height="${H}"><path class="xm-wire" d="${path}"/>${bulbs}</svg>`;
+      const W = g.clientWidth || innerWidth, mob = W < 760, H = mob ? 40 : 52;
+      /* dve reťaze do kríža: jedna zľava hore doprava dole, druhá naopak; visia vysoko pod čiernou lištou */
+      const cols = ["r", "w", "y", "r", "w"], bulb = (x, y, rot, c) => `<g class="xm-b ${c}" transform="translate(${x.toFixed(1)} ${y.toFixed(1)}) rotate(${rot.toFixed(1)})"><rect class="c" x="-2.6" y="-1" width="5.2" height="4.6" rx="1"/><path class="g" d="M0 3.4c3.6 0 4.6 4.4 4.1 7.2-.5 2.6-2.2 4.4-4.1 4.4s-3.6-1.8-4.1-4.4C-4.6 7.8-3.6 3.4 0 3.4z"/></g>`;
+      let out = "", k = 0;
+      const strand = (yL, yR, seg, sag, phase) => {
+        const n = Math.ceil(W / seg) + 1; let path = "", bulbs = "";
+        for (let i = 0; i < n; i++) {
+          const x0 = i * seg - phase, x1 = x0 + seg, y0 = yL + (yR - yL) * (x0 / W), y1 = yL + (yR - yL) * (x1 / W), cx = (x0 + x1) / 2, cy = (y0 + y1) / 2 + sag;
+          path += `${i ? "" : `M${x0} ${y0.toFixed(1)}`} Q${cx} ${cy.toFixed(1)} ${x1} ${y1.toFixed(1)} `;
+          [0.25, 0.5, 0.75].forEach(t => {
+            const x = (1 - t) ** 2 * x0 + 2 * (1 - t) * t * cx + t * t * x1, y = (1 - t) ** 2 * y0 + 2 * (1 - t) * t * cy + t * t * y1;
+            const dx = 2 * (1 - t) * (cx - x0) + 2 * t * (x1 - cx), dy = 2 * (1 - t) * (cy - y0) + 2 * t * (y1 - cy);
+            bulbs += bulb(x, y, Math.atan2(dy, dx) * 180 / Math.PI * .4, cols[k++ % cols.length]);
+          });
+        }
+        return `<path class="xm-wire" d="${path}"/>${bulbs}`;
+      };
+      const lo = mob ? 20 : 26, sag = mob ? 7 : 9, seg = mob ? 92 : 140;
+      out += strand(0, lo, seg, sag, 0) + strand(lo, 0, seg * 1.12, sag, seg * .5);
+      g.innerHTML = `<svg viewBox="0 0 ${W} ${H}" width="${W}" height="${H}">${out}</svg>`;
     };
     draw(); let rt; addEventListener("resize", () => { clearTimeout(rt); rt = setTimeout(draw, 150); });
     if (!reduce) setInterval(() => { const b = g.querySelectorAll(".xm-b"); for (let i = 0; i < Math.max(2, b.length / 8); i++) b[Math.floor(Math.random() * b.length)]?.classList.toggle("off"); }, 700);
