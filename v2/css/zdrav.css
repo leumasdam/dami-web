@@ -93,3 +93,22 @@
 .zd-allbar a svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 2.2; }
 .zd-allbar a:hover { background: var(--ink); color: #fff; }
 .zd-allbar a:hover b { color: #fff; }
+
+/* banner ponuka pre ambulancie – sety CESARE vo 4 farbách vyčnievajú z rámu */
+.zd-note-w { padding-top: max(80px, calc(80 * var(--u))); }
+.zd-sets { position: relative; display: flex; align-items: center; min-height: 300px; padding: 24px 48px; border-radius: var(--r); background: var(--card); color: var(--ink); }
+.zd-sets__txt { position: relative; z-index: 2; max-width: 440px; display: grid; justify-items: start; gap: 10px; }
+.zd-sets h2 { font-size: max(34px, calc(50 * var(--u))); line-height: .93; }
+.zd-sets h2 span { color: var(--red); }
+.zd-sets p { font-weight: 500; font-size: 18px; }
+.zd-sets .btn { margin-top: 8px; }
+.zd-sets__img { position: absolute; right: 2%; bottom: -10px; height: 330px; display: flex; align-items: flex-end; z-index: 1; pointer-events: none; }
+.zd-sets__img img { height: 100%; width: auto; max-width: none; margin-left: -110px; filter: drop-shadow(10px 18px 14px rgba(0,0,0,.18)); }
+.zd-sets__img img:nth-child(2) { height: 92%; } .zd-sets__img img:nth-child(3) { height: 86%; } .zd-sets__img img:nth-child(4) { height: 80%; }
+.zd-sets:hover .zd-sets__img { transform: translateY(-4px); transition: transform .4s var(--ease); }
+@media (max-width: 860px) {
+  .zd-note-w { padding-top: 28px; }
+  .zd-sets { flex-direction: column; align-items: flex-start; padding: 24px 20px 0; overflow: hidden; }
+  .zd-sets__img { position: relative; right: auto; bottom: auto; height: 200px; align-self: center; margin: 10px 0 -10px 90px; }
+  .zd-sets__img img { margin-left: -46px; }
+}
