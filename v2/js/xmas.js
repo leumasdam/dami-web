@@ -13,7 +13,7 @@
 
   /* POLOHA SVETIELOK (px od vrchu stránky, pod čiernou lištou). Hodnoty z ladiaceho panela vložiť sem. */
   const DEF = {
-    d: { yL: 1230, yR: 1244, sag: 14, seg: 255, size: 1.5, per: 2, front: 1 },
+    d: { yL: 1372, yR: 1212, sag: 14, seg: 255, size: 1.5, per: 2, front: 0 },
     m: { yL: 60, yR: 150, sag: 10, seg: 100, size: 1, per: 3, front: 0 },
   };
   let CFG = JSON.parse(JSON.stringify(DEF));
