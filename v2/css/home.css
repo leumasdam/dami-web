@@ -364,7 +364,7 @@
 @media (max-width: 760px) {
   .made--patch { margin-top: 0; overflow: hidden; flex-direction: column; align-items: flex-start; }
   .made--patch .made__txt { padding: 22px 18px 0; }
-  .made--patch .made__patch { position: relative; right: auto; bottom: auto; height: 220px; align-self: flex-end; margin: 6px -8px -24px 0; }
+  .made--patch .made__patch { position: relative; right: auto; bottom: auto; height: min(92vw, 420px); align-self: flex-end; margin: 4px -14% -18% 0; rotate: -12deg; }
 }
 
 /* pre firmy – text, fotka odevov s logom a čierny stĺpec výhod */
@@ -387,3 +387,9 @@
 }
 
 
+
+/* veľký banner – preklápanie ako tabuľa (desktop) */
+.car--flip { perspective: 1600px; }
+.car--flip .car__track { display: block; position: relative; transform: none !important; }
+.car--flip .slide { position: absolute; inset: 0; visibility: hidden; }
+.car--flip .slide.is-on { visibility: visible; }
