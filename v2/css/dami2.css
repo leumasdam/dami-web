@@ -378,15 +378,15 @@ html.is-capped body { max-width: 1440px; margin-inline: auto; overflow-x: visibl
 .tg-cat::before { content: "/"; color: var(--red); font-weight: 900; font-size: 1.15em; margin-right: 1px; }
 .tg-cat--w { color: #fff; } .tg-cat--w::before { color: #fff; }
 
-.tg-hl, .tg-offer { background: var(--red); color: #fff; --c: 10px; clip-path: polygon(var(--c) 0, 100% 0, calc(100% - var(--c)) 100%, 0 100%, 0 var(--c)); padding-right: calc(14px + var(--c)); }
+.tg-hl, .tg-offer { background: var(--red); color: #fff; --c: 9px; clip-path: polygon(0 0, calc(100% - var(--c)) 0, 100% var(--c), 100% 100%, var(--c) 100%, 0 calc(100% - var(--c))); }
 
-.tg-price { --c: 14px; background-color: var(--red); color: #fff; flex-direction: column; align-items: flex-start; gap: 3px; padding: 12px 22px 12px 16px; text-transform: none; letter-spacing: 0; }
+.tg-price { --c: 12px; rotate: -4deg; background-color: var(--red); color: #fff; flex-direction: column; align-items: flex-start; gap: 3px; padding: 12px 22px 12px 16px; text-transform: none; letter-spacing: 0; }
 .tg-price small { font: 800 13px/1 var(--f-d); font-stretch: 85%; text-transform: uppercase; letter-spacing: .06em; }
 .tg-price b { font: 900 34px/.9 var(--f-d); font-stretch: 72%; letter-spacing: -.01em; }
 .tg-price s { font: 600 13px/1 var(--f); opacity: .85; }
 .tg-price--w { background-color: #fff; color: var(--red); }
 
-.tg-sale { background: var(--red); color: #fff; font-weight: 900; font-stretch: 75%; letter-spacing: 0; clip-path: polygon(0 8%, 100% 0, 100% 92%, 0 100%); rotate: -4deg; padding: 8px 12px 7px; }
+.tg-sale { --c: 10px; background: var(--red); color: #fff; font-weight: 900; font-stretch: 75%; letter-spacing: 0; clip-path: polygon(0 0, calc(100% - var(--c)) 0, 100% var(--c), 100% 100%, var(--c) 100%, 0 calc(100% - var(--c))); rotate: -4deg; padding: 8px 12px 7px; }
 
 .tg-spec { --c: 6px; font-size: 13px; padding: 6px 10px 5px; color: var(--ink); }
 .tg-spec--w { color: #fff; }
@@ -395,7 +395,7 @@ html.is-capped body { max-width: 1440px; margin-inline: auto; overflow-x: visibl
 .tg-state i { width: 9px; height: 9px; border-radius: 50%; background: #b9b2a8; flex: none; }
 .tg-state.is-open i, .tg-state--on i { background: #22a35a; box-shadow: 0 0 0 3px rgba(34,163,90,.2); }
 
-.tg-new { --c: 10px; background: #F2EBDD; color: var(--ink); clip-path: polygon(0 0, 100% 0, 100% calc(100% - var(--c)), calc(100% - var(--c)) 100%, 0 100%); }
+.tg-new { --c: 9px; background: #F2EBDD; color: var(--ink); clip-path: polygon(0 0, calc(100% - var(--c)) 0, 100% var(--c), 100% 100%, var(--c) 100%, 0 calc(100% - var(--c))); }
 
 /* oddeľovač: čiara s červeným zrezaným jazýčkom vľavo */
 .dv-tab { position: relative; height: 2px; background: var(--ink); opacity: .9; }

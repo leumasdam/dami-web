@@ -142,6 +142,6 @@
 @media (max-width: 760px) { .hv-c--set .hv-c__prod > img { max-height: 340px; } }
 
 /* cenovka v hero kategórie: zrezaný štítok zo systému namiesto kruhu */
-.hv-c__stk.tg { transform: none; width: auto; aspect-ratio: auto; border-radius: 0; display: inline-flex; place-items: initial; box-shadow: none; rotate: -5deg; padding: 12px 22px 12px 16px; }
+.hv-c__stk.tg { transform: none; width: auto; aspect-ratio: auto; border-radius: 0; display: inline-flex; place-items: initial; box-shadow: none; rotate: -4deg; padding: 12px 22px 12px 16px; }
 .hv-c__stk.tg b { font-size: clamp(28px, 2.6vw, 38px); }
 @media (max-width: 760px) { .hv-c__stk.tg { padding: 9px 16px 9px 12px; } .hv-c__stk.tg b { font-size: 26px; } }
