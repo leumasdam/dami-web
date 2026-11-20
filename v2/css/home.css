@@ -570,3 +570,8 @@
   .made--patch .made__ph { transition: transform .6s var(--ease); }
 }
 .car--flip .slide { backface-visibility: hidden; }
+
+/* väčšia medzera medzi Najpredávanejšie a Vlastnou výrobou (v decembri v nej visia svetielka) */
+.xm-gap { height: clamp(70px, 7vw, 120px); }
+@media (min-width: 761px) { .xm-gap + .wrap .made--patch, .xm-gap ~ section .made--patch { margin-top: 0; } }
+@media (max-width: 760px) { .xm-gap { height: 0; } }

@@ -3,7 +3,7 @@
    Ladenie polohy svetielok: ?vianoce&tune → panel s posuvníkmi vľavo dole (desktop a mobil sa ladia zvlášť). */
 (() => {
   const qs = new URLSearchParams(location.search), q = qs.get("vianoce"), TUNE = qs.has("tune");
-  const KEY = "dami-xmas", CKEY = "dami-xmas-cfg";
+  const KEY = "dami-xmas", CKEY = "dami-xmas-cfg2";
   let pref = null;
   try { if (q !== null) localStorage.setItem(KEY, q === "0" ? "off" : "on"); pref = localStorage.getItem(KEY); } catch {}
   const now = new Date(), m = now.getMonth(), d = now.getDate();
@@ -11,9 +11,9 @@
   const on = pref === "on" || (season && pref !== "off");
   const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  /* POLOHA SVETIELOK (px od vrchu stránky, pod čiernou lištou). Hodnoty z ladiaceho panela vložiť sem. */
+  /* POLOHA SVETIELOK – počítač: px od vrchu medzery [data-xm-gap] na úvode; mobil: px pod čiernou lištou. Hodnoty z ladiaceho panela vložiť sem. */
   const DEF = {
-    d: { yL: 1372, yR: 1212, sag: 14, seg: 255, size: 1.5, per: 2, front: 0 },
+    d: { yL: 82, yR: 30, sag: 14, seg: 255, size: 1.5, per: 2, front: 1 },
     m: { yL: 60, yR: 150, sag: 10, seg: 100, size: 1, per: 3, front: 0 },
   };
   let CFG = JSON.parse(JSON.stringify(DEF));
@@ -58,7 +58,9 @@
     const bulb = (x, y, rot, c, s) => `<g class="xm-b ${c}" transform="translate(${x.toFixed(1)} ${y.toFixed(1)}) rotate(${rot.toFixed(1)}) scale(${s})"><rect class="c" x="-2.6" y="-1" width="5.2" height="4.6" rx="1"/><path class="g" d="M0 3.4c3.6 0 4.6 4.4 4.1 7.2-.5 2.6-2.2 4.4-4.1 4.4s-3.6-1.8-4.1-4.4C-4.6 7.8-3.6 3.4 0 3.4z"/></g>`;
     const draw = () => {
       const c = CFG[mode()], W = g.clientWidth || innerWidth;
-      const top = document.querySelector(".topbar")?.offsetHeight || 0;
+      const gap = document.querySelector("[data-xm-gap]");
+      const offTop = el => { let y = 0; for (let e = el; e && e !== document.body; e = e.offsetParent) y += e.offsetTop; return y; };
+      const top = gap && mode() === "d" && gap.offsetHeight ? offTop(gap) : (document.querySelector(".topbar")?.offsetHeight || 0);
       const yL = top + c.yL, yR = top + c.yR, H = Math.max(yL, yR) + c.sag + 40;
       const n = Math.ceil(W / c.seg) + 1; let path = "", bulbs = "", k = 0;
       for (let i = 0; i < n; i++) {
@@ -74,7 +76,9 @@
       g.classList.toggle("is-front", !!c.front);
       g.innerHTML = `<svg viewBox="0 0 ${W} ${H}" width="${W}" height="${H}"><path class="xm-wire" d="${path}"/>${bulbs}</svg>`;
     };
-    draw(); let rt; addEventListener("resize", () => { clearTimeout(rt); rt = setTimeout(draw, 150); });
+    draw(); let rt; const later = () => { clearTimeout(rt); rt = setTimeout(draw, 150); };
+    addEventListener("resize", later); addEventListener("load", later); document.fonts?.ready.then(later);
+    if ("ResizeObserver" in window) new ResizeObserver(later).observe(document.body);
     if (!reduce) setInterval(() => { const b = g.querySelectorAll(".xm-b"); for (let i = 0; i < Math.max(2, b.length / 8); i++) b[Math.floor(Math.random() * b.length)]?.classList.toggle("off"); }, 700);
     g.redraw = draw;
     return g;
