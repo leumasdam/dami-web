@@ -351,3 +351,15 @@
 
 /* pre firmy: polokošeľa s vyšitým logom, väčšia a mierne natočená */
 .car--v3 .sl--firmy .sl__fig--in img { height: 96%; width: 92%; top: 52%; rotate: -4deg; filter: drop-shadow(0 22px 26px rgba(20,20,20,.22)); }
+
+/* vlastná výroba – svetlý banner, nášivka D presahuje cez horný okraj */
+.made--patch { background: var(--card); color: var(--ink); overflow: visible; margin-top: 64px; box-shadow: none; display: flex; align-items: center; }
+.made--patch h2 span { color: var(--red); }
+.made--patch .made__txt { padding: 24px 48px; max-width: 760px; }
+.made--patch .made__patch { position: absolute; left: auto; right: 6%; bottom: -24px; height: 420px; width: auto; transform: none; rotate: -9deg; filter: drop-shadow(14px 22px 18px rgba(0,0,0,.28)); z-index: 1; }
+.made--patch:hover .made__patch { transform: translateY(-6px); }
+@media (max-width: 760px) {
+  .made--patch { margin-top: 0; overflow: hidden; flex-direction: column; align-items: flex-start; }
+  .made--patch .made__txt { padding: 22px 18px 0; }
+  .made--patch .made__patch { position: relative; right: auto; bottom: auto; height: 220px; align-self: flex-end; margin: 6px -8px -24px 0; }
+}
