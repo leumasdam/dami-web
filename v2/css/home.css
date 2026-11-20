@@ -356,7 +356,7 @@
 .made--patch { background: var(--card); color: var(--ink); overflow: visible; margin-top: 64px; box-shadow: none; display: flex; align-items: center; }
 .made--patch h2 span { color: var(--red); }
 .made--patch .made__txt { padding: 24px 48px; max-width: 760px; }
-.made--patch .made__patch { position: absolute; left: auto; right: 6%; bottom: -24px; height: 420px; width: auto; transform: none; rotate: -9deg; filter: drop-shadow(14px 22px 18px rgba(0,0,0,.28)); z-index: 1; }
+.made--patch .made__patch { position: absolute; left: auto; right: 8%; bottom: -14px; height: 350px; width: auto; transform: none; rotate: -9deg; filter: drop-shadow(14px 22px 18px rgba(0,0,0,.28)); z-index: 1; }
 .made--patch:hover .made__patch { transform: translateY(-6px); }
 @media (max-width: 760px) {
   .made--patch { margin-top: 0; overflow: hidden; flex-direction: column; align-items: flex-start; }
