@@ -55,7 +55,7 @@
 .car__arr:hover { transform: scale(1.08); }
 .car__arr .ico { width: 21px; height: 21px; stroke-width: 2.2; }
 .car__arr--l { left: 14px; } .car__arr--r { right: 14px; }
-.car__dots { position: absolute; left: 66px; bottom: 26px; z-index: 5; display: flex; gap: 14px; }
+.car__dots { position: absolute; right: 28px; bottom: 26px; z-index: 5; display: flex; gap: 14px; }
 .car__dots button { width: 15px; height: 15px; border-radius: 50%; background: rgba(255,255,255,.5); transition: background .3s, transform .3s; }
 .car__dots button[aria-selected="true"] { background: #fff; }
 .car__dots button:hover { transform: scale(1.15); }
