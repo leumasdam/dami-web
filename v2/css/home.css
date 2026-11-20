@@ -407,7 +407,7 @@
 .promo--dark h2 { color: #fff; }
 .sec__hd--tab { position: relative; padding-bottom: 16px; margin-bottom: 26px; }
 .sec__hd--tab::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 2px; background: var(--ink); }
-.sec__hd--tab::before { content: ""; position: absolute; left: 0; bottom: 0; width: 72px; height: 7px; background: var(--red); clip-path: polygon(0 0, calc(100% - 7px) 0, 100% 100%, 0 100%); z-index: 1; }
+.sec__hd--tab::before { content: ""; position: absolute; left: 0; bottom: -2px; width: 72px; height: 6px; background: var(--red); border-radius: 3px; z-index: 1; }
 @media (max-width: 1060px) { .sl__stk.tg b { font-size: 28px; } }
 @media (max-width: 760px) {
   .sl__stk.tg { width: auto; height: auto; padding: 9px 16px 9px 12px; } .sl__stk.tg b { font-size: 25px; }

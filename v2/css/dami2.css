@@ -455,41 +455,13 @@ html.is-capped body { max-width: 1440px; margin-inline: auto; overflow-x: visibl
 }
 
 /* =====================================================================
-   JEDEN TVAR NA CELOM WEBE: tlačidlá aj štítky majú zrezaný pravý horný a ľavý dolný roh.
-   Plné tlačidlá = orez; obrysové = obrys kreslený gradientmi (funguje aj na priehľadnom pozadí).
+   JEDEN OBLÝ TVAR NA CELOM WEBE – tlačidlá aj štítky sú oblé.
+   Rolu rozlišuje výplň, obrys a farba:
+   červená plná = cena, zľava, hlavná akcia · obrys + červená lomka = kategória
+   čierna plná = norma / vlastnosť · biela s bodkou = stav · krémová = novinka
    ===================================================================== */
-.btn, .pc__add, .pc__lg, .rail-btn, .car__arr, .catc__go, .lgo button, .szb button, .ksub__a, .sz, .chip, .pager__b, .kstrip__go, .qty, .rez, .pc__sizes i {
-  --c: 9px; border-radius: 0 !important;
-  clip-path: polygon(0 0, calc(100% - var(--c)) 0, 100% var(--c), 100% 100%, var(--c) 100%, 0 calc(100% - var(--c)));
-}
-.pc__add, .pc__lg, .rail-btn, .szb button, .lgo button, .pager__b { --c: 8px; }
-.sz, .chip, .qty { --c: 6px; } .pc__sizes i { --c: 4px; border-radius: 0 !important; }
-.car__arr, .catc__go, .kstrip__go { --c: 7px; }
-.btn--line, .btn--redline, .btn--ghost, .pc__lg, .rail-btn, .lgo button, .szb button, .ksub__a, .chip:not(.chip--reset), .pager__b, .qty, .rez {
-  --bw: 1.5px; --bc: #cfc8bf; border: 0 !important;
-  background-image:
-    linear-gradient(var(--bc), var(--bc)), linear-gradient(var(--bc), var(--bc)), linear-gradient(var(--bc), var(--bc)), linear-gradient(var(--bc), var(--bc)),
-    linear-gradient(45deg, transparent calc(50% - var(--bw) * 1.2), var(--bc) 0 50%, transparent 0), linear-gradient(225deg, transparent calc(50% - var(--bw) * 1.2), var(--bc) 0 50%, transparent 0) !important;
-  background-size: calc(100% - var(--c)) var(--bw), var(--bw) calc(100% - var(--c)), calc(100% - var(--c)) var(--bw), var(--bw) calc(100% - var(--c)), var(--c) var(--c), var(--c) var(--c) !important;
-  background-position: 0 0, 0 0, 100% 100%, 100% 100%, 100% 0, 0 100% !important;
-  background-repeat: no-repeat !important;
-}
-.btn--line { --bc: var(--ink); }
-.btn--redline { --bc: var(--red); --bw: 2px; }
-.btn--ghost { --bc: rgba(255,255,255,.75); }
-.pr-card .btn--redline { --bc: rgba(255,255,255,.7); }
-.pc__lg:hover, .rail-btn:hover { --bc: var(--red); }
-.lgo button:hover, .szb button:hover, .ksub__a:hover { --bc: var(--ink); }
-.lgo button.is-on { --bc: var(--red); --bw: 2px; box-shadow: none; }
-.szb button.is-on, .ksub__a.is-on { --bc: var(--ink); }
-@media (max-width: 900px) {
-  .kbtn { --c: 9px; --bw: 1.5px; --bc: var(--red); border: 0 !important; border-radius: 0 !important;
-    clip-path: polygon(0 0, calc(100% - var(--c)) 0, 100% var(--c), 100% 100%, var(--c) 100%, 0 calc(100% - var(--c)));
-    background-image: linear-gradient(var(--bc), var(--bc)), linear-gradient(var(--bc), var(--bc)), linear-gradient(var(--bc), var(--bc)), linear-gradient(var(--bc), var(--bc)),
-      linear-gradient(45deg, transparent calc(50% - var(--bw) * 1.2), var(--bc) 0 50%, transparent 0), linear-gradient(225deg, transparent calc(50% - var(--bw) * 1.2), var(--bc) 0 50%, transparent 0) !important;
-    background-size: calc(100% - var(--c)) var(--bw), var(--bw) calc(100% - var(--c)), calc(100% - var(--c)) var(--bw), var(--bw) calc(100% - var(--c)), var(--c) var(--c), var(--c) var(--c) !important;
-    background-position: 0 0, 0 0, 100% 100%, 100% 100%, 100% 0, 0 100% !important; background-repeat: no-repeat !important; }
-}
-.chip:hover, .pager__b:hover { --bc: var(--ink); }
-.sz, .chip, .pager__b, .qty { border-radius: 0 !important; }
-.rez { --bc: var(--red); }
+.tg, .tg--cut2, .tg-hl, .tg-offer, .tg-sale, .tg-new, .tg-price { clip-path: none !important; border-radius: 8px; }
+.tg-spec, .tg-state { border-radius: 7px; }
+.tg--line { background-image: none !important; border: 2px solid var(--bc, currentColor); }
+.tg-price--w.tg--line { border-width: 2.5px; }
+.tg.sl__stk, .tg.hv-c__stk, .tg.sl__chip, .tg.sl__live, .tg.catc__offer, .tg.pc__badge, .tg.promo__sale { border-radius: 8px !important; }
