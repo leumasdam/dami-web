@@ -351,3 +351,6 @@
   .car--v3 .sl__cta .link { display: inline; }
   .car--v3 .label { display: inline-block; background: var(--red); color: #fff; padding: 6px 9px 5px; border-radius: 6px; border: 0; font-size: 12px; }
 }
+
+/* pre firmy: polokošeľa s vyšitým logom, väčšia a mierne natočená */
+.car--v3 .sl--firmy .sl__fig--in img { height: 96%; width: 92%; top: 52%; rotate: -4deg; filter: drop-shadow(0 22px 26px rgba(20,20,20,.22)); }
