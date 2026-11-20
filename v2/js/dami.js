@@ -3,8 +3,12 @@
   /* ---------- veľké obrazovky: dizajn je kreslený na 1440 px, nad tým sa celá stránka plynulo zväčšuje
      až po šírku okna 2600 px; širšie okná už obsah ďalej neťahajú, ostane v strede a po bokoch je voľná plocha ---------- */
   const root = document.documentElement, MAXW = 2600;
+  /* na veľkých monitoroch je všetko o 10 % menšie (ako lupa 90 % v Chrome): od 1920 px sa plynulo zmenšuje, od 2560 px je 0,9 */
+  const K = w => w <= 1920 ? 1 : w >= 2560 ? .9 : 1 - .1 * (w - 1920) / 640;
   function fit() {
-    const z = Math.min(MAXW / 1440, Math.max(1, innerWidth / 1440));
+    const k = K(Math.min(innerWidth, MAXW + 1));
+    const z = Math.min(MAXW / 1440, Math.max(1, innerWidth / 1440)) * k;
+    root.style.setProperty("--k", k.toFixed(4));
     root.classList.toggle("is-capped", innerWidth > MAXW);
     root.style.zoom = z > 1.001 ? z.toFixed(4) : "";
     root.style.setProperty("--z", z.toFixed(4));

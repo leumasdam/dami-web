@@ -303,7 +303,7 @@ html.is-capped .ftr, html.is-capped .topbar { position: relative; isolation: iso
 html.is-capped .ftr::before, html.is-capped .topbar::before { content: ""; position: absolute; top: 0; bottom: 0; left: -100vmax; right: -100vmax; z-index: -1; pointer-events: none; }
 html.is-capped .ftr::before { background: #050505; }
 html.is-capped .topbar::before { background: #0b0b0b; }
-html.is-capped body { max-width: 1440px; margin-inline: auto; overflow-x: visible; }
+html.is-capped body { max-width: calc(1440px / var(--k, 1)); margin-inline: auto; overflow-x: visible; }
 
 /* ---------- recenzie a dôvera (Google, Heureka) ---------- */
 .stars { display: inline-flex; gap: 1px; vertical-align: middle; }
