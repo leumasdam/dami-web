@@ -435,3 +435,23 @@ html.is-capped body { max-width: 1440px; margin-inline: auto; overflow-x: clip; 
 .lgo-up textarea { width: 100%; font: 500 15px/1.4 var(--f); padding: 12px 14px; border: 1.5px solid #d9d4cd; border-radius: 10px; background: #fff; resize: vertical; }
 .lgo-up textarea:focus { outline: none; border-color: var(--ink); }
 .lgo-hint { margin: 0; font-size: 13px; color: var(--muted); }
+
+/* ===== mobil ako appka: vyhľadávanie pod hlavičkou + spodná lišta ===== */
+.msrch, .tabbar { display: none; }
+@media (max-width: 760px) {
+  .msrch { display: block; padding: 0 var(--gut) 10px; }
+  .msrch .search { display: flex; width: 100%; height: 46px; border-radius: 12px; border: 1.5px solid #d9d4cd; background: #fff; padding: 0 14px; gap: 10px; }
+  .msrch .search:focus-within { width: 100%; border-color: var(--ink); }
+  .msrch .search input { font-size: 16px; }
+  .msrch .search .ico { width: 22px; height: 22px; }
+  .hdr .tool--search { display: none; }
+  body { padding-bottom: calc(66px + env(safe-area-inset-bottom)); }
+  .tabbar { position: fixed; left: 0; right: 0; bottom: 0; z-index: 90; display: grid; grid-template-columns: repeat(5, 1fr); background: rgba(255,255,255,.97); backdrop-filter: blur(10px); border-top: 1px solid #e6e1da; padding: 6px 4px calc(6px + env(safe-area-inset-bottom)); box-shadow: 0 -8px 24px rgba(20,20,20,.06); }
+  .tabbar__i { position: relative; display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 6px 0 4px; border: 0; background: none; color: #6b655e; font: 600 11.5px/1 var(--f); cursor: pointer; }
+  .tabbar__i .ico { width: 25px; height: 25px; stroke-width: 1.7; }
+  .tabbar__i.is-on { color: var(--red); }
+  .tabbar__i.is-on::before { content: ""; position: absolute; top: -7px; left: 50%; width: 26px; height: 3px; translate: -50% 0; background: var(--red); clip-path: polygon(3px 0, 100% 0, calc(100% - 3px) 100%, 0 100%); }
+  .tabbar .tool__badge { position: absolute; top: 0; left: calc(50% + 5px); right: auto; }
+  .toast { bottom: calc(80px + env(safe-area-inset-bottom)); transform: translate(-50%, 24px); opacity: 0; visibility: hidden; transition: transform .4s var(--ease), opacity .3s, visibility 0s .4s; }
+  .toast.is-on { transform: translate(-50%, 0); opacity: 1; visibility: visible; transition: transform .4s var(--ease), opacity .3s; }
+}

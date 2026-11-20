@@ -39,6 +39,7 @@
 
   /* ---------- ikony (stroke, 24px) ---------- */
   const I = {
+    home: '<path d="M3.5 10.5 12 3.5l8.5 7"/><path d="M5.5 9v11h13V9"/><path d="M10 20v-5.5h4V20"/>',
     search: '<circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/>',
     user: '<circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/>',
     heart: '<path d="M12 20s-7.5-4.6-9.2-9.3C1.7 7.4 4 4.5 7.1 4.5c2 0 3.6 1.1 4.9 3 1.3-1.9 2.9-3 4.9-3 3.1 0 5.4 2.9 4.3 6.2C19.5 15.4 12 20 12 20z"/>',
@@ -204,7 +205,7 @@
     const pr = o.prod;
     return `<section class="wrap hv hv-c"><div class="hv-c__txt">${o.crumbs ? crumbsHtml(o.crumbs) : ""}${o.eye ? `<p class="hv-c__eye">${o.eye}</p>` : ""}<h1>${o.h1}</h1>
         ${o.n ? `<p class="hv-c__n">${o.n}</p>` : ""}${o.extra || ""}${o.btns ? `<div class="hv-c__btns">${o.btns.map(heroBtn).join("")}</div>` : ""}</div>
-      <a class="hv-c__prod" href="${pr.href}"><img src="${pr.img}" alt="${esc(pr.alt || pr.name)}"${pr.cut ? "" : ' class="is-pack"'}><span class="hv-c__stk">${pr.price}</span>
+      <a class="hv-c__prod" href="${pr.href}"><img src="${pr.img}" alt="${esc(pr.alt || pr.name)}"${pr.cut ? "" : ' class="is-pack"'}><span class="hv-c__stk tg tg--cut2 tg-price">${/^od /.test(pr.price) ? `<small>od</small><b>${pr.price.slice(3)}</b>` : `<b>${pr.price}</b>`}</span>
         <span class="hv-c__info"><b>${esc(pr.name)}</b><ul>${pr.specs.map(t => `<li>${esc(t)}</li>`).join("")}</ul></span></a>
       ${o.rail && o.rail.length ? `<aside class="hv-c__rail"><h2>${o.railTitle || "Odporúčame"}</h2>${o.rail.map(p => `<a class="hv-c__item" href="${prodUrl(p.id)}"><span><img src="${cleanImg(p) || p.img[0]}" alt="" loading="lazy"></span><b>${esc(shortName(p))}</b><i>${eur(p.price)}</i></a>`).join("")}</aside>` : ""}</section>`;
   }
@@ -236,6 +237,7 @@
           <button class="burger burger--r" data-open-nav aria-label="Menu">${ico("menu")}</button>
         </div>
       </div>
+      <div class="msrch"><label class="search">${ico("search", "")}<input type="search" placeholder="Hľadať oblečenie, obuv…" aria-label="Hľadať" data-search data-msrch><div class="search__res" data-search-res></div></label></div>
     </header>`;
   }
 
@@ -266,11 +268,23 @@
       <div class="mnav__foot"><span class="logo-mk"><img src="img/hand-white.svg" alt=""></span><span><a href="${FIRM.map}" target="_blank" rel="noopener">${FIRM.street}</a> • <a href="tel:${FIRM.phone.replace(/\s/g, "")}">${FIRM.phone}</a></span></div></div>`;
   }
 
+  /* mobil: spodná lišta ako v appke */
+  function tabbar() {
+    const pg = (location.pathname.split("/").pop() || "index.html").replace(".html", "");
+    const on = k => k === pg || (k === "index" && pg === "") ? " is-on" : "";
+    return `<nav class="tabbar" aria-label="Rýchla navigácia">
+      <a class="tabbar__i${on("index")}" href="index.html">${ico("home")}<span>Domov</span></a>
+      <button class="tabbar__i${pg === "kategoria" || pg === "zdravotnictvo" ? " is-on" : ""}" data-open-nav>${ico("grid")}<span>Kategórie</span></button>
+      <button class="tabbar__i" data-tab-search>${ico("search")}<span>Hľadať</span></button>
+      <button class="tabbar__i${on("kosik")}" data-open-cart>${ico("cart")}<span class="tool__badge" data-cart-count>0</span><span>Košík</span></button>
+      <a class="tabbar__i${on("predajna")}" href="predajna.html">${ico("store")}<span>Predajňa</span></a>
+    </nav>`;
+  }
   function chrome() {
     return `<div class="drawer-bg" data-close-cart></div>
       <aside class="drawer" aria-label="Košík" aria-hidden="true"><div class="drawer__hd"><h3>Košík</h3><button class="drawer__x" data-close-cart aria-label="Zavrieť">${ico("x")}</button></div>
         <div class="drawer__list" data-cart-list></div><div class="drawer__ft" data-cart-ft></div></aside>
-      <div class="toast" role="status" aria-live="polite">${ico("checkC")}<span data-toast-msg></span></div>${mobileNav()}`;
+      <div class="toast" role="status" aria-live="polite">${ico("checkC")}<span data-toast-msg></span></div>${mobileNav()}${tabbar()}`;
   }
 
   /* ---------- karta produktu ---------- */
@@ -376,6 +390,7 @@
 
   /* ---------- delegované kliky ---------- */
   document.addEventListener("click", e => {
+    if (e.target.closest("[data-tab-search]")) { const i = document.querySelector("[data-msrch]"); scrollTo({ top: 0, behavior: "smooth" }); setTimeout(() => i?.focus(), 250); return; }
     const t = e.target.closest("[data-open-cart],[data-close-cart],[data-fav],[data-quick],[data-q],[data-open-nav],[data-close-nav],.pc a, a.pc-link");
     if (!t) return;
     if (t.matches("[data-open-cart]")) { e.preventDefault(); document.body.classList.remove("nav-open"); openCart(); }

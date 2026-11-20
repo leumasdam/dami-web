@@ -8,10 +8,10 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Figtree:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../assets/css/dami.css">
-<link rel="stylesheet" href="css/dami2.css?v=1120z">
-<link rel="stylesheet" href="css/home.css?v=1120z">
+<link rel="stylesheet" href="css/dami2.css?v=1121a">
+<link rel="stylesheet" href="css/home.css?v=1121a">
 <script src="../data/catalog.js"></script>
-<script src="js/dami.js?v=1120z"></script>
+<script src="js/dami.js?v=1121b"></script>
 </head>
 <body>
 <script>DAMI.mount("light", "")</script>
@@ -25,6 +25,7 @@
       <button class="car__arr car__arr--r" data-next aria-label="Ďalšia ponuka"></button>
       <div class="car__dots" data-dots role="tablist" aria-label="Ponuky"></div>
     </div>
+    <nav class="mcats" data-mcats aria-label="Kategórie"></nav>
     <div class="hero2__side">
       <a class="promo promo--dark pat--dark" href="kategoria.html?c=gastro&b=Giblors">
         <h2>Giblors</h2><span class="tg tg-sale promo__sale">až −14&nbsp;%</span>
@@ -166,16 +167,25 @@
   const c0 = real[N - 1].cloneNode(true), c1 = real[0].cloneNode(true);
   [c0, c1].forEach(c => { c.setAttribute("aria-hidden", "true"); c.inert = true; c.querySelectorAll("h1").forEach(x => x.outerHTML = x.outerHTML.replace(/^<h1/, "<h2").replace(/h1>$/, "h2>")); });
   track.prepend(c0); track.append(c1);
-  const place = anim => { track.style.transition = anim ? "" : "none"; track.style.transform = `translateX(${-100 * pos}%)`; if (!anim) void track.offsetWidth; };
+  /* mobil: karty, ktoré sa posúvajú prstom (vpravo vykúka ďalšia) */
+  const snapMq = matchMedia("(max-width: 760px)");
+  const isSnap = () => snapMq.matches;
+  const place = anim => { if (isSnap()) { track.style.transition = "none"; track.style.transform = "none"; return; } track.style.transition = anim ? "" : "none"; track.style.transform = `translateX(${-100 * pos}%)`; if (!anim) void track.offsetWidth; };
+  let snapT;
+  track.addEventListener("scroll", () => { if (!isSnap()) return; clearTimeout(snapT); snapT = setTimeout(() => {
+    const x = track.scrollLeft, i = real.reduce((b, s, j) => Math.abs(s.offsetLeft - real[0].offsetLeft - x) < Math.abs(real[b].offsetLeft - real[0].offsetLeft - x) ? j : b, 0);
+    cur = i; [...dots.children].forEach((d, j) => d.setAttribute("aria-selected", j === cur)); }, 60); }, { passive: true });
   /* desktop: veľký banner sa preklápa ako tabuľa (ďalší zhora dole, predchádzajúci zdola hore) */
   const flipMq = matchMedia("(min-width: 761px)");
   const isFlip = () => flipMq.matches && !reduce;
   const setFlip = () => {
+    car.classList.toggle("car--snap", isSnap());
+    if (isSnap()) { car.classList.remove("car--flip"); place(false); real.forEach(s => { s.classList.add("is-on"); s.removeAttribute("inert"); }); return; }
     car.classList.toggle("car--flip", isFlip());
     real.forEach((s, j) => s.classList.toggle("is-on", j === cur));
     if (isFlip()) { track.style.transition = "none"; track.style.transform = "none"; } else { pos = cur + 1; place(false); track.style.transition = ""; }
   };
-  flipMq.addEventListener?.("change", setFlip);
+  flipMq.addEventListener?.("change", setFlip); snapMq.addEventListener?.("change", () => { setFlip(); go(cur); });
   /* kocka: odchádzajúci slide sa otočí okolo zvislej hrany, nový príde z bočnej steny */
   function flipTo(n, dir) {
     const a = real[cur], b = real[n], E = "cubic-bezier(.55,0,.25,1)", T = 620;
@@ -188,6 +198,7 @@
   function go(i, dir) {
     if (lock) return;
     const n = ((i % N) + N) % N;
+    if (isSnap()) { cur = n; track.scrollTo({ left: real[n].offsetLeft - real[0].offsetLeft, behavior: reduce ? "auto" : "smooth" }); [...dots.children].forEach((d, j) => d.setAttribute("aria-selected", j === cur)); real.forEach(s => s.removeAttribute("inert")); return; }
     if (isFlip()) {
       if (n !== cur) { lock = true; clearTimeout(lt); lt = setTimeout(() => { real.forEach((s, j) => { s.classList.toggle("is-on", j === n); s.getAnimations().forEach(x => x.cancel()); }); done(); }, 1100); flipTo(n, dir || (i > cur ? 1 : -1)); }
       cur = n;
@@ -204,7 +215,7 @@
     if (!isFlip() && (pos === 0 || pos === N + 1)) { pos = cur + 1; place(false); track.style.transition = ""; }
   }
   track.addEventListener("transitionend", e => { if (e.target === track) done(); });
-  const play = () => { if (reduce) return; clearInterval(timer); timer = setInterval(() => go(cur + 1, 1), 6500); };
+  const play = () => { if (reduce || isSnap()) return; clearInterval(timer); timer = setInterval(() => go(cur + 1, 1), 6500); };
   $("[data-prev]").onclick = () => { go(cur - 1, -1); play(); };
   $("[data-next]").onclick = () => { go(cur + 1, 1); play(); };
   dots.onclick = e => { const b = e.target.closest("button"); if (b) { go([...dots.children].indexOf(b)); play(); } };
@@ -212,7 +223,7 @@
   car.addEventListener("mouseleave", play);
   let x0 = null;
   car.addEventListener("touchstart", e => { x0 = e.touches[0].clientX; clearInterval(timer); }, { passive: true });
-  car.addEventListener("touchend", e => { if (x0 == null) return; const dx = e.changedTouches[0].clientX - x0; x0 = null; if (Math.abs(dx) > 40) go(cur + (dx < 0 ? 1 : -1), dx < 0 ? 1 : -1); play(); });
+  car.addEventListener("touchend", e => { if (x0 == null || isSnap()) return; const dx = e.changedTouches[0].clientX - x0; x0 = null; if (Math.abs(dx) > 40) go(cur + (dx < 0 ? 1 : -1), dx < 0 ? 1 : -1); play(); });
   place(false); track.style.transition = ""; setFlip(); go(0); lock = false; play();
 
   /* ---------- lístok vpravo: 3D tabuľa, nová správa sa preklopí zhora dole ---------- */
@@ -243,6 +254,9 @@
   $("[data-cats]").innerHTML = CATS.map(([t, href, img, offer], i) => `<a class="catc rv" data-d="${i * 50}" href="${href}">
       <img src="${img}" alt="" loading="lazy">
       <span class="catc__row"><b>${t.replace(" ", "<br> ")}</b><span class="catc__go">${ico("arrow")}</span></span><span class="catc__offer tg tg-offer">${offer}</span></a>`).join("");
+
+  /* mobil: okrúhle kategórie v jednom riadku */
+  $("[data-mcats]").innerHTML = CATS.map(([t, href, img]) => `<a href="${href}"><span><img src="${img}" alt="" loading="lazy"></span><b>${t.replace(" odevy", "")}</b></a>`).join("");
 
   /* ---------- najpredávanejšie ---------- */
   /* názvy v kartách: plné slová namiesto skratiek z katalógu (produkty a ceny sú reálne) */

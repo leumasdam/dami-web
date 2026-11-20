@@ -442,3 +442,48 @@
 .pgrid--4.is-rail .pc__buy .pc__add { padding: 0 11px; font-size: 14px; gap: 6px; }
 .pgrid--4.is-rail .pc__buy .pc__lg { width: 33px; }
 .pgrid--4.is-rail .pc__buy .pc__lg .ico { width: 20px; height: 20px; }
+
+/* ===================== MOBIL A – ako appka ===================== */
+.mcats { display: none; }
+@media (max-width: 760px) {
+  /* hero: karty na potiahnutie, ďalšia vykúka */
+  .car--v3.car--snap { padding-bottom: 0; overflow: visible; }
+  .car--snap .car__track { display: flex; gap: 12px; overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x mandatory; scrollbar-width: none; transform: none !important; transition: none !important;
+    margin: 0 calc(-1 * var(--gut)); padding: 2px var(--gut) 10px; scroll-padding-inline: var(--gut); }
+  .car--snap .car__track::-webkit-scrollbar { display: none; }
+  .car--snap .car__track > .slide[aria-hidden="true"] { display: none; }
+  .car--v3.car--snap .slide { flex: 0 0 86%; scroll-snap-align: start; background: #fff; border-radius: 18px; overflow: hidden; box-shadow: 0 6px 18px rgba(20,20,20,.08); visibility: visible; position: relative; inset: auto; }
+  .car--v3.car--snap .sl__art { height: 230px; }
+  .car--v3.car--snap .sl__panel { border-radius: 0; }
+  .car--v3.car--snap .sl__txt { padding: 14px 16px 18px; gap: 8px; }
+  .car--v3.car--snap .sl__h { font-size: 27px; }
+  .car--v3.car--snap .sl__line { font-size: 13.5px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+  .car--v3.car--snap .sl__cta { margin-top: 4px; }
+  .car--v3.car--snap .sl__cta .btn { height: 42px; font-size: 15px; padding: 0 16px; }
+  .car--v3.car--snap .sl__cta .link { font-size: 14px; }
+  .car--snap .car__arr { display: none; }
+  .car--v3.car--snap .car__dots { position: static; translate: none; display: flex; justify-content: center; gap: 5px; margin-top: 6px; }
+  .car--v3.car--snap .car__dots button { width: 18px; height: 4px; border-radius: 0; background: #d9d4cd; clip-path: polygon(2px 0, 100% 0, calc(100% - 2px) 100%, 0 100%); transition: width .3s, background .3s; }
+  .car--v3.car--snap .car__dots button[aria-selected="true"] { width: 42px; background: var(--red); }
+  /* okrúhle kategórie */
+  .hero2 .cats { display: none; }
+  .mcats { order: 2; display: flex; justify-content: space-between; gap: 6px; margin-top: 2px; }
+  .mcats a { flex: 1; min-width: 0; display: flex; flex-direction: column; align-items: center; gap: 7px; color: var(--ink); }
+  .mcats span { width: 100%; max-width: 68px; aspect-ratio: 1; border-radius: 50%; overflow: hidden; background: var(--card); box-shadow: 0 0 0 2px #fff, 0 0 0 3.5px #e3ddd5; }
+  .mcats img { width: 100%; height: 100%; object-fit: cover; object-position: center 25%; transform: scale(1.25); }
+  .mcats b { font: 700 12px/1.1 var(--f); text-align: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%; }
+  /* dve promo karty vedľa seba */
+  .hero2__side { order: 3; grid-template-columns: 1fr 1fr; gap: 10px; filter: none; }
+  .hero2__side .promo { min-height: 168px; padding: 14px; box-shadow: 0 6px 18px rgba(20,20,20,.08); }
+  .promo--dark h2 { font-size: 30px; }
+  .promo--dark .promo__sale { font-size: 19px; padding: 7px 11px 6px; margin: 0; }
+  .promo--dark:has(.promo__sale) { gap: 10px; justify-content: flex-start; }
+  .promo--dark .link { font-size: 14px; gap: 6px; }
+  .promo--dark .link svg { width: 16px; height: 16px; }
+  .promo--dark img { right: -18px; top: auto; bottom: -10px; height: 92%; opacity: .95; }
+  .promo--ticket { padding: 14px 10px 14px 30px; }
+  .promo--ticket::before { left: 10px; }
+  .promo--ticket h2 { font-size: 20px; line-height: 1; }
+  .promo--ticket .link { font-size: 14px; }
+  .promo--ticket .stamp { display: none; }
+}
