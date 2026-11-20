@@ -142,8 +142,8 @@
 /* ---------- predajňa ---------- */
 .sec--store { padding-top: 18px; }
 .store { position: relative; display: grid; grid-template-columns: minmax(0, 1.435fr) minmax(0, 1fr); gap: 48px; align-items: center; }
-.store__ph { aspect-ratio: 3.83; }
-.store__ph img { object-position: center 68%; }
+.store__ph { aspect-ratio: 2.36; }
+.store__ph img { object-position: center 55%; }
 .store__txt { display: grid; gap: 0; justify-items: start; }
 .store__txt h2 { font-size: 40px; font-stretch: 92%; letter-spacing: -.02em; }
 .store__txt .infos { gap: 7px; font-size: 19px; margin-top: 14px; font-weight: 500; }
@@ -415,3 +415,4 @@
   .promo__sale { font-size: 26px; }
   .catc__offer.tg { font-size: 15px; padding: 6px 16px 5px 9px; }
 }
+.sec--firm { margin-top: clamp(28px, 3vw, 48px); }
