@@ -141,24 +141,38 @@
   const car = $("[data-car]"), track = $("[data-track]"), dots = $("[data-dots]");
   dots.innerHTML = SLIDES.map((s, i) => `<button role="tab" aria-label="${esc(s.label)}"></button>`).join("");
   $("[data-prev]").innerHTML = ico("chevL"); $("[data-next]").innerHTML = ico("chevR");
-  let cur = 0, timer;
+  let cur = 0, pos = 1, timer, lock = false, lt;
   const reduce = /[?&]static/.test(location.search) || matchMedia("(prefers-reduced-motion: reduce)").matches;
-  function go(i, dir = 1) {
-    cur = (i + SLIDES.length) % SLIDES.length;
-    track.style.transform = `translateX(${-100 * cur}%)`;
+  const N = SLIDES.length, real = [...track.children];
+  /* nekonečný slider: kópia posledného slidu na začiatok a prvého na koniec */
+  const c0 = real[N - 1].cloneNode(true), c1 = real[0].cloneNode(true);
+  [c0, c1].forEach(c => { c.setAttribute("aria-hidden", "true"); c.inert = true; c.querySelectorAll("h1").forEach(x => x.outerHTML = x.outerHTML.replace(/^<h1/, "<h2").replace(/h1>$/, "h2>")); });
+  track.prepend(c0); track.append(c1);
+  const place = anim => { track.style.transition = anim ? "" : "none"; track.style.transform = `translateX(${-100 * pos}%)`; if (!anim) void track.offsetWidth; };
+  function go(i) {
+    if (lock) return;
+    const target = i; cur = ((i % N) + N) % N;
+    pos = target + 1; lock = !reduce; place(!reduce);
+    clearTimeout(lt); if (lock) lt = setTimeout(done, 900);
     [...dots.children].forEach((d, j) => d.setAttribute("aria-selected", j === cur));
-    [...track.children].forEach((s, j) => s.toggleAttribute("inert", j !== cur));
+    real.forEach((s, j) => s.toggleAttribute("inert", j !== cur));
+    if (reduce) { pos = cur + 1; place(false); }
   }
+  function done() {
+    clearTimeout(lt); lock = false;
+    if (pos === 0 || pos === N + 1) { pos = cur + 1; place(false); track.style.transition = ""; }
+  }
+  track.addEventListener("transitionend", e => { if (e.target === track) done(); });
   const play = () => { if (reduce) return; clearInterval(timer); timer = setInterval(() => go(cur + 1), 6500); };
-  $("[data-prev]").onclick = () => { go(cur - 1, -1); play(); };
+  $("[data-prev]").onclick = () => { go(cur - 1); play(); };
   $("[data-next]").onclick = () => { go(cur + 1); play(); };
-  dots.onclick = e => { const b = e.target.closest("button"); if (b) { const n = [...dots.children].indexOf(b); go(n, n < cur ? -1 : 1); play(); } };
+  dots.onclick = e => { const b = e.target.closest("button"); if (b) { go([...dots.children].indexOf(b)); play(); } };
   car.addEventListener("mouseenter", () => clearInterval(timer));
   car.addEventListener("mouseleave", play);
   let x0 = null;
   car.addEventListener("touchstart", e => { x0 = e.touches[0].clientX; clearInterval(timer); }, { passive: true });
-  car.addEventListener("touchend", e => { if (x0 == null) return; const dx = e.changedTouches[0].clientX - x0; x0 = null; if (Math.abs(dx) > 40) go(cur + (dx < 0 ? 1 : -1), dx < 0 ? 1 : -1); play(); });
-  go(0, 0); play();
+  car.addEventListener("touchend", e => { if (x0 == null) return; const dx = e.changedTouches[0].clientX - x0; x0 = null; if (Math.abs(dx) > 40) go(cur + (dx < 0 ? 1 : -1)); play(); });
+  place(false); track.style.transition = ""; go(0); lock = false; play();
 
   /* ---------- lístok vpravo: 3D tabuľa, nová správa sa preklopí zhora dole ---------- */
   const flip = $("[data-flip]");
