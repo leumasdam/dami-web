@@ -95,32 +95,45 @@
   const ARR = '<svg viewBox="0 0 24 24"><path d="M4 12h15M13 6l6 6-6 6"/></svg>';
   const btn = (cls, href, t) => `<a class="btn ${cls}" href="${href}">${t} ${ARR.replace("<svg", '<svg class="ico"')}</a>`;
 
-  /* ---------- slidy carouselu: obrázok je vrstva bez textu, text je v kóde ---------- */
+  /* ---------- slidy carouselu: čistý svetlý systém – text vľavo, produkt alebo vystrihnutá postava na farebnom paneli vpravo ---------- */
   const live = DAMI.openNow();
+  const link = (href, t, ext) => `<a class="link" href="${href}"${ext ? ' target="_blank" rel="noopener"' : ""}>${t}</a>`;
   const SLIDES = [
-    { k: "gastro", theme: "red hero ph", img: "img/hero/ban2-gastro.webp", label: "Gastro", h: "Rondon, ktorý zvládne celú zmenu.",
-      line: "CHEFLINE rondon, krátky rukáv, čierny<br>za <b>19,90 €</b>", cta: btn("btn--white btn--xl", prodUrl("chefline-rondon-kratky-rukav-cierny-cvoky"), "Pozrieť rondon"),
-      stk: `<span class="stk stk--round stk--m">Giblors až<b>−14 %</b></span>` },
-    { k: "zdrav", theme: "light", img: "img/hero/ban2-zdrav.webp", label: "Zdravotníctvo a wellness", h: "Set blúza + nohavice za 29,80 €",
-      line: "CESARE · biela, mätová, bordó, svetlomodrá · XS–3XL", cta: btn("btn--red btn--xl", prodUrl("cesare-zdrav-noh-belasa"), "Vybrať farbu"), cta2: `<a class="link" href="zdravotnictvo.html">Celé zdravotníctvo</a>` },
-    { k: "pracovne", theme: "dark ph", img: "img/hero/ban2-pracovne.webp", label: "Zimné bundy", h: "Bunda CARSON za 27,90 €",
-      line: "Predtým 36,00 € · 17 zimných búnd, k tomu vesty a zimné rukavice", cta: btn("btn--red btn--xl", catUrl("zimne-bundy"), "Zimné bundy"), cta2: `<a class="link link--w" href="${prodUrl("carson-bunda-panska")}">Bunda CARSON</a>` },
-    { k: "obuv", theme: "red", img: "img/hero/ban2-obuv.webp", label: "Bezpečnostná obuv", h: "Obuv S3 od 39,90 €",
-      line: "CXS EVO ICON S3S · kompozitná špica, bez kovu · 41–46", cta: btn("btn--white btn--xl", catUrl("s1-s1p-s3-ocelovou-vystuzou"), "Vybrať obuv"),
-      stk: `<span class="stk stk--round stk--ink" style="right:5%;top:9%">Vyskúšaj<br>v predajni</span>` },
-    { k: "firmy", theme: "light ph", img: "img/hero/ban2-firmy.webp", label: "Pre firmy", h: "Vaše logo na celom tíme.",
-      line: "Výšivka alebo potlač loga · nákup na faktúru s IČO · ponuka a vzorky", cta: btn("btn--red btn--xl", "pre-firmy.html", "Napísať dopyt") },
-    { k: "predajna", theme: "red store", img: "", label: "Predajňa Piešťany", h: "Nájdeš nás na Gaštanovej.",
-      line: `<b>${live.text}</b><br>${FIRM.street} · ★ 4,7 Google (42)`, cta: `<a class="btn btn--white btn--xl" href="${FIRM.map}" target="_blank" rel="noopener">Navigovať ${ARR.replace("<svg", '<svg class="ico"')}</a>`,
-      art: `<div class="slide__store"><div class="frame"><img src="../assets/img/predajna-exterier.webp" alt="Budova predajne DAMI v Piešťanoch"></div>
-        <div class="ticket"><b>Odložíme ti tovar z e-shopu.</b><img src="img/hand-red.png" alt=""></div></div>` },
+    { k: "gastro", tint: "#E1251B", fig: "img/hero/sl-chef.webp", mode: "out", label: "Gastro", h: "Rondon, ktorý zvládne celú zmenu.",
+      line: "CHEFLINE rondon, krátky rukáv, čierny · veľkosti 44–64", stk: "19,90 €", stkCls: "sl__stk--w",
+      cta: btn("btn--red btn--xl", prodUrl("chefline-rondon-kratky-rukav-cierny-cvoky"), "Pozrieť rondon"), cta2: link(catUrl("rondony-a-bluze"), "Všetky rondony") },
+    { k: "zdrav", tint: "#F3DFE4", fig: "img/hero/set-bordo.webp", mode: "in", label: "Zdravotníctvo a wellness", h: "Set blúza + nohavice za 29,80 €",
+      line: "CESARE · biela, mätová, bordó, svetlomodrá · XS–3XL", stk: "29,80 €",
+      cta: btn("btn--red btn--xl", prodUrl("cesare-zdrav-noh-belasa"), "Vybrať farbu"), cta2: link("zdravotnictvo.html", "Celé zdravotníctvo") },
+    { k: "pracovne", tint: "#E7E1D7", fig: "img/hero/sl-worker.webp", mode: "out", label: "Zimné bundy", h: "Bunda CARSON za 27,90 €",
+      line: "Predtým 36,00 € · 17 zimných búnd, k tomu vesty a zimné rukavice", stk: "27,90 €", stkOld: "36,00 €",
+      cta: btn("btn--red btn--xl", catUrl("zimne-bundy"), "Zimné bundy"), cta2: link(prodUrl("carson-bunda-panska"), "Bunda CARSON") },
+    { k: "obuv", tint: "#E3E7EB", fig: "img/hero/sl-s3.webp", mode: "in", label: "Bezpečnostná obuv", h: "Obuv S3 od 39,90 €",
+      line: "CXS EVO ICON S3S · kompozitná špica, bez kovu · 41–46", stk: "od 39,90 €", chip: "S3S",
+      cta: btn("btn--red btn--xl", catUrl("s1-s1p-s3-ocelovou-vystuzou"), "Vybrať obuv"), cta2: link("predajna.html", "Vyskúšaj v predajni") },
+    { k: "firmy", tint: "#ECE6DE", fig: "img/hero/sl-vysivka.webp", mode: "bleed", label: "Pre firmy", h: "Vaše logo na celom tíme.",
+      line: "Výšivka alebo potlač loga · nákup na faktúru s IČO · ponuka a vzorky", stamp: true, chip: "Výšivka · potlač",
+      cta: btn("btn--red btn--xl", "pre-firmy.html", "Napísať dopyt"), cta2: link("tel:" + FIRM.phone.replace(/\s/g, ""), FIRM.phone) },
+    { k: "predajna", tint: "#E9E4DC", photo: "../assets/img/predajna-exterier.webp", label: "Predajňa Piešťany", h: "Nájdeš nás na Gaštanovej.",
+      line: `${FIRM.street}, Piešťany · ★ 4,7 Google (42)`, live,
+      cta: `<a class="btn btn--red btn--xl" href="${FIRM.map}" target="_blank" rel="noopener">Navigovať ${ARR.replace("<svg", '<svg class="ico"')}</a>`, cta2: link("predajna.html", "Otváracie hodiny") },
   ];
-  $("[data-track]").innerHTML = SLIDES.map((s, i) => `<div class="slide slide--${s.theme.split(" ").join(" slide--")} ${s.theme.includes("red") && !s.theme.includes("hero") ? "pat" : ""} ${s.theme.startsWith("dark") ? "pat--dark" : ""}" role="group" aria-roledescription="slide" aria-label="${i + 1} zo ${SLIDES.length}">
-      ${s.img ? `<img class="slide__bg" src="${s.img}" alt="" ${i ? 'loading="lazy"' : 'fetchpriority="high"'}>` : `<img class="slide__hand" src="img/hand-white.png" alt="">`}
-      ${s.art || ""}${s.stk || ""}
-      <div class="slide__txt"><span class="label ${s.theme.includes("red") ? "label--white" : ""}">${s.label}</span>
-        <${i ? "h2" : "h1"} class="slide__h">${s.h}</${i ? "h2" : "h1"}><p class="slide__line">${s.line}</p>
-        <div class="slide__cta">${s.cta}${s.cta2 || ""}</div></div></div>`).join("");
+  const art = (s, i) => {
+    const lazy = i ? 'loading="lazy"' : 'fetchpriority="high"';
+    if (s.photo) return `<div class="sl__panel sl__panel--photo"><img src="${s.photo}" alt="Predajňa DAMI pracovné odevy a obuv na Gaštanovej v Piešťanoch" ${lazy}>
+        <span class="sl__live ${s.live.open ? "is-open" : ""}"><i></i>${s.live.text}</span></div>`;
+    return `<div class="sl__panel"></div>
+      <div class="sl__fig sl__fig--${s.mode}"><img src="${s.fig}" alt="" ${lazy}></div>
+      ${s.stk ? `<span class="sl__stk ${s.stkCls || ""}">${s.stkOld ? `<s>${s.stkOld}</s>` : ""}<b>${s.stk}</b></span>` : ""}
+      ${s.stamp ? `<span class="sl__stamp" aria-hidden="true"><img src="img/hand-red.png" alt=""></span>` : ""}
+      ${s.chip ? `<span class="sl__chip">${s.chip}</span>` : ""}`;
+  };
+  $("[data-car]").classList.add("car--v3");
+  $("[data-track]").innerHTML = SLIDES.map((s, i) => `<div class="slide sl sl--${s.k}" style="--tint:${s.tint}" role="group" aria-roledescription="slide" aria-label="${i + 1} zo ${SLIDES.length}">
+      <div class="sl__art">${art(s, i)}</div>
+      <div class="sl__txt"><span class="label">${s.label}</span>
+        <${i ? "h2" : "h1"} class="sl__h">${s.h}</${i ? "h2" : "h1"}><p class="sl__line">${s.line}</p>
+        <div class="sl__cta">${s.cta}${s.cta2 || ""}</div></div></div>`).join("");
 
   const car = $("[data-car]"), track = $("[data-track]"), dots = $("[data-dots]");
   dots.innerHTML = SLIDES.map((s, i) => `<button role="tab" aria-label="${esc(s.label)}"></button>`).join("");
