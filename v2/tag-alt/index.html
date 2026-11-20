@@ -23,7 +23,7 @@ h1 { font: 900 42px/1 var(--f-d); font-stretch: 70%; margin: 0 0 6px; }
 /* cenovka = fotka štítku + cena textom v kóde (jeden obrázok pre všetky ceny) */
 .tag { position: absolute; left: 14px; top: 22px; z-index: 2; width: var(--w, 170px); rotate: var(--r, -6deg); filter: drop-shadow(0 10px 14px rgba(0,0,0,.22)); }
 .tag img { display: block; width: 100%; height: auto; }
-.tag .p { position: absolute; inset: var(--ins, 0 6% 0 30%); display: flex; flex-direction: column; justify-content: center; align-items: center; color: var(--c, #fff); text-align: center; line-height: 1; }
+.tag .p { position: absolute; inset: var(--ins, 0 6% 0 30%); rotate: var(--tr, 0deg); display: flex; flex-direction: column; justify-content: center; align-items: center; color: var(--c, #fff); text-align: center; line-height: 1; }
 .tag b { font: 900 var(--fs, 30px)/.9 var(--f-d); font-stretch: 72%; letter-spacing: -.01em; white-space: nowrap; }
 .tag small { font: 800 10px/1 var(--f-d); font-stretch: 85%; letter-spacing: .1em; text-transform: uppercase; margin-bottom: 3px; opacity: .9; }
 .tag s { font: 600 10.5px/1 var(--f); opacity: .85; margin-bottom: 3px; }
@@ -34,6 +34,13 @@ h1 { font: 900 42px/1 var(--f-d); font-stretch: 70%; margin: 0 0 6px; }
 .t3 { --w: 168px; --ins: 0 8% 0 27%; --fs: 30px; }
 .t4 { --w: 160px; --ins: 0 7% 4% 6%; --fs: 33px; }
 .t5 { --w: 190px; --ins: 0 6% 0 24%; --fs: 28px; --c: var(--red); }
+.n0 { --w: 168px; --ins: 32% 38% 12% 5%; --fs: 27px; --tr: -13deg; --r: 0deg; top: 12px; }
+.n1 { --w: 196px; --ins: 47% 40% 10% 4%; --fs: 26px; --r: -4deg; top: 30px; }
+.n2 { --w: 104px; --ins: 34% 6% 6% 6%; --fs: 25px; --r: -7deg; top: 10px; }
+.n3 { --w: 112px; --ins: 10% 18% 10% 10%; --fs: 25px; --r: -8deg; top: 14px; }
+.n4 { --w: 176px; --ins: 15% 6% 8% 9%; --fs: 31px; --r: -5deg; }
+.n5 { --w: 176px; --ins: 20% 6% 18% 19%; --fs: 30px; --r: -6deg; }
+h2 { font: 900 30px/1 var(--f-d); font-stretch: 72%; margin: 36px 0 14px; }
 @media (max-width: 680px) { .ctx { width: 100%; } }
 </style>
 </head>
@@ -42,6 +49,14 @@ h1 { font: 900 42px/1 var(--f-d); font-stretch: 70%; margin: 0 0 6px; }
 <p class="lead">Šesť fotorealistických štítkov. Štítok je obrázok bez textu, cena sa do neho vpisuje v kóde – jeden obrázok teda poslúži pre všetky ceny a cena je vždy presná. Každý je ukázaný na červenom paneli, na sivom paneli („od“ cena), pri akcii („predtým“) a pri zľave. Ceny sú reálne z katalógu.</p>
 <div id="out"></div>
 <script>
+const NEW = [
+  ["n0", "ruka", "A · Ruka DAMI drží cenovku", "Logo ruky ako 3D figúrka – medzi prstami drží červenú visačku. Najviac „DAMI“, hravé a zapamätateľné."],
+  ["n1", "meter", "B · Krajčírsky meter", "Cena na červenom poutku krajčírskeho metra – odkaz na vlastné šitie a veľkosti."],
+  ["n2", "vystraha", "C · Výstražná visačka", "Priemyselná visačka so žlto-čiernym pruhom a sťahovacou páskou – pracovné odevy, stavba, BOZP."],
+  ["n3", "d-nasivka", "D · Nášivka D", "Gumená nášivka v tvare písmena D z loga – cena priamo „v značke“."],
+  ["n4", "latka", "E · Kus látky so špendlíkom", "Odtrhnutý kus pracovného kepru so strapcami a zatváracím špendlíkom – surové, remeselné."],
+  ["n5", "znamka", "F · Kovová známka", "Červená hliníková známka na guľôčkovej retiazke – odolné, „pracovné“."],
+];
 const V = [
   ["t0", "tkana", "1 · Tkaná etiketa s rukou", "Ako etiketa všitá v odeve – červená tkanina, biela ruka DAMI. Najviac „od výrobcu odevov“."],
   ["t1", "karta", "2 · Kartónová visačka", "Hrubý červený kartón, mosadzné očko a šnúrka. Klasická visačka z obchodu."],
@@ -56,8 +71,9 @@ const C = [
   ["ctx--card", "../img/hero/sl-worker3.webp", "", "predtým 36,00 €", "27,90 €"],
   ["ctx--dark", "../img/trousers.webp", "až", "", "−14 %"],
 ];
-document.getElementById("out").innerHTML = V.map(([cls, img, t, d]) => `<div class="v"><b>${t}</b><p>${d}</p><div class="row">${C.map(([bg, ph, sm, old, pr]) =>
+const sec = L => L.map(([cls, img, t, d]) => `<div class="v"><b>${t}</b><p>${d}</p><div class="row">${C.map(([bg, ph, sm, old, pr]) =>
   `<div class="ctx ${bg}"><img src="${ph}" alt=""${ph.includes("s3") ? ' style="height:68%;bottom:22px"' : ph.includes("trousers") ? ' style="height:110%"' : ""}><span class="tag ${cls}"><img src="../img/tags/${img}.webp" alt=""><span class="p">${sm ? `<small>${sm}</small>` : ""}${old ? `<s>${old}</s>` : ""}<b>${pr}</b></span></span></div>`).join("")}</div></div>`).join("");
+document.getElementById("out").innerHTML = `<h2>DAMI štýl</h2>${sec(NEW)}<h2>Klasické štítky</h2>${sec(V)}`;
 </script>
 </body>
 </html>
