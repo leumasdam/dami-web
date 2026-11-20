@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="sk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DAMI – banner Vlastná výroba, 10 variantov</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Figtree:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root { --red: #E1251B; --ink: #141414; --paper: #FAF8F5; --card: #F1EFEC; --line: #E2DDD6; --r: 16px; }
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--paper); color: var(--ink); font: 16px/1.5 Figtree, system-ui, sans-serif; }
+.page { max-width: 1440px; margin: 0 auto; padding: 32px max(16px, 2.4vw) 80px; }
+.page > h1 { font: 900 44px/1 Archivo, sans-serif; font-stretch: 72%; margin: 0 0 6px; }
+.page > p { margin: 0 0 30px; color: #5E5953; max-width: 70ch; }
+.var { margin: 0 0 56px; }
+.var > h2 { font: 800 15px/1 Figtree, sans-serif; letter-spacing: .08em; text-transform: uppercase; margin: 0 0 12px; display: flex; gap: 10px; align-items: center; }
+.var > h2 b { background: var(--ink); color: #fff; padding: 5px 9px; border-radius: 6px; }
+.var > .note { margin: 10px 0 0; font-size: 13px; color: #8A847C; }
+
+/* spoločné prvky banneru */
+.bn { position: relative; display: block; height: 300px; border-radius: var(--r); overflow: hidden; color: inherit; text-decoration: none; isolation: isolate; }
+.bn h3 { margin: 0; font: 900 54px/.93 Archivo, sans-serif; font-stretch: 72%; letter-spacing: -.01em; }
+.bn p { margin: 10px 0 0; font-weight: 500; font-size: 19px; }
+.cta { display: inline-flex; align-items: center; gap: 10px; height: 50px; padding: 0 24px; border-radius: 12px; font: 800 20px/1 Archivo, sans-serif; font-stretch: 80%; margin-top: 18px; white-space: nowrap; }
+.cta svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 2.4; }
+.cta--red { background: var(--red); color: #fff; }
+.cta--white { background: #fff; color: var(--red); }
+.cta--ink { background: var(--ink); color: #fff; }
+.txt { position: relative; z-index: 2; }
+
+/* V1 – fotka cez celú šírku, text na plnom štítku */
+.v1 { background: #2a2622; }
+.v1 > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 62%; z-index: -1; }
+.v1 .txt { position: absolute; left: 28px; top: 28px; bottom: 28px; width: min(520px, 46%); background: #fff; border-radius: 12px; padding: 28px 32px; display: flex; flex-direction: column; justify-content: center; align-items: flex-start; }
+.v1 h3 { font-size: 44px; }
+.v1 p { font-size: 17px; }
+
+/* V2 – teplý banner, nášivka vyčnieva z rámu */
+.v2-wrap { padding-top: 70px; }
+.v2 { background: var(--card); overflow: visible; display: flex; align-items: center; padding: 0 48px; }
+.v2 .txt { max-width: 640px; }
+.v2 h3 { color: var(--ink); }
+.v2 h3 span { color: var(--red); }
+.v2 > img { position: absolute; right: 6%; bottom: -24px; height: 420px; width: auto; rotate: -9deg; filter: drop-shadow(14px 22px 18px rgba(0,0,0,.28)); z-index: 1; }
+
+/* V3 – červený vzor rúk, biela karta */
+.v3 { background-color: var(--red); background-image: url(img/hand-white.png); background-size: 58px auto; background-repeat: space; display: flex; align-items: center; padding: 0 48px; }
+.v3::before { content: ""; position: absolute; inset: 0; background: rgba(225,37,27,.86); z-index: 0; }
+.v3 .txt { background: #fff; border-radius: 14px; padding: 26px 34px; max-width: 700px; box-shadow: 0 18px 40px rgba(0,0,0,.18); }
+.v3 h3 { font-size: 46px; }
+.v3 p { font-size: 17px; }
+.v3 .cta { margin-top: 14px; }
+
+/* V4 – triptych, tri štvorce ako IG pás */
+.v4 { background: var(--ink); color: #fff; display: flex; align-items: center; gap: 28px; padding: 0 14px 0 44px; }
+.v4 .txt { flex: 1 1 0; min-width: 0; }
+.v4 .row { flex: 0 0 auto; display: flex; gap: 10px; }
+.v4 .row img { width: 254px; height: 272px; object-fit: cover; border-radius: 10px; display: block; }
+.v4 .row img:nth-child(2) { object-position: 50% 30%; }
+.v4 h3 { font-size: 46px; }
+.v4 p { font-size: 17px; color: rgba(255,255,255,.8); }
+
+/* V5 – čierna / červená, nášivka cez šev */
+.v5 { background: linear-gradient(90deg, var(--ink) 0 55%, var(--red) 55% 100%); color: #fff; display: flex; align-items: center; padding: 0 44px; }
+.v5 .txt { max-width: 46%; }
+.v5 h3 { font-size: 48px; }
+.v5 p { font-size: 17px; color: rgba(255,255,255,.82); }
+.v5 > img { position: absolute; left: 55%; top: 50%; translate: -50% -50%; height: 270px; width: auto; rotate: 7deg; filter: drop-shadow(10px 16px 16px rgba(0,0,0,.35)); }
+.v5 .tag { position: absolute; right: 40px; top: 50%; translate: 0 -50%; font: 900 72px/.86 Archivo, sans-serif; font-stretch: 68%; text-align: right; color: rgba(255,255,255,.95); }
+
+/* V6 – etiketa */
+.v6 { background: #fff; display: flex; align-items: center; padding: 0 56px; }
+.v6::before { content: ""; position: absolute; inset: 12px; border: 2px dashed #CFC8BF; border-radius: 10px; pointer-events: none; }
+.v6 .txt { max-width: 600px; }
+.v6 h3 span { color: var(--red); }
+.v6 .care { display: flex; gap: 18px; margin-top: 12px; font: 700 14px/1 Figtree, sans-serif; letter-spacing: .1em; text-transform: uppercase; color: #5E5953; flex-wrap: wrap; }
+.v6 .care i { font-style: normal; border: 1.5px solid #5E5953; border-radius: 6px; padding: 7px 10px; }
+.v6 > img { position: absolute; right: 4%; top: -60px; height: 460px; width: auto; rotate: 6deg; filter: drop-shadow(8px 14px 14px rgba(0,0,0,.18)); }
+
+/* V7 – kartotéka */
+.v7 { background: #EDE6DA; display: flex; align-items: center; padding: 0 44px; gap: 40px; }
+.v7 .txt { flex: 1 1 auto; max-width: 560px; }
+.v7 h3 { font-size: 46px; }
+.v7 .rows { flex: 0 0 auto; display: grid; grid-template-columns: auto auto; gap: 0; background: #FBF8F2; border-radius: 6px; box-shadow: 0 10px 24px rgba(0,0,0,.08); padding: 14px 22px; font: 600 15px/1 Figtree, sans-serif; align-self: center; }
+.v7 .rows span { padding: 11px 18px 11px 0; border-bottom: 1px solid #E2DACB; color: #8A7F70; letter-spacing: .1em; text-transform: uppercase; font-size: 12px; }
+.v7 .rows b { padding: 11px 0; border-bottom: 1px solid #E2DACB; font: 900 20px/1 Archivo, sans-serif; font-stretch: 75%; }
+.v7 .rows :nth-last-child(-n+2) { border-bottom: 0; }
+.v7 .shot { flex: 0 0 auto; height: 252px; aspect-ratio: 640/616; background: #fff; padding: 10px; border-radius: 4px; box-shadow: 0 12px 26px rgba(0,0,0,.12); rotate: 2.5deg; }
+.v7 .shot img { width: 100%; height: 100%; object-fit: cover; }
+
+/* V8 – nálepky */
+.v8 { background: #fff; display: flex; align-items: center; padding: 0 48px; }
+.v8 .txt { max-width: 560px; }
+.v8 .st { position: absolute; border-radius: 50%; filter: drop-shadow(4px 8px 10px rgba(0,0,0,.22)); }
+.v8 .s1 { width: 170px; right: 37%; top: -40px; rotate: -12deg; }
+.v8 .s2 { width: 150px; right: 25%; bottom: -30px; rotate: 10deg; }
+.v8 .s3 { width: 210px; right: 7%; top: 18px; rotate: 6deg; border-radius: 0; filter: drop-shadow(8px 14px 14px rgba(0,0,0,.25)); }
+.v8 .s4 { width: 130px; right: 2%; bottom: -24px; rotate: -8deg; }
+.v8 .s5 { width: 120px; right: 26%; top: 30px; rotate: 14deg; }
+
+/* V9 – veľká typografia */
+.v9 { background: var(--paper); border: 2px solid var(--ink); display: flex; flex-direction: column; justify-content: center; padding: 0 44px; }
+.v9 .big { font: 900 150px/.82 Archivo, sans-serif; font-stretch: 64%; letter-spacing: -.02em; margin: 0; white-space: nowrap; }
+.v9 .big span { color: var(--red); }
+.v9 .low { display: flex; align-items: center; gap: 24px; margin-top: 14px; flex-wrap: wrap; }
+.v9 .low p { margin: 0; font-size: 19px; }
+.v9 .low .cta { margin: 0; }
+.v9 .stamp { position: absolute; right: 44px; top: 50%; translate: 0 -50%; width: 200px; rotate: -10deg; filter: drop-shadow(4px 10px 12px rgba(0,0,0,.2)); }
+
+/* V10 – makro detail + červený pás */
+.v10 { display: grid; grid-template-rows: 1fr auto; }
+.v10 > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 42%; z-index: -1; }
+.v10 .bar { grid-row: 2; background: var(--red); color: #fff; display: flex; align-items: center; gap: 28px; padding: 18px 32px; }
+.v10 .bar h3 { font-size: 38px; flex: 1 1 auto; }
+.v10 .bar p { margin: 0; font-size: 16px; max-width: 26ch; }
+.v10 .bar .cta { margin: 0; }
+
+/* mobil */
+@media (max-width: 760px) {
+  .bn { height: auto; border-radius: 14px; }
+  .bn h3 { font-size: 36px; }
+  .bn p { font-size: 16px; }
+  .cta { height: 46px; font-size: 18px; margin-top: 14px; }
+  .v1 { height: 460px; }
+  .v1 .txt { left: 12px; right: 12px; top: auto; bottom: 12px; width: auto; padding: 18px 20px; }
+  .v1 h3 { font-size: 32px; }
+  .v2-wrap { padding-top: 0; }
+  .v2 { flex-direction: column; align-items: flex-start; padding: 24px 20px 0; overflow: hidden; }
+  .v2 > img { position: relative; right: auto; bottom: auto; height: 230px; align-self: flex-end; margin: 6px -10px -26px 0; }
+  .v3 { padding: 22px 16px; }
+  .v3 .txt { padding: 20px 20px; }
+  .v3 h3 { font-size: 32px; }
+  .v4 { flex-direction: column; align-items: stretch; padding: 24px 16px 16px; gap: 16px; }
+  .v4 .row img { width: calc((100% - 20px) / 3); height: auto; aspect-ratio: 1; }
+  .v5 { flex-direction: column; align-items: flex-start; padding: 24px 20px 190px; background: linear-gradient(180deg, var(--ink) 0 62%, var(--red) 62% 100%); }
+  .v5 .txt { max-width: none; }
+  .v5 > img { left: 50%; top: auto; bottom: 18px; translate: -50% 0; height: 200px; }
+  .v5 .tag { display: none; }
+  .v6 { flex-direction: column; align-items: flex-start; padding: 28px 24px 0; }
+  .v6 > img { position: relative; right: auto; top: auto; height: 260px; align-self: flex-end; margin: 8px 0 -40px; }
+  .v7 { flex-direction: column; align-items: flex-start; padding: 24px 20px; gap: 18px; }
+  .v7 .rows { align-self: stretch; }
+  .v7 .shot { height: 200px; align-self: center; }
+  .v8 { flex-direction: column; align-items: flex-start; padding: 24px 20px 200px; }
+  .v8 .s1 { width: 120px; right: auto; left: 8px; top: auto; bottom: 30px; }
+  .v8 .s2 { width: 110px; right: auto; left: 120px; bottom: -14px; }
+  .v8 .s3 { width: 150px; right: 8px; top: auto; bottom: 22px; }
+  .v8 .s4, .v8 .s5 { display: none; }
+  .v9 { padding: 24px 20px 150px; }
+  .v9 .big { font-size: 72px; white-space: normal; }
+  .v9 .stamp { width: 120px; right: 18px; top: auto; bottom: 18px; translate: none; }
+  .v10 { height: 440px; }
+  .v10 .bar { flex-direction: column; align-items: flex-start; gap: 6px; padding: 18px 20px; }
+  .v10 .bar h3 { font-size: 30px; }
+}
+</style>
+</head>
+<body>
+<main class="page">
+  <h1>Banner „Vlastná výroba“ · 10 variantov</h1>
+  <p>Všetko z vašich vlastných vizuálov z brand manuálu DAMI. Text a odkaz sú ako na webe. Vyber číslo a nasadím ho na úvod.</p>
+
+  <section class="var"><h2><b>V1</b> Fotka cez celú šírku</h2>
+    <a class="bn v1" href="../vyroba.html"><img src="img/rondon.webp" alt="Čierny rondon s nášivkou DAMI na stoličke">
+      <div class="txt"><h3>Vlastná výroba kuchárskych nohavíc a&nbsp;záster.</h3><p>Kvalitné materiály. Poctivé šitie. Profesionálny strih.</p><span class="cta cta--red">Viac o výrobe <svg viewBox="0 0 24 24"><path d="M4 12h15M13 6l6 6-6 6"/></svg></span></div></a>
+    <p class="note">Asset: dami_znacka_12_rondon-s-nasivkou.png</p></section>
+
+  <section class="var"><h2><b>V2</b> Nášivka vyčnieva z rámu</h2>
+    <div class="v2-wrap"><a class="bn v2" href="../vyroba.html">
+      <div class="txt"><h3>Vlastná výroba <span>kuchárskych nohavíc a&nbsp;záster.</span></h3><p>Kvalitné materiály. Poctivé šitie. Profesionálny strih.</p><span class="cta cta--red">Viac o výrobe <svg viewBox="0 0 24 24"><path d="M4 12h15M13 6l6 6-6 6"/></svg></span></div>
+      <img src="img/d-patch.webp" alt="Nášivka D s rukou DAMI"></a></div>
+    <p class="note">Asset: v2/img/d-patch.webp (nášivka D)</p></section>
+
+  <section class="var"><h2><b>V3</b> Vzor rúk a biela karta</h2>
+    <a class="bn v3" href="../vyroba.html">
+      <div class="txt"><h3>Vlastná výroba kuchárskych nohavíc a&nbsp;záster.</h3><p>Kvalitné materiály. Poctivé šitie. Profesionálny strih.</p><span class="cta cta--red">Viac o výrobe <svg viewBox="0 0 24 24"><path d="M4 12h15M13 6l6 6-6 6"/></svg></span></div></a>
+    <p class="note">Asset: v2/img/hand-white.png (ruka DAMI ako vzor)</p></section>
+
+  <section class="var"><h2><b>V4</b> Pás troch vizuálov</h2>
+    <a class="bn v4" href="../vyroba.html">
+      <div class="txt"><h3>Vlastná výroba kuchárskych nohavíc a&nbsp;záster.</h3><p>Kvalitné materiály. Poctivé šitie. Profesionálny strih.</p><span class="cta cta--red">Viac o výrobe <svg viewBox="0 0 24 24"><path d="M4 12h15M13 6l6 6-6 6"/></svg></span></div>
+      <div class="row"><img src="img/bunda.webp" alt=""><img src="img/biela.webp" alt=""><img src="img/zips.webp" alt=""></div></a>
+    <p class="note">Assety: dami_znacka_13_bunda-s-nasivkou, dami_vizual_14_maly-detail-biela-nasivka, dami_znacka_08_detail-ktory-vydrzi-v2 (orezané bez textu)</p></section>
+
+  <section class="var"><h2><b>V5</b> Čierna a červená, nášivka cez šev</h2>
+    <a class="bn v5" href="../vyroba.html">
+      <div class="txt"><h3>Vlastná výroba kuchárskych nohavíc a&nbsp;záster.</h3><p>Kvalitné materiály. Poctivé šitie. Profesionálny strih.</p><span class="cta cta--white">Viac o výrobe <svg viewBox="0 0 24 24"><path d="M4 12h15M13 6l6 6-6 6"/></svg></span></div>
+      <img src="img/d-patch.webp" alt=""><span class="tag">Poctivé<br>šitie.</span></a>
+    <p class="note">Asset: v2/img/d-patch.webp</p></section>
+
+  <section class="var"><h2><b>V6</b> Etiketa</h2>
+    <a class="bn v6" href="../vyroba.html">
+      <div class="txt"><h3>Vlastná výroba <span>kuchárskych nohavíc a&nbsp;záster.</span></h3><div class="care"><i>Kvalitné materiály</i><i>Poctivé šitie</i><i>Profesionálny strih</i></div><span class="cta cta--red">Viac o výrobe <svg viewBox="0 0 24 24"><path d="M4 12h15M13 6l6 6-6 6"/></svg></span></div>
+      <img src="img/etiketa.webp" alt="Textilná etiketa DAMI"></a>
+    <p class="note">Asset: dami_smena_13_etiketa-praca.png</p></section>
+
+  <section class="var"><h2><b>V7</b> Kartotéka</h2>
+    <a class="bn v7" href="../vyroba.html">
+      <div class="txt"><h3>Vlastná výroba kuchárskych nohavíc a&nbsp;záster.</h3><span class="cta cta--ink">Viac o výrobe <svg viewBox="0 0 24 24"><path d="M4 12h15M13 6l6 6-6 6"/></svg></span></div>
+      <div class="rows"><span>Materiál</span><b>Kvalitný</b><span>Šitie</span><b>Poctivé</b><span>Strih</span><b>Profesionálny</b></div>
+      <div class="shot"><img src="img/karta-rondon.webp" alt="Čierny rondon"></div></a>
+    <p class="note">Asset: dami_produkt_07_kartoteka-rondon.png (výrez rondonu)</p></section>
+
+  <section class="var"><h2><b>V8</b> Nálepky a odznaky</h2>
+    <a class="bn v8" href="../vyroba.html">
+      <div class="txt"><h3>Vlastná výroba kuchárskych nohavíc a&nbsp;záster.</h3><p>Kvalitné materiály. Poctivé šitie. Profesionálny strih.</p><span class="cta cta--red">Viac o výrobe <svg viewBox="0 0 24 24"><path d="M4 12h15M13 6l6 6-6 6"/></svg></span></div>
+      <img class="st s1" src="img/pl-oblecenie.webp" alt=""><img class="st s5" src="img/pl-hand-black.webp" alt=""><img class="st s2" src="img/pl-kvalitne.webp" alt=""><img class="st s3" src="img/d-patch.webp" alt=""><img class="st s4" src="img/pl-hand-red.webp" alt=""></a>
+    <p class="note">Assety: dami_merch_06_placky-a-nalepky.png (vystrihnuté odznaky) + v2/img/d-patch.webp</p></section>
+
+  <section class="var"><h2><b>V9</b> Veľká typografia</h2>
+    <a class="bn v9" href="../vyroba.html">
+      <p class="big">Vlastná <span>výroba.</span></p>
+      <div class="low"><p>Kuchárske nohavice a zástery. Kvalitné materiály, poctivé šitie, profesionálny strih.</p><span class="cta cta--red">Viac o výrobe <svg viewBox="0 0 24 24"><path d="M4 12h15M13 6l6 6-6 6"/></svg></span></div>
+      <img class="stamp" src="img/pl-hand-red.webp" alt=""></a>
+    <p class="note">Asset: odznak z dami_merch_06_placky-a-nalepky.png</p></section>
+
+  <section class="var"><h2><b>V10</b> Detail šitia a červený pás</h2>
+    <a class="bn v10" href="../vyroba.html"><img src="img/zips.webp" alt="Detail zipsu, švov a nášivky DAMI">
+      <div class="bar"><h3>Vlastná výroba kuchárskych nohavíc a&nbsp;záster.</h3><p>Kvalitné materiály. Poctivé šitie. Profesionálny strih.</p><span class="cta cta--white">Viac o výrobe <svg viewBox="0 0 24 24"><path d="M4 12h15M13 6l6 6-6 6"/></svg></span></div></a>
+    <p class="note">Asset: dami_znacka_08_detail-ktory-vydrzi-v2.png (orezané bez textu)</p></section>
+</main>
+</body>
+</html>
