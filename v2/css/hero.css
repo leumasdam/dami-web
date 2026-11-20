@@ -51,7 +51,8 @@
 /* C · Produkt */
 .hv-c { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.35fr) minmax(0, .8fr); gap: clamp(18px, 2vw, 30px); align-items: stretch; padding-top: clamp(16px, 1.6vw, 24px); }
 .hv-c__txt { display: flex; flex-direction: column; gap: clamp(14px, 1.4vw, 20px); align-items: flex-start; }
-.hv-c h1 { font-size: clamp(46px, 5vw, 80px); }
+.hv-c h1 { font-size: clamp(42px, 3.9vw, 66px); overflow-wrap: break-word; }
+.hv-c__txt { min-width: 0; }
 .hv-c__n { font-size: clamp(16px, 1.4vw, 21px); line-height: 1.35; margin: 0; }
 .hv-c__n b { font-weight: 600; }
 .hv-c__prod { position: relative; display: grid; grid-template-columns: 1.15fr 1fr; align-items: center; gap: 16px; background: var(--card); border-radius: 20px; padding: clamp(18px, 2vw, 30px); text-decoration: none; color: var(--ink); min-height: 360px; }
@@ -122,3 +123,20 @@
 
 .hv-b__trust { padding-right: clamp(110px, 13vw, 200px); }
 @media (max-width: 760px) { .hv-b__trust { padding-right: 0; } }
+
+/* hero C so setom CESARE: veľký produkt cez celý panel, tón podľa farby, prepínač farieb */
+.hv-c--set .hv-c__prod { --set-tint: #F4E1E5; display: block; padding: 0; overflow: hidden; background: var(--set-tint); min-height: clamp(440px, 36vw, 560px); transition: background-color .35s ease; }
+.hv-c--set .hv-c__prod > img { position: absolute; left: 2%; top: 4%; width: 63%; height: 92%; max-height: none; object-fit: contain; object-position: center; filter: drop-shadow(0 22px 26px rgba(40,10,20,.18)); transition: opacity .2s ease; }
+.hv-c--set .hv-c__info { position: absolute; right: clamp(14px, 1.6vw, 22px); bottom: clamp(14px, 1.6vw, 22px); width: 32%; padding: 16px 18px; background: rgba(255,255,255,.72); backdrop-filter: blur(6px); border-radius: 14px; gap: 6px; }
+.hv-c--set .hv-c__info li { padding: 8px 0; font-size: 14.5px; border-top-color: rgba(0,0,0,.08); }
+.hv-c--set .hv-c__info b { font-size: 16px; }
+.zs-sw button { width: 34px; height: 34px; border-radius: 50%; border: 1px solid rgba(0,0,0,.2); cursor: pointer; padding: 0; box-shadow: inset 0 0 0 3px #FAF8F5; transition: transform .2s ease, box-shadow .2s ease; }
+.zs-sw button[aria-pressed="true"] { box-shadow: inset 0 0 0 3px #FAF8F5, 0 0 0 2px var(--ink); }
+.zs-sw button:hover { transform: scale(1.08); }
+.zs-sw span { font-weight: 700; color: var(--ink); margin-left: 4px; }
+@media (max-width: 1060px) {
+  .hv-c--set .hv-c__prod { min-height: 0; display: grid; grid-template-columns: 1fr; padding: 16px 16px 16px; }
+  .hv-c--set .hv-c__prod > img { position: static; width: 100%; height: auto; max-height: 420px; aspect-ratio: auto; }
+  .hv-c--set .hv-c__info { position: static; width: auto; margin-top: 8px; }
+}
+@media (max-width: 760px) { .hv-c--set .hv-c__prod > img { max-height: 340px; } }

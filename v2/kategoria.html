@@ -173,7 +173,7 @@
         photo: "img/hero/kat-doplnky.webp", pos: "100% 50%", cut: "img/hero/cut-roxy-winter.png",
         specs: ["Dlaň máčaná v latexe", "Protišmykový úchop", "Veľkosti 8 a 10"], cta: "Pozrieť rukavice", light: 1, all: ["rukavice", "Všetky rukavice"] },
       zdravotnictvo: { id: "cesare-zdrav-noh-belasa", name: "CESARE set blúza + nohavice", h: () => "Set blúza + nohavice za 29,80 €",
-        photo: "img/hero/zdrav-set.webp", pos: "50% 50%", cut: "img/hero/cut-cesare-set.png",
+        photo: "img/hero/zdrav-set.webp", pos: "50% 50%", cut: "img/hero/set-bordo.webp", set: 1,
         specs: ["Biela, mätová, bordó, svetlomodrá", "Veľkosti XS – 3XL", "Blúza aj nohavice v jednej cene"], cta: "Vybrať farbu", all: ["zdrav-bluzy", "Všetky blúzy"] },
     };
     const DEF = { gastro: "c", pracovne: "b", obuv: "c", doplnky: "c", zdravotnictvo: "c" };
@@ -206,6 +206,7 @@
       html = heroC({ crumbs, h1: esc(title), n: `<b>${baseN} ${plural(baseN)}</b> od ${eur(lo)} ${esc(tail)}`,
         btns: [["#kgrid", "Nakupovať", "red"]], prod: { href, img: v.cut || v.img, cut: !!v.cut, name: v.name, price, specs: v.specs }, rail: best });
     }
+    if (v.set) html = html.replace('class="wrap hv hv-c"', 'class="wrap hv hv-c hv-c--set"');
     document.body.classList.add("has-hv", "hv--" + HV);
     $("[data-hero]").insertAdjacentHTML("beforebegin", `<div class="hv-wrap">${html}${tilesHtml}</div>`);
     $("[data-grid]").id = "kgrid";
