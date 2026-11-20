@@ -126,10 +126,9 @@
 .pgrid--4 .pc__add .ico { width: 19px; height: 19px; stroke-width: 1.9; }
 
 /* ---------- vlastná výroba ---------- */
-.made { position: relative; display: block; background-color: var(--red); color: #fff; border-radius: var(--r); overflow: hidden; height: 300px; isolation: isolate; box-shadow: 0 6px 16px rgba(20,20,20,.1); }
-.made__scene { position: absolute; top: 0; right: 0; height: 100%; width: 60%; object-fit: cover; object-position: 30% 60%; z-index: -2; }
-.made::before { content: ""; position: absolute; inset: 0; z-index: -1;
-  background: radial-gradient(60% 120% at 22% 30%, rgba(255,255,255,.08), transparent 70%), linear-gradient(90deg, var(--red) 0%, #de2219 40%, rgba(225,37,27,.92) 46%, rgba(225,37,27,.55) 53%, rgba(225,37,27,0) 62%); }
+.made { position: relative; display: block; background-color: #D72317; color: #fff; border-radius: var(--r); overflow: hidden; height: 300px; isolation: isolate; box-shadow: 0 6px 16px rgba(20,20,20,.1); }
+.made__scene { position: absolute; top: 0; right: 0; height: 100%; width: auto; max-width: none; z-index: -2; -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 12%); mask-image: linear-gradient(90deg, transparent 0, #000 12%); }
+.made::before { content: none; }
 .made__txt { position: relative; padding: 24px 40px; display: grid; gap: 0; justify-items: start; max-width: 680px; }
 .made h2 { font-size: 59px; line-height: .93; font-stretch: 86%; letter-spacing: -.015em; }
 .made p { font-weight: 500; font-size: 22px; margin-top: 8px; }
@@ -249,13 +248,11 @@
   .pgrid--4 .pc__price { font-size: 25px; margin-top: 8px; }
   .pgrid--4 .pc__add { align-self: stretch; height: 40px; margin-top: 10px; font-size: 15.5px; }
   .made { height: auto; display: flex; flex-direction: column; }
-  .made::before { background: linear-gradient(180deg, var(--red) 0%, var(--red) 52%, rgba(225,37,27,.6) 60%, rgba(225,37,27,0) 72%); }
-  .made__scene { top: auto; bottom: 0; height: 210px; width: 100%; object-position: 45% 70%; }
+  .made__scene { position: relative; order: 2; height: auto; width: 100%; aspect-ratio: 16 / 9; object-fit: cover; object-position: 75% 50%; margin-top: 16px; }
   .made__txt { padding: 22px 18px 0; }
   .made h2 { font-size: 36px; }
   .made p { font-size: 16px; }
   .made .btn { min-width: 0; height: 46px; }
-  .made__patch { position: relative; left: auto; bottom: auto; align-self: flex-end; height: 190px; margin: 0 16% 18px 0; }
   .store { grid-template-columns: minmax(0, 1fr); gap: 16px; }
   .store__ph { aspect-ratio: 16 / 9; }
   .store__txt h2 { font-size: 34px; }
