@@ -327,9 +327,10 @@
     const c = cart(); const l = !extra.file && !extra.note && c.find(x => x.id === id && x.size === size && x.color === color && (x.logo || "") === logo && !x.file && !x.note);
     l ? (l.qty += qty) : c.push({ id, size, color, qty, ...(logo ? { logo, ...extra } : {}) });
     store.set("dami-cart", c); syncBadges(); renderCart();
+    document.dispatchEvent(new CustomEvent("dami:add", { detail: { id, size, color, qty, logo } }));
     toast(`${shortName(P[id])} je v košíku${logo ? ` · ${logoName(logo)} loga` : ""}`);
   }
-  function setQty(i, q) { const c = cart(); if (!c[i]) return; q < 1 ? c.splice(i, 1) : (c[i].qty = q); store.set("dami-cart", c); syncBadges(); renderCart(); document.dispatchEvent(new Event("dami:cart")); }
+  function setQty(i, q) { const c = cart(); if (!c[i]) return; if (q < c[i].qty) document.dispatchEvent(new CustomEvent("dami:remove", { detail: { id: c[i].id, qty: c[i].qty - Math.max(0, q) } })); q < 1 ? c.splice(i, 1) : (c[i].qty = q); store.set("dami-cart", c); syncBadges(); renderCart(); document.dispatchEvent(new Event("dami:cart")); }
   const cartTotal = () => cart().reduce((s, l) => s + P[l.id].price * l.qty, 0);
   const cartCount = () => cart().reduce((s, l) => s + l.qty, 0);
   function syncBadges() {
