@@ -132,6 +132,64 @@
   const fitSubs = () => { subNav.classList.remove("is-wrap"); const a = subNav.children; if (a.length > 1 && a[a.length - 1].offsetTop > a[0].offsetTop + 4) subNav.classList.add("is-wrap"); };
   fitSubs(); addEventListener("resize", () => { cancelAnimationFrame(fitSubs._r); fitSubs._r = requestAnimationFrame(fitSubs); }); document.fonts?.ready.then(fitSubs);
 
+  /* ---------- varianty hero podľa makiet v hero-mock/ (?hero=a|b|c) ---------- */
+  (() => {
+    const HV = (qp("hero") || "").toLowerCase();
+    if (!["a", "b", "c"].includes(HV) || !isSec || !SEC[sec] || sec === "zdravotnictvo") return;
+    const { eur, prodUrl } = DAMI;
+    const minP = arr => Math.min(...arr.map(p => p.price).filter(n => n > 0));
+    const V = {
+      gastro: { id: "chefline-rondon-kratky-rukav-cierny-cvoky", name: "CHEFLINE rondon, krátky rukáv, čierny", h: () => "Rondon, ktorý zvládne celú zmenu.",
+        photo: "img/hero/ph-gastro.webp", pos: "70% 40%", cut: "img/hero/cut-chefline.png", label: "Gastro",
+        specs: ["Zadný diel z ľahkej sieťoviny", "Zapínanie na cvoky", "Veľkosti 44 – 64"], cta: "Pozrieť rondon", all: ["rondony-a-bluze", "Všetky rondony"] },
+      pracovne: { id: "carson-bunda-panska", name: "Bunda CARSON, pánska", h: () => `Zimné bundy od ${eur(minP(catProducts("zimne-bundy")))}`,
+        photo: "img/hero/ph-pracovne.webp", pos: "72% 35%", cut: "img/hero/cut-carson.png", label: "Zima na stavbe",
+        specs: ["Teplá podšívka a kapucňa", "Reflexné doplnky", "Veľkosti S – 3XL"], cta: "Pozrieť bundu", all: ["zimne-bundy", "Všetky zimné bundy"] },
+      obuv: { id: "bezpecnostna-poltopanka-evo-icon-s3s", name: "CXS EVO ICON S3S, poltopánka", h: () => `Bezpečnostná obuv S3 od ${eur(P["bezpecnostna-poltopanka-evo-icon-s3s"].price)}`,
+        photo: "img/hero/kat-obuv.webp", pos: "100% 50%", cut: "img/hero/cut-evo-s3s.png", label: "Bezpečnostná obuv",
+        specs: ["Kompozitná špica", "Protišmyková, olejovzdorná podošva", "Veľkosti 41 – 46"], cta: "Pozrieť poltopánku", light: 1, all: ["s1-s1p-s3-ocelovou-vystuzou", "Obuv S1 – S3"] },
+      doplnky: { id: "rukavice-cxs-industry-roxy-winter-zimni-macene-v-latexu", name: "CXS ROXY WINTER, zimné rukavice", h: () => `Zimné rukavice od ${eur(P["rukavice-cxs-industry-roxy-winter-zimni-macene-v-latexu"].price)}`,
+        photo: "img/hero/kat-doplnky.webp", pos: "100% 50%", cut: "img/hero/cut-roxy-winter.png", label: "Zima",
+        specs: ["Dlaň máčaná v latexe", "Protišmykový úchop", "Veľkosti 8 a 10"], cta: "Pozrieť rukavice", light: 1, all: ["rukavice", "Všetky rukavice"] },
+    }[sec];
+    if (!V || !P[V.id]) return;
+    const pr = P[V.id], price = eur(pr.price), href = prodUrl(V.id);
+    const crumbHtml = `<nav class="crumbs hv-crumbs" aria-label="Omrvinky">${crumbs.map(([h, t], i) => i === crumbs.length - 1 ? `<b>${esc(t)}</b>` : `<a href="${h}">${esc(t)}</a><span>/</span>`).join("")}</nav>`;
+    /* podkategórie ako dlaždice s fotkou najlacnejšieho produktu */
+    const own = p => !(p.sec || []).includes("zdravotnictvo");
+    const tileImg = k => { const ps = catProducts(k).filter(p => base.includes(p) && p.img?.length && own(p) && !/cesare-zdrav|ruzov|pink/i.test(p.id)); return (ps[0] || catProducts(k).find(p => p.img?.length))?.img[0]; };
+    const tilesHtml = `<div class="wrap hv-tiles" role="list">${subs.map(k => { const n = base.filter(p => p.cats.includes(k)).length; const im = tileImg(k);
+      return `<a class="hv-tile" role="listitem" href="${subHref(k)}"><span class="hv-tile__ph">${im ? `<img src="${im}" alt="" loading="lazy">` : ""}</span><span class="hv-tile__t"><b>${esc(D.cats[k].name)}</b><i>${n}</i></span></a>`; }).join("")}</div>`;
+    const btn = (cls, h, t) => `<a class="btn ${cls}" href="${h}">${t} ${ico("arrow")}</a>`;
+    let html = "";
+    if (HV === "a") {
+      html = `<section class="hv hv-a${V.light ? " hv-a--light" : ""}"><img class="hv-a__bg" src="${V.photo}" alt="" style="object-position:${V.pos}" fetchpriority="high">
+        <div class="wrap hv-a__in">${crumbHtml}<h1>${esc(title)}</h1>
+          <a class="hv-offer" href="${href}"><img src="${V.cut}" alt="${esc(pr.name)}"><span class="hv-offer__t"><b>${esc(V.name)}</b><span class="hv-offer__p">${price}</span><span class="btn btn--red btn--sm">${V.cta} ${ico("arrow")}</span></span></a>
+        </div></section>${tilesHtml}`;
+    } else if (HV === "b") {
+      html = `<section class="hv hv-b"><div class="hv-b__red">${crumbHtml}<h1>${esc(V.h())}</h1>
+          <p class="hv-b__name">${esc(V.name)}</p><p class="hv-b__p">${price}</p>
+          <div class="hv-b__btns">${btn("btn--white", href, V.cta)}<a class="btn hv-b__ghost" href="${catUrl(V.all[0])}">${V.all[1]}</a></div>
+          <p class="hv-b__trust"><span>★ 4,7 Google (42)</span><span>Osobný odber v Piešťanoch zadarmo</span></p>
+          <img class="hv-b__hand" src="img/hand-white.png" alt="" width="458" height="600"></div>
+        <div class="hv-b__ph"><img src="${V.photo}" alt="" style="object-position:${V.pos}" fetchpriority="high"></div></section>${tilesHtml}`;
+    } else {
+      const seen = new Set(); const best = subs.map(k => catProducts(k).find(p => base.includes(p) && p.id !== V.id && p.img?.length && p.price > 0 && own(p) && !/cesare-zdrav|ruzov|pink/i.test(p.id))).filter(p => p && !seen.has(p.name.split(" ").slice(0, 2).join(" ")) && seen.add(p.name.split(" ").slice(0, 2).join(" "))).slice(0, 4);
+      html = `<section class="wrap hv hv-c"><div class="hv-c__txt">${crumbHtml}<h1>${esc(title)}</h1>
+          <p class="hv-c__n"><b>${baseN} ${plural(baseN)}</b> ${esc(tail)}</p>${btn("btn--red", "#kgrid", "Nakupovať")}</div>
+        <a class="hv-c__prod" href="${href}"><img src="${V.cut}" alt="${esc(pr.name)}"><span class="hv-c__stk">${price}</span>
+          <span class="hv-c__info"><b>${esc(V.name)}</b><ul>${V.specs.map(s => `<li>${esc(s)}</li>`).join("")}</ul></span></a>
+        <aside class="hv-c__rail"><h2>Odporúčame</h2>${best.map(p => `<a class="hv-c__item" href="${prodUrl(p.id)}"><span><img src="${p.img[0]}" alt="" loading="lazy"></span><b>${esc(DAMI.shortName(p))}</b><i>${eur(p.price)}</i></a>`).join("")}</aside></section>${tilesHtml}`;
+    }
+    document.body.classList.add("has-hv", "hv--" + HV);
+    $("[data-hero]").insertAdjacentHTML("beforebegin", `<div class="hv-wrap">${html}</div>`);
+    $("[data-grid]").id = "kgrid";
+    const q2 = new URLSearchParams(location.search);
+    document.body.insertAdjacentHTML("beforeend", `<nav class="hv-sw" aria-label="Varianty hero">${["a", "b", "c"].map(x => { q2.set("hero", x); return `<a href="?${q2}" class="${x === HV ? "is-on" : ""}">${x.toUpperCase()}</a>`; }).join("")}</nav>`);
+  })();
+
+
   /* ---------- fasety ---------- */
   const SIZE_ORDER = ["XXS", "XS", "S", "M", "L", "XL", "XXL", "2XL", "XXXL", "3XL", "4XL", "5XL", "6XL", "7XL"];
   const sizeKey = s => { const i = SIZE_ORDER.indexOf(s.toUpperCase()); if (i >= 0) return i; const n = parseFloat(s); return isNaN(n) ? 999 : 100 + n; };
