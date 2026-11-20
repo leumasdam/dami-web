@@ -487,3 +487,24 @@
   .promo--ticket .link { font-size: 14px; }
   .promo--ticket .stamp { display: none; }
 }
+/* mobil – karty: farebný panel s rezervou hore, postava vycentrovaná a pretŕča nad panel, produkt stojí na spodku panelu */
+@media (max-width: 760px) {
+  .car--v3.car--snap .slide { overflow: hidden; }
+  .car--v3.car--snap .sl__art { height: 262px; overflow: visible; }
+  .car--v3.car--snap .sl__panel { inset: 54px 12px 0; width: auto; border-radius: 14px; }
+  .car--v3.car--snap .sl__panel--photo { inset: 12px 12px 0; }
+  .car--v3.car--snap .sl__fig { inset: 6px 12px 0; width: auto; top: 6px; bottom: 0; overflow: visible; border-radius: 0; }
+  .car--v3.car--snap .sl__fig img, .car--v3.car--snap .sl--gastro .sl__fig img, .car--v3.car--snap .sl--pracovne .sl__fig img { left: 50%; right: auto; top: auto; bottom: 0; translate: -50% 0; height: 100%; width: auto; max-width: 100%; object-fit: contain; object-position: 50% 100%; rotate: none; }
+  .car--v3.car--snap .sl__fig--in { top: 54px; overflow: visible; border-radius: 14px; }
+  .car--v3.car--snap .sl__fig--in img { top: auto; bottom: 7%; height: 104%; width: 78%; translate: -50% 0; object-fit: contain; object-position: 50% 100%; }
+  .car--v3.car--snap .sl--obuv .sl__fig--in img { height: 80%; width: 72%; bottom: 12%; left: 56%; rotate: -8deg; }
+  .car--v3.car--snap .sl--obuv .sl__stk { top: 40px; }
+  .car--v3.car--snap .sl__fig--bleed { top: 12px; overflow: hidden; border-radius: 14px; }
+  .car--v3.car--snap .sl--firmy .sl__panel { inset: 12px 12px 0; }
+  .car--v3.car--snap .sl--firmy .sl__stamp { top: 24px; }
+  .car--v3.car--snap .sl__fig--bleed img { left: 0; right: 0; width: 100%; height: 100%; translate: none; object-fit: cover; object-position: 50% 45%; }
+  .car--v3.car--snap .sl__stk, .car--v3.car--snap .sl--pracovne .sl__stk { top: 64px; left: 22px; right: auto; bottom: auto; rotate: -5deg; z-index: 4; }
+  .car--v3.car--snap .sl__stamp { top: 64px; left: auto; right: 22px; width: 62px; height: 62px; }
+  .car--v3.car--snap .sl__chip { right: 22px; bottom: 12px; }
+  .car--v3.car--snap .sl__live { left: 50%; bottom: 12px; }
+}
