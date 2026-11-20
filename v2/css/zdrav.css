@@ -80,3 +80,20 @@
 .zd-sw { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; font-size: 14px; color: #5E5953; }
 .zd-sw i { width: 30px; height: 30px; border-radius: 50%; border: 1px solid #d6d0c8; }
 @media (max-width: 760px) { .zd-hero .zd-set img { transform: none; } .zd-hero .hx { font-size: clamp(38px, 11vw, 52px); } }
+
+/* hero C so setom CESARE: veľký produkt cez celý panel, tón podľa farby, prepínač farieb */
+.hv-c--set .hv-c__prod { --set-tint: #F4E1E5; display: block; padding: 0; overflow: hidden; background: var(--set-tint); min-height: clamp(440px, 36vw, 560px); transition: background-color .35s ease; }
+.hv-c--set .hv-c__prod > img { position: absolute; left: 2%; top: 4%; width: 63%; height: 92%; max-height: none; object-fit: contain; object-position: center; filter: drop-shadow(0 22px 26px rgba(40,10,20,.18)); transition: opacity .2s ease; }
+.hv-c--set .hv-c__info { position: absolute; right: clamp(14px, 1.6vw, 22px); bottom: clamp(14px, 1.6vw, 22px); width: 32%; padding: 16px 18px; background: rgba(255,255,255,.72); backdrop-filter: blur(6px); border-radius: 14px; gap: 6px; }
+.hv-c--set .hv-c__info li { padding: 8px 0; font-size: 14.5px; border-top-color: rgba(0,0,0,.08); }
+.hv-c--set .hv-c__info b { font-size: 16px; }
+.zs-sw button { width: 34px; height: 34px; border-radius: 50%; border: 1px solid rgba(0,0,0,.2); cursor: pointer; padding: 0; box-shadow: inset 0 0 0 3px #FAF8F5; transition: transform .2s ease, box-shadow .2s ease; }
+.zs-sw button[aria-pressed="true"] { box-shadow: inset 0 0 0 3px #FAF8F5, 0 0 0 2px var(--ink); }
+.zs-sw button:hover { transform: scale(1.08); }
+.zs-sw span { font-weight: 700; color: var(--ink); margin-left: 4px; }
+@media (max-width: 1060px) {
+  .hv-c--set .hv-c__prod { min-height: 0; display: grid; grid-template-columns: 1fr; padding: 16px 16px 16px; }
+  .hv-c--set .hv-c__prod > img { position: static; width: 100%; height: auto; max-height: 420px; aspect-ratio: auto; }
+  .hv-c--set .hv-c__info { position: static; width: auto; margin-top: 8px; }
+}
+@media (max-width: 760px) { .hv-c--set .hv-c__prod > img { max-height: 340px; } }

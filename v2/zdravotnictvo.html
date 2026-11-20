@@ -104,6 +104,12 @@
 (() => {
   const { P, eur, prodUrl, secProducts, catProducts, cleanImg, heroC } = DAMI;
   const set = P["cesare-zdrav-noh-belasa"], zd = secProducts("zdravotnictvo");
+  const SET_COLORS = [ /* farby z katalógu (cesare-zdrav-noh-belasa) */
+    { k: "bordo", n: "Bordó", h: "#6d1a2a", tint: "#F4E1E5" },
+    { k: "matova", n: "Mätová", h: "#8fd3bf", tint: "#DDF2EA" },
+    { k: "svmodra", n: "Svetlomodrá", h: "#8cc4ec", tint: "#DFEEFA" },
+    { k: "biela", n: "Biela", h: "#ffffff", tint: "#E7E3DD" },
+  ];
   const seen = new Set();
   const rail = ["zdrav-bluzy", "zdrav-obuv", "zdrav-nohavice", "zdrav-bluzy", "zdrav-obuv"]
     .map(k => catProducts(k).find(p => zd.includes(p) && p.id !== set.id && p.price > 0 && cleanImg(p) && !seen.has(p.id) && seen.add(p.id))).filter(Boolean).slice(0, 4);
@@ -111,11 +117,24 @@
     crumbs: [["index.html", "Domov"], ["", "Zdravotníctvo a wellness"]], eye: "Zdravotníctvo a wellness",
     h1: "Set blúza + nohavice za&nbsp;29,80&nbsp;€",
     n: "Zdravotnícka súprava CESARE vo veľkostiach XS–3XL. K tomu blúzy, kimoná a obuv pre ambulancie, kozmetiku a wellness.",
-    extra: `<div class="hv-c__sw" aria-label="Farby: biela, mätová, bordó, svetlomodrá"><i style="background:#fff"></i><i style="background:#8fd3bf"></i><i style="background:#6d1a2a"></i><i style="background:#8cc4ec"></i><span>biela · mätová · bordó · svetlomodrá</span></div>`,
+    extra: `<div class="hv-c__sw zs-sw" role="group" aria-label="Farba setu">${SET_COLORS.map((c, i) => `<button type="button" data-set="${c.k}" aria-pressed="${i === 0}" aria-label="${c.n}" title="${c.n}" style="background:${c.h}"></button>`).join("")}<span data-set-name>${SET_COLORS[0].n}</span></div>`,
     btns: [[prodUrl(set.id), "Vybrať farbu", "red"], ["kategoria.html?c=zdravotnictvo", "Celé zdravotníctvo", "line"]],
-    prod: { href: prodUrl(set.id), img: "img/hero/cut-cesare-set.png", cut: true, name: "CESARE set blúza + nohavice", price: eur(set.price),
-      specs: ["Biela, mätová, bordó, svetlomodrá", "Veľkosti XS – 3XL", "Blúza aj nohavice v jednej cene"] },
+    prod: { href: prodUrl(set.id), img: `img/hero/set-${SET_COLORS[0].k}.webp`, cut: true, name: "CESARE set blúza + nohavice", alt: `Zdravotnícka súprava CESARE – blúza a nohavice, ${SET_COLORS[0].n.toLowerCase()}`, price: eur(set.price),
+      specs: ["4 farby: biela, mätová, bordó, svetlomodrá", "Veľkosti XS – 3XL", "Blúza aj nohavice v jednej cene"] },
     rail });
+  /* farby setu: obrázok + tón panelu sa menia podľa zvolenej farby */
+  const hero = document.querySelector(".hv-c"), prodEl = hero.querySelector(".hv-c__prod"), img = prodEl.querySelector("img");
+  hero.classList.add("hv-c--set");
+  const pick = k => {
+    const c = SET_COLORS.find(x => x.k === k); if (!c) return;
+    prodEl.style.setProperty("--set-tint", c.tint);
+    img.src = `img/hero/set-${c.k}.webp`; img.alt = `Zdravotnícka súprava CESARE – blúza a nohavice, ${c.n.toLowerCase()}`;
+    hero.querySelectorAll("[data-set]").forEach(b => b.setAttribute("aria-pressed", b.dataset.set === k));
+    hero.querySelector("[data-set-name]").textContent = c.n;
+  };
+  hero.querySelectorAll("[data-set]").forEach(b => b.addEventListener("click", () => pick(b.dataset.set)));
+  pick(SET_COLORS[0].k);
+  addEventListener("load", () => SET_COLORS.slice(1).forEach(c => { const i = new Image(); i.src = `img/hero/set-${c.k}.webp`; }));
 })();
 </script>
 <script>DAMI.mountFooter()</script>
