@@ -296,7 +296,7 @@ body.is-scrolled .hdr { border-bottom-color: var(--line); box-shadow: 0 6px 20px
 }
 
 /* okná širšie ako 2100 px: zoom sa zastaví (dami.js), stránka ostane 1440 px (= 2100 px na obrazovke) v strede, okraje sú voľná plocha */
-html.is-capped { background: var(--paper); }
+html.is-capped { background: linear-gradient(#0b0b0b 0 42px, var(--paper) 42px) no-repeat, var(--paper); }
 html.is-capped body { max-width: 1440px; margin-inline: auto; overflow-x: clip; }
 
 /* ---------- recenzie a dôvera (Google, Heureka) ---------- */
