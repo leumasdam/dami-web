@@ -8,3 +8,4 @@ HANDOFF.md
 # v2: zdrojové vrstvy z Higgsfieldu sú veľké, v repe sú len exporty v v2/img
 v2/src/*.png
 alternativy/
+v2/src/hero/*.png

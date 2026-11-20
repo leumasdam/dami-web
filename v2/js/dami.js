@@ -168,6 +168,15 @@
     return `${["ne", "po", "ut", "st", "št", "pi", "so"][d.getDay()]} ${d.getDate()}. ${d.getMonth() + 1}.`;
   }
 
+  /* otvorené / zatvorené podľa skutočných hodín: Po–Pi 9:30–17:00, So 9:00–12:00 */
+  function openNow(d = new Date()) {
+    const day = d.getDay(), m = d.getHours() * 60 + d.getMinutes();
+    const slot = day >= 1 && day <= 5 ? [570, 1020] : day === 6 ? [540, 720] : null;
+    if (slot && m >= slot[0] && m < slot[1]) return { open: true, text: `Teraz otvorené · do ${slot[1] === 1020 ? "17:00" : "12:00"}` };
+    const next = (day >= 1 && day <= 4 && m >= 1020) || (day === 0) ? "zajtra o 9:30" : day === 5 && m >= 1020 ? "v sobotu o 9:00" : day === 6 && m >= 720 ? "v pondelok o 9:30" : m < (day === 6 ? 540 : 570) ? `dnes o ${day === 6 ? "9:00" : "9:30"}` : "v pondelok o 9:30";
+    return { open: false, text: `Teraz zatvorené · otvárame ${next}` };
+  }
+
   function header(variant = "dark", active = "") {
     const light = variant === "light";
     return `<div class="topbar"><a href="predajna.html">${ico("pin", "ico tb-pin")}Predajňa Piešťany</a><i class="tb-opt">•</i><span class="tb-opt">${FIRM.street}</span><i>•</i><span>Po–Pi 9:30–17:00</span><i class="tb-opt">•</i><a class="tb-opt" href="tel:${FIRM.phone.replace(/\s/g, "")}">${FIRM.phone}</a><i class="tb-opt">•</i><a class="tb-opt tb-rate" href="${REVIEWS.url}" target="_blank" rel="noopener">★ ${rate(REVIEWS.rating)} Google (${REVIEWS.count})</a></div>
@@ -368,5 +377,5 @@
   }
 
   window.DAMI = { D, P, FIRM, I, ico, LOGO, script, eur, esc, qp, catUrl, prodUrl, secProducts, catProducts, sectionOf, brandLabel, catLabel, shortName,
-    card, header, footer, mount, REVIEWS, HEUREKA, stars, gBadge, hBadge, reviewsBlock, deliveryDate, mountFooter, addToCart, setQty, cart, cartTotal, cartCount, favs, isFav, toggleFav, search, reveal, toast, openCart, syncBadges, renderCart, store, FREE };
+    card, header, footer, mount, REVIEWS, HEUREKA, openNow, stars, gBadge, hBadge, reviewsBlock, deliveryDate, mountFooter, addToCart, setQty, cart, cartTotal, cartCount, favs, isFav, toggleFav, search, reveal, toast, openCart, syncBadges, renderCart, store, FREE };
 })();

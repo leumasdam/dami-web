@@ -22,7 +22,9 @@
   <section class="wrap sh pr-hero">
     <div class="sh__txt">
       <h1 class="hx">Príďte si to <span class="mk">vyskúšať.</span></h1>
-      <p class="txt">Navštívte našu predajňu v Piešťanoch. Odborné poradenstvo, široký výber a možnosť vyskúšania priamo na mieste.</p>
+      <p class="txt">Gaštanová 6396, Piešťany. Poradíme s veľkosťou a všetko si vyskúšate priamo na mieste.</p>
+      <p class="pr-live" data-live></p>
+      <ul class="pr-chips"><li>Odložíme ti tovar z e-shopu</li><li>Osobný odber zadarmo</li><li><a href="" data-gr target="_blank" rel="noopener">★ 4,7 · 42 hodnotení na Google</a></li></ul>
     </div>
     <div class="sh__ph"><img src="../assets/img/predajna-exterier.webp" alt="Predajňa DAMI pracovné odevy a obuv na Gaštanovej 6396 v Piešťanoch" width="680" height="510" fetchpriority="high"></div>
   </section>
@@ -106,6 +108,10 @@
     [ico("box"), "Odložíme tovar z e&#8209;shopu", "Objednávku z e&#8209;shopu vám radi pripravíme na vyzdvihnutie v predajni."],
   ].map(([i, h, p], n) => `<div class="pr-pt rv" data-d="${n * 70}">${i}<div><h3>${h}</h3><p>${p}</p></div></div>`).join("");
 })();
+</script>
+<script>
+(() => { const st = DAMI.openNow(), el = document.querySelector("[data-live]"); el.textContent = st.text; el.classList.toggle("is-open", st.open);
+  document.querySelector("[data-gr]").href = DAMI.REVIEWS.url; })();
 </script>
 <script>DAMI.mountFooter()</script>
 </body>

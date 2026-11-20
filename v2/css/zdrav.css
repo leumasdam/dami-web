@@ -71,3 +71,12 @@
   .zd-note::before { background: linear-gradient(180deg, #f1efec 0%, rgba(241,239,236,.92) 45%, rgba(241,239,236,0) 80%); }
   .zd-note h2 { font-size: 34px; }
 }
+
+/* hero: produkt na farbe (makety m-zdrav) */
+.zd-hero .zd-set { background: #F3DFE4; }
+.zd-hero .zd-set img { object-fit: contain; object-position: center; transform: none; }
+.zd-eye { font: 800 13px/1 var(--f); letter-spacing: .1em; text-transform: uppercase; color: #5E5953; }
+.zd-hero .hx { font-size: max(40px, calc(84 * var(--u))); }
+.zd-sw { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; font-size: 14px; color: #5E5953; }
+.zd-sw i { width: 30px; height: 30px; border-radius: 50%; border: 1px solid #d6d0c8; }
+@media (max-width: 760px) { .zd-hero .zd-set img { transform: none; } .zd-hero .hx { font-size: clamp(38px, 11vw, 52px); } }

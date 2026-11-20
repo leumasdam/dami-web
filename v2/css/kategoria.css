@@ -210,3 +210,21 @@
   .pager { gap: 6px; }
   .pager__b { min-width: 36px; height: 36px; }
 }
+
+/* banner s ponukou v hlavičke kategórie */
+.kpro { display: block; color: #fff; text-decoration: none; background: var(--kbg); }
+.kpro img { object-position: right center; transition: transform .6s var(--ease); }
+.kpro:hover img { transform: scale(1.02); }
+.kpro__txt { position: absolute; left: 5.5%; top: 50%; translate: 0 -50%; width: 44%; display: grid; justify-items: start; gap: 10px; }
+.kpro__k { font: 700 13px/1.2 var(--f); letter-spacing: .08em; text-transform: uppercase; opacity: .85; }
+.kpro__h { font: 900 clamp(26px, 2.6vw, 44px)/.95 var(--f-d); font-stretch: 75%; text-wrap: balance; }
+.kpro__sub { font-size: clamp(14px, 1.05vw, 17px); font-weight: 600; opacity: .92; }
+.kpro .btn { margin-top: 6px; }
+.kpro--light { color: var(--ink); }
+.kpro--light .kpro__k { color: var(--red); opacity: 1; }
+@media (max-width: 760px) {
+  .khd__img.kpro { display: block; margin-top: 14px; aspect-ratio: auto; min-height: 0; max-height: none; }
+  .kpro img { position: static; height: 170px; object-position: 88% center; }
+  .kpro__txt { position: static; translate: none; width: auto; padding: 16px 16px 18px; gap: 8px; }
+  .kpro__h { font-size: 30px; }
+}

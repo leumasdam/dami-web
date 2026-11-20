@@ -95,7 +95,15 @@
   if (c === "oblubene") crumbs.push(["", "Obľúbené"]);
   document.title = `${title} | DAMI pracovné odevy`;
 
-  /* ---------- hlavička kategórie ---------- */
+  /* ---------- hlavička kategórie: banner s konkrétnou ponukou (ceny z katalógu) ---------- */
+  const PROMO = {
+    gastro: { img: "img/hero/kat-gastro.webp", t: "red", k: "CHEFLINE · čierny, krátky rukáv", h: "Rondon, ktorý zvládne celú zmenu. Za 19,90 €", sub: "Rondony od 18,50 € · biele aj čierne", href: DAMI.prodUrl("chefline-rondon-kratky-rukav-cierny-cvoky"), cta: "Pozrieť rondon" },
+    pracovne: { img: "img/hero/kat-pracovne.webp", t: "dark", k: "Zima na stavbe aj v dielni", h: "Zimné bundy od 27,90 €", sub: "17 modelov · bunda CARSON predtým 36,00 €", href: catUrl("zimne-bundy"), cta: "Zimné bundy" },
+    obuv: { img: "img/hero/kat-obuv.webp", t: "light", bg: "#ECE8E2", k: "CXS EVO ICON S3S", h: "Bezpečnostná obuv S3 od 39,90 €", sub: "Kompozitná špica, bez kovových súčastí", href: catUrl("s1-s1p-s3-ocelovou-vystuzou"), cta: "Obuv S1–S3" },
+    doplnky: { img: "img/hero/kat-doplnky.webp", t: "light", bg: "#EFE6D8", k: "CXS ROXY WINTER", h: "Zimné rukavice od 1,80 €", sub: "Máčané v latexe aj nitrile · rukavice od 0,40 €", href: catUrl("rukavice"), cta: "Rukavice" },
+    zdravotnictvo: { img: "img/hero/kat-zdrav.webp", t: "light", bg: "#F3DFE4", k: "CESARE", h: "Set blúza + nohavice za 29,80 €", sub: "Biela, mätová, bordó, svetlomodrá", href: DAMI.prodUrl("cesare-zdrav-noh-belasa"), cta: "Vybrať farbu" },
+  };
+  const PR = c === "oblubene" ? null : PROMO[sec];
   const [heroImg, heroPos] = (!isSec && CAT_IMG[c]) || (S ? [S.img, S.pos] : ["img/foto-tim.webp", "50% 38%"]);
   const words = esc(title).split(" ");
   const h1 = words.length > 1 ? `${words.slice(0, -1).join(" ")} <span class="mk">${words.at(-1)}</span>` : `<span class="mk">${words[0]}</span>`;
@@ -105,7 +113,9 @@
       <h1 class="${title.length > 22 ? "is-long" : ""}">${h1}</h1>
       <p class="khd__n"><b>${baseN} ${plural(baseN)}</b><span> ${esc(tail)}</span></p>
     </div>
-    <div class="khd__img"><img src="${heroImg}" alt="" style="object-position:${heroPos}" fetchpriority="high"></div>`;
+    ${PR ? `<a class="khd__img kpro kpro--${PR.t}" href="${PR.href}" style="--kbg:${PR.bg || (PR.t === "red" ? "#D9180F" : "#111")}"><img src="${PR.img}" alt="" fetchpriority="high">
+      <span class="kpro__txt"><span class="kpro__k">${PR.k}</span><b class="kpro__h">${PR.h}</b><span class="kpro__sub">${PR.sub}</span><span class="btn ${PR.t === "light" ? "btn--red" : "btn--white"} btn--sm">${PR.cta} ${ico("arrow")}</span></span></a>`
+      : `<div class="khd__img"><img src="${heroImg}" alt="" style="object-position:${heroPos}" fetchpriority="high"></div>`}`;
 
   /* ---------- podkategórie (pilulky) + mobilné dlaždice ---------- */
   const subs = sec ? D.sections[sec].subs.filter(k => D.cats[k] && base.some(p => p.cats.includes(k))) : [];

@@ -268,3 +268,17 @@
   .firm h2 { font-size: 38px; }
   .firm p { font-size: 17px; }
 }
+
+.slide .link--w { color: #fff; }
+.slide--red .slide__line b, .slide--hero .slide__line b, .slide--dark .slide__line b { color: #fff; }
+.slide--hero .slide__line b { font-size: 1.5em; font-weight: 800; }
+
+/* mobil: pod textom fotky stmavíme farbou slidu, aby sa nadpis nebil s fotkou */
+@media (max-width: 760px) {
+  .slide--ph::after { content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none; background: linear-gradient(90deg, var(--sbg) 0%, var(--sbg) 38%, transparent 82%); }
+  .slide--ph.slide--hero { --sbg: rgba(217,24,15,.94); }
+  .slide--ph.slide--dark { --sbg: rgba(17,17,17,.9); }
+  .slide--ph.slide--light { --sbg: rgba(250,248,245,.95); }
+  .slide--ph .slide__bg { object-position: 100% center; }
+  .slide--store .slide__store { width: 36%; top: 62%; }
+}
