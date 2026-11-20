@@ -13,8 +13,8 @@
   const css = `
   .hdr { isolation: isolate; }
   .hdr > *:not(.xm-garland) { position: relative; z-index: 1; }
-  .xm-garland { position: absolute; left: calc(50% - 50vw); width: 100vw; top: 0; height: 52px; z-index: 0; pointer-events: none; overflow: visible; }
-  .xm-garland svg { display: block; height: 52px; overflow: visible; }
+  .xm-garland { position: absolute; left: calc(50% - 50vw); width: 100vw; top: 0; height: 84px; z-index: 0; pointer-events: none; overflow: visible; }
+  .xm-garland svg { display: block; height: 84px; overflow: visible; }
   .xm-wire { fill: none; stroke: #1d1d1d; stroke-width: 1.6; }
   .xm-b { transform-box: fill-box; transform-origin: 50% 0; }
   .xm-b .g { transition: opacity .6s; }
@@ -26,15 +26,15 @@
   .xm-tgl { position: absolute; right: 12px; top: 50%; translate: 0 -50%; width: 30px; height: 30px; display: grid; place-items: center; border: 0; border-radius: 50%; background: rgba(255,255,255,.1); color: #fff; cursor: pointer; font-size: 16px; line-height: 1; }
   .xm-tgl:hover { background: rgba(255,255,255,.2); }
   .xm-tgl[aria-pressed="false"] { opacity: .55; }
-  @media (max-width: 760px) { .xm-tgl { width: 24px; height: 24px; font-size: 13px; right: 6px; } .xm-garland, .xm-garland svg { height: 40px; } }
+  @media (max-width: 760px) { .xm-tgl { width: 24px; height: 24px; font-size: 13px; right: 6px; } .xm-garland, .xm-garland svg { height: 64px; } }
   `;
 
   function garland(host) {
     const g = document.createElement("div"); g.className = "xm-garland"; g.setAttribute("aria-hidden", "true");
     host.prepend(g);
     const draw = () => {
-      const W = g.clientWidth || innerWidth, mob = W < 760, H = mob ? 40 : 52;
-      /* dve reťaze do kríža: jedna zľava hore doprava dole, druhá naopak; visia vysoko pod čiernou lištou */
+      const W = g.clientWidth || innerWidth, mob = W < 760, H = mob ? 64 : 84;
+      /* reťaz svetielok visí šikmo naprieč hlavičkou */
       const cols = ["r", "w", "y", "r", "w"], bulb = (x, y, rot, c) => `<g class="xm-b ${c}" transform="translate(${x.toFixed(1)} ${y.toFixed(1)}) rotate(${rot.toFixed(1)})"><rect class="c" x="-2.6" y="-1" width="5.2" height="4.6" rx="1"/><path class="g" d="M0 3.4c3.6 0 4.6 4.4 4.1 7.2-.5 2.6-2.2 4.4-4.1 4.4s-3.6-1.8-4.1-4.4C-4.6 7.8-3.6 3.4 0 3.4z"/></g>`;
       let out = "", k = 0;
       const strand = (yL, yR, seg, sag, phase) => {
@@ -50,8 +50,9 @@
         }
         return `<path class="xm-wire" d="${path}"/>${bulbs}`;
       };
-      const lo = mob ? 20 : 26, sag = mob ? 7 : 9, seg = mob ? 92 : 140;
-      out += strand(0, lo, seg, sag, 0) + strand(lo, 0, seg * 1.12, sag, seg * .5);
+      /* jedna reťaz šikmo naprieč: vľavo hore pod lištou, vpravo nízko pri spodku hlavičky */
+      const lo = mob ? 46 : 62, sag = mob ? 8 : 11, seg = mob ? 96 : 150;
+      out += strand(4, lo, seg, sag, 0);
       g.innerHTML = `<svg viewBox="0 0 ${W} ${H}" width="${W}" height="${H}">${out}</svg>`;
     };
     draw(); let rt; addEventListener("resize", () => { clearTimeout(rt); rt = setTimeout(draw, 150); });
