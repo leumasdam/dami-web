@@ -416,3 +416,29 @@
   .catc__offer.tg { font-size: 15px; padding: 6px 16px 5px 9px; }
 }
 .sec--firm { margin-top: clamp(28px, 3vw, 48px); }
+
+.pgrid--4 .pc { position: relative; }
+.pgrid--4 .pc__buy { order: 3; align-self: flex-start; margin-top: 12px; }
+.pc__buy .pc__add { order: 0; }
+.pgrid--4 .pc__buy .pc__lg { width: 36px; }
+.pgrid--4 .pc__buy .pc__add { padding: 0 14px; }
+@media (max-width: 760px) { .pgrid--4 .pc__buy { align-self: stretch; margin-top: 10px; } .pgrid--4 .pc__buy .pc__add { flex: 1; padding: 0 8px; } .pgrid--4 .pc__buy .pc__lg { width: 34px; } }
+
+/* najpredávanejšie: posuvný pás */
+.pgrid--4.is-rail { display: grid; grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: calc((100% - 48px) / 4); overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; padding: 4px 2px 12px; margin: -4px -2px -12px; }
+.pgrid--4.is-rail::-webkit-scrollbar { display: none; }
+.pgrid--4.is-rail > .pc { scroll-snap-align: start; }
+.sec--best .sec__hd { align-items: center; }
+.rail-nav { display: flex; gap: 8px; }
+.rail-btn { width: 44px; height: 44px; display: grid; place-items: center; border: 0; background: var(--ink); color: #fff; cursor: pointer; clip-path: polygon(0 0, calc(100% - 9px) 0, 100% 9px, 100% 100%, 9px 100%, 0 calc(100% - 9px)); transition: background .2s; }
+.rail-btn:hover { background: var(--red); }
+.rail-btn .ico { width: 22px; height: 22px; stroke-width: 2; }
+@media (max-width: 1340px) { .pgrid--4.is-rail { grid-auto-columns: calc((100% - 32px) / 3); } }
+@media (max-width: 1000px) { .pgrid--4.is-rail { grid-auto-columns: calc((100% - 16px) / 2); } }
+@media (max-width: 760px) { .pgrid--4.is-rail { grid-auto-columns: 62%; gap: 10px; margin-inline: calc(-1 * var(--gut)); padding-inline: var(--gut); scroll-padding-inline: var(--gut); } .rail-btn { width: 38px; height: 38px; } }
+/* pás na úvode: viac miesta pre košík + potlač + výšivku */
+@media (min-width: 761px) { .pgrid--4.is-rail .pc { grid-template-columns: 40% minmax(0, 1fr); } }
+.pgrid--4.is-rail .pc__buy { gap: 4px; }
+.pgrid--4.is-rail .pc__buy .pc__add { padding: 0 11px; font-size: 14px; gap: 6px; }
+.pgrid--4.is-rail .pc__buy .pc__lg { width: 33px; }
+.pgrid--4.is-rail .pc__buy .pc__lg .ico { width: 20px; height: 20px; }

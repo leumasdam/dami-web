@@ -233,3 +233,9 @@
 .has-hv .khd, .has-hv .ksub, .has-hv .ktiles { display: none !important; }
 .khd--plain { grid-template-columns: minmax(0, 1fr); }
 .khd--plain .mk::after { display: none; }
+
+.kgrid .pc__buy { order: 4; grid-column: 1 / -1; justify-self: start; margin-top: clamp(10px, .9vw, 13px); }
+.kgrid .pc__buy .pc__lg { width: clamp(38px, 2.7vw, 39px); }
+@media (max-width: 640px) { .kgrid .pc__buy { grid-column: 2; align-self: end; margin-top: 12px; gap: 5px; } .kgrid .pc__buy .pc__lg { width: 36px; } }
+
+#produkty { scroll-margin-top: calc(var(--hdr-h, 80px) + 16px); }

@@ -8,10 +8,10 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Figtree:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../assets/css/dami.css">
-<link rel="stylesheet" href="css/dami2.css?v=1120w">
+<link rel="stylesheet" href="css/dami2.css?v=1120z">
 <link rel="stylesheet" href="css/produkt.css">
 <script src="../data/catalog.js"></script>
-<script src="js/dami.js?v=1120w"></script>
+<script src="js/dami.js?v=1120z"></script>
 </head>
 <body class="pg-prod">
 <script>
@@ -116,6 +116,13 @@
         <div class="swb">${p.colors.map((c, i) => `<button class="${p.colors.length === 1 ? "is-on" : ""}" data-color="${i}" title="${esc(c.n)}" aria-label="${esc(c.n)}" style="background:${c.h.length > 1 ? `linear-gradient(135deg,${c.h[0]} 50%,${c.h[1]} 50%)` : c.h[0]}"></button>`).join("")}</div></div>` : ""}
       ${p.sizes.length ? `<div class="opt" data-opt="size"><div class="opt__hd"><b>Veľkosť</b><span class="opt__err">Vyber veľkosť</span><button class="sztab" data-tabgo="size">Tabuľka veľkostí</button></div>
         <div class="szb">${p.sizes.map((s, i) => `<button class="${p.sizes.length === 1 ? "is-on" : ""}" data-size="${i}" aria-pressed="${p.sizes.length === 1}">${esc(s)}</button>`).join("")}</div></div>` : ""}
+      ${p.price ? `<div class="opt" data-opt="logo"><div class="opt__hd"><b>Logo firmy</b><span class="opt__note">cenu potvrdíme podľa loga</span></div>
+        <div class="lgo"><button class="is-on" data-logo="" aria-pressed="true">Bez loga</button>${DAMI.LOGO_OPT.map(([k, ic]) => `<button data-logo="${k}" aria-pressed="false">${ico(ic)}${DAMI.logoName(k)}</button>`).join("")}</div>
+        <div class="lgo-up" data-lgo-up hidden>
+          <label class="lgo-file"><input type="file" accept="image/*,.pdf,.ai,.eps,.svg" data-lgo-file>${ico("upload")}<span data-lgo-fname><b>Priložiť logo alebo predlohu</b><small>PNG, JPG, PDF, SVG, AI · aj fotka či skica</small></span></label>
+          <textarea data-lgo-note rows="2" maxlength="300" placeholder="Predstava: kde má byť logo (hruď, chrbát, rukáv), veľkosť, farby…"></textarea>
+          <p class="lgo-hint">Logo môžete poslať aj neskôr na ${FIRM.mail}. Pred výrobou vám pošleme náhľad a cenu na potvrdenie.</p>
+        </div></div>` : ""}
       <div class="buy">
         <span class="buy__lab">Množstvo</span>
         <div class="buy__row"><div class="qty"><button data-qd="-1" aria-label="Menej">−</button><input data-qty value="1" inputmode="numeric" aria-label="Množstvo"><button data-qd="1" aria-label="Viac">+</button></div>
@@ -190,6 +197,7 @@
     else if (t.matches("[data-stage]")) { const lb = $("[data-lb]"); lb.querySelector("img").src = imgs[cur]; lb.classList.add("is-on"); }
     else if (t.dataset.color) { sel.color = +t.dataset.color; $$("[data-color]").forEach(b => b.classList.toggle("is-on", b === t)); $("[data-color-name]").textContent = p.colors[sel.color].n; t.closest(".opt").classList.remove("is-err"); }
     else if (t.dataset.size) { sel.size = +t.dataset.size; $$("[data-size]").forEach(b => { b.classList.toggle("is-on", b === t); b.setAttribute("aria-pressed", b === t); }); t.closest(".opt").classList.remove("is-err"); }
+    else if (t.dataset.logo !== undefined && t.closest(".lgo")) { sel.logo = t.dataset.logo; $$(".lgo button").forEach(b => { b.classList.toggle("is-on", b === t); b.setAttribute("aria-pressed", b === t); }); $("[data-lgo-up]").hidden = !sel.logo; }
     else if (t.dataset.qd) qtyIn.value = Math.max(1, Math.min(99, (+qtyIn.value || 1) + +t.dataset.qd));
     else if (t.dataset.tab) showTab(t.dataset.tab);
     else if (t.dataset.tabgo) {
@@ -208,11 +216,15 @@
         $(`[data-opt="${bad[0]}"]`).scrollIntoView({ behavior: "smooth", block: "center" });
         return;
       }
-      addToCart(p.id, p.sizes[sel.size] || "", p.colors[sel.color]?.n || "", Math.max(1, +qtyIn.value || 1));
+      const lf = $("[data-lgo-file]")?.files[0], ln = $("[data-lgo-note]")?.value.trim();
+      addToCart(p.id, p.sizes[sel.size] || "", p.colors[sel.color]?.n || "", Math.max(1, +qtyIn.value || 1), sel.logo || "", sel.logo ? { ...(lf ? { file: lf.name } : {}), ...(ln ? { note: ln } : {}) } : {});
     }
   });
   $("[data-lb]").addEventListener("click", e => e.currentTarget.classList.remove("is-on"));
   qtyIn.addEventListener("change", () => qtyIn.value = Math.max(1, Math.min(99, parseInt(qtyIn.value) || 1)));
+  $("[data-lgo-file]")?.addEventListener("change", e => { const f = e.target.files[0]; if (f) $("[data-lgo-fname]").innerHTML = `<b>${esc(f.name)}</b><small>Priložené · klikni pre zmenu</small>`; e.target.closest(".lgo-file").classList.toggle("is-on", !!f); });
+  const lq = new URLSearchParams(location.search).get("logo");
+  if (lq) $(`.lgo button[data-logo="${lq}"]`)?.click();
   if (location.hash === "#vyber") requestAnimationFrame(() => document.getElementById("vyber")?.scrollIntoView({ block: "center" }));
 })();
 </script>

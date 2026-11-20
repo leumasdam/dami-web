@@ -8,13 +8,14 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Figtree:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../assets/css/dami.css">
-<link rel="stylesheet" href="css/dami2.css?v=1120w">
-<link rel="stylesheet" href="css/kategoria.css">
+<link rel="stylesheet" href="css/dami2.css?v=1120z">
+<link rel="stylesheet" href="css/kategoria.css?v=1120z">
 <link rel="stylesheet" href="css/hero.css?v=1120u">
 <script src="../data/catalog.js"></script>
 <script src="js/packshots.js"></script>
-<script src="js/dami.js?v=1120w"></script>
+<script src="js/dami.js?v=1120z"></script>
 <script>/* zdravotníctvo má jednu stránku s filtrami: staré adresy presmerovať */
+window.DAMI_GOPROD = location.hash === "#produkty";
 (() => { const c = new URLSearchParams(location.search).get("c") || "";
   if (c === "zdravotnictvo") location.replace("zdravotnictvo.html#vsetko");
   else if (/^zdrav-/.test(c)) location.replace("zdravotnictvo.html?k=" + encodeURIComponent(c) + "#vsetko"); })();</script>
@@ -36,7 +37,7 @@
   <nav class="wrap ksub" aria-label="Podkategórie" data-subs></nav>
   <div class="wrap ktiles" data-tiles></div>
   <div class="sheet-bg" data-sheet-close></div>
-  <div class="wrap cat">
+  <div class="wrap cat" id="produkty">
     <aside class="side" aria-label="Filtre" data-side></aside>
     <div class="main">
       <div class="bar">
@@ -349,6 +350,16 @@
   $(".sort").insertAdjacentHTML("beforeend", ico("chev", "ico sort__chev"));
 
   renderSide(); render();
+  /* príchod z podkategórie: posuň rovno na produkty (obsah sa vykresľuje skriptom, preto až po ňom) */
+  if (window.DAMI_GOPROD) {
+    /* plynulý posun: stránka sa ukáže hore a po chvíľke sa jemne zvezie k produktom */
+    const go = () => { const el = document.getElementById("produkty"); if (!el) return;
+      const to = el.getBoundingClientRect().top + scrollY - (parseFloat(getComputedStyle(el).scrollMarginTop) || 0), from = scrollY, dist = to - from, T = 900, t0 = performance.now();
+      if (matchMedia("(prefers-reduced-motion: reduce)").matches) return scrollTo({ top: to, behavior: "instant" });
+      const ease = x => 1 - Math.pow(1 - x, 4);
+      const step = now => { const k = Math.min(1, (now - t0) / T); scrollTo({ top: from + dist * ease(k), behavior: "instant" }); if (k < 1) requestAnimationFrame(step); };
+      requestAnimationFrame(step); };
+    document.readyState === "complete" ? setTimeout(go, 350) : addEventListener("load", () => setTimeout(go, 350), { once: true }); }
 })();
 </script>
 <script>DAMI.mountFooter()</script>

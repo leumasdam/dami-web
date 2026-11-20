@@ -74,6 +74,9 @@
     filter: '<path d="M4 6h16M7 12h10M10 18h4"/>',
     refresh: '<path d="M20 8.5A8.5 8.5 0 0 0 4.6 7M4 15.5A8.5 8.5 0 0 0 19.4 17"/><path d="M4 3.5V7.5h4M20 20.5V16.5h-4"/>',
     send: '<path d="M21 3.5 3 10.5l7 3 3 7z"/><path d="m10 13.5 5-5"/>',
+    upload: '<path d="M12 15V4"/><path d="m7.5 8.5 4.5-4.5 4.5 4.5"/><path d="M4 15v3.5A1.5 1.5 0 0 0 5.5 20h13a1.5 1.5 0 0 0 1.5-1.5V15"/>',
+    layers: '<path d="M12 3.6 20.4 8 12 12.4 3.6 8z" fill="currentColor" fill-opacity=".14"/><path d="M3.6 12 12 16.4 20.4 12"/><path d="M3.6 16 12 20.4 20.4 16"/>',
+    needle: '<path d="M4.6 19.4 16.7 4.7a1.8 1.8 0 0 1 2.6 2.6z" fill="currentColor" fill-opacity=".14"/><path d="M17.5 6.5l-1.2 1.2"/><path d="M18 6c1.8-1.8 4 .4 2.6 2.4-1.6 2.2-5 1.4-7.4 3.6-2 1.8-3.4 3.4-8.2 3.5" stroke-dasharray="1.8 1.9"/>',
     cart2: '<path d="M3 4h2.2l2.2 10.6a1.4 1.4 0 0 0 1.4 1.1h8.9a1.4 1.4 0 0 0 1.4-1.1L20.6 7H6"/>',
     hanger: '<path d="M12 7.5a2 2 0 1 1 2-2c0 1.3-2 1.6-2 3.5l8.3 6a1.2 1.2 0 0 1-.7 2.2H4.4a1.2 1.2 0 0 1-.7-2.2L12 9"/>',
     boot: '<path d="M5 4.5h6v7.5l7.5 2.5c1.5.5 2.5 1.8 2.5 3.3V19H3.5z"/><path d="M3.5 16h17.5"/>',
@@ -90,7 +93,8 @@
   const eur = n => n.toFixed(2).replace(".", ",") + " €";
   const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
   const qp = k => new URLSearchParams(location.search).get(k);
-  const catUrl = k => k === "zdravotnictvo" ? "zdravotnictvo.html#vsetko" : /^zdrav-/.test(k) ? `zdravotnictvo.html?k=${k}#vsetko` : `kategoria.html?c=${k}`;
+  /* podkategórie otvárame rovno pri produktoch (#produkty), hlavné sekcie s hero bannerom */
+  const catUrl = k => k === "zdravotnictvo" ? "zdravotnictvo.html#vsetko" : /^zdrav-/.test(k) ? `zdravotnictvo.html?k=${k}#vsetko` : `kategoria.html?c=${k}${D.sections[k] || k === "all" || k === "oblubene" ? "" : "#produkty"}`;
   const prodUrl = id => `produkt.html?p=${encodeURIComponent(id)}`;
   const inSec = (p, s) => p.sec.includes(s);
   const secProducts = s => D.products.filter(p => inSec(p, s));
@@ -271,6 +275,9 @@
 
   /* ---------- karta produktu ---------- */
   const BADGE = { "sale": ["Akcia", ""] };
+  /* logo na odeve: potlač alebo výšivka (cenu potvrdíme podľa loga) */
+  const LOGO_OPT = [["potlac", "layers", "s potlačou loga"], ["vysivka", "needle", "s výšivkou loga"]];
+  const logoName = k => k === "vysivka" ? "výšivka" : k === "potlac" ? "potlač" : "";
   function card(p, o = {}) {
     const sale = p.price > 0 && p.was > p.price;
     const cols = p.colors.slice(0, 4);
@@ -285,7 +292,7 @@
         <div class="pc__price ${sale ? "is-sale" : ""}">${p.price ? eur(p.price) : "Cena na dopyt"}${sale ? `<s>${eur(p.was)}</s>` : ""}</div>
         ${p.sizes.length && !o.noSz ? `<div class="pc__sizes">${p.sizes.slice(0, 5).map(z => `<i>${esc(z)}</i>`).join("")}${p.sizes.length > 5 ? `<i class="more">+${p.sizes.length - 5}</i>` : ""}</div>` : ""}
         ${cols.length && !o.noSw ? `<div class="sw">${cols.map(c => `<i title="${esc(c.n)}" style="background:${c.h.length > 1 ? `linear-gradient(135deg,${c.h[0]} 50%,${c.h[1]} 50%)` : c.h[0]}"></i>`).join("")}${more > 0 ? `<small>+${more}</small>` : ""}</div>` : ""}
-        ${o.add ? (p.price ? `<button class="pc__add" data-quick="${esc(p.id)}">${ico("cart2")} Do košíka</button>` : `<a class="pc__add" href="${prodUrl(p.id)}">Opýtať sa na cenu</a>`) : ""}
+        ${o.add ? (p.price ? `<div class="pc__buy"><button class="pc__add" data-quick="${esc(p.id)}">${ico("cart2")} Do košíka</button>${LOGO_OPT.map(([k, ic, t]) => `<button class="pc__lg" data-quick="${esc(p.id)}" data-logo="${k}" title="Do košíka ${t}" aria-label="Do košíka ${t}"><svg class="fr" viewBox="0 0 40 40" preserveAspectRatio="none" aria-hidden="true"><path d="M.75.75h31.5l7 7v31.5h-31.5l-7-7z"/></svg>${ico(ic)}</button>`).join("")}</div>` : `<a class="pc__add" href="${prodUrl(p.id)}">Opýtať sa na cenu</a>`) : ""}
       </div></article>`;
   }
 
@@ -302,11 +309,11 @@
     i < 0 ? f.push(id) : f.splice(i, 1); store.set("dami-fav", f); syncBadges();
     return i < 0;
   }
-  function addToCart(id, size = "", color = "", qty = 1) {
-    const c = cart(); const l = c.find(x => x.id === id && x.size === size && x.color === color);
-    l ? (l.qty += qty) : c.push({ id, size, color, qty });
+  function addToCart(id, size = "", color = "", qty = 1, logo = "", extra = {}) {
+    const c = cart(); const l = !extra.file && !extra.note && c.find(x => x.id === id && x.size === size && x.color === color && (x.logo || "") === logo && !x.file && !x.note);
+    l ? (l.qty += qty) : c.push({ id, size, color, qty, ...(logo ? { logo, ...extra } : {}) });
     store.set("dami-cart", c); syncBadges(); renderCart();
-    toast(`${shortName(P[id])} je v košíku`);
+    toast(`${shortName(P[id])} je v košíku${logo ? ` · ${logoName(logo)} loga` : ""}`);
   }
   function setQty(i, q) { const c = cart(); if (!c[i]) return; q < 1 ? c.splice(i, 1) : (c[i].qty = q); store.set("dami-cart", c); syncBadges(); renderCart(); document.dispatchEvent(new Event("dami:cart")); }
   const cartTotal = () => cart().reduce((s, l) => s + P[l.id].price * l.qty, 0);
@@ -328,7 +335,7 @@
     }
     list.innerHTML = c.map((l, i) => { const p = P[l.id]; return `<div class="ci">
       <a class="ci__img" href="${prodUrl(p.id)}"><img src="${p.img[0]}" alt=""></a>
-      <div><div class="ci__name">${esc(p.name)}</div><div class="ci__var">${[l.color && "Farba: " + esc(l.color), l.size && "Veľkosť: " + esc(l.size)].filter(Boolean).join(" · ")}</div>
+      <div><div class="ci__name">${esc(p.name)}</div><div class="ci__var">${[l.color && "Farba: " + esc(l.color), l.size && "Veľkosť: " + esc(l.size), l.logo && "Logo: " + logoName(l.logo) + (l.file ? " · " + esc(l.file) : " · logo pošlete neskôr") + (l.note ? " · „" + esc(l.note) + "“" : "") + " (cenu potvrdíme)"].filter(Boolean).join(" · ")}</div>
         <div class="qty"><button data-q="${i}" data-d="-1" aria-label="Menej">−</button><span>${l.qty}</span><button data-q="${i}" data-d="1" aria-label="Viac">+</button></div></div>
       <div><div class="ci__price">${eur(p.price * l.qty)}</div><button class="ci__rm" data-q="${i}" data-d="rm">Odstrániť</button></div></div>`; }).join("");
     const t = cartTotal(), left = FREE - t;
@@ -378,8 +385,9 @@
     else if (t.matches("[data-fav]")) { e.preventDefault(); const on = toggleFav(t.dataset.fav); t.classList.toggle("is-on", on); toast(on ? "Pridané k obľúbeným" : "Odstránené z obľúbených"); }
     else if (t.matches("[data-quick]")) {
       e.preventDefault(); const p = P[t.dataset.quick];
-      if (p.sizes.length > 1 || p.colors.length > 1) { nameImg(t.closest(".pc")); location.href = prodUrl(p.id) + "#vyber"; }
-      else addToCart(p.id, p.sizes[0] || "", p.colors[0]?.n || "");
+      const logo = t.dataset.logo || "";
+      if (logo || p.sizes.length > 1 || p.colors.length > 1) { nameImg(t.closest(".pc")); location.href = prodUrl(p.id) + (logo ? "&logo=" + logo : "") + "#vyber"; }
+      else addToCart(p.id, p.sizes[0] || "", p.colors[0]?.n || "", 1, logo);
     }
     else if (t.matches("[data-q]")) { const c = cart(), i = +t.dataset.q; t.dataset.d === "rm" ? setQty(i, 0) : setQty(i, c[i].qty + +t.dataset.d); }
     else if (t.closest(".pc")) nameImg(t.closest(".pc"));
@@ -415,6 +423,6 @@
     syncBadges(); bindSearch(); reveal();
   }
 
-  window.DAMI = { D, P, FIRM, I, ico, LOGO, script, eur, esc, qp, catUrl, prodUrl, secProducts, catProducts, sectionOf, brandLabel, catLabel, shortName,
+  window.DAMI = { LOGO_OPT, logoName, D, P, FIRM, I, ico, LOGO, script, eur, esc, qp, catUrl, prodUrl, secProducts, catProducts, sectionOf, brandLabel, catLabel, shortName,
     card, header, footer, mount, heroB, heroC, heroTiles, crumbsHtml, cleanImg, prodSpecs, REVIEWS, HEUREKA, openNow, stars, gBadge, hBadge, reviewsBlock, deliveryDate, mountFooter, addToCart, setQty, cart, cartTotal, cartCount, favs, isFav, toggleFav, search, reveal, toast, openCart, syncBadges, renderCart, store, FREE };
 })();

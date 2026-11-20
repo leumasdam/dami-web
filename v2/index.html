@@ -8,10 +8,10 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Figtree:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../assets/css/dami.css">
-<link rel="stylesheet" href="css/dami2.css?v=1120w">
-<link rel="stylesheet" href="css/home.css?v=1120x">
+<link rel="stylesheet" href="css/dami2.css?v=1120z">
+<link rel="stylesheet" href="css/home.css?v=1120z">
 <script src="../data/catalog.js"></script>
-<script src="js/dami.js?v=1120w"></script>
+<script src="js/dami.js?v=1120z"></script>
 </head>
 <body>
 <script>DAMI.mount("light", "")</script>
@@ -48,8 +48,8 @@
 
   <!-- NAJPREDÁVANEJŠIE -->
   <section class="wrap sec sec--best">
-    <div class="sec__hd sec__hd--tab"><h2>Najpredávanejšie</h2><a class="link" href="kategoria.html?c=all">Všetky produkty <svg viewBox="0 0 24 24"><path d="M4 12h15M13 6l6 6-6 6"/></svg></a></div>
-    <div class="pgrid pgrid--4" data-best></div>
+    <div class="sec__hd sec__hd--tab"><h2>Najpredávanejšie</h2><div class="rail-nav"><button class="rail-btn" data-rail="-1" aria-label="Predchádzajúce produkty"></button><button class="rail-btn" data-rail="1" aria-label="Ďalšie produkty"></button></div></div>
+    <div class="pgrid pgrid--4 is-rail" data-best></div>
   </section>
 
   <!-- VLASTNÁ VÝROBA (jediný výrazný červený moment) -->
@@ -94,6 +94,24 @@
 (() => {
   const { P, card, ico, FIRM, esc, catUrl, prodUrl, secProducts } = DAMI;
   document.querySelector("[data-reviews]").innerHTML = DAMI.reviewsBlock();
+  /* recenzie občas, nepravidelne a jemne vymenia jednu kartu (pri viac citátoch ukáže ďalší, inak zamieša poradie) */
+  (() => {
+    const list = document.querySelector(".revs__list"); if (!list || matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const R = DAMI.REVIEWS.items, slots = [...list.children]; let shown = R.slice(0, slots.length), hover = false;
+    list.addEventListener("mouseenter", () => hover = true); list.addEventListener("mouseleave", () => hover = false);
+    const fill = (el, r) => { el.innerHTML = `${DAMI.stars(r.stars)}<blockquote>„${esc(r.text)}“</blockquote><figcaption>${esc(r.name)} <span>· Google</span></figcaption>`; };
+    const swap = (el, r) => el.animate([{ opacity: 1, transform: "none" }, { opacity: 0, transform: "translateY(6px)" }], { duration: 450, easing: "ease-in", fill: "forwards" })
+      .onfinish = () => { fill(el, r); el.animate([{ opacity: 0, transform: "translateY(-6px)" }, { opacity: 1, transform: "none" }], { duration: 550, easing: "ease-out", fill: "forwards" }); };
+    const tick = () => {
+      if (!hover && !document.hidden) {
+        const rest = R.filter(r => !shown.includes(r)), i = Math.floor(Math.random() * slots.length);
+        if (rest.length) { const r = rest[Math.floor(Math.random() * rest.length)]; shown[i] = r; swap(slots[i], r); }
+        else { let j = (i + 1 + Math.floor(Math.random() * (slots.length - 1))) % slots.length; [shown[i], shown[j]] = [shown[j], shown[i]]; swap(slots[i], shown[i]); setTimeout(() => swap(slots[j], shown[j]), 260); }
+      }
+      setTimeout(tick, 6000 + Math.random() * 7000);
+    };
+    setTimeout(tick, 7000 + Math.random() * 4000);
+  })();
   const $ = s => document.querySelector(s);
   const ARR = '<svg viewBox="0 0 24 24"><path d="M4 12h15M13 6l6 6-6 6"/></svg>';
   const btn = (cls, href, t) => `<a class="btn ${cls}" href="${href}">${t} ${ARR.replace("<svg", '<svg class="ico"')}</a>`;
@@ -234,7 +252,21 @@
     ["cesare-zdrav-noh-belasa", "CESARE zdravotnícka blúza + nohavice"],
     ["slapky-ardon-rjuno-white", "Šľapky ARDON JUNO white"],
   ];
-  $("[data-best]").innerHTML = best.filter(([id]) => P[id]).map(([id, name]) => card(P[id], { add: true, name, noSw: true })).join("");
+  /* k štyrom vybraným pridáme ďalšie reálne produkty z katalógu, striedavo zo sekcií */
+  const picked = new Set(best.map(b => b[0]));
+  const bySec = {};
+  Object.values(P).filter(p => p.price > 0 && p.img?.length && !picked.has(p.id)).forEach(p => { const s = DAMI.sectionOf(p.cats?.[0]) || "ine"; (bySec[s] ||= []).push(p); });
+  const extra = []; for (let r = 0; extra.length < 8 && r < 20; r++) Object.values(bySec).forEach(list => { if (extra.length < 8 && list[r]) extra.push([list[r].id]); });
+  const rail = $("[data-best]");
+  rail.innerHTML = [...best, ...extra].filter(([id]) => P[id]).map(([id, name]) => card(P[id], { add: true, name, noSw: true })).join("");
+  document.querySelectorAll("[data-rail]").forEach(b => {
+    b.innerHTML = ico(+b.dataset.rail < 0 ? "chevL" : "chevR");
+    b.onclick = () => { const c = rail.firstElementChild; const step = c ? c.getBoundingClientRect().width + parseFloat(getComputedStyle(rail).columnGap || 16) : rail.clientWidth;
+      const max = rail.scrollWidth - rail.clientWidth - 2;
+      if (+b.dataset.rail > 0 && rail.scrollLeft >= max) rail.scrollTo({ left: 0, behavior: "smooth" });
+      else if (+b.dataset.rail < 0 && rail.scrollLeft <= 2) rail.scrollTo({ left: max + 2, behavior: "smooth" });
+      else rail.scrollBy({ left: +b.dataset.rail * step, behavior: "smooth" }); };
+  });
 
   /* ---------- predajňa, značky ---------- */
   $("[data-infos]").innerHTML = `<div>${ico("pin")}<span>${FIRM.street}, Piešťany</span></div><div>${ico("clock")}<span>Po–Pi 9:30–17:00 · So 9:00–12:00</span></div>
