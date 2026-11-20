@@ -293,6 +293,9 @@
 .car--v3 .sl__fig img { position: absolute; left: 50%; bottom: 0; translate: -50% 0; height: 100%; width: auto; max-width: none; filter: drop-shadow(0 16px 26px rgba(20,20,20,.18)); }
 .car--v3 .sl__fig--out img { height: calc(100% - 8px); }
 .car--v3 .sl--gastro .sl__fig img { translate: -46% 0; height: calc(100% - 2px); }
+/* zimné bundy: ruka a dosky trčia z panelu doľava */
+.car--v3 .sl--pracovne .sl__fig { overflow: visible; }
+.car--v3 .sl--pracovne .sl__fig img { height: calc(100% - 4px); left: auto; right: 4%; translate: none; }
 .car--v3 .sl__fig--in { top: var(--pt); border-radius: var(--rr); }
 .car--v3 .sl__fig--in img { top: 50%; bottom: auto; translate: -50% -50%; height: 88%; width: 90%; object-fit: contain; }
 .car--v3 .sl--obuv .sl__fig--in img { height: 70%; width: 84%; rotate: -7deg; filter: drop-shadow(0 24px 22px rgba(20,20,20,.22)); }
@@ -310,6 +313,7 @@
 .sl__stk s { font: 600 13px/1 var(--f); opacity: .85; margin-bottom: 4px; }
 .sl__stk--w { background: #fff; color: var(--red); box-shadow: 0 10px 24px rgba(0,0,0,.18); }
 .sl--obuv .sl__stk b { font-size: 27px; }
+.sl--pracovne .sl__stk { right: calc(var(--pr) - 14px); top: auto; bottom: calc(var(--pb) + 22px); rotate: 8deg; }
 .sl__stamp { position: absolute; z-index: 3; top: calc(var(--pt) - 28px); right: calc(var(--pr) + var(--pw) - 96px); width: 104px; height: 104px; border-radius: 50%; background: #fff; border: 2.5px solid var(--red); display: grid; place-items: center; rotate: -10deg; box-shadow: 0 8px 18px rgba(0,0,0,.1); }
 .sl__stamp img { width: 56%; }
 .sl__chip { position: absolute; z-index: 3; right: calc(var(--pr) + 18px); bottom: calc(var(--pb) + 18px); padding: 9px 14px; border-radius: 999px; background: var(--ink); color: #fff; font: 800 15px/1 var(--f-d); font-stretch: 85%; letter-spacing: .03em; text-transform: uppercase; }
