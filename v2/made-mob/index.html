@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="sk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vlastná výroba – mobil</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Figtree:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root { --red: #E1251B; --ink: #141414; --paper: #FAF8F5; --card: #F1EFEC; --f: "Figtree", system-ui, sans-serif; --f-d: "Archivo", sans-serif; }
+* { box-sizing: border-box; }
+body { margin: 0; background: #e9e5df; font-family: var(--f); color: var(--ink); padding: 28px 16px 60px; }
+h1 { font: 900 40px/1 var(--f-d); font-stretch: 70%; margin: 0 0 6px; }
+.lead { margin: 0 0 26px; color: #5d5750; max-width: 60em; }
+.grid { display: flex; flex-wrap: wrap; gap: 26px; }
+.opt { width: 360px; }
+.opt > b { display: block; font: 800 18px var(--f); margin-bottom: 4px; }
+.opt > p { margin: 0 0 10px; font-size: 13.5px; color: #5d5750; min-height: 2.6em; }
+.phone { width: 360px; background: var(--paper); border-radius: 28px; padding: 16px; box-shadow: 0 0 0 8px #141414, 0 20px 40px rgba(0,0,0,.18); }
+.m { position: relative; border-radius: 16px; overflow: hidden; background: var(--card); color: var(--ink); text-decoration: none; display: block; }
+.m h2 { margin: 0; font: 900 34px/.92 var(--f-d); font-stretch: 72%; letter-spacing: -.01em; }
+.m h2 span { color: var(--red); display: block; }
+.m p { margin: 8px 0 0; font-size: 14px; }
+.btn { display: inline-flex; align-items: center; gap: 8px; margin-top: 14px; height: 44px; padding: 0 18px; border-radius: 8px; background: var(--red); color: #fff; font: 700 15px var(--f); }
+.btn svg { width: 17px; height: 17px; fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+.btn--w { background: #fff; color: var(--red); }
+
+/* M1: nášivka menšia, vykúka z pravého dolného rohu */
+.m1 { padding: 20px 18px 22px; min-height: 300px; }
+.m1 .txt { position: relative; z-index: 1; max-width: 72%; }
+.m1 img { position: absolute; right: -36px; bottom: -40px; width: 190px; rotate: -12deg; filter: drop-shadow(8px 14px 14px rgba(0,0,0,.25)); }
+
+/* M2: kompaktne – nášivka vedľa nadpisu */
+.m2 { padding: 18px; display: grid; grid-template-columns: 1fr 104px; gap: 10px; align-items: start; }
+.m2 img { width: 116px; margin: -4px -14px 0 0; rotate: 8deg; filter: drop-shadow(6px 10px 10px rgba(0,0,0,.22)); }
+.m2 .btn { grid-column: 1 / -1; margin-top: 4px; justify-self: start; }
+.m2 h2 { font-size: 30px; }
+
+/* M3: tmavá karta */
+.m3 { background: #0f0f0f; color: #fff; padding: 22px 18px 0; }
+.m3 h2 span { color: var(--red); }
+.m3 p { color: #cfcac3; }
+.m3 .ph { margin: 14px -18px 0; height: 210px; background: url(../made-alt/img/nohavice.webp) center 40% / cover; }
+
+/* M4: detail fotky hore, text pod ňou */
+.m4 .ph { height: 230px; background: url(../made-alt/img/biela.webp) center 45% / cover; }
+.m4 .txt { padding: 16px 18px 20px; }
+
+/* M5: nová fotka z dielne (Higgsfield) – text v hornej časti */
+.m5 { min-height: 450px; background: #F1EDE7 url(m5-dielna.webp) center bottom / cover; padding: 20px 18px; }
+.m5 .txt { max-width: 92%; }
+
+/* M6: šička – fotka hore */
+.m6 .ph { height: 220px; background: url(../img/vyroba-hero.webp) 30% 40% / cover; }
+.m6 .txt { padding: 16px 18px 20px; }
+@media (max-width: 420px) { .opt, .phone { width: 100%; } }
+</style>
+</head>
+<body>
+<h1>Vlastná výroba – mobil</h1>
+<p class="lead">Šesť možností, ako ukázať banner „Vlastná výroba“ na telefóne. Text a tlačidlo sú rovnaké, mení sa obrázok a rozloženie. M5 je nová fotka z Higgsfieldu, ostatné sú z vašich existujúcich assetov.</p>
+<div class="grid">
+
+  <div class="opt"><b>M1 · Nášivka v rohu</b><p>Ako teraz, len nášivka je menšia a vykúka z rohu – karta je o polovicu nižšia.</p>
+    <div class="phone"><a class="m m1" href="#"><div class="txt"><h2>Vlastná výroba <span>kuchárskych nohavíc a záster.</span></h2><p>Kvalitné materiály. Poctivé šitie. Profesionálny strih.</p><span class="btn">Viac o výrobe <svg viewBox="0 0 24 24"><path d="M4 12h15M13 6l6 6-6 6"/></svg></span></div><img src="../img/d-patch.webp" alt=""></a></div></div>
+
+  <div class="opt"><b>M2 · Kompaktne</b><p>Nášivka ako odznak vedľa nadpisu. Najkratšia karta, nezdržiava pri scrollovaní.</p>
+    <div class="phone"><a class="m m2" href="#"><div><h2>Vlastná výroba <span>kuchárskych nohavíc a záster.</span></h2><p>Kvalitné materiály. Poctivé šitie.</p></div><img src="../img/d-patch.webp" alt=""><span class="btn">Viac o výrobe <svg viewBox="0 0 24 24"><path d="M4 12h15M13 6l6 6-6 6"/></svg></span></a></div></div>
+
+  <div class="opt"><b>M3 · Tmavá s detailom</b><p>Čierna karta, pod textom detail nášivky našitej na čiernych nohaviciach.</p>
+    <div class="phone"><a class="m m3" href="#"><h2>Vlastná výroba <span>kuchárskych nohavíc a záster.</span></h2><p>Kvalitné materiály. Poctivé šitie. Profesionálny strih.</p><span class="btn">Viac o výrobe <svg viewBox="0 0 24 24"><path d="M4 12h15M13 6l6 6-6 6"/></svg></span><div class="ph"></div></a></div></div>
+
+  <div class="opt"><b>M4 · Nášivka na rondone</b><p>Fotka hore (nášivka na bielom rondone), text pod ňou – ako karty v hero.</p>
+    <div class="phone"><a class="m m4" href="#"><div class="ph"></div><div class="txt"><h2>Vlastná výroba <span>kuchárskych nohavíc a záster.</span></h2><p>Kvalitné materiály. Poctivé šitie. Profesionálny strih.</p><span class="btn">Viac o výrobe <svg viewBox="0 0 24 24"><path d="M4 12h15M13 6l6 6-6 6"/></svg></span></div></a></div></div>
+
+  <div class="opt"><b>M5 · Dielňa (nové z Higgsfieldu)</b><p>Ruky pri šijacom stroji, nášivka na zástere; text sedí v prázdnej hornej časti fotky.</p>
+    <div class="phone"><a class="m m5" href="#"><div class="txt"><h2>Vlastná výroba <span>kuchárskych nohavíc a záster.</span></h2><span class="btn">Viac o výrobe <svg viewBox="0 0 24 24"><path d="M4 12h15M13 6l6 6-6 6"/></svg></span></div></a></div></div>
+
+  <div class="opt"><b>M6 · Šička pri stroji</b><p>Fotka zo stránky Výroba hore, text pod ňou – ľudský príbeh namiesto loga.</p>
+    <div class="phone"><a class="m m6" href="#"><div class="ph"></div><div class="txt"><h2>Vlastná výroba <span>kuchárskych nohavíc a záster.</span></h2><p>Kvalitné materiály. Poctivé šitie. Profesionálny strih.</p><span class="btn">Viac o výrobe <svg viewBox="0 0 24 24"><path d="M4 12h15M13 6l6 6-6 6"/></svg></span></div></a></div></div>
+
+</div>
+</body>
+</html>
