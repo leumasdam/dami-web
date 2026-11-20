@@ -176,7 +176,7 @@
         photo: "img/hero/zdrav-set.webp", pos: "50% 50%", cut: "img/hero/cut-cesare-set.png",
         specs: ["Biela, mätová, bordó, svetlomodrá", "Veľkosti XS – 3XL", "Blúza aj nohavice v jednej cene"], cta: "Vybrať farbu", all: ["zdrav-bluzy", "Všetky blúzy"] },
     };
-    const DEF = { gastro: "b", pracovne: "b", obuv: "c", doplnky: "c", zdravotnictvo: "c" };
+    const DEF = { gastro: "c", pracovne: "b", obuv: "c", doplnky: "c", zdravotnictvo: "c" };
     let HV = (qp("hero") || "").toLowerCase(), v;
     if (isSec && V[sec] && P[V[sec].id]) { v = V[sec]; if (!["a", "b", "c"].includes(HV)) HV = DEF[sec]; }
     else {
