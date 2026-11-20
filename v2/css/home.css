@@ -374,6 +374,7 @@
 .firm2__list li { display: flex; gap: 10px; align-items: center; }
 .firm2__list li::before { content: ""; width: 10px; height: 10px; border-radius: 50%; background: var(--red); flex: none; }
 .firm2:hover .btn { background: var(--red-2); }
+.firm2__txt .btn { align-self: flex-end; }
 @media (max-width: 1060px) { .firm2 { grid-template-columns: 1fr 300px; } .firm2__list { display: none; } }
 @media (max-width: 760px) {
   .firm2 { grid-template-columns: 1fr; height: auto; }
