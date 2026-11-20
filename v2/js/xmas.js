@@ -79,7 +79,7 @@
   }
 
   function tuner(gl) {
-    const P = [["yL", "Ľavý koniec (výška)", 0, 700, 1], ["yR", "Pravý koniec (výška)", 0, 700, 1], ["sag", "Prehnutie oblúka", 0, 80, 1], ["seg", "Dĺžka oblúka", 60, 400, 5], ["size", "Veľkosť žiaroviek", .5, 2.5, .05], ["per", "Žiaroviek na oblúk", 1, 8, 1]];
+    const P = [["yL", "Ľavý koniec (výška)", 0, 2500, 1], ["yR", "Pravý koniec (výška)", 0, 2500, 1], ["sag", "Prehnutie oblúka", 0, 200, 1], ["seg", "Dĺžka oblúka", 60, 400, 5], ["size", "Veľkosť žiaroviek", .5, 2.5, .05], ["per", "Žiaroviek na oblúk", 1, 8, 1]];
     const box = document.createElement("div"); box.className = "xm-tune";
     const render = () => {
       const md = mode(), c = CFG[md];
