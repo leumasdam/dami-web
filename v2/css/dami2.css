@@ -343,3 +343,5 @@ html.is-capped body { max-width: 1440px; margin-inline: auto; overflow-x: clip; 
   .revs__list { grid-template-columns: 1fr; }
   .tb-rate { display: none; }
 }
+
+.mega__all b { font-weight: 800; color: var(--red); }

@@ -87,3 +87,9 @@
 /* všetko zo zdravotníctva: výpis s filtrami ako v kategórii */
 .zd-all { padding-top: clamp(36px, 3.6vw, 56px); }
 .zd-all > .sec__hd { margin-bottom: clamp(14px, 1.5vw, 20px); }
+.zd-allbar { display: flex; justify-content: center; margin-top: clamp(14px, 1.4vw, 20px); }
+.zd-allbar a { display: inline-flex; align-items: center; gap: 10px; height: 52px; padding: 0 26px; border: 2px solid var(--ink); border-radius: 999px; font: 800 18px/1 var(--f-d); font-stretch: 80%; color: var(--ink); text-decoration: none; transition: background .2s, color .2s; }
+.zd-allbar a b { font-weight: 800; color: var(--red); }
+.zd-allbar a svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 2.2; }
+.zd-allbar a:hover { background: var(--ink); color: #fff; }
+.zd-allbar a:hover b { color: #fff; }

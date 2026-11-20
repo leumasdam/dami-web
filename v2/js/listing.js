@@ -14,14 +14,14 @@
   function listing({ root, base, subs = [], per = 24 }) {
     const $ = s => root.querySelector(s);
     const PER = per;
-    const k0 = new URLSearchParams(location.search).get("k");
+    const qs = new URLSearchParams(location.search), k0 = qs.get("k"), b0 = qs.get("b");
     const brands = [...count(base, p => p.brand ? [p.brand] : [])].sort((a, b) => b[1] - a[1]);
     const sizes = [...count(base, p => p.sizes)].map(([s]) => s).sort((a, b) => sizeKey(a) - sizeKey(b) || a.localeCompare(b, "sk", { numeric: true }));
     const colMap = new Map(); base.forEach(p => p.colors.forEach(cl => { if (cl.h.length === 1) { const e = colMap.get(cl.h[0]) || { h: cl.h[0], n: cl.n, k: 0 }; e.k++; colMap.set(cl.h[0], e); } }));
     const colors = [...colMap.values()].sort((a, b) => b.k - a.k).slice(0, 14);
     const prices = base.map(p => p.price).filter(Boolean);
     const LO = prices.length ? Math.floor(Math.min(...prices)) : 0, HI = prices.length ? Math.ceil(Math.max(...prices)) : 1;
-    const st = { cats: k0 && subs.includes(k0) ? [k0] : [], brands: [], sizes: [], colors: [], min: LO, max: HI, sort: "pop", page: 1 };
+    const st = { cats: k0 && subs.includes(k0) ? [k0] : [], brands: b0 && brands.some(x => x[0] === b0) ? [b0] : [], sizes: [], colors: [], min: LO, max: HI, sort: "pop", page: 1 };
     const more = { brand: false, size: false };
 
     function renderSide() {

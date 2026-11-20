@@ -125,10 +125,12 @@
     const subs = s.subs.filter(c => D.cats[c]?.products.length);
     const cols = [[], [], []]; subs.forEach((c, i) => cols[Math.floor(i / Math.ceil(subs.length / 3))].push(c));
     const brands = [...new Set(secProducts(k).map(p => p.brand).filter(Boolean))];
+    const zd = k === "zdravotnictvo", allUrl = zd ? "zdravotnictvo.html#vsetko" : catUrl(k);
+    const brandUrl = b => zd ? `zdravotnictvo.html?b=${encodeURIComponent(b)}#vsetko` : `${catUrl(k)}&b=${encodeURIComponent(b)}`;
     return `<div class="mega"><div class="mega__in">
-      ${cols.map((col, i) => col.length ? `<div>${i === 0 ? `<h4>${esc(s.name)}</h4>` : "<h4>&nbsp;</h4>"}<ul>${col.map(c =>
+      ${cols.map((col, i) => col.length ? `<div>${i === 0 ? `<h4>${esc(s.name)}</h4>` : "<h4>&nbsp;</h4>"}<ul>${i === 0 ? `<li><a class="mega__all" href="${allUrl}"><b>Všetky produkty</b> <small>${secProducts(k).length}</small></a></li>` : ""}${col.map(c =>
         `<li><a href="${catUrl(c)}">${esc(D.cats[c].name)} <small>${D.cats[c].products.length}</small></a></li>`).join("")}</ul></div>` :
-        (brands.length ? `<div><h4>Značky</h4><ul>${brands.map(b => `<li><a href="${catUrl(k)}&b=${encodeURIComponent(b)}">${esc(b)}</a></li>`).join("")}</ul></div>` : "<div></div>")).join("")}
+        (brands.length ? `<div><h4>Značky</h4><ul>${brands.map(b => `<li><a href="${brandUrl(b)}">${esc(b)}</a></li>`).join("")}</ul></div>` : "<div></div>")).join("")}
       <a class="mega__feat" href="${k === "zdravotnictvo" ? "zdravotnictvo.html" : catUrl(k)}"><img src="${SEC_IMG[k]}" alt="" loading="lazy">
         <span class="eyebrow">${secProducts(k).length} produktov</span><b>Zobraziť celú kategóriu ${esc(s.name.toLowerCase())}</b></a>
     </div></div>`;

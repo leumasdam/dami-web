@@ -26,6 +26,7 @@
   <div data-hero></div>
 
   <section class="wrap zd-tiles" aria-label="Kategórie" data-tiles></section>
+  <div class="wrap zd-allbar"><a href="#vsetko" data-allbar>Zobraziť všetky produkty <b data-all-n></b> <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v15M6 13l6 6 6-6"/></svg></a></div>
 
   <section class="wrap sub-sec zd-pop">
     <div class="sec__hd"><h2 class="h2x">Obľúbené kúsky</h2><a class="link" href="#vsetko">Všetko zo zdravotníctva <svg viewBox="0 0 24 24"><path d="M4 12h15M13 6l6 6-6 6"/></svg></a></div>
@@ -165,7 +166,9 @@
 </script>
 <script>
 DAMI.listing({ root: document.querySelector("[data-listing]"), base: DAMI.secProducts("zdravotnictvo"),
-  subs: DAMI.D.sections.zdravotnictvo.subs, per: 12 });
+  subs: DAMI.D.sections.zdravotnictvo.subs, per: 100 });
+document.querySelector("[data-all-n]").textContent = `(${DAMI.secProducts("zdravotnictvo").length})`;
+document.querySelector("[data-allbar]").addEventListener("click", () => DAMI.listingSetCat(""));
 /* dlaždice kategórií na tejto stránke len prepnú filter, bez načítania stránky */
 document.querySelector("[data-tiles]").addEventListener("click", e => {
   const a = e.target.closest("a[href*='?k=zdrav-']"); if (!a) return;
