@@ -275,7 +275,7 @@
     const sale = p.price > 0 && p.was > p.price;
     const cols = p.colors.slice(0, 4);
     const more = p.colors.length - cols.length;
-    const badge = o.badge ? `<span class="pc__badge ${o.badge === "Novinka" ? "pc__badge--ink" : ""}">${o.badge}</span>` : sale ? `<span class="pc__badge">-${Math.round((1 - p.price / p.was) * 100)} %</span>` : "";
+    const badge = o.badge ? `<span class="pc__badge tg ${o.badge === "Novinka" ? "tg-new" : "tg-hl"}">${o.badge}</span>` : sale ? `<span class="pc__badge tg tg-sale">−${Math.round((1 - p.price / p.was) * 100)}&nbsp;%</span>` : "";
     return `<article class="pc ${o.compact ? "pc--compact" : ""}" data-id="${esc(p.id)}">
       <div class="pc__img">${badge}<button class="pc__fav ${isFav(p.id) ? "is-on" : ""}" data-fav="${esc(p.id)}" aria-label="Pridať k obľúbeným">${ico("heart")}</button>
         ${p.img.slice(0, 2).map((src, i) => `<img src="${src}" alt="${i ? "" : esc(p.name)}" loading="lazy" decoding="async" width="700" height="700">`).join("")}</div>

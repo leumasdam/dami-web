@@ -143,7 +143,7 @@
 .sec--store { padding-top: 18px; }
 .store { position: relative; display: grid; grid-template-columns: minmax(0, 1.435fr) minmax(0, 1fr); gap: 48px; align-items: center; }
 .store__ph { aspect-ratio: 3.83; }
-.store__ph img { object-position: center 18%; }
+.store__ph img { object-position: center 68%; }
 .store__txt { display: grid; gap: 0; justify-items: start; }
 .store__txt h2 { font-size: 40px; font-stretch: 92%; letter-spacing: -.02em; }
 .store__txt .infos { gap: 7px; font-size: 19px; margin-top: 14px; font-weight: 500; }
@@ -308,7 +308,7 @@
 .sl__live i { width: 9px; height: 9px; border-radius: 50%; background: #b9b2a8; }
 .sl__live.is-open i { background: #22a35a; box-shadow: 0 0 0 4px rgba(34,163,90,.18); }
 /* cenovka, pečiatka, štítok */
-.sl__stk { position: absolute; z-index: 3; top: calc(var(--pt) - 30px); right: calc(var(--pr) + var(--pw) - 112px); width: 122px; height: 122px; border-radius: 50%; background: var(--red); color: #fff; display: grid; place-content: center; text-align: center; rotate: -8deg; box-shadow: 0 10px 22px rgba(225,37,27,.28); }
+.sl__stk { position: absolute; z-index: 3; top: calc(var(--pt) - 30px); right: calc(var(--pr) + var(--pw) - 112px); width: 122px; height: 122px; border-radius: 50%; background-color: var(--red); color: #fff; display: grid; place-content: center; text-align: center; rotate: -8deg; box-shadow: 0 10px 22px rgba(225,37,27,.28); }
 .sl__stk b { font: 900 30px/.95 var(--f-d); font-stretch: 72%; letter-spacing: -.01em; white-space: nowrap; }
 .sl__stk s { font: 600 13px/1 var(--f); opacity: .85; margin-bottom: 4px; }
 .sl__stk--w { background: #fff; color: var(--red); box-shadow: 0 10px 24px rgba(0,0,0,.18); }
@@ -392,3 +392,26 @@
 .car--flip .car__track { display: block; position: relative; transform: none !important; perspective: 3200px; }
 .car--flip .slide { position: absolute; inset: 0; visibility: hidden; }
 .car--flip .slide.is-on { visibility: visible; }
+
+/* ---------- tvarový systém na úvode ---------- */
+.car--v3 .sl__txt .tg-cat { align-self: flex-start; font-size: 14px; }
+.sl__stk.tg { width: auto; height: auto; border-radius: 0; display: inline-flex; place-content: initial; text-align: left; box-shadow: none; rotate: -5deg; }
+.sl__stk.tg b { font-size: 36px; }
+.sl--obuv .sl__stk.tg b { font-size: 36px; }
+.sl__chip.tg { border-radius: 0; background: var(--ink); color: #fff; padding: 9px 14px 8px; }
+.sl__live.tg { border-radius: 0; box-shadow: none; background: #fff; padding: 10px 16px 9px; font-size: 14px; }
+.catc__offer.tg { border-radius: 0; text-transform: none; letter-spacing: 0; font-size: 24px; padding: 8px 22px 7px 12px; }
+.sl__stk.tg-price--w { background-color: #fff; color: var(--red); --bc: var(--red); --bw: 3px; }
+.promo__sale { position: relative; z-index: 2; align-self: flex-start; font-size: 44px; padding: 10px 18px 8px; margin: -8px 0 4px -4px; }
+.promo--dark:has(.promo__sale) { gap: 16px; }
+.promo--dark h2 { color: #fff; }
+.sec__hd--tab { position: relative; padding-bottom: 16px; margin-bottom: 26px; }
+.sec__hd--tab::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 2px; background: var(--ink); }
+.sec__hd--tab::before { content: ""; position: absolute; left: 0; bottom: 0; width: 72px; height: 7px; background: var(--red); clip-path: polygon(0 0, calc(100% - 7px) 0, 100% 100%, 0 100%); z-index: 1; }
+@media (max-width: 1060px) { .sl__stk.tg b { font-size: 28px; } }
+@media (max-width: 760px) {
+  .sl__stk.tg { width: auto; height: auto; padding: 9px 16px 9px 12px; } .sl__stk.tg b { font-size: 25px; }
+  .car--v3 .sl__txt .tg-cat { font-size: 12.5px; padding: 7px 12px 6px; }
+  .promo__sale { font-size: 26px; }
+  .catc__offer.tg { font-size: 15px; padding: 6px 16px 5px 9px; }
+}

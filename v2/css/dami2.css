@@ -347,3 +347,56 @@ html.is-capped body { max-width: 1440px; margin-inline: auto; overflow-x: clip; 
 }
 
 .mega__all b { font-weight: 800; color: var(--red); }
+
+/* =====================================================================
+   DAMI TVAROVÝ SYSTÉM – zrezané rohy namiesto zaoblených „pilulek“.
+   Každá rola má jeden tvar, nech sa web číta ako jeden jazyk:
+   .tg-cat   kategória / téma       obrys, zrezaný pravý horný + ľavý dolný roh, červená lomka
+   .tg-hl    kampaň (Zimné bundy)    plná červená, šikmá pravá hrana
+   .tg-price cena (od 39,90 €)       plný blok, „od“ nad cenou, zrezané rohy
+   .tg-offer cena v dlaždici         plná červená, šikmá pravá hrana
+   .tg-sale  zľava (−14 %)           červená, natočená
+   .tg-spec  norma / vlastnosť       malý obrys (S3S, ESD, EN ISO 20345)
+   .tg-state stav (skladom, otvorené) obrys + bodka
+   .tg-new   novinka                 krémová, jeden zrezaný roh
+   ===================================================================== */
+.tg { --c: 9px; --bw: 2px; --bc: currentColor; display: inline-flex; align-items: center; gap: 8px; font: 800 14px/1 var(--f-d); font-stretch: 82%; letter-spacing: .03em; text-transform: uppercase; padding: 8px 14px 7px; white-space: nowrap; }
+.tg--cut2 { clip-path: polygon(0 0, calc(100% - var(--c)) 0, 100% var(--c), 100% 100%, var(--c) 100%, 0 calc(100% - var(--c))); }
+.tg--line { background:
+  linear-gradient(var(--bc) 0 0) 0 0 / calc(100% - var(--c)) var(--bw) no-repeat,
+  linear-gradient(var(--bc) 0 0) 0 0 / var(--bw) calc(100% - var(--c)) no-repeat,
+  linear-gradient(var(--bc) 0 0) 100% 100% / calc(100% - var(--c)) var(--bw) no-repeat,
+  linear-gradient(var(--bc) 0 0) 100% 100% / var(--bw) calc(100% - var(--c)) no-repeat,
+  linear-gradient(45deg, transparent calc(50% - var(--bw) * 1.15), var(--bc) 0 50%, transparent 0) 100% 0 / var(--c) var(--c) no-repeat,
+  linear-gradient(225deg, transparent calc(50% - var(--bw) * 1.15), var(--bc) 0 50%, transparent 0) 0 100% / var(--c) var(--c) no-repeat; }
+
+.tg-cat { color: var(--ink); }
+.tg-cat::before { content: "/"; color: var(--red); font-weight: 900; font-size: 1.15em; margin-right: 1px; }
+.tg-cat--w { color: #fff; } .tg-cat--w::before { color: #fff; }
+
+.tg-hl, .tg-offer { background: var(--red); color: #fff; --c: 10px; clip-path: polygon(var(--c) 0, 100% 0, calc(100% - var(--c)) 100%, 0 100%, 0 var(--c)); padding-right: calc(14px + var(--c)); }
+
+.tg-price { --c: 14px; background-color: var(--red); color: #fff; flex-direction: column; align-items: flex-start; gap: 3px; padding: 12px 22px 12px 16px; text-transform: none; letter-spacing: 0; }
+.tg-price small { font: 800 13px/1 var(--f-d); font-stretch: 85%; text-transform: uppercase; letter-spacing: .06em; }
+.tg-price b { font: 900 34px/.9 var(--f-d); font-stretch: 72%; letter-spacing: -.01em; }
+.tg-price s { font: 600 13px/1 var(--f); opacity: .85; }
+.tg-price--w { background-color: #fff; color: var(--red); }
+
+.tg-sale { background: var(--red); color: #fff; font-weight: 900; font-stretch: 75%; letter-spacing: 0; clip-path: polygon(0 8%, 100% 0, 100% 92%, 0 100%); rotate: -4deg; padding: 8px 12px 7px; }
+
+.tg-spec { --c: 6px; font-size: 13px; padding: 6px 10px 5px; color: var(--ink); }
+.tg-spec--w { color: #fff; }
+
+.tg-state { --c: 8px; color: var(--ink); font-size: 13px; }
+.tg-state i { width: 9px; height: 9px; border-radius: 50%; background: #b9b2a8; flex: none; }
+.tg-state.is-open i, .tg-state--on i { background: #22a35a; box-shadow: 0 0 0 3px rgba(34,163,90,.2); }
+
+.tg-new { --c: 10px; background: #F2EBDD; color: var(--ink); clip-path: polygon(0 0, 100% 0, 100% calc(100% - var(--c)), calc(100% - var(--c)) 100%, 0 100%); }
+
+/* oddeľovač: čiara s červeným zrezaným jazýčkom vľavo */
+.dv-tab { position: relative; height: 2px; background: var(--ink); opacity: .9; }
+.dv-tab::before { content: ""; position: absolute; left: 0; bottom: 0; width: 64px; height: 6px; background: var(--red); clip-path: polygon(0 0, calc(100% - 6px) 0, 100% 100%, 0 100%); }
+/* akcent: tri červené lomky */
+.dv-slash { display: inline-block; width: 30px; height: 16px; background: repeating-linear-gradient(115deg, transparent 0 4px, var(--red) 4px 8px); clip-path: polygon(20% 0, 100% 0, 80% 100%, 0 100%); }
+.pc__badge.tg { border-radius: 0; font-size: 15px; padding: 7px 10px 6px; }
+.pc__badge.tg-sale { font-size: 17px; }
