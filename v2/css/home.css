@@ -74,8 +74,10 @@
 .promo--ticket { background: #f1ede7; flex-direction: row; align-items: center; justify-content: space-between; padding: 20px 26px 20px 60px;
   -webkit-mask: radial-gradient(circle 14px at 0 50%, transparent 97%, #000) left / 51% 100% no-repeat, radial-gradient(circle 14px at 100% 50%, transparent 97%, #000) right / 51% 100% no-repeat;
           mask: radial-gradient(circle 14px at 0 50%, transparent 97%, #000) left / 51% 100% no-repeat, radial-gradient(circle 14px at 100% 50%, transparent 97%, #000) right / 51% 100% no-repeat; }
-.promo--ticket::before { content: ""; position: absolute; left: 21px; top: 14px; bottom: 10px; width: 12px; background: radial-gradient(circle at 6px 6px, #141414 5.2px, transparent 5.8px) 0 0 / 12px 26px repeat-y;
-  -webkit-mask: linear-gradient(#000 0 42%, transparent 42% 58%, #000 58%); mask: linear-gradient(#000 0 42%, transparent 42% 58%, #000 58%); }
+.promo--ticket::before, .promo--ticket::after { content: ""; position: absolute; left: 21px; width: 12px; height: calc(50% - 32px); pointer-events: none;
+  background: radial-gradient(circle at 6px 11px, #141414 5.2px, transparent 5.8px) 0 0 / 12px 22px; background-repeat: no-repeat space; }
+.promo--ticket::before { top: 12px; }
+.promo--ticket::after { bottom: 12px; }
 .promo--ticket > div { display: grid; gap: 16px; justify-items: start; }
 .promo--ticket h2 { font-size: 44px; line-height: 1; font-stretch: 68%; max-width: 9.4em; }
 .promo--ticket h2 span { white-space: nowrap; }
@@ -222,7 +224,7 @@
   .promo--dark .link { font-size: 18px; }
   .promo--dark img { right: 18px; height: 125%; }
   .promo--ticket { padding: 18px 16px 18px 46px; }
-  .promo--ticket::before { left: 16px; background-size: 12px 22px; }
+  .promo--ticket::before, .promo--ticket::after { left: 16px; }
   .promo--ticket h2 { font-size: 30px; }
   .promo--ticket .link { font-size: 21px; }
   .stamp { width: 84px; border-width: 3px; }
