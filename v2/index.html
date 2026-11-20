@@ -9,7 +9,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Figtree:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../assets/css/dami.css">
 <link rel="stylesheet" href="css/dami2.css?v=1121r">
-<link rel="stylesheet" href="css/home.css?v=1121r">
+<link rel="stylesheet" href="css/home.css?v=1121s">
 <script src="../data/catalog.js"></script>
 <script src="js/dami.js?v=1121c"></script>
 <script src="js/xmas.js?v=1121l" defer></script>
@@ -87,6 +87,24 @@
       <div class="firm2__txt"><h2>Pre firmy. <span>Vybavíme celý tím, aj&nbsp;s&nbsp;logom.</span></h2><span class="btn btn--red btn--xl">Napísať nám <svg class="ico" viewBox="0 0 24 24"><path d="M4 12h15M13 6l6 6-6 6"/></svg></span></div>
       <img class="firm2__ph" src="img/firmy-rail.webp" alt="Kuchársky rondon, zdravotnícka blúza a pracovná bunda s nášivkou DAMI na vešiaku" loading="lazy">
     </a>
+  </section>
+
+  <!-- REGISTRÁCIA: 10 % na prvý nákup -->
+  <section class="wrap sec--reg" id="registracia">
+    <div class="reg">
+      <div class="reg__txt">
+        <span class="tg tg-sale reg__tag">−10&nbsp;%</span>
+        <h2>Zľava 10&nbsp;% <span>na prvý nákup.</span></h2>
+        <p>Zaregistruj sa e-mailom a kód na zľavu ti hneď pošleme. Platí na prvú objednávku v e-shope.</p>
+        <form class="reg__form" data-reg novalidate>
+          <label class="reg__in"><span class="sr-only">E-mail</span><input type="email" name="email" placeholder="tvoj@email.sk" autocomplete="email" required></label>
+          <button class="btn btn--red btn--xl" type="submit">Chcem zľavu <svg class="ico" viewBox="0 0 24 24"><path d="M4 12h15M13 6l6 6-6 6"/></svg></button>
+          <label class="reg__ok"><input type="checkbox" name="news" required> Súhlasím so zasielaním noviniek a akcií. Odhlásiť sa dá kedykoľvek.</label>
+          <p class="reg__msg" data-reg-msg role="status" aria-live="polite"></p>
+        </form>
+      </div>
+      <div class="reg__ph"><img src="img/reg-balik.webp" alt="Zviazaný balík pracovného oblečenia s nášivkou DAMI" loading="lazy"></div>
+    </div>
   </section>
 
   <section class="wrap"><div class="brands__strip" data-brands aria-label="Naše značky"></div></section>
@@ -281,6 +299,17 @@
       if (+b.dataset.rail > 0 && rail.scrollLeft >= max) rail.scrollTo({ left: 0, behavior: "smooth" });
       else if (+b.dataset.rail < 0 && rail.scrollLeft <= 2) rail.scrollTo({ left: max + 2, behavior: "smooth" });
       else rail.scrollBy({ left: +b.dataset.rail * step, behavior: "smooth" }); };
+  });
+
+  /* ---------- registrácia (prototyp: zatiaľ bez odosielania, ukáže potvrdenie) ---------- */
+  const rf = $("[data-reg]");
+  rf?.addEventListener("submit", e => {
+    e.preventDefault();
+    const em = rf.email.value.trim(), msg = $("[data-reg-msg]");
+    rf.classList.remove("is-err", "is-done");
+    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(em)) { msg.textContent = "Skontroluj e-mail, niečo v ňom chýba."; rf.classList.add("is-err"); return; }
+    if (!rf.news.checked) { msg.textContent = "Potvrď súhlas, aby sme ti mohli kód poslať."; rf.classList.add("is-err"); return; }
+    msg.textContent = `Hotovo! Kód na 10 % sme poslali na ${em}.`; rf.classList.add("is-done");
   });
 
   /* ---------- predajňa, značky ---------- */

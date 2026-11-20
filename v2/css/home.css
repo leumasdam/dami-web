@@ -509,3 +509,43 @@
   .car--v3.car--snap .sl__live { left: 50%; bottom: 12px; }
 }
 .car--v3 .sl--pracovne .sl__stk.tg { rotate: -4deg; }
+
+/* registrácia – 10 % na prvý nákup */
+.sec--reg { margin-top: clamp(28px, 3vw, 48px); scroll-margin-top: 110px; }
+.reg { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); align-items: stretch; background: #F3EFE9; border-radius: var(--r); overflow: hidden; min-height: 340px; }
+.reg__txt { padding: 34px 44px; display: flex; flex-direction: column; justify-content: center; align-items: flex-start; gap: 14px; }
+.reg__tag { font-size: 30px; padding: 8px 14px 7px; }
+.reg h2 { font-size: 54px; line-height: .92; font-stretch: 72%; letter-spacing: -.01em; }
+.reg h2 span { color: var(--red); display: block; }
+.reg__txt > p { margin: 0; font-size: 16px; color: #4a453f; max-width: 30em; }
+.reg__form { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 10px; width: 100%; max-width: 520px; margin-top: 4px; }
+.reg__in input { width: 100%; height: 54px; padding: 0 18px; font: 500 16px var(--f); border: 1.5px solid #d9d4cd; border-radius: var(--r); background: #fff; }
+.reg__in input:focus { outline: none; border-color: var(--ink); }
+.reg__form .btn { height: 54px; }
+.reg__ok { grid-column: 1 / -1; display: flex; gap: 9px; align-items: flex-start; font-size: 13px; color: #6b655e; line-height: 1.35; cursor: pointer; }
+.reg__ok input { width: 18px; height: 18px; margin: 0; accent-color: var(--red); flex: none; }
+.reg__msg { grid-column: 1 / -1; margin: 0; min-height: 1.2em; font-size: 14px; font-weight: 700; }
+.reg__form.is-err .reg__msg { color: var(--red); }
+.reg__form.is-err .reg__in input:invalid, .reg__form.is-err .reg__in input { border-color: var(--red); }
+.reg__form.is-done .reg__msg { color: #1e8a4c; }
+.reg__ph { position: relative; min-height: 260px; }
+.reg__ph img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 70% 50%; }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+@media (max-width: 1060px) { .reg h2 { font-size: 44px; } .reg__txt { padding: 28px; } }
+@media (max-width: 760px) {
+  .reg { grid-template-columns: 1fr; }
+  .reg__ph { order: -1; min-height: 0; aspect-ratio: 16 / 10; }
+  .reg__ph img { object-position: 78% 50%; }
+  .reg__txt { padding: 20px 18px 22px; gap: 12px; }
+  .reg h2 { font-size: 36px; }
+  .reg__tag { font-size: 22px; }
+  .reg__form { grid-template-columns: 1fr; }
+  .reg__form .btn { width: 100%; }
+}
+/* registrácia: vizuál cez celú kartu, text v prázdnej ľavej časti */
+@media (min-width: 761px) {
+  .reg { display: block; position: relative; min-height: clamp(360px, 30vw, 440px); background: #F3EFE9; }
+  .reg__ph { position: absolute; inset: 0; min-height: 0; }
+  .reg__ph img { object-position: 100% 50%; }
+  .reg__txt { position: relative; z-index: 1; width: 52%; min-height: inherit; padding: 36px 48px; }
+}
