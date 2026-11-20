@@ -59,10 +59,10 @@ body[data-dir=A] #dir-A,body[data-dir=B] #dir-B,body[data-dir=C] #dir-C{display:
 .A .idx a:hover img{opacity:1;transform:translateY(-50%) scale(1)}
 .A .strip{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));border-top:1px solid var(--ink);border-left:1px solid var(--line);margin-top:clamp(32px,4vw,56px)}
 .A .tile{margin:0;border-right:1px solid var(--line);border-bottom:1px solid var(--line);background:#fff;display:flex;flex-direction:column}
-.A .tile .ph{aspect-ratio:1/1.08;display:grid;place-items:center;padding:12%}
-.A .tile img{max-height:100%;object-fit:contain;transition:transform .5s cubic-bezier(.2,.7,.2,1)}
+.A .tile .ph{aspect-ratio:1/1.08;position:relative;overflow:hidden}
+.A .tile img{position:absolute;left:12%;top:10%;width:76%;height:80%;object-fit:contain;transition:transform .5s cubic-bezier(.2,.7,.2,1)}
 .A .tile:hover img{transform:scale(1.04)}
-.A .tile figcaption{display:flex;justify-content:space-between;gap:8px;padding:10px 12px;font:500 11.5px/1.35 "JetBrains Mono",monospace;border-top:1px solid var(--line)}
+.A .tile figcaption{margin-top:auto;display:flex;justify-content:space-between;gap:8px;padding:10px 12px;font:500 11.5px/1.35 "JetBrains Mono",monospace;border-top:1px solid var(--line)}
 .A .tile figcaption span:first-child{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--mute)}
 .A .tile figcaption b{font-weight:500;white-space:nowrap}
 /* kategória */
@@ -107,7 +107,7 @@ body[data-dir=A] #dir-A,body[data-dir=B] #dir-B,body[data-dir=C] #dir-C{display:
 .B .txt{grid-column:1/7;position:relative;z-index:2}
 .B .stage{grid-column:7/13;position:relative;min-height:clamp(320px,34vw,520px)}
 .B h1{font:800 clamp(40px,5.4vw,92px)/.95 var(--d);font-stretch:100%;letter-spacing:-.03em;margin:0;text-wrap:balance}
-.B h1.wide{font-stretch:125%;font-weight:900;letter-spacing:-.04em;font-size:clamp(56px,9vw,150px);line-height:.86}
+.B h1.wide{font-stretch:125%;font-weight:900;letter-spacing:-.04em;font-size:clamp(52px,6.6vw,112px);line-height:.86;overflow-wrap:anywhere}
 .B .k{font:500 12px var(--m);letter-spacing:.08em;text-transform:uppercase;opacity:.75;margin:0 0 18px;display:flex;gap:14px;flex-wrap:wrap}
 .B .sub{font:400 clamp(16px,1.3vw,19px)/1.5 "Figtree",sans-serif;max-width:44ch;margin:22px 0 0;opacity:.85}
 .B .btn{display:inline-flex;gap:10px;align-items:center;margin-top:28px;text-decoration:none;font:600 14px var(--m);letter-spacing:.04em;text-transform:uppercase;padding:14px 18px;border:1.5px solid currentColor}
