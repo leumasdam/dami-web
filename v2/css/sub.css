@@ -2,7 +2,7 @@
    --u = 1 px návrhu (mockup má šírku 1360 px) prepočítaný na skutočnú šírku obsahu.
    Na 1920 / 2560 / 3000 všetko rastie spolu so zoomom stránky (--z z dami.js). */
 /* nad 1440 px dami.js zväčšuje celú stránku cez zoom (--z), preto 100vw delíme zoomom */
-:root { --u: calc(100vw / var(--z, 1) / 1360); }
+:root { --u: calc(min(100vw / var(--z, 1), 1440px) / 1360); }
 
 /* veľké nadpisy */
 .hx { font-size: max(44px, calc(112 * var(--u))); line-height: .9; letter-spacing: -.012em; }

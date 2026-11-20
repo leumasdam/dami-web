@@ -1,9 +1,11 @@
 /* DAMI — zdieľané správanie: header/footer, karty, košík, obľúbené, vyhľadávanie, reveal, View Transitions */
 (function () {
-  /* ---------- veľké obrazovky: dizajn je kreslený na 1440 px, nad tým sa celá stránka plynulo zväčšuje (max 1,8×) ---------- */
-  const root = document.documentElement;
+  /* ---------- veľké obrazovky: dizajn je kreslený na 1440 px, nad tým sa celá stránka plynulo zväčšuje
+     až po šírku okna 2100 px; širšie okná už obsah ďalej neťahajú, ostane v strede a po bokoch je voľná plocha ---------- */
+  const root = document.documentElement, MAXW = 2100;
   function fit() {
-    const z = Math.min(1.8, Math.max(1, innerWidth / 1440));
+    const z = Math.min(MAXW / 1440, Math.max(1, innerWidth / 1440));
+    root.classList.toggle("is-capped", innerWidth > MAXW);
     root.style.zoom = z > 1.001 ? z.toFixed(4) : "";
     root.style.setProperty("--z", z.toFixed(4));
   }
