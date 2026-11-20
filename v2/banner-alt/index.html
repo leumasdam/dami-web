@@ -1,0 +1,292 @@
+<!doctype html>
+<html lang="sk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DAMI – bannery Zdravotníctvo a Pre firmy, varianty</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Figtree:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root { --red: #E1251B; --ink: #141414; --paper: #FAF8F5; --card: #F1EFEC; --line: #E2DDD6; --r: 16px; }
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--paper); color: var(--ink); font: 16px/1.5 Figtree, system-ui, sans-serif; overflow-x: clip; }
+.page { max-width: 1440px; margin: 0 auto; padding: 32px max(16px, 2.4vw) 80px; }
+.page > h1 { font: 900 44px/1 Archivo, sans-serif; font-stretch: 72%; margin: 0 0 6px; }
+.page > p { margin: 0 0 30px; color: #5E5953; max-width: 70ch; }
+.grp { font: 900 34px/1 Archivo, sans-serif; font-stretch: 72%; margin: 56px 0 24px; padding-top: 24px; border-top: 2px solid var(--ink); }
+.var { margin: 0 0 56px; }
+.var > h2 { font: 800 15px/1 Figtree, sans-serif; letter-spacing: .08em; text-transform: uppercase; margin: 0 0 12px; display: flex; gap: 10px; align-items: center; }
+.var > h2 b { background: var(--ink); color: #fff; padding: 5px 9px; border-radius: 6px; }
+.var > .note { margin: 10px 0 0; font-size: 13px; color: #8A847C; }
+
+.bn { position: relative; display: block; height: 300px; border-radius: var(--r); overflow: hidden; color: inherit; text-decoration: none; isolation: isolate; }
+.bn h3 { margin: 0; font: 900 50px/.93 Archivo, sans-serif; font-stretch: 72%; letter-spacing: -.01em; }
+.bn h3 span { color: var(--red); }
+.bn p { margin: 10px 0 0; font-weight: 500; font-size: 18px; }
+.cta { display: inline-flex; align-items: center; gap: 10px; height: 50px; padding: 0 24px; border-radius: 12px; font: 800 20px/1 Archivo, sans-serif; font-stretch: 80%; margin-top: 18px; white-space: nowrap; }
+.cta svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 2.4; }
+.cta--red { background: var(--red); color: #fff; }
+.cta--white { background: #fff; color: var(--red); }
+.cta--ink { background: var(--ink); color: #fff; }
+.cta--line { border: 2px solid currentColor; }
+.txt { position: relative; z-index: 2; }
+.tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+.tags i { font-style: normal; font-weight: 700; font-size: 13.5px; padding: 6px 11px; border-radius: 999px; background: rgba(20,20,20,.07); }
+.out { padding-top: 70px; }
+
+/* ---------- A1 sety v 4 farbách, vyčnievajú z rámu ---------- */
+.a1 { background: var(--card); overflow: visible; display: flex; align-items: center; padding: 0 48px; }
+.a1 .txt { max-width: 440px; }
+.a1 .sets { position: absolute; right: 2%; bottom: -10px; display: flex; align-items: flex-end; height: 320px; }
+.a1 .sets img { height: 100%; width: auto; min-width: 0; margin-left: -110px; filter: drop-shadow(10px 18px 14px rgba(0,0,0,.18)); }
+.a1 .sets img:nth-child(2) { height: 92%; } .a1 .sets img:nth-child(3) { height: 86%; } .a1 .sets img:nth-child(4) { height: 80%; }
+
+/* ---------- A2 fotka sestry cez celú plochu, text na bielej karte ---------- */
+.a2 { background: #dfe6ee; }
+.a2 > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%; z-index: -1; }
+.a2 .txt { position: absolute; left: 28px; top: 28px; bottom: 28px; width: min(520px, 46%); background: #fff; border-radius: 12px; padding: 28px 32px; display: flex; flex-direction: column; justify-content: center; align-items: flex-start; }
+.a2 h3 { font-size: 42px; }
+
+/* ---------- A3 objednávkový formulár / clipboard ---------- */
+.a3 { background: var(--red); color: #fff; display: grid; grid-template-columns: 1fr 520px; gap: 32px; align-items: center; padding: 0 48px; }
+.a3 .form { background: #fff; color: var(--ink); border-radius: 10px; padding: 18px 22px 16px; rotate: 2deg; box-shadow: 0 18px 30px rgba(0,0,0,.25); position: relative; }
+.a3 .form::before { content: ""; position: absolute; left: 50%; top: -14px; translate: -50% 0; width: 120px; height: 26px; border-radius: 8px; background: #1d1d1d; }
+.a3 .form b { display: block; font: 900 22px/1 Archivo, sans-serif; font-stretch: 72%; margin: 6px 0 10px; }
+.a3 table { width: 100%; border-collapse: collapse; font-size: 14.5px; }
+.a3 td { padding: 6px 0; border-bottom: 1.5px dashed #d8d2ca; }
+.a3 td:last-child { text-align: right; font-weight: 800; font-family: Archivo, sans-serif; font-stretch: 80%; font-size: 17px; }
+.a3 .sw { display: inline-block; width: 12px; height: 12px; border-radius: 50%; margin-right: 8px; vertical-align: -1px; border: 1px solid rgba(0,0,0,.15); }
+
+/* ---------- A4 poskladané uniformy, split ---------- */
+.a4 { background: #fff; display: grid; grid-template-columns: 1fr 48%; grid-template-rows: 100%; }
+.a4 .txt { padding: 0 48px; display: flex; flex-direction: column; justify-content: center; align-items: flex-start; }
+.a4 > img { width: 100%; height: 100%; min-height: 0; object-fit: cover; object-position: 50% 45%; }
+
+/* ---------- A5 vzor rúk + biela karta ---------- */
+.a5 { background: var(--red) url("img/hand-white.svg") 0 0 / 70px auto; display: flex; align-items: center; padding: 0 40px; }
+.a5::before { content: ""; position: absolute; inset: 0; background: rgba(225,37,27,.86); z-index: -1; }
+.a5 .txt { background: #fff; border-radius: 14px; padding: 26px 32px; max-width: 640px; }
+.a5 .set { position: absolute; right: 5%; bottom: -6px; height: 290px; filter: drop-shadow(10px 18px 16px rgba(0,0,0,.28)); }
+
+/* ---------- A6 veľká typografia + pečiatka ---------- */
+.a6 { background: #fff; display: flex; align-items: center; padding: 0 48px; border: 2px solid var(--ink); }
+.a6 h3 { font-size: 92px; line-height: .86; }
+.a6 .txt { max-width: 900px; }
+.a6 .stamp { position: absolute; right: 56px; top: 50%; translate: 0 -50%; width: 200px; height: 200px; border-radius: 50%; border: 4px solid var(--red); display: grid; place-items: center; rotate: -10deg; }
+.a6 .stamp::before { content: ""; position: absolute; inset: 9px; border-radius: 50%; border: 2px solid var(--red); }
+.a6 .stamp img { width: 64px; }
+.a6 .stamp b { position: absolute; bottom: 36px; font: 900 15px/1 Archivo, sans-serif; letter-spacing: .14em; color: var(--red); }
+.a6 .stamp em { position: absolute; top: 34px; font: 900 15px/1 Archivo, sans-serif; letter-spacing: .14em; color: var(--red); font-style: normal; }
+
+/* ---------- A7 pás troch fotiek ---------- */
+.a7 { background: var(--ink); color: #fff; display: grid; grid-template-columns: 1fr repeat(3, 230px); grid-template-rows: 100%; gap: 12px; padding: 12px; }
+.a7 .txt { padding: 18px 24px; display: flex; flex-direction: column; justify-content: center; align-items: flex-start; }
+.a7 h3 { font-size: 42px; }
+.a7 > img { width: 100%; height: 100%; object-fit: cover; border-radius: 10px; }
+
+/* ---------- A8 vešiak s uniformami, svetlý, rám ---------- */
+.a8 { background: #EFF3F6; display: grid; grid-template-columns: 1fr 440px; align-items: center; padding: 0 0 0 48px; }
+.a8 .ph { height: 100%; position: relative; }
+.a8 .ph img { position: absolute; inset: 14px 14px 14px 0; width: calc(100% - 14px); height: calc(100% - 28px); object-fit: cover; border-radius: 10px; }
+.a8 .ph::after { content: "XS – 3XL"; position: absolute; left: -26px; top: 26px; background: var(--red); color: #fff; font: 900 20px/1 Archivo, sans-serif; font-stretch: 80%; padding: 10px 14px; border-radius: 8px; rotate: -6deg; }
+
+/* ---------- B1 polokošeľa s logom vyčnieva ---------- */
+.b1 { background: var(--card); overflow: visible; display: flex; align-items: center; padding: 0 48px; }
+.b1 .txt { max-width: 560px; }
+.b1 > img { position: absolute; right: 7%; bottom: -26px; height: 400px; rotate: -6deg; filter: drop-shadow(14px 22px 18px rgba(0,0,0,.28)); }
+.b1 .callout { position: absolute; right: 31%; top: -34px; background: #fff; border: 2px solid var(--ink); border-radius: 10px; padding: 8px 12px; font: 800 14px/1.2 Figtree, sans-serif; z-index: 2; }
+.b1 .callout::after { content: ""; position: absolute; right: -66px; top: 50%; width: 64px; border-top: 2px dashed var(--ink); }
+
+/* ---------- B2 tím ako výrez na červenom paneli ---------- */
+.b2 { background: #fff; overflow: visible; display: flex; align-items: center; padding: 0 48px; }
+.b2 .panel { position: absolute; right: 24px; top: 24px; bottom: 24px; width: 46%; border-radius: 14px; background: var(--red) url("img/hand-white.svg") 18px 18px / 54px auto no-repeat; }
+.b2 .team { position: absolute; right: 40px; bottom: 24px; height: 380px; width: auto; filter: drop-shadow(0 16px 20px rgba(0,0,0,.2)); }
+.b2 .txt { max-width: 520px; }
+
+/* ---------- B3 split čierna / červená + nášivka cez hranu ---------- */
+.b3 { display: grid; grid-template-columns: 1fr 1fr; background: var(--ink); color: #fff; }
+.b3 .l { padding: 0 48px; display: flex; flex-direction: column; justify-content: center; align-items: flex-start; }
+.b3 .r { background: var(--red); display: flex; align-items: center; justify-content: flex-end; padding: 0 48px; font: 900 64px/.9 Archivo, sans-serif; font-stretch: 72%; text-align: right; }
+.b3 > img { position: absolute; left: 50%; top: 50%; translate: -50% -50%; height: 230px; rotate: -8deg; filter: drop-shadow(10px 16px 16px rgba(0,0,0,.4)); }
+
+/* ---------- B4 vyšívací stroj cez celú plochu, štítok ---------- */
+.b4 { background: #222; }
+.b4 > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 60%; z-index: -1; }
+.b4 .txt { position: absolute; right: 28px; top: 28px; bottom: 28px; width: min(500px, 46%); background: #fff; border-radius: 12px; padding: 28px 32px; display: flex; flex-direction: column; justify-content: center; align-items: flex-start; }
+
+/* ---------- B5 tri kroky ako lístky ---------- */
+.b5 { background: var(--card); display: grid; grid-template-columns: 420px 1fr; gap: 24px; align-items: center; padding: 0 40px; }
+.b5 .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+.b5 .st { background: #fff; border-radius: 12px; padding: 14px; text-align: left; box-shadow: 0 8px 18px rgba(0,0,0,.06); }
+.b5 .st img { width: 100%; height: 110px; object-fit: cover; border-radius: 8px; }
+.b5 .st b { display: block; font: 900 22px/1 Archivo, sans-serif; font-stretch: 72%; margin-top: 10px; }
+.b5 .st b em { font-style: normal; color: var(--red); margin-right: 6px; }
+.b5 .st span { font-size: 13.5px; color: #5E5953; }
+
+/* ---------- B6 nášivka VAŠE LOGO, tmavá ---------- */
+.b6 { background: #0d0d0d; color: #fff; display: grid; grid-template-columns: 1fr 50%; grid-template-rows: 100%; }
+.b6 .txt { padding: 0 48px; display: flex; flex-direction: column; justify-content: center; align-items: flex-start; }
+.b6 > img { width: 100%; height: 100%; min-height: 0; object-fit: cover; object-position: 50% 78%; }
+
+/* ---------- B7 tím pred predajňou, spodný červený pás ---------- */
+.b7 { background: #ccc; }
+.b7 > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%; z-index: -1; }
+.b7 .bar { position: absolute; left: 0; right: 0; bottom: 0; background: var(--red); color: #fff; display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 16px 32px; }
+.b7 .bar h3 { font-size: 40px; }
+.b7 .bar p { margin: 4px 0 0; font-size: 16px; }
+.b7 .bar .cta { margin: 0; }
+
+/* ---------- B8 odevy na podstavcoch, svetlé ---------- */
+.b8 { background: #fff; display: grid; grid-template-columns: 1fr 380px 260px; grid-template-rows: 100%; gap: 0; align-items: stretch; border: 2px solid var(--line); }
+.b8 .txt { padding: 0 44px; display: flex; flex-direction: column; justify-content: center; align-items: flex-start; }
+.b8 > img { width: 100%; height: 100%; object-fit: cover; }
+.b8 .list { background: var(--ink); color: #fff; padding: 26px 24px; display: flex; flex-direction: column; justify-content: center; gap: 12px; font-weight: 700; font-size: 15.5px; }
+.b8 .list li { list-style: none; display: flex; gap: 10px; align-items: center; }
+.b8 .list li::before { content: ""; width: 10px; height: 10px; border-radius: 50%; background: var(--red); flex: none; }
+.b8 ul { margin: 0; padding: 0; display: grid; gap: 12px; }
+
+/* ---------- mobil ---------- */
+@media (max-width: 760px) {
+  .bn { height: auto; border-radius: 14px; }
+  .bn h3 { font-size: 34px; }
+  .bn p { font-size: 16px; }
+  .cta { height: 46px; font-size: 18px; }
+  .out { padding-top: 0; }
+  .a1, .b1, .b2, .a5, .a6 { flex-direction: column; align-items: flex-start; padding: 24px 20px 0; overflow: hidden; }
+  .a1 .sets { position: relative; right: auto; bottom: auto; height: 220px; align-self: flex-end; margin: 10px -10px -10px 0; }
+  .a1 .sets img { margin-left: -46px; }
+  .a2 { height: 520px; } .a2 .txt, .b4 .txt { left: 14px; right: 14px; top: auto; bottom: 14px; width: auto; padding: 20px; }
+  .a2 h3 { font-size: 32px; }
+  .a3 { grid-template-columns: 1fr; padding: 24px 20px 28px; gap: 26px; }
+  .a3 .form { rotate: 0deg; }
+  .a4, .b6, .b8, .a7 { grid-template-rows: auto; }
+  .a4, .b6 { grid-template-columns: 1fr; } .a4 .txt, .b6 .txt { padding: 24px 20px; } .a4 > img, .b6 > img { height: 220px; }
+  .a5 { padding: 20px 16px 0; } .a5 .txt { padding: 20px; } .a5 .set { position: relative; right: auto; bottom: auto; height: 200px; align-self: flex-end; margin: 10px 0 -6px; }
+  .a6 h3 { font-size: 52px; } .a6 .stamp { position: relative; right: auto; top: auto; translate: none; width: 130px; height: 130px; align-self: flex-end; margin: 10px 0 20px; } .a6 .stamp img { width: 42px; } .a6 .stamp b, .a6 .stamp em { font-size: 11px; } .a6 .stamp b { bottom: 22px; } .a6 .stamp em { top: 22px; }
+  .a7 { grid-template-columns: repeat(3, 1fr); } .a7 .txt { grid-column: 1 / -1; padding: 12px 8px; } .a7 > img { height: 120px; }
+  .a8 { grid-template-columns: 1fr; padding: 24px 20px 0; } .a8 .ph { height: 260px; margin: 16px -20px 0; } .a8 .ph img { inset: 0 14px 14px; width: calc(100% - 28px); height: calc(100% - 14px); } .a8 .ph::after { left: 20px; top: -14px; }
+  .b1 > img { position: relative; right: auto; bottom: auto; height: 240px; align-self: flex-end; margin: 6px -10px -26px 0; }
+  .b1 .callout { display: none; }
+  .b2 { padding: 24px 20px 0; } .b2 .panel { position: relative; inset: auto; width: 100%; height: 240px; margin: 18px 0 20px; } .b2 .team { right: 30px; bottom: 20px; height: 270px; }
+  .b3 { grid-template-columns: 1fr; } .b3 .l { padding: 24px 20px 70px; } .b3 .r { padding: 70px 20px 24px; font-size: 44px; } .b3 > img { height: 140px; }
+  .b4 { height: 520px; }
+  .b5 { grid-template-columns: 1fr; padding: 24px 16px; } .b5 .steps { grid-template-columns: 1fr; } .b5 .st { display: grid; grid-template-columns: 96px 1fr; gap: 12px; align-items: center; } .b5 .st img { height: 80px; } .b5 .st b { margin: 0; }
+  .b7 { height: 460px; } .b7 .bar { flex-direction: column; align-items: flex-start; padding: 18px 20px; } .b7 .bar h3 { font-size: 32px; }
+  .b8 { grid-template-columns: 1fr; } .b8 .txt { padding: 24px 20px; } .b8 > img { height: 240px; }
+}
+</style>
+</head>
+<body>
+<main class="page">
+  <h1>Bannery – varianty</h1>
+  <p>Každý variant je postavený z tvojich DAMI vizuálov a skutočných fotiek produktov. Pošli písmeno a číslo (napr. A3, B6) a nasadím ho na web.</p>
+
+  <h2 class="grp">A · Zdravotníctvo – ponuka na viac kusov</h2>
+
+  <section class="var"><h2><b>A1</b> Sety vo všetkých farbách vyčnievajú z rámu</h2>
+    <div class="out"><a class="bn a1" href="../zdravotnictvo.html">
+      <div class="txt"><h3>Pre ambulancie pripravíme <span>ponuku na viac kusov.</span></h3><p>Set CESARE v 4 farbách, veľkosti XS–3XL.</p><span class="cta cta--red">Napísať dopyt <svg viewBox="0 0 24 24"><path d="M4 12h15M13 6l6 6-6 6"/></svg></span></div>
+      <div class="sets"><img src="img/set-bordo.webp" alt=""><img src="img/set-svmodra.webp" alt=""><img src="img/set-matova.webp" alt=""><img src="img/set-biela.webp" alt=""></div></a></div>
+    <p class="note">Assety: v2/img/hero/set-bordo, set-svmodra, set-matova, set-biela (sety CESARE)</p></section>
+
+  <section class="var"><h2><b>A2</b> Fotka sestry cez celú plochu, text na bielej karte</h2>
+    <a class="bn a2" href="../zdravotnictvo.html"><img src="img/sestra.webp" alt="">
+      <div class="txt"><h3>Pre ambulancie pripravíme ponuku na viac kusov.</h3><p>Blúzy, nohavice a obuv pre celý tím.</p><span class="cta cta--red">Napísať dopyt <svg viewBox="0 0 24 24"><path d="M4 12h15M13 6l6 6-6 6"/></svg></span></div></a>
+    <p class="note">Asset: Downloads/DAMI – fotka zdravotnej sestry v modrej uniforme</p></section>
+
+  <section class="var"><h2><b>A3</b> Objednávka ako lístok na podložke</h2>
+    <a class="bn a3" href="../zdravotnictvo.html">
+      <div class="txt"><h3>Pre ambulancie pripravíme ponuku na viac kusov.</h3><p>Napíšte, koľko kusov a aké veľkosti potrebujete.</p><span class="cta cta--white">Napísať dopyt <svg viewBox="0 0 24 24"><path d="M4 12h15M13 6l6 6-6 6"/></svg></span></div>
+      <div class="form"><b>Dopyt – ambulancia</b><table>
+        <tr><td><i class="sw" style="background:#fff"></i>Set CESARE biela</td><td>× 4</td></tr>
+        <tr><td><i class="sw" style="background:#8cc4ec"></i>Set CESARE svetlomodrá</td><td>× 3</td></tr>
+        <tr><td><i class="sw" style="background:#6d1a2a"></i>Set CESARE bordó</td><td>× 2</td></tr>
+        <tr><td>Veľkosti</td><td>XS – 3XL</td></tr></table></div></a>
+    <p class="note">Bez fotky, čistá grafika. Počty kusov sú len ilustračný príklad dopytu.</p></section>
+
+  <section class="var"><h2><b>A4</b> Poskladané uniformy s nášivkami, polovica a polovica</h2>
+    <a class="bn a4" href="../zdravotnictvo.html">
+      <div class="txt"><h3>Pre ambulancie pripravíme <span>ponuku na viac kusov.</span></h3><div class="tags"><i>Blúzy</i><i>Nohavice</i><i>Obuv</i><i>XS–3XL</i></div><span class="cta cta--red">Napísať dopyt <svg viewBox="0 0 24 24"><path d="M4 12h15M13 6l6 6-6 6"/></svg></span></div>
+      <img src="img/skladane-uniformy.webp" alt=""></a>
+    <p class="note">Asset: dami_tim-firmy_05 (orezaný bez textu)</p></section>
+
+  <section class="var"><h2><b>A5</b> Vzor rúk DAMI, biela karta a set</h2>
+    <a class="bn a5" href="../zdravotnictvo.html">
+      <div class="txt"><h3>Pre ambulancie pripravíme <span>ponuku na viac kusov.</span></h3><span class="cta cta--red">Napísať dopyt <svg viewBox="0 0 24 24"><path d="M4 12h15M13 6l6 6-6 6"/></svg></span></div>
+      <img class="set" src="img/set-svmodra.webp" alt=""></a>
+    <p class="note">Assety: hand-white.svg (vektorový vzor), set-svmodra</p></section>
+
+  <section class="var"><h2><b>A6</b> Veľká typografia a pečiatka</h2>
+    <a class="bn a6" href="../zdravotnictvo.html">
+      <div class="txt"><h3>Viac kusov? <span>Pripravíme ponuku.</span></h3><span class="cta cta--ink">Napísať dopyt <svg viewBox="0 0 24 24"><path d="M4 12h15M13 6l6 6-6 6"/></svg></span></div>
+      <span class="stamp"><em>AMBULANCIE</em><img src="img/hand-red.svg" alt=""><b>PIEŠŤANY</b></span></a>
+    <p class="note">Bez fotky. Vektorové logo hand-red.svg v pečiatke. Kratší nadpis, ten istý význam.</p></section>
+
+  <section class="var"><h2><b>A7</b> Tmavý pás s tromi zábermi</h2>
+    <a class="bn a7" href="../zdravotnictvo.html">
+      <div class="txt"><h3>Pre ambulancie pripravíme ponuku na viac kusov.</h3><span class="cta cta--red">Napísať dopyt <svg viewBox="0 0 24 24"><path d="M4 12h15M13 6l6 6-6 6"/></svg></span></div>
+      <img src="img/sestra-tablet.webp" alt=""><img src="img/skladane-uniformy.webp" alt="" style="object-position:30% 50%"><img src="img/vesiak.webp" alt="" style="object-position:55% 50%"></a>
+    <p class="note">Assety: dami_ludia_07, dami_tim-firmy_05, dami_tim-firmy_08 (orezané bez textu)</p></section>
+
+  <section class="var"><h2><b>A8</b> Svetlý banner s vešiakom a štítkom veľkostí</h2>
+    <a class="bn a8" href="../zdravotnictvo.html">
+      <div class="txt"><h3>Pre ambulancie pripravíme <span>ponuku na viac kusov.</span></h3><p>Vyskúšajte si veľkosti v predajni v Piešťanoch.</p><span class="cta cta--red">Napísať dopyt <svg viewBox="0 0 24 24"><path d="M4 12h15M13 6l6 6-6 6"/></svg></span></div>
+      <div class="ph"><img src="img/vesiak.webp" alt=""></div></a>
+    <p class="note">Asset: dami_tim-firmy_08 (vešiak s uniformami, orezaný)</p></section>
+
+  <h2 class="grp">B · Pre firmy</h2>
+
+  <section class="var"><h2><b>B1</b> Polokošeľa s vyšitým logom vyčnieva z rámu</h2>
+    <div class="out"><a class="bn b1" href="../pre-firmy.html">
+      <div class="txt"><h3>Pre firmy. <span>Vybavíme celý tím, aj s logom.</span></h3><p>Výšivka alebo potlač loga, nákup na faktúru s IČO.</p><span class="cta cta--red">Napísať nám <svg viewBox="0 0 24 24"><path d="M4 12h15M13 6l6 6-6 6"/></svg></span></div>
+      <span class="callout">Tu bude vaše logo</span>
+      <img src="img/sl-polo.webp" alt=""></a></div>
+    <p class="note">Asset: v2/img/hero/sl-polo.webp (polokošeľa s vyšitou rukou DAMI)</p></section>
+
+  <section class="var"><h2><b>B2</b> Tím ako výrez na červenom paneli</h2>
+    <div class="out"><a class="bn b2" href="../pre-firmy.html">
+      <div class="txt"><h3>Pre firmy. <span>Vybavíme celý tím, aj s logom.</span></h3><p>Gastro, zdravotníctvo aj priemysel.</p><span class="cta cta--red">Napísať nám <svg viewBox="0 0 24 24"><path d="M4 12h15M13 6l6 6-6 6"/></svg></span></div>
+      <span class="panel"></span><img class="team" src="img/tim-cut.webp" alt=""></a></div>
+    <p class="note">Asset: dami_ludia_09 (tím v DAMI oblečení), vystrihnuté v Higgsfielde</p></section>
+
+  <section class="var"><h2><b>B3</b> Čierna a červená, nášivka cez hranu</h2>
+    <a class="bn b3" href="../pre-firmy.html">
+      <div class="l"><h3>Pre firmy.</h3><p>Vybavíme celý tím, aj s logom.</p><span class="cta cta--white">Napísať nám <svg viewBox="0 0 24 24"><path d="M4 12h15M13 6l6 6-6 6"/></svg></span></div>
+      <div class="r">Od jedného kusu<br>po celý tím.</div>
+      <img src="img/d-patch.webp" alt=""></a>
+    <p class="note">Asset: v2/img/d-patch.webp. Slogan „Od jedného kusu po celý tím.“ je z tvojich IG vizuálov.</p></section>
+
+  <section class="var"><h2><b>B4</b> Vyšívací stroj cez celú plochu, štítok vpravo</h2>
+    <a class="bn b4" href="../pre-firmy.html"><img src="img/firmy-vysivka.webp" alt="">
+      <div class="txt"><h3>Pre firmy. <span>Vybavíme celý tím, aj s logom.</span></h3><div class="tags"><i>Výšivka</i><i>Potlač</i><i>Faktúra na IČO</i></div><span class="cta cta--red">Napísať nám <svg viewBox="0 0 24 24"><path d="M4 12h15M13 6l6 6-6 6"/></svg></span></div></a>
+    <p class="note">Asset: v2/img/hero/firmy-vysivka.webp</p></section>
+
+  <section class="var"><h2><b>B5</b> Tri kroky ako karty</h2>
+    <a class="bn b5" href="../pre-firmy.html">
+      <div class="txt"><h3>Pre firmy. <span>Vybavíme celý tím, aj s logom.</span></h3><span class="cta cta--red">Napísať nám <svg viewBox="0 0 24 24"><path d="M4 12h15M13 6l6 6-6 6"/></svg></span></div>
+      <div class="steps">
+        <div class="st"><img src="img/vesiak.webp" alt="" style="object-position:50% 40%"><b><em>1</em>Vyberiete</b><span>oblečenie pre tím</span></div>
+        <div class="st"><img src="img/firmy-vysivka.webp" alt="" style="object-position:60% 60%"><b><em>2</em>Vyšijeme logo</b><span>alebo ho potlačíme</span></div>
+        <div class="st"><img src="img/podstavce.webp" alt="" style="object-position:50% 50%"><b><em>3</em>Odovzdáme</b><span>na faktúru s IČO</span></div></div></a>
+    <p class="note">Assety: dami_tim-firmy_08, firmy-vysivka, fotka odevov na podstavcoch</p></section>
+
+  <section class="var"><h2><b>B6</b> Nášivka „VAŠE LOGO“ na tmavom</h2>
+    <a class="bn b6" href="../pre-firmy.html">
+      <div class="txt"><h3>Pre firmy. <span>Vybavíme celý tím, aj s logom.</span></h3><p>Výšivka alebo potlač loga na pracovné odevy.</p><span class="cta cta--red">Napísať nám <svg viewBox="0 0 24 24"><path d="M4 12h15M13 6l6 6-6 6"/></svg></span></div>
+      <img src="img/vase-logo.webp" alt=""></a>
+    <p class="note">Asset: dami_tim-firmy_07 (orezaný bez spodného textu)</p></section>
+
+  <section class="var"><h2><b>B7</b> Tím pred predajňou, červený pás dole</h2>
+    <a class="bn b7" href="../pre-firmy.html"><img src="img/tim-predajna.webp" alt="">
+      <div class="bar"><div><h3>Pre firmy. Vybavíme celý tím, aj s logom.</h3><p>Gastro · zdravotníctvo · priemysel</p></div><span class="cta cta--white">Napísať nám <svg viewBox="0 0 24 24"><path d="M4 12h15M13 6l6 6-6 6"/></svg></span></div></a>
+    <p class="note">Asset: Downloads/DAMI – fotka tímu v pracovnom oblečení pred predajňou</p></section>
+
+  <section class="var"><h2><b>B8</b> Odevy s logom na podstavcoch a zoznam výhod</h2>
+    <a class="bn b8" href="../pre-firmy.html">
+      <div class="txt"><h3>Pre firmy. <span>Vybavíme celý tím, aj s logom.</span></h3><span class="cta cta--red">Napísať nám <svg viewBox="0 0 24 24"><path d="M4 12h15M13 6l6 6-6 6"/></svg></span></div>
+      <img src="img/podstavce.webp" alt="">
+      <div class="list"><ul><li>Výšivka alebo potlač loga</li><li>Nákup na faktúru s IČO</li><li>Ponuka a vzorky</li><li>Od jedného kusu po celý tím</li></ul></div></a>
+    <p class="note">Asset: Downloads/DAMI – fotka odevov s logom DAMI na podstavcoch</p></section>
+</main>
+</body>
+</html>
