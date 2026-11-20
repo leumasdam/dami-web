@@ -10,12 +10,14 @@
 <link rel="stylesheet" href="../assets/css/dami.css">
 <link rel="stylesheet" href="css/dami2.css">
 <link rel="stylesheet" href="css/sub.css">
+<link rel="stylesheet" href="css/kategoria.css">
 <link rel="stylesheet" href="css/hero.css">
 <link rel="stylesheet" href="css/zdrav.css">
 <link rel="preload" as="image" href="img/zdrav-hero.webp">
 <script src="../data/catalog.js"></script>
 <script src="js/packshots.js"></script>
 <script src="js/dami.js"></script>
+<script src="js/listing.js"></script>
 </head>
 <body>
 <script>DAMI.mount("light", "zdravotnictvo")</script>
@@ -24,6 +26,30 @@
   <div data-hero></div>
 
   <section class="wrap zd-tiles" aria-label="Kategórie" data-tiles></section>
+
+  <section class="zd-all" id="vsetko" aria-labelledby="zd-all-h" data-listing>
+    <div class="wrap sec__hd"><h2 class="h2x" id="zd-all-h">Všetko zo zdravotníctva</h2></div>
+    <div class="sheet-bg" data-sheet-close></div>
+    <div class="wrap cat">
+      <aside class="side" aria-label="Filtre" data-side></aside>
+      <div class="main">
+        <div class="bar">
+          <button class="kbtn fbtn" data-sheet-open></button>
+          <label class="sort kbtn">
+            <svg class="ico sort__ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 4v16M4.5 7.5 8 4l3.5 3.5M16 20V4M12.5 16.5 16 20l3.5-3.5"/></svg>
+            <span class="sort__lab">Zoradiť<span class="sort__colon">:</span></span>
+            <select data-sort aria-label="Zoradiť produkty">
+              <option value="pop">Odporúčané</option><option value="asc">Najlacnejšie</option><option value="desc">Najdrahšie</option><option value="name">Názov A – Z</option>
+            </select>
+          </label>
+          <span class="bar__n" data-count></span>
+        </div>
+        <div class="chips" data-chips></div>
+        <div class="pgrid kgrid" data-grid></div>
+        <nav class="pager" aria-label="Stránkovanie" data-pager></nav>
+      </div>
+    </div>
+  </section>
 
   <section class="wrap sub-sec zd-pop">
     <div class="sec__hd"><h2 class="h2x">Obľúbené kúsky</h2><a class="link" href="kategoria.html?c=zdravotnictvo">Všetko zo zdravotníctva <svg viewBox="0 0 24 24"><path d="M4 12h15M13 6l6 6-6 6"/></svg></a></div>
@@ -136,6 +162,10 @@
   pick(SET_COLORS[0].k);
   addEventListener("load", () => SET_COLORS.slice(1).forEach(c => { const i = new Image(); i.src = `img/hero/set-${c.k}.webp`; }));
 })();
+</script>
+<script>
+DAMI.listing({ root: document.querySelector("[data-listing]"), base: DAMI.secProducts("zdravotnictvo"),
+  subs: (DAMI.D.sections.zdravotnictvo || {}).subs || [] });
 </script>
 <script>DAMI.mountFooter()</script>
 </body>

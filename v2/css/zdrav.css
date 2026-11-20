@@ -97,3 +97,7 @@
   .hv-c--set .hv-c__info { position: static; width: auto; margin-top: 8px; }
 }
 @media (max-width: 760px) { .hv-c--set .hv-c__prod > img { max-height: 340px; } }
+
+/* všetky produkty zo zdravotníctva s filtrami */
+.zd-all { padding-top: clamp(32px, 3.4vw, 48px); }
+.zd-all .sec__hd { margin-bottom: clamp(14px, 1.5vw, 20px); }
