@@ -84,25 +84,6 @@
 
 
 
-/* všetko zo zdravotníctva: mriežka 3 × 4 so stránkovaním */
+/* všetko zo zdravotníctva: výpis s filtrami ako v kategórii */
 .zd-all { padding-top: clamp(36px, 3.6vw, 56px); }
-.zd-all .sec__hd { margin-bottom: 14px; }
-.zd-all__chips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: clamp(16px, 1.6vw, 22px); }
-.zd-all__chips button { height: 40px; padding: 0 16px; border-radius: 999px; border: 1.5px solid var(--line); background: #fff; font: 700 14.5px/1 var(--f); color: var(--ink); cursor: pointer; }
-.zd-all__chips button small { font-weight: 600; color: #8A847C; margin-left: 4px; }
-.zd-all__chips button[aria-pressed="true"] { background: var(--ink); border-color: var(--ink); color: #fff; }
-.zd-all__chips button[aria-pressed="true"] small { color: rgba(255,255,255,.7); }
-.zd-all .pgrid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); }
-.zd-all__ft { display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; margin-top: clamp(20px, 2vw, 28px); }
-.zd-all__ft .pager { margin: 0; justify-content: flex-start; }
-@media (max-width: 760px) { .zd-all .pgrid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .zd-all__ft { justify-content: center; } }
-
-/* stránkovanie (rovnaké ako v kategórii) */
-.pager { display: flex; justify-content: center; align-items: center; gap: clamp(8px, .8vw, 12px); margin-top: clamp(22px, 2.2vw, 32px); }
-.pager:empty { display: none; }
-.pager__b { min-width: clamp(38px, 2.8vw, 40px); height: clamp(38px, 2.8vw, 40px); padding: 0 8px; border: 1.5px solid var(--line); background: #fff; border-radius: 6px; font-size: clamp(15px, 1.1vw, 16px); font-weight: 600; display: grid; place-items: center; transition: border-color .2s, background .2s, color .2s; }
-.pager__b .ico { width: 16px; height: 16px; stroke-width: 2.4; }
-.pager__b:hover:not(:disabled) { border-color: var(--ink); }
-.pager__b.is-on { background: var(--red); border-color: var(--red); color: #fff; }
-.pager__b:disabled { opacity: .35; cursor: default; }
-.pager__gap { color: var(--muted); padding: 0 4px; }
+.zd-all > .sec__hd { margin-bottom: clamp(14px, 1.5vw, 20px); }

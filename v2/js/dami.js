@@ -90,7 +90,7 @@
   const eur = n => n.toFixed(2).replace(".", ",") + " €";
   const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
   const qp = k => new URLSearchParams(location.search).get(k);
-  const catUrl = k => `kategoria.html?c=${k}`;
+  const catUrl = k => k === "zdravotnictvo" ? "zdravotnictvo.html#vsetko" : /^zdrav-/.test(k) ? `zdravotnictvo.html?k=${k}#vsetko` : `kategoria.html?c=${k}`;
   const prodUrl = id => `produkt.html?p=${encodeURIComponent(id)}`;
   const inSec = (p, s) => p.sec.includes(s);
   const secProducts = s => D.products.filter(p => inSec(p, s));

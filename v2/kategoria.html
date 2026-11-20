@@ -14,6 +14,10 @@
 <script src="../data/catalog.js"></script>
 <script src="js/packshots.js"></script>
 <script src="js/dami.js"></script>
+<script>/* zdravotníctvo má jednu stránku s filtrami: staré adresy presmerovať */
+(() => { const c = new URLSearchParams(location.search).get("c") || "";
+  if (c === "zdravotnictvo") location.replace("zdravotnictvo.html#vsetko");
+  else if (/^zdrav-/.test(c)) location.replace("zdravotnictvo.html?k=" + encodeURIComponent(c) + "#vsetko"); })();</script>
 </head>
 <body class="pg-kat">
 <script>
