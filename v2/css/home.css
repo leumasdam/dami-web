@@ -304,7 +304,7 @@
 /* panel s fotkou predajne */
 .car--v3 .sl__panel--photo { top: var(--pb); }
 .car--v3 .sl__panel--photo img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 45%; }
-.sl__live { position: absolute; left: 16px; bottom: 16px; display: inline-flex; align-items: center; gap: 8px; padding: 9px 14px; border-radius: 999px; background: #fff; font: 700 14px/1 var(--f); color: var(--ink); box-shadow: 0 6px 16px rgba(0,0,0,.14); }
+.sl__live { position: absolute; left: 50%; translate: -50% 0; bottom: 16px; white-space: nowrap; display: inline-flex; align-items: center; gap: 8px; padding: 9px 14px; border-radius: 999px; background: #fff; font: 700 14px/1 var(--f); color: var(--ink); box-shadow: 0 6px 16px rgba(0,0,0,.14); }
 .sl__live i { width: 9px; height: 9px; border-radius: 50%; background: #b9b2a8; }
 .sl__live.is-open i { background: #22a35a; box-shadow: 0 0 0 4px rgba(34,163,90,.18); }
 /* cenovka, pečiatka, štítok */
