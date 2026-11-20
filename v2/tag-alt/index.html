@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="sk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cenovky – varianty</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Figtree:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root { --red: #E1251B; --ink: #141414; --paper: #FAF8F5; --f: "Figtree", system-ui, sans-serif; --f-d: "Archivo", sans-serif; }
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--paper); font-family: var(--f); color: var(--ink); padding: 28px 16px 70px; }
+h1 { font: 900 42px/1 var(--f-d); font-stretch: 70%; margin: 0 0 6px; }
+.lead { margin: 0 0 28px; color: #5d5750; max-width: 64em; }
+.v { margin-bottom: 34px; }
+.v > b { display: block; font: 800 20px var(--f); }
+.v > p { margin: 2px 0 12px; color: #5d5750; font-size: 14px; }
+.row { display: flex; gap: 14px; flex-wrap: wrap; }
+.ctx { position: relative; width: 300px; height: 200px; border-radius: 16px; overflow: hidden; }
+.ctx--red { background: var(--red); } .ctx--grey { background: #E3E7EB; } .ctx--dark { background: #0d0d0d; } .ctx--card { background: #F1EFEC; }
+.ctx > img { position: absolute; right: -10px; bottom: -6px; height: 92%; }
+
+/* cenovka = fotka štítku + cena textom v kóde (jeden obrázok pre všetky ceny) */
+.tag { position: absolute; left: 14px; top: 22px; z-index: 2; width: var(--w, 170px); rotate: var(--r, -6deg); filter: drop-shadow(0 10px 14px rgba(0,0,0,.22)); }
+.tag img { display: block; width: 100%; height: auto; }
+.tag .p { position: absolute; inset: var(--ins, 0 6% 0 30%); display: flex; flex-direction: column; justify-content: center; align-items: center; color: var(--c, #fff); text-align: center; line-height: 1; }
+.tag b { font: 900 var(--fs, 30px)/.9 var(--f-d); font-stretch: 72%; letter-spacing: -.01em; white-space: nowrap; }
+.tag small { font: 800 10px/1 var(--f-d); font-stretch: 85%; letter-spacing: .1em; text-transform: uppercase; margin-bottom: 3px; opacity: .9; }
+.tag s { font: 600 10.5px/1 var(--f); opacity: .85; margin-bottom: 3px; }
+
+.t0 { --w: 190px; --ins: 0 5% 0 26%; --fs: 29px; }
+.t1 { --w: 170px; --ins: 0 5% 0 30%; --fs: 31px; }
+.t2 { --w: 168px; --ins: 0 5% 0 30%; --fs: 31px; --c: var(--red); }
+.t3 { --w: 168px; --ins: 0 8% 0 27%; --fs: 30px; }
+.t4 { --w: 160px; --ins: 0 7% 4% 6%; --fs: 33px; }
+.t5 { --w: 190px; --ins: 0 6% 0 24%; --fs: 28px; --c: var(--red); }
+@media (max-width: 680px) { .ctx { width: 100%; } }
+</style>
+</head>
+<body>
+<h1>Cenovky – štítky z Higgsfieldu</h1>
+<p class="lead">Šesť fotorealistických štítkov. Štítok je obrázok bez textu, cena sa do neho vpisuje v kóde – jeden obrázok teda poslúži pre všetky ceny a cena je vždy presná. Každý je ukázaný na červenom paneli, na sivom paneli („od“ cena), pri akcii („predtým“) a pri zľave. Ceny sú reálne z katalógu.</p>
+<div id="out"></div>
+<script>
+const V = [
+  ["t0", "tkana", "1 · Tkaná etiketa s rukou", "Ako etiketa všitá v odeve – červená tkanina, biela ruka DAMI. Najviac „od výrobcu odevov“."],
+  ["t1", "karta", "2 · Kartónová visačka", "Hrubý červený kartón, mosadzné očko a šnúrka. Klasická visačka z obchodu."],
+  ["t2", "kraft", "3 · Kraft visačka", "Papierová visačka s červenou šnúrkou – ako na balíku v sekcii „Zľava 10 %“."],
+  ["t3", "nasivka", "4 · Vyšívaná nášivka", "Nášivka v tvare cenovky s obšitým okrajom – nadväzuje na nášivku D a výšivku pre firmy."],
+  ["t4", "nalepka", "5 · Lesklá nálepka", "Vinylová nálepka s odlepeným rohom – jednoduchá a hravá."],
+  ["t5", "tkana-biela", "6 · Biela tkaná etiketa", "Biela etiketa s červeným lemom a rukou – decentná, hodí sa na tmavé a farebné plochy."],
+];
+const C = [
+  ["ctx--red", "../img/hero/sl-chef.webp", "", "", "19,90 €"],
+  ["ctx--grey", "../img/hero/sl-s3.webp", "od", "", "39,90 €"],
+  ["ctx--card", "../img/hero/sl-worker3.webp", "", "predtým 36,00 €", "27,90 €"],
+  ["ctx--dark", "../img/trousers.webp", "až", "", "−14 %"],
+];
+document.getElementById("out").innerHTML = V.map(([cls, img, t, d]) => `<div class="v"><b>${t}</b><p>${d}</p><div class="row">${C.map(([bg, ph, sm, old, pr]) =>
+  `<div class="ctx ${bg}"><img src="${ph}" alt=""${ph.includes("s3") ? ' style="height:68%;bottom:22px"' : ph.includes("trousers") ? ' style="height:110%"' : ""}><span class="tag ${cls}"><img src="../img/tags/${img}.webp" alt=""><span class="p">${sm ? `<small>${sm}</small>` : ""}${old ? `<s>${old}</s>` : ""}<b>${pr}</b></span></span></div>`).join("")}</div></div>`).join("");
+</script>
+</body>
+</html>
