@@ -23,6 +23,20 @@
     map: "https://www.google.com/maps/search/?api=1&query=Ga%C5%A1tanov%C3%A1+6396+Pie%C5%A1%C5%A5any",
   };
 
+  /* ---------- recenzie: skutočné hodnotenie z Google (stav 20. 11. 2026, aktualizovať ručne) ---------- */
+  const REVIEWS = {
+    rating: 4.7, count: 42, five: 34,
+    url: "https://www.google.com/maps/place/DAMI+Pracovn%C3%A9+odevy/@48.5862924,17.8173406,17z/data=!4m8!3m7!1s0x476b548abc574b81:0x52fc9a7877705c2c!9m1!1b1?hl=sk",
+    items: [  /* citáty doslova z Google recenzií, bez dátumov */
+      { name: "Tomáš K.", stars: 5, text: "Super obsluha, ochota aj poradenstvom odporúčam" },
+      { name: "Marek M.", stars: 5, text: "dobrá cena a veľmi dobrý výber tovaru" },
+      { name: "Andrea H.", stars: 5, text: "Dobrý výber za skvelé ceny" },
+      { name: "Jan I.", stars: 4, text: "Pracovné odevy za rozumné ceny" },
+    ],
+  };
+  /* Heureka: kým nie je profil, ukazuje sa miesto „pripravujeme“. Po schválení doplniť { url, pct, count }. */
+  const HEUREKA = null;
+
   /* ---------- ikony (stroke, 24px) ---------- */
   const I = {
     search: '<circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/>',
@@ -120,9 +134,43 @@
     </div></div>`;
   }
 
+  const STAR = '<svg class="st" viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9z"/></svg>';
+  const stars = (n = 5) => `<span class="stars" aria-label="${n} z 5">${Array.from({ length: 5 }, (_, i) => i < Math.round(n) ? STAR : STAR.replace('class="st"', 'class="st st--off"')).join("")}</span>`;
+  const rate = n => n.toFixed(1).replace(".", ",");
+  /* malý odznak: ★ 4,7 · 42 hodnotení na Google */
+  function gBadge(cls = "") {
+    return `<a class="gbadge ${cls}" href="${REVIEWS.url}" target="_blank" rel="noopener">${stars(REVIEWS.rating)}<b>${rate(REVIEWS.rating)}</b><span>${REVIEWS.count} hodnotení na Google</span></a>`;
+  }
+  /* miesto pre certifikát Heureka */
+  function hBadge(cls = "") {
+    return HEUREKA
+      ? `<a class="hbadge ${cls}" href="${HEUREKA.url}" target="_blank" rel="noopener"><b>Overené zákazníkmi</b><span>Heureka · ${HEUREKA.pct} % odporúča</span></a>`
+      : `<span class="hbadge hbadge--soon ${cls}"><b>Overené zákazníkmi</b><span>Heureka · pripravujeme</span></span>`;
+  }
+  /* blok recenzií na úvodnú stránku */
+  function reviewsBlock() {
+    return `<div class="revs">
+      <div class="revs__sum">
+        <p class="revs__eyebrow">Hodnotenia zákazníkov</p>
+        <div class="revs__big"><b>${rate(REVIEWS.rating)}</b>${stars(REVIEWS.rating)}</div>
+        <p class="revs__count">${REVIEWS.count} hodnotení na Google, z toho ${REVIEWS.five}× päť hviezdičiek</p>
+        <div class="revs__btns"><a class="btn btn--redline btn--sm" href="${REVIEWS.url}" target="_blank" rel="noopener">Všetky recenzie na Google ${ico("arrow")}</a></div>
+        ${hBadge("hbadge--lg")}
+      </div>
+      <div class="revs__list">${REVIEWS.items.map(r => `<figure class="rev">${stars(r.stars)}<blockquote>„${esc(r.text)}“</blockquote><figcaption>${esc(r.name)} <span>· Google</span></figcaption></figure>`).join("")}</div>
+    </div>`;
+  }
+  /* odhad doručenia: objednávka do 13:00 ide v ten deň, doručenie 2 pracovné dni po odoslaní */
+  function deliveryDate(from = new Date()) {
+    const d = new Date(from); const work = x => x.getDay() % 6 !== 0;
+    if (d.getHours() >= 13 || !work(d)) { do d.setDate(d.getDate() + 1); while (!work(d)); }
+    for (let k = 0; k < 2; k++) { do d.setDate(d.getDate() + 1); while (!work(d)); }
+    return `${["ne", "po", "ut", "st", "št", "pi", "so"][d.getDay()]} ${d.getDate()}. ${d.getMonth() + 1}.`;
+  }
+
   function header(variant = "dark", active = "") {
     const light = variant === "light";
-    return `<div class="topbar"><a href="predajna.html">${ico("pin", "ico tb-pin")}Predajňa Piešťany</a><i class="tb-opt">•</i><span class="tb-opt">${FIRM.street}</span><i>•</i><span>Po–Pi 9:30–17:00</span><i class="tb-opt">•</i><a class="tb-opt" href="tel:${FIRM.phone.replace(/\s/g, "")}">${FIRM.phone}</a></div>
+    return `<div class="topbar"><a href="predajna.html">${ico("pin", "ico tb-pin")}Predajňa Piešťany</a><i class="tb-opt">•</i><span class="tb-opt">${FIRM.street}</span><i>•</i><span>Po–Pi 9:30–17:00</span><i class="tb-opt">•</i><a class="tb-opt" href="tel:${FIRM.phone.replace(/\s/g, "")}">${FIRM.phone}</a><i class="tb-opt">•</i><a class="tb-opt tb-rate" href="${REVIEWS.url}" target="_blank" rel="noopener">★ ${rate(REVIEWS.rating)} Google (${REVIEWS.count})</a></div>
     <header class="hdr">
       <div class="wrap hdr__in">
         <a class="hdr__logo" href="index.html" aria-label="DAMI pracovné odevy – domov">${LOGO()}</a>
@@ -150,6 +198,7 @@
           <div>${ico("pin")}<span>${FIRM.street}, Piešťany</span></div><div>${ico("clock")}<span>Po–Pi 9:30–17:00 · So 9:00–12:00</span></div>
           <div>${ico("phone")}<a href="tel:${FIRM.phone.replace(/\s/g, "")}">${FIRM.phone}</a></div></div></div>
       </div>
+      <div class="ftr__trust">${gBadge("gbadge--dark")}${hBadge("hbadge--dark")}</div>
       <div class="ftr__bottom"><span>© ${new Date().getFullYear()} ${FIRM.legal} · IČO ${FIRM.ico}</span><span><a href="vyroba.html">Vlastná výroba</a> · <a href="znacky.html">Značky</a> · <a href="mailto:${FIRM.mail}">${FIRM.mail}</a></span><span>Ceny sú uvedené s DPH.</span></div>
     </div></footer>`;
   }
@@ -319,5 +368,5 @@
   }
 
   window.DAMI = { D, P, FIRM, I, ico, LOGO, script, eur, esc, qp, catUrl, prodUrl, secProducts, catProducts, sectionOf, brandLabel, catLabel, shortName,
-    card, header, footer, mount, mountFooter, addToCart, setQty, cart, cartTotal, cartCount, favs, isFav, toggleFav, search, reveal, toast, openCart, syncBadges, renderCart, store, FREE };
+    card, header, footer, mount, REVIEWS, HEUREKA, stars, gBadge, hBadge, reviewsBlock, deliveryDate, mountFooter, addToCart, setQty, cart, cartTotal, cartCount, favs, isFav, toggleFav, search, reveal, toast, openCart, syncBadges, renderCart, store, FREE };
 })();

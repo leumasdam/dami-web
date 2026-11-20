@@ -123,18 +123,21 @@
       </div>
       <a class="btn rez" href="mailto:${FIRM.mail}" data-rez>${ico("store")} Rezervovať na vyskúšanie v predajni</a>
       <p class="avail"><i></i>Osobný odber v predajni ${esc(FIRM.street)}</p>
+      <p class="dlv">${ico("truck")}<span>Objednaj dnes, doručíme zvyčajne do <b>${DAMI.deliveryDate()}</b> · nad ${DAMI.FREE} € zadarmo</span></p>
       <div class="pacc" data-acc></div>
       <ul class="bens">
         <li>${ico("truck")}Doručenie po Slovensku</li>
         <li>${ico("headset")}<span>Poradíme s veľkosťou: <a href="tel:${FIRM.phone.replace(/\s/g, "")}">${FIRM.phone}</a></span></li>
         <li>${ico("refresh")}Vrátenie tovaru do 14 dní</li>
+        <li>${ico("store")}Veľkosť si vyskúšaš v našej predajni v Piešťanoch</li>
       </ul>
+      <div class="ptrust">${DAMI.gBadge()}${DAMI.hBadge()}</div>
     </div>
   </section>
 
   <section class="wrap ptabs">
     <div class="tabs" role="tablist">
-      <button class="tab is-on" data-tab="desc" role="tab" aria-selected="true">Popis</button><button class="tab" data-tab="mat" role="tab" aria-selected="false">Materiál a starostlivosť</button><button class="tab" data-tab="size" role="tab" aria-selected="false">Veľkosti</button>
+      <button class="tab is-on" data-tab="desc" role="tab" aria-selected="true">Popis</button><button class="tab" data-tab="mat" role="tab" aria-selected="false">Materiál a starostlivosť</button><button class="tab" data-tab="size" role="tab" aria-selected="false">Veľkosti</button><button class="tab" data-tab="ship" role="tab" aria-selected="false">Doprava</button><button class="tab" data-tab="ret" role="tab" aria-selected="false">Vrátenie a výmena</button>
     </div>
     <div class="ptabs__body"><div class="panel" data-panel role="tabpanel"></div>${STK}</div>
   </section>
@@ -147,6 +150,16 @@
   const tel = `<a href="tel:${FIRM.phone.replace(/\s/g, "")}"><b>${FIRM.phone}</b></a>`;
   const specList = list => list.length ? `<dl class="spec">${list.map(([k, v]) => `<div><dt>${esc(k)}</dt><dd>${esc(v)}</dd></div>`).join("")}</dl>` : "";
   const PANELS = {
+    ship: () => `<div class="pp"><div class="pp__main"><table class="shiptab"><tbody>
+      <tr><td>Osobný odber v predajni ${esc(FIRM.street)}</td><td>zadarmo</td></tr>
+      <tr><td>Packeta, výdajné miesto alebo box</td><td>2,90 €</td></tr>
+      <tr><td>Kuriér na adresu</td><td>3,90 €</td></tr>
+      <tr><td>Dobierka</td><td>+1,50 €</td></tr></tbody></table>
+      <p>Nad ${DAMI.FREE} € je doprava Packetou aj kuriérom zadarmo. Doručenie zvyčajne do 2–3 pracovných dní.</p></div>
+      <div class="pp__side"><h3>Odber v Piešťanoch</h3><p>Objednávku si môžeš vyzdvihnúť v predajni Po–Pi 9:30–17:00 a So 9:00–12:00 a rovno si ju vyskúšať.</p></div></div>`,
+    ret: () => `<div class="pp"><div class="pp__main"><p>Tovar kúpený cez e-shop môžeš vrátiť do 14 dní bez udania dôvodu. Stačí vyplniť formulár a poslať balík alebo ho priniesť do predajne.</p>
+      <p>Pri reklamácii platí záruka 24 mesiacov. Reklamáciu vybavíme najneskôr do 30 dní.</p></div>
+      <div class="pp__side"><h3>Nesedí veľkosť?</h3><p>Príď do predajne na ${esc(FIRM.street)}, vyskúšaš si inú veľkosť na mieste. Alebo nám zavolaj na ${tel}.</p></div></div>`,
     desc: () => `<div class="pp"><div class="pp__main"><p class="pp__lead">${esc(lead)}</p>${bullets.length ? `<ul class="dots">${bullets.map(b => `<li>${esc(b)}</li>`).join("")}</ul>` : ""}</div>
       ${specs.length ? `<div class="pp__side"><h3>Parametre</h3>${specList(specs.slice(0, 8))}</div>` : ""}</div>`,
     mat: () => `<div class="pp"><div class="pp__main">${matSpecs.length ? specList(matSpecs) : ""}${matLines.filter(l => !matSpecs.some(([k, v]) => l.includes(v))).slice(0, 6).map(l => `<p>${esc(l)}</p>`).join("")}

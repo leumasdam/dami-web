@@ -61,6 +61,9 @@
     </a>
   </section>
 
+  <!-- RECENZIE -->
+  <section class="wrap sec sec--revs" data-reviews aria-label="Hodnotenia zákazníkov"></section>
+
   <!-- PREDAJŇA -->
   <section class="wrap sec--store">
     <div class="store">
@@ -87,6 +90,7 @@
 <script>
 (() => {
   const { P, card, ico, FIRM, esc, catUrl, secProducts } = DAMI;
+  document.querySelector("[data-reviews]").innerHTML = DAMI.reviewsBlock();
   const $ = s => document.querySelector(s);
   const ARR = '<svg viewBox="0 0 24 24"><path d="M4 12h15M13 6l6 6-6 6"/></svg>';
   const btn = (cls, href, t) => `<a class="btn ${cls}" href="${href}">${t} ${ARR.replace("<svg", '<svg class="ico"')}</a>`;

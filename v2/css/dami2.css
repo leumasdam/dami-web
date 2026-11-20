@@ -298,3 +298,48 @@ body.is-scrolled .hdr { border-bottom-color: var(--line); box-shadow: 0 6px 20px
 /* okná širšie ako 2100 px: zoom sa zastaví (dami.js), stránka ostane 1440 px (= 2100 px na obrazovke) v strede, okraje sú voľná plocha */
 html.is-capped { background: var(--paper); }
 html.is-capped body { max-width: 1440px; margin-inline: auto; overflow-x: clip; }
+
+/* ---------- recenzie a dôvera (Google, Heureka) ---------- */
+.stars { display: inline-flex; gap: 1px; vertical-align: middle; }
+.stars .st { width: 1em; height: 1em; fill: #F2B01E; }
+.stars .st--off { fill: #D9D3CB; }
+.gbadge { display: inline-flex; align-items: center; gap: 8px; padding: 8px 14px; border: 1px solid var(--line); border-radius: 999px; background: #fff; font-size: 14px; color: var(--ink); text-decoration: none; }
+.gbadge b { font-weight: 800; }
+.gbadge span { color: #5E5953; }
+.gbadge:hover { border-color: var(--ink); }
+.hbadge { display: inline-flex; flex-direction: column; justify-content: center; padding: 7px 14px; border: 1px solid var(--line); border-radius: 12px; background: #fff; font-size: 12px; line-height: 1.25; color: var(--ink); text-decoration: none; }
+.hbadge b { font-size: 13.5px; font-weight: 800; }
+.hbadge span { color: #5E5953; }
+.hbadge--soon { border-style: dashed; background: transparent; }
+.hbadge--soon b { color: #8A847C; }
+.gbadge--dark, .hbadge--dark { background: transparent; border-color: rgba(255,255,255,.22); color: #fff; }
+.gbadge--dark span, .hbadge--dark span, .hbadge--dark.hbadge--soon b { color: rgba(255,255,255,.66); }
+.ftr__trust { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; padding: 22px 0 4px; }
+.tb-rate { color: #F2B01E; }
+.ptrust { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 16px; }
+.dlv { display: flex; gap: 8px; align-items: center; font-size: 14.5px; margin-top: 8px; }
+.dlv .ico { width: 18px; height: 18px; flex: none; }
+.shiptab { width: 100%; border-collapse: collapse; margin-bottom: 12px; }
+.shiptab td { padding: 10px 0; border-bottom: 1px solid var(--line); }
+.shiptab td + td { text-align: right; font-weight: 700; white-space: nowrap; padding-left: 16px; }
+.revs { display: grid; grid-template-columns: minmax(260px, .8fr) 2fr; gap: 20px; align-items: stretch; }
+.revs__sum { background: var(--card); border-radius: var(--r); padding: clamp(22px, 2.4vw, 34px); display: flex; flex-direction: column; gap: 10px; align-items: flex-start; }
+.revs__eyebrow { font-size: 13px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: var(--red); }
+.revs__big { display: flex; align-items: center; gap: 12px; }
+.revs__big b { font: 900 clamp(56px, 5.6vw, 80px)/.9 var(--f-d); font-stretch: 72%; }
+.revs__big .stars { font-size: 26px; }
+.revs__count { color: #5E5953; font-size: 15px; }
+.revs__btns { margin: 6px 0 4px; }
+.revs__list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+.rev { margin: 0; background: #fff; border: 1px solid var(--line); border-radius: var(--r); padding: 22px 24px; display: flex; flex-direction: column; gap: 10px; }
+.rev .stars { font-size: 17px; }
+.rev blockquote { margin: 0; font-size: clamp(17px, 1.5vw, 21px); font-weight: 600; line-height: 1.35; }
+.rev figcaption { font-size: 14px; font-weight: 700; }
+.rev figcaption span { font-weight: 500; color: #8A847C; }
+@media (max-width: 860px) {
+  .revs { grid-template-columns: 1fr; }
+}
+@media (max-width: 560px) {
+  .revs__list { grid-template-columns: 1fr; }
+  .tb-rate { display: none; }
+}
