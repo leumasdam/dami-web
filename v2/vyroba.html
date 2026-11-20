@@ -10,23 +10,18 @@
 <link rel="stylesheet" href="../assets/css/dami.css">
 <link rel="stylesheet" href="css/dami2.css">
 <link rel="stylesheet" href="css/sub.css">
+<link rel="stylesheet" href="css/hero.css">
 <link rel="stylesheet" href="css/vyroba.css">
 <link rel="preload" as="image" href="img/vyroba-hero.webp">
 <script src="../data/catalog.js"></script>
+<script src="js/packshots.js"></script>
 <script src="js/dami.js"></script>
 </head>
 <body>
 <script>DAMI.mount("light", "")</script>
 
 <main>
-  <section class="wrap sh vy-hero">
-    <div class="sh__txt">
-      <nav class="crumbs2" aria-label="Omrvinky"><a href="index.html" aria-label="Domov"><svg viewBox="0 0 24 24"><path d="M3.5 11 12 4l8.5 7M6 9v11h12V9"/></svg></a><svg viewBox="0 0 24 24" aria-hidden="true" style="width:1em;height:1em"><path d="m9 6 6 6-6 6"/></svg><span>Vlastná výroba</span></nav>
-      <h1 class="hx"><span class="mk">Šijeme</span> kuchárske nohavice a&nbsp;zástery.</h1>
-      <p class="txt"><span class="d">DAMI je rodinný obchod v Piešťanoch. Okrem značkového oblečenia si časť sortimentu šijeme sami.</span><span class="m">DAMI je rodinný obchod v Piešťanoch. Časť sortimentu si šijeme sami.</span></p>
-    </div>
-    <div class="sh__ph"><img src="img/vyroba-hero.webp" alt="Šitie tmavomodrej látky na šijacom stroji v dielni" width="1600" height="905" fetchpriority="high"></div>
-  </section>
+  <div data-hero></div>
 
   <section class="wrap vy-steps" aria-label="Ako vzniká" data-steps></section>
 
@@ -69,6 +64,21 @@
   const m = $("[data-mail]");
   m.href = `mailto:${FIRM.mail}?subject=${encodeURIComponent("Vlastná výroba – úprava dĺžky alebo farby")}`;
   m.insertAdjacentHTML("beforeend", " " + ico("arrow"));
+})();
+</script>
+<script>
+(() => {
+  const { P, eur, FIRM, heroB } = DAMI;
+  const own = ["zastera-na-krk-cierna-dlha", "zastera-do-pasa-cierna-kratka-s-vreckom", "kucharske-nohavice-pepito", "kucharske-nohavice-biele"].map(id => P[id]).filter(Boolean);
+  const lo = Math.min(...own.map(p => p.price));
+  document.querySelector("[data-hero]").outerHTML = heroB({
+    crumbs: [["index.html", "Domov"], ["", "Vlastná výroba"]], eye: "Vlastná výroba",
+    h1: "Šijeme kuchárske nohavice a&nbsp;zástery.",
+    name: "Z našej dielne od", price: eur(lo),
+    lead: "DAMI je rodinný obchod v Piešťanoch. Okrem značkového oblečenia si časť sortimentu šijeme sami.",
+    btns: [["#nase", "Naše výrobky"], ["mailto:" + FIRM.mail + "?subject=" + encodeURIComponent("Vlastná výroba – úprava dĺžky alebo farby"), "Napísať nám", "ghost"]],
+    trust: ["Nohavice skrátime v rámci ceny", "Predajňa na Gaštanovej v Piešťanoch"],
+    photo: "img/vyroba-hero.webp", pos: "50% 50%", alt: "Šitie tmavomodrej látky na šijacom stroji v dielni" });
 })();
 </script>
 <script>DAMI.mountFooter()</script>

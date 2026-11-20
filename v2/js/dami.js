@@ -177,6 +177,43 @@
     return { open: false, text: `Teraz zatvorené · otvárame ${next}` };
   }
 
+  /* ---------- hero B (Split) a C (Produkt) podľa makiet v hero-mock/ – spoločné pre kategórie a podstránky ---------- */
+  const crumbsHtml = cr => `<nav class="crumbs hv-crumbs" aria-label="Omrvinky">${cr.map(([h, t], i) => i === cr.length - 1 ? `<b>${esc(t)}</b>` : `<a href="${h}">${esc(t)}</a><span>/</span>`).join("")}</nav>`;
+  /* fotka produktu s čistým (bielym) pozadím, ak ju má – mapa z js/packshots.js */
+  const cleanImg = p => { const m = window.DAMI_CLEAN, i = m && m[p.id]; return i != null ? p.img[i] : null; };
+  const heroBtn = ([href, t, kind = "white"]) => `<a class="btn ${kind === "ghost" ? "hv-b__ghost" : kind === "red" ? "btn--red" : kind === "line" ? "btn--redline" : "btn--white"}" href="${href}"${/^https?:/.test(href) ? ' target="_blank" rel="noopener"' : ""}>${t}${kind === "ghost" ? "" : " " + ico("arrow")}</a>`;
+  /* B: vľavo červený panel s ponukou, vpravo fotka až po okraj */
+  function heroB(o) {
+    return `<section class="hv hv-b${o.cls ? " " + o.cls : ""}"><div class="hv-b__red">${o.crumbs ? crumbsHtml(o.crumbs) : ""}
+        ${o.eye ? `<p class="hv-b__eye">${o.eye}</p>` : ""}<h1>${o.h1}</h1>
+        ${o.name ? `<p class="hv-b__name">${o.name}</p>` : ""}${o.price ? `<p class="hv-b__p">${o.price}</p>` : ""}${o.lead ? `<p class="hv-b__lead">${o.lead}</p>` : ""}
+        ${o.extra || ""}
+        ${o.btns ? `<div class="hv-b__btns">${o.btns.map(heroBtn).join("")}</div>` : ""}
+        ${o.trust ? `<p class="hv-b__trust">${o.trust.map(t => `<span>${t}</span>`).join("")}</p>` : ""}
+        <img class="hv-b__hand" src="img/hand-white.png" alt="" width="458" height="600"></div>
+      <div class="hv-b__ph"><img src="${o.photo}" alt="${esc(o.alt || "")}" style="object-position:${o.pos || "50% 50%"}" fetchpriority="high"></div></section>`;
+  }
+  /* C: nadpis + veľký produkt s cenovkou a vlastnosťami + pás odporúčaných */
+  function heroC(o) {
+    const pr = o.prod;
+    return `<section class="wrap hv hv-c"><div class="hv-c__txt">${o.crumbs ? crumbsHtml(o.crumbs) : ""}${o.eye ? `<p class="hv-c__eye">${o.eye}</p>` : ""}<h1>${o.h1}</h1>
+        ${o.n ? `<p class="hv-c__n">${o.n}</p>` : ""}${o.extra || ""}${o.btns ? `<div class="hv-c__btns">${o.btns.map(heroBtn).join("")}</div>` : ""}</div>
+      <a class="hv-c__prod" href="${pr.href}"><img src="${pr.img}" alt="${esc(pr.alt || pr.name)}"${pr.cut ? "" : ' class="is-pack"'}><span class="hv-c__stk">${pr.price}</span>
+        <span class="hv-c__info"><b>${esc(pr.name)}</b><ul>${pr.specs.map(t => `<li>${esc(t)}</li>`).join("")}</ul></span></a>
+      ${o.rail && o.rail.length ? `<aside class="hv-c__rail"><h2>${o.railTitle || "Odporúčame"}</h2>${o.rail.map(p => `<a class="hv-c__item" href="${prodUrl(p.id)}"><span><img src="${cleanImg(p) || p.img[0]}" alt="" loading="lazy"></span><b>${esc(shortName(p))}</b><i>${eur(p.price)}</i></a>`).join("")}</aside>` : ""}</section>`;
+  }
+  /* dlaždice podkategórií s fotkou produktu: [{href, name, n, img, on}] */
+  const heroTiles = items => `<div class="wrap hv-tiles" role="list">${items.map(t => `<a class="hv-tile${t.on ? " is-on" : ""}" role="listitem" href="${t.href}"${t.on ? ' aria-current="page"' : ""}><span class="hv-tile__ph">${t.img ? `<img src="${t.img}" alt="" loading="lazy">` : ""}</span><span class="hv-tile__t"><b>${esc(t.name)}</b>${t.n != null ? `<i>${t.n}</i>` : ""}</span></a>`).join("")}</div>`;
+  /* skutočné vlastnosti produktu z katalógu (značka, veľkosti, farby) */
+  function prodSpecs(p) {
+    const out = [];
+    if (p.brand) out.push(`Značka ${p.brand}`);
+    if (p.sizes.length) out.push(p.sizes.length > 1 ? `Veľkosti ${p.sizes[0]} – ${p.sizes.at(-1)}` : `Veľkosť ${p.sizes[0]}`);
+    if (p.colors.length > 1) out.push(`${p.colors.length} ${p.colors.length < 5 ? "farby" : "farieb"}`);
+    out.push("Vyskúšaš v predajni v Piešťanoch");
+    return out.slice(0, 3);
+  }
+
   function header(variant = "dark", active = "") {
     const light = variant === "light";
     return `<div class="topbar"><a href="predajna.html">${ico("pin", "ico tb-pin")}Predajňa Piešťany</a><i class="tb-opt">•</i><span class="tb-opt">${FIRM.street}</span><i>•</i><span>Po–Pi 9:30–17:00</span><i class="tb-opt">•</i><a class="tb-opt" href="tel:${FIRM.phone.replace(/\s/g, "")}">${FIRM.phone}</a><i class="tb-opt">•</i><a class="tb-opt tb-rate" href="${REVIEWS.url}" target="_blank" rel="noopener">★ ${rate(REVIEWS.rating)} Google (${REVIEWS.count})</a></div>
@@ -377,5 +414,5 @@
   }
 
   window.DAMI = { D, P, FIRM, I, ico, LOGO, script, eur, esc, qp, catUrl, prodUrl, secProducts, catProducts, sectionOf, brandLabel, catLabel, shortName,
-    card, header, footer, mount, REVIEWS, HEUREKA, openNow, stars, gBadge, hBadge, reviewsBlock, deliveryDate, mountFooter, addToCart, setQty, cart, cartTotal, cartCount, favs, isFav, toggleFav, search, reveal, toast, openCart, syncBadges, renderCart, store, FREE };
+    card, header, footer, mount, heroB, heroC, heroTiles, crumbsHtml, cleanImg, prodSpecs, REVIEWS, HEUREKA, openNow, stars, gBadge, hBadge, reviewsBlock, deliveryDate, mountFooter, addToCart, setQty, cart, cartTotal, cartCount, favs, isFav, toggleFav, search, reveal, toast, openCart, syncBadges, renderCart, store, FREE };
 })();

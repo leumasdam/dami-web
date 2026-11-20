@@ -10,22 +10,17 @@
 <link rel="stylesheet" href="../assets/css/dami.css">
 <link rel="stylesheet" href="css/dami2.css">
 <link rel="stylesheet" href="css/sub.css">
+<link rel="stylesheet" href="css/hero.css">
 <link rel="stylesheet" href="css/firmy.css">
 <script src="../data/catalog.js"></script>
+<script src="js/packshots.js"></script>
 <script src="js/dami.js"></script>
 </head>
 <body>
 <script>DAMI.mount("light", "firmy")</script>
 
 <main class="fpage">
-  <section class="wrap sh fi-hero">
-    <div class="sh__txt">
-      <h1 class="hx">Vybavíme celý tím. Aj&nbsp;s&nbsp;<span class="mk">logom.</span></h1>
-      <p class="txt">Vyšijeme alebo potlačíme vaše logo, pripravíme ponuku a vzorky a nakúpite na faktúru s IČO. Pre reštaurácie, ambulancie, stavebné firmy a dielne z Piešťan a okolia.</p>
-      <a class="btn btn--red bx" href="#dopyt" data-arrow>Napísať dopyt</a>
-    </div>
-    <div class="sh__ph"><img src="img/hero/firmy-vysivka.webp" alt="Vyšívací stroj vyšíva logo na čiernu polokošeľu (ilustračné foto)" width="1600" height="1060" fetchpriority="high"></div>
-  </section>
+  <div data-hero></div>
 
   <section class="wrap fi-steps" aria-label="Ako to funguje" data-steps></section>
 
@@ -110,6 +105,18 @@
     location.href = `mailto:${FIRM.mail}?subject=${encodeURIComponent("Firemný dopyt – " + d.firma)}&body=${encodeURIComponent(body)}`;
     form.classList.add("is-sent");
   });
+})();
+</script>
+<script>
+(() => {
+  const { FIRM, heroB } = DAMI;
+  document.querySelector("[data-hero]").outerHTML = heroB({
+    crumbs: [["index.html", "Domov"], ["", "Pre firmy"]], eye: "Pre firmy",
+    h1: "Vybavíme celý tím. Aj&nbsp;s&nbsp;logom.",
+    lead: "Vyšijeme alebo potlačíme vaše logo, pripravíme ponuku a vzorky a nakúpite na faktúru s IČO. Pre reštaurácie, ambulancie, stavebné firmy a dielne z Piešťan a okolia.",
+    btns: [["#dopyt", "Napísať dopyt"], ["tel:" + FIRM.phone.replace(/\s/g, ""), "Zavolať " + FIRM.phone, "ghost"]],
+    trust: ["Výšivka alebo potlač loga", "Faktúra s IČO", "★ 4,7 Google (42)"],
+    photo: "img/hero/firmy-vysivka.webp", pos: "50% 50%", alt: "Vyšívací stroj vyšíva logo na čiernu polokošeľu (ilustračné foto)" });
 })();
 </script>
 <script>DAMI.mountFooter()</script>

@@ -10,25 +10,18 @@
 <link rel="stylesheet" href="../assets/css/dami.css">
 <link rel="stylesheet" href="css/dami2.css">
 <link rel="stylesheet" href="css/sub.css">
+<link rel="stylesheet" href="css/hero.css">
 <link rel="stylesheet" href="css/zdrav.css">
 <link rel="preload" as="image" href="img/zdrav-hero.webp">
 <script src="../data/catalog.js"></script>
+<script src="js/packshots.js"></script>
 <script src="js/dami.js"></script>
 </head>
 <body>
 <script>DAMI.mount("light", "zdravotnictvo")</script>
 
 <main>
-  <section class="wrap sh zd-hero">
-    <div class="sh__txt">
-      <p class="zd-eye">Zdravotníctvo a wellness</p>
-      <h1 class="hx">Set blúza + nohavice za&nbsp;29,80&nbsp;€</h1>
-      <p class="txt">Zdravotnícka súprava CESARE vo veľkostiach XS–3XL. K tomu blúzy, kimoná a obuv pre ambulancie, kozmetiku a wellness.</p>
-      <div class="zd-sw" aria-label="Farby: biela, mätová, bordó, svetlomodrá"><i style="background:#fff"></i><i style="background:#8fd3bf"></i><i style="background:#6d1a2a"></i><i style="background:#8cc4ec"></i><span>biela · mätová · bordó · svetlomodrá</span></div>
-      <div class="sh__cta"><a class="btn btn--red bx" href="produkt.html?p=cesare-zdrav-noh-belasa" data-arrow>Vybrať farbu</a><a class="ulink" href="kategoria.html?c=zdravotnictvo">Celé zdravotníctvo</a></div>
-    </div>
-    <div class="sh__ph zd-set"><img src="img/hero/zdrav-set.webp" alt="Zdravotnícka súprava CESARE – blúza a nohavice vo farbe bordó" width="1600" height="1040" fetchpriority="high"></div>
-  </section>
+  <div data-hero></div>
 
   <section class="wrap zd-tiles" aria-label="Kategórie" data-tiles></section>
 
@@ -105,6 +98,24 @@
   $("[data-sizes]").innerHTML = [["XS", "76 – 82", "58 – 64", "82 – 88"], ["S", "82 – 88", "64 – 70", "88 – 94"], ["M", "88 – 94", "70 – 76", "94 – 100"],
     ["L", "94 – 100", "76 – 82", "100 – 106"], ["XL", "100 – 106", "82 – 88", "106 – 112"], ["2XL", "106 – 114", "88 – 96", "112 – 120"]]
     .map(([s, ...r]) => `<tr><th scope="row">${s}</th>${r.map(x => `<td>${x}</td>`).join("")}</tr>`).join("");
+})();
+</script>
+<script>
+(() => {
+  const { P, eur, prodUrl, secProducts, catProducts, cleanImg, heroC } = DAMI;
+  const set = P["cesare-zdrav-noh-belasa"], zd = secProducts("zdravotnictvo");
+  const seen = new Set();
+  const rail = ["zdrav-bluzy", "zdrav-obuv", "zdrav-nohavice", "zdrav-bluzy", "zdrav-obuv"]
+    .map(k => catProducts(k).find(p => zd.includes(p) && p.id !== set.id && p.price > 0 && cleanImg(p) && !seen.has(p.id) && seen.add(p.id))).filter(Boolean).slice(0, 4);
+  document.querySelector("[data-hero]").outerHTML = heroC({
+    crumbs: [["index.html", "Domov"], ["", "Zdravotníctvo a wellness"]], eye: "Zdravotníctvo a wellness",
+    h1: "Set blúza + nohavice za&nbsp;29,80&nbsp;€",
+    n: "Zdravotnícka súprava CESARE vo veľkostiach XS–3XL. K tomu blúzy, kimoná a obuv pre ambulancie, kozmetiku a wellness.",
+    extra: `<div class="hv-c__sw" aria-label="Farby: biela, mätová, bordó, svetlomodrá"><i style="background:#fff"></i><i style="background:#8fd3bf"></i><i style="background:#6d1a2a"></i><i style="background:#8cc4ec"></i><span>biela · mätová · bordó · svetlomodrá</span></div>`,
+    btns: [[prodUrl(set.id), "Vybrať farbu", "red"], ["kategoria.html?c=zdravotnictvo", "Celé zdravotníctvo", "line"]],
+    prod: { href: prodUrl(set.id), img: "img/hero/cut-cesare-set.png", cut: true, name: "CESARE set blúza + nohavice", price: eur(set.price),
+      specs: ["Biela, mätová, bordó, svetlomodrá", "Veľkosti XS – 3XL", "Blúza aj nohavice v jednej cene"] },
+    rail });
 })();
 </script>
 <script>DAMI.mountFooter()</script>

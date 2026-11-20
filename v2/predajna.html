@@ -10,64 +10,25 @@
 <link rel="stylesheet" href="../assets/css/dami.css">
 <link rel="stylesheet" href="css/dami2.css">
 <link rel="stylesheet" href="css/sub.css">
+<link rel="stylesheet" href="css/hero.css">
 <link rel="stylesheet" href="css/predajna.css">
 <link rel="preload" as="image" href="../assets/img/predajna-exterier.webp">
 <script src="../data/catalog.js"></script>
+<script src="js/packshots.js"></script>
 <script src="js/dami.js"></script>
 </head>
 <body>
 <script>DAMI.mount("light", "predajna")</script>
 
 <main>
-  <section class="wrap sh pr-hero">
-    <div class="sh__txt">
-      <h1 class="hx">Príďte si to <span class="mk">vyskúšať.</span></h1>
-      <p class="txt">Gaštanová 6396, Piešťany. Poradíme s veľkosťou a všetko si vyskúšate priamo na mieste.</p>
-      <p class="pr-live" data-live></p>
-      <ul class="pr-chips"><li>Odložíme ti tovar z e-shopu</li><li>Osobný odber zadarmo</li><li><a href="" data-gr target="_blank" rel="noopener">★ 4,7 · 42 hodnotení na Google</a></li></ul>
-    </div>
-    <div class="sh__ph"><img src="../assets/img/predajna-exterier.webp" alt="Predajňa DAMI pracovné odevy a obuv na Gaštanovej 6396 v Piešťanoch" width="680" height="510" fetchpriority="high"></div>
-  </section>
+  <div data-hero></div>
 
-  <section class="wrap pr-vis" id="kontakt" aria-label="Adresa a otváracie hodiny">
-    <div class="pr-info" data-info></div>
-    <a class="pr-map" data-map target="_blank" rel="noopener" aria-label="Otvoriť polohu predajne v Mapách Google">
-      <svg class="pr-map__svg" viewBox="0 0 640 480" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-        <rect width="640" height="480" fill="#ecebe7"/>
-        <g fill="#e1ded8">
-          <rect x="40" y="38" width="120" height="70" rx="6" transform="rotate(-14 100 73)"/>
-          <rect x="190" y="18" width="92" height="96" rx="6" transform="rotate(-14 236 66)"/>
-          <rect x="322" y="96" width="120" height="74" rx="6" transform="rotate(-14 382 133)"/>
-          <rect x="66" y="168" width="104" height="88" rx="6" transform="rotate(-14 118 212)"/>
-          <rect x="214" y="150" width="86" height="70" rx="6" transform="rotate(-14 257 185)"/>
-          <rect x="458" y="196" width="128" height="80" rx="6" transform="rotate(-14 522 236)"/>
-          <rect x="120" y="330" width="112" height="84" rx="6" transform="rotate(-14 176 372)"/>
-          <rect x="272" y="350" width="130" height="80" rx="6" transform="rotate(-14 337 390)"/>
-          <rect x="452" y="330" width="120" height="96" rx="6" transform="rotate(-14 512 378)"/>
-          <rect x="482" y="40" width="110" height="80" rx="6" transform="rotate(-14 537 80)"/>
-        </g>
-        <g fill="#cfe2c2">
-          <rect x="190" y="210" width="74" height="58" rx="6" transform="rotate(-14 227 239)"/>
-          <rect x="18" y="380" width="80" height="90" rx="6" transform="rotate(-14 58 425)"/>
-          <rect x="560" y="300" width="80" height="60" rx="6" transform="rotate(-14 600 330)"/>
-        </g>
-        <g fill="none" stroke="#fff" stroke-linecap="round">
-          <path d="M-20 318 L700 140" stroke-width="22"/>
-          <path d="M150 -20 L232 500" stroke-width="13"/>
-          <path d="M420 -20 L500 500" stroke-width="13"/>
-          <path d="M-20 150 L700 -20" stroke-width="9"/>
-          <path d="M-20 470 L700 300" stroke-width="9"/>
-          <path d="M290 -20 L340 260" stroke-width="7"/>
-        </g>
-        <text x="256" y="270" transform="rotate(-14 256 270)" font-family="Figtree, sans-serif" font-size="17" font-weight="600" fill="#5e5b57" letter-spacing=".5">Gaštanová</text>
-        <text x="604" y="70" text-anchor="end" font-family="Archivo, sans-serif" font-size="30" font-weight="800" fill="#6d6964" letter-spacing="2" style="font-stretch:90%">PIEŠŤANY</text>
-      </svg>
-      <span class="pr-pin" aria-hidden="true">
-        <svg viewBox="0 0 60 76"><path d="M30 74C30 74 4 46 4 29a26 26 0 0 1 52 0c0 17-26 45-26 45z" fill="#e1251b"/></svg>
-        <img src="img/hand-white.png" alt="">
-      </span>
-      <span class="pr-map__chip">Otvoriť v Mapách Google <svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
-    </a>
+  <section class="wrap pr-vis" id="kontakt" aria-label="Kontakt a mapa">
+    <div class="pr-card" data-info></div>
+    <div class="pr-gmap">
+      <iframe title="Mapa: DAMI pracovné odevy, Gaštanová 6396, Piešťany" src="https://www.google.com/maps?q=Ga%C5%A1tanov%C3%A1+6396,+921+01+Pie%C5%A1%C5%A5any&amp;output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+      <a class="pr-gmap__link" data-map target="_blank" rel="noopener">Otvoriť v Google Mapách <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></a>
+    </div>
   </section>
 
   <section class="wrap sub-sec pr-in">
@@ -90,13 +51,14 @@
   const arrow = ico("arrow");
   const days = { "Po – Pi": "Pondelok – Piatok", "So": "Sobota", "Ne": "Nedeľa" };
   $("[data-info]").innerHTML = `
-    <div class="pr-row pr-row--addr">${ico("pin")}<h2>${FIRM.street}, <span>${FIRM.city}</span></h2></div>
-    <div class="pr-row">${ico("clock")}<div>
-      <table class="pr-hours"><tbody>${FIRM.hours.map(([d, h]) => `<tr><th scope="row">${days[d] || d}</th><td>${h === "Zatvorené" ? "zatvorené" : h}</td></tr>`).join("")}</tbody></table>
-      <p class="pr-hours-m">Po–Pi 9:30–17:00 · So 9:00–12:00</p></div></div>
-    <div class="pr-row">${ico("phone")}<div class="pr-tel"><a href="tel:${tel(FIRM.phone)}">${FIRM.phone}</a><a href="tel:${tel(FIRM.phone2)}">${FIRM.phone2}</a></div></div>
-    <div class="pr-row">${ico("mail")}<a href="mailto:${FIRM.mail}">${FIRM.mail}</a></div>
-    <div class="pr-btns"><a class="btn btn--red bx" href="${FIRM.map}" target="_blank" rel="noopener">Navigovať ${arrow}</a><a class="btn btn--redline bx" href="tel:${tel(FIRM.phone)}">${ico("phone")} Zavolať</a></div>`;
+    <h2>Kontakt</h2>
+    <dl class="pr-dl">
+      <dt>Adresa</dt><dd>${FIRM.street}<br>${FIRM.city}</dd>
+      <dt>Otvorené</dt><dd><table class="pr-hours"><tbody>${FIRM.hours.map(([d, h]) => `<tr><th scope="row">${days[d] || d}</th><td>${h === "Zatvorené" ? "zatvorené" : h}</td></tr>`).join("")}</tbody></table></dd>
+      <dt>Telefón</dt><dd class="pr-tel"><a href="tel:${tel(FIRM.phone)}">${FIRM.phone}</a><a href="tel:${tel(FIRM.phone2)}">${FIRM.phone2}</a></dd>
+      <dt>E-mail</dt><dd><a href="mailto:${FIRM.mail}">${FIRM.mail}</a></dd>
+    </dl>
+    <div class="pr-btns"><a class="btn btn--red" href="${FIRM.map}" target="_blank" rel="noopener">Navigovať ${arrow}</a><a class="btn btn--redline" href="tel:${tel(FIRM.phone)}">${ico("phone")} Zavolať</a></div>`;
   $("[data-map]").href = FIRM.map;
 
   const I = {
@@ -110,8 +72,18 @@
 })();
 </script>
 <script>
-(() => { const st = DAMI.openNow(), el = document.querySelector("[data-live]"); el.textContent = st.text; el.classList.toggle("is-open", st.open);
-  document.querySelector("[data-gr]").href = DAMI.REVIEWS.url; })();
+(() => {
+  const { FIRM, REVIEWS, openNow, heroB } = DAMI;
+  const st = openNow(), tel = FIRM.phone.replace(/\s/g, "");
+  document.querySelector("[data-hero]").outerHTML = heroB({
+    crumbs: [["index.html", "Domov"], ["", "Predajňa"]], eye: "Predajňa Piešťany",
+    h1: "Príďte si to vyskúšať.",
+    extra: `<p class="hv-b__live${st.open ? " is-open" : ""}">${st.text}</p>
+      <dl class="hv-b__facts"><dt>Adresa</dt><dd>${FIRM.street}, Piešťany</dd><dt>Otvorené</dt><dd>Po–Pi 9:30–17:00 · So 9:00–12:00</dd><dt>Telefón</dt><dd><a href="tel:${tel}">${FIRM.phone}</a></dd></dl>`,
+    btns: [[FIRM.map, "Navigovať"], ["tel:" + tel, "Zavolať", "ghost"]],
+    trust: [`<a href="${REVIEWS.url}" target="_blank" rel="noopener">★ 4,7 · 42 hodnotení na Google</a>`, "Odložíme ti tovar z e-shopu", "Osobný odber zadarmo"],
+    photo: "../assets/img/predajna-exterier.webp", pos: "50% 60%", alt: "Predajňa DAMI pracovné odevy a obuv na Gaštanovej 6396 v Piešťanoch" });
+})();
 </script>
 <script>DAMI.mountFooter()</script>
 </body>
