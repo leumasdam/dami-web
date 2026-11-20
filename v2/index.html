@@ -9,7 +9,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Figtree:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../assets/css/dami.css">
 <link rel="stylesheet" href="css/dami2.css?v=1120l">
-<link rel="stylesheet" href="css/home.css?v=1120p">
+<link rel="stylesheet" href="css/home.css?v=1120q">
 <script src="../data/catalog.js"></script>
 <script src="js/dami.js?v=1120b"></script>
 </head>
@@ -158,19 +158,20 @@
     if (isFlip()) { track.style.transition = "none"; track.style.transform = "none"; } else { pos = cur + 1; place(false); track.style.transition = ""; }
   };
   flipMq.addEventListener?.("change", setFlip);
+  /* kocka: odchádzajúci slide sa otočí okolo zvislej hrany, nový príde z bočnej steny */
   function flipTo(n, dir) {
-    const a = real[cur], b = real[n], E = "cubic-bezier(.65,0,.35,1)", T = 760;
-    a.style.transformOrigin = dir > 0 ? "50% 0%" : "50% 100%"; b.style.transformOrigin = dir > 0 ? "50% 100%" : "50% 0%";
+    const a = real[cur], b = real[n], E = "cubic-bezier(.55,0,.25,1)", T = 620;
+    a.style.transformOrigin = dir > 0 ? "100% 50%" : "0% 50%"; b.style.transformOrigin = dir > 0 ? "0% 50%" : "100% 50%";
     b.classList.add("is-on");
-    a.animate([{ transform: "translateY(0) rotateX(0deg)" }, { transform: `translateY(${dir * 100}%) rotateX(${-dir * 90}deg)` }], { duration: T, easing: E, fill: "forwards" })
+    a.animate([{ transform: "translateX(0) rotateY(0deg)", opacity: 1 }, { transform: `translateX(${-dir * 100}%) rotateY(${-dir * 90}deg)`, opacity: .55 }], { duration: T, easing: E, fill: "forwards" })
       .onfinish = e => { a.classList.remove("is-on"); e.target.cancel(); done(); };
-    b.animate([{ transform: `translateY(${-dir * 100}%) rotateX(${dir * 90}deg)` }, { transform: "translateY(0) rotateX(0deg)" }], { duration: T, easing: E });
+    b.animate([{ transform: `translateX(${dir * 100}%) rotateY(${dir * 90}deg)`, opacity: .55 }, { transform: "translateX(0) rotateY(0deg)", opacity: 1 }], { duration: T, easing: E });
   }
   function go(i, dir) {
     if (lock) return;
     const n = ((i % N) + N) % N;
     if (isFlip()) {
-      if (n !== cur) { lock = true; clearTimeout(lt); lt = setTimeout(() => { real.forEach((s, j) => s.classList.toggle("is-on", j === n)); done(); }, 1200); flipTo(n, dir || (i > cur ? 1 : -1)); }
+      if (n !== cur) { lock = true; clearTimeout(lt); lt = setTimeout(() => { real.forEach((s, j) => { s.classList.toggle("is-on", j === n); s.getAnimations().forEach(x => x.cancel()); }); done(); }, 1100); flipTo(n, dir || (i > cur ? 1 : -1)); }
       cur = n;
     } else {
       cur = n; pos = i + 1; lock = !reduce; place(!reduce);
