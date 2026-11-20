@@ -55,7 +55,7 @@
 .car__arr:hover { transform: scale(1.08); }
 .car__arr .ico { width: 21px; height: 21px; stroke-width: 2.2; }
 .car__arr--l { left: 14px; } .car__arr--r { right: 14px; }
-.car__dots { position: absolute; right: 28px; bottom: 26px; z-index: 5; display: flex; gap: 14px; }
+.car__dots { position: absolute; left: 50%; translate: -50% 0; bottom: 26px; z-index: 5; display: flex; gap: 14px; }
 .car__dots button { width: 15px; height: 15px; border-radius: 50%; background: rgba(255,255,255,.5); transition: background .3s, transform .3s; }
 .car__dots button[aria-selected="true"] { background: #fff; }
 .car__dots button:hover { transform: scale(1.15); }
@@ -320,7 +320,7 @@
 .car--v3 .sl__line { font-weight: 600; font-size: clamp(15.5px, 1.25vw, 18px); line-height: 1.35; color: #3f3a35; max-width: 28em; margin: 0; }
 .car--v3 .sl__cta { display: flex; flex-wrap: wrap; gap: 14px 20px; align-items: center; margin-top: 6px; }
 .car--v3 .sl__cta .link { font-weight: 700; }
-.car--v3 .car__dots { bottom: 5px; right: calc(var(--pr) + 6px); gap: 10px; }
+.car--v3 .car__dots { bottom: 5px; left: 50%; right: auto; translate: -50% 0; gap: 10px; }
 .car--v3 .car__dots button { width: 12px; height: 12px; background: rgba(20,20,20,.22); }
 .car--v3 .car__dots button[aria-selected="true"] { background: var(--red); }
 .car--v3 .car__arr { box-shadow: 0 2px 8px rgba(0,0,0,.14); }
