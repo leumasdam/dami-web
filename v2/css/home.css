@@ -415,7 +415,8 @@
   .promo__sale { font-size: 26px; }
   .catc__offer.tg { font-size: 15px; padding: 6px 10px 5px; }
 }
-.sec--firm { margin-top: clamp(28px, 3vw, 48px); }
+.sec--firm { margin-top: clamp(20px, 2vw, 32px); }
+.sec--firm + .sec--store { margin-top: clamp(28px, 3vw, 48px); }
 
 .pgrid--4 .pc { position: relative; }
 .pgrid--4 .pc__buy { order: 3; align-self: flex-start; margin-top: 12px; }
