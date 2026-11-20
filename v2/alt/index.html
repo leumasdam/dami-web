@@ -1,0 +1,466 @@
+<!doctype html>
+<html lang="sk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DAMI – alternatívy hero sekcií</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Figtree:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&family=Inter+Tight:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&family=Schibsted+Grotesk:wght@500;700;800;900&display=swap">
+<style>
+/* ---------- spoločné ---------- */
+:root{--red:#E1251B;--ink:#141414;--paper:#FAF8F5;--stone:#EFEBE5;--line:#DCD6CE;--mute:#6B655E;--gut:max(16px,3vw)}
+*{box-sizing:border-box}
+html,body{margin:0;overflow-x:clip}
+body{background:var(--paper);color:var(--ink);font:16px/1.5 "Figtree",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+img{max-width:100%;display:block}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--red);outline-offset:3px}
+.mono{font-family:"JetBrains Mono",ui-monospace,monospace}
+
+/* prepínač */
+.sw{position:sticky;top:0;z-index:50;background:var(--ink);color:#F4F1EC;display:flex;align-items:center;gap:14px;padding:10px var(--gut);font:500 13px/1.2 "Inter Tight",sans-serif;flex-wrap:wrap}
+.sw b{font-weight:700;letter-spacing:.01em;white-space:nowrap}
+.sw__dir{display:flex;gap:4px}
+.sw__dir button{font:600 13px "Inter Tight",sans-serif;border:1px solid #3A3631;background:transparent;color:#F4F1EC;padding:7px 12px;cursor:pointer;border-radius:2px;white-space:nowrap}
+.sw__dir button[aria-pressed=true]{background:#F4F1EC;color:var(--ink);border-color:#F4F1EC}
+.sw__nav{display:flex;gap:2px;overflow-x:auto;scrollbar-width:none;margin-left:auto;min-width:0}
+.sw__nav::-webkit-scrollbar{display:none}
+.sw__nav a{text-decoration:none;padding:7px 9px;opacity:.75;white-space:nowrap}
+.sw__nav a:hover{opacity:1}
+.dir{display:none}
+body[data-dir=A] #dir-A,body[data-dir=B] #dir-B,body[data-dir=C] #dir-C{display:block}
+.lbl{display:flex;justify-content:space-between;gap:12px;padding:10px var(--gut);font:500 11.5px/1.3 "JetBrains Mono",monospace;letter-spacing:.04em;text-transform:uppercase;color:#8C857D;border-top:1px dashed #CFC8BF;background:#F6F3EE}
+.hero{scroll-margin-top:90px}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+/* ================= A · KATALÓG ================= */
+.A{--f:"Inter Tight",system-ui,sans-serif;font-family:var(--f);padding:clamp(28px,4vw,56px) var(--gut) clamp(32px,4vw,64px);background:var(--paper)}
+.A .meta{display:flex;flex-wrap:wrap;gap:6px 22px;font:500 12px/1.4 "JetBrains Mono",monospace;color:var(--mute);border-bottom:1px solid var(--ink);padding-bottom:12px;margin-bottom:clamp(24px,3vw,44px)}
+.A .meta span:first-child{color:var(--ink);font-weight:500}
+.A .meta .r{margin-left:auto}
+.A h1{font:600 clamp(36px,4.6vw,72px)/1.02 var(--f);letter-spacing:-.035em;margin:0;text-wrap:balance}
+.A .kick{font:500 12px "JetBrains Mono",monospace;color:var(--red);letter-spacing:.06em;text-transform:uppercase;margin:0 0 14px}
+.A .sub{font-size:clamp(16px,1.3vw,19px);color:#3D3934;max-width:46ch;margin:18px 0 0}
+.A .ctas{display:flex;flex-wrap:wrap;gap:10px 22px;align-items:center;margin-top:26px}
+.A .btn{display:inline-flex;align-items:center;gap:10px;background:var(--ink);color:var(--paper);text-decoration:none;font-weight:600;padding:13px 18px;border-radius:2px}
+.A .btn:hover{background:var(--red)}
+.A .lnk{font-weight:600;text-underline-offset:4px}
+.A .g{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:0 clamp(16px,2vw,32px)}
+.A .lead{grid-column:1/6}
+.A .idx{grid-column:7/13;list-style:none;margin:0;padding:0;border-top:1px solid var(--ink)}
+.A .idx li{border-bottom:1px solid var(--line)}
+.A .idx a{position:relative;display:grid;grid-template-columns:44px 1fr auto 96px;gap:12px;align-items:baseline;padding:16px 0;text-decoration:none}
+.A .idx .n{font:500 12px "JetBrains Mono",monospace;color:var(--red)}
+.A .idx .t{font:600 clamp(19px,1.7vw,26px)/1.15 var(--f);letter-spacing:-.02em;transition:transform .35s cubic-bezier(.2,.7,.2,1)}
+.A .idx .c,.A .idx .pr{font:500 12.5px "JetBrains Mono",monospace;color:var(--mute);text-align:right}
+.A .idx img{background:var(--paper);position:absolute;right:110px;top:50%;width:84px;height:84px;object-fit:contain;mix-blend-mode:multiply;transform:translateY(-50%) scale(.85);opacity:0;transition:opacity .25s,transform .35s;pointer-events:none}
+.A .idx a:hover .t{transform:translateX(10px)}
+.A .idx a:hover img{opacity:1;transform:translateY(-50%) scale(1)}
+.A .strip{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));border-top:1px solid var(--ink);border-left:1px solid var(--line);margin-top:clamp(32px,4vw,56px)}
+.A .tile{margin:0;border-right:1px solid var(--line);border-bottom:1px solid var(--line);background:#fff;display:flex;flex-direction:column}
+.A .tile .ph{aspect-ratio:1/1.08;display:grid;place-items:center;padding:12%}
+.A .tile img{max-height:100%;object-fit:contain;transition:transform .5s cubic-bezier(.2,.7,.2,1)}
+.A .tile:hover img{transform:scale(1.04)}
+.A .tile figcaption{display:flex;justify-content:space-between;gap:8px;padding:10px 12px;font:500 11.5px/1.35 "JetBrains Mono",monospace;border-top:1px solid var(--line)}
+.A .tile figcaption span:first-child{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--mute)}
+.A .tile figcaption b{font-weight:500;white-space:nowrap}
+/* kategória */
+.A .crumb{font:500 12px "JetBrains Mono",monospace;color:var(--mute);margin-bottom:18px}
+.A .crumb a{text-decoration:none}
+.A .cat-l{grid-column:1/6;display:flex;flex-direction:column}
+.A .cat-r{grid-column:6/13;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-top:1px solid var(--ink);border-left:1px solid var(--line);align-self:start}
+.A .stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));margin:28px 0 0;border-top:1px solid var(--ink)}
+.A .stats div{padding:12px 12px 0 0}
+.A .stats dt{font:500 11px "JetBrains Mono",monospace;text-transform:uppercase;letter-spacing:.06em;color:var(--mute)}
+.A .stats dd{margin:4px 0 0;font:600 clamp(24px,2.4vw,36px)/1 var(--f);letter-spacing:-.03em}
+.A .subs{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));border-top:1px solid var(--ink);border-left:1px solid var(--line);margin-top:clamp(28px,3vw,44px)}
+.A .subs a{display:flex;justify-content:space-between;align-items:baseline;gap:10px;padding:14px 14px 16px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);text-decoration:none;font-weight:600;letter-spacing:-.01em;background:var(--paper);transition:background .2s}
+.A .subs a:hover{background:#fff}
+.A .subs a span{font:500 11.5px "JetBrains Mono",monospace;color:var(--mute)}
+.A .steps{list-style:none;margin:28px 0 0;padding:0;border-top:1px solid var(--ink)}
+.A .steps li{display:grid;grid-template-columns:44px 1fr;gap:12px;padding:14px 0;border-bottom:1px solid var(--line)}
+.A .steps .n{font:500 12px "JetBrains Mono",monospace;color:var(--red)}
+.A .steps b{display:block;font-weight:600}
+.A .steps span:last-child{color:var(--mute);font-size:15px}
+.A .store-ph{grid-column:6/13;margin:0}
+.A .store-ph img{width:100%;aspect-ratio:16/10;object-fit:cover}
+.A .store-ph figcaption{font:500 11.5px "JetBrains Mono",monospace;color:var(--mute);padding-top:8px;border-top:1px solid var(--ink);margin-top:10px}
+.A .info{width:100%;border-collapse:collapse;margin-top:26px;font-size:15.5px}
+.A .info td{padding:11px 0;border-bottom:1px solid var(--line);vertical-align:top}
+.A .info td:first-child{font:500 11.5px "JetBrains Mono",monospace;text-transform:uppercase;letter-spacing:.06em;color:var(--mute);width:38%;padding-top:14px}
+.A .open{display:inline-flex;align-items:center;gap:8px;font:500 12px "JetBrains Mono",monospace}
+.A .open i{width:8px;height:8px;border-radius:50%;background:#2E8B57}
+.A .open.closed i{background:var(--red)}
+
+/* ================= B · DIELŇA ================= */
+.B{--d:"Archivo",sans-serif;--m:"IBM Plex Mono",ui-monospace,monospace;font-family:"Figtree",sans-serif;position:relative;overflow:hidden}
+.B.ink{background:var(--ink);color:#F4F1EC}
+.B.pap{background:var(--stone)}
+.B .tick{display:flex;overflow:hidden;border-bottom:1px solid currentColor;white-space:nowrap;font:500 12.5px/1 var(--m);letter-spacing:.06em;text-transform:uppercase}
+.B.ink .tick{border-color:#36322D;background:var(--red);color:#fff}
+.B.pap .tick{border-color:#CFC8BF}
+.B .tick div{display:flex;gap:40px;padding:12px 20px;animation:tick 38s linear infinite;flex:none}
+.B .tick span b{font-weight:600}
+@keyframes tick{to{transform:translateX(-100%)}}
+.B .in{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:clamp(16px,2vw,32px);padding:clamp(36px,5vw,80px) var(--gut) clamp(40px,5vw,84px);align-items:center}
+.B .txt{grid-column:1/7;position:relative;z-index:2}
+.B .stage{grid-column:7/13;position:relative;min-height:clamp(320px,34vw,520px)}
+.B h1{font:800 clamp(40px,5.4vw,92px)/.95 var(--d);font-stretch:100%;letter-spacing:-.03em;margin:0;text-wrap:balance}
+.B h1.wide{font-stretch:125%;font-weight:900;letter-spacing:-.04em;font-size:clamp(56px,9vw,150px);line-height:.86}
+.B .k{font:500 12px var(--m);letter-spacing:.08em;text-transform:uppercase;opacity:.75;margin:0 0 18px;display:flex;gap:14px;flex-wrap:wrap}
+.B .sub{font:400 clamp(16px,1.3vw,19px)/1.5 "Figtree",sans-serif;max-width:44ch;margin:22px 0 0;opacity:.85}
+.B .btn{display:inline-flex;gap:10px;align-items:center;margin-top:28px;text-decoration:none;font:600 14px var(--m);letter-spacing:.04em;text-transform:uppercase;padding:14px 18px;border:1.5px solid currentColor}
+.B .btn:hover{background:var(--red);border-color:var(--red);color:#fff}
+.B .paper{position:absolute;background:#fff;box-shadow:0 1px 0 rgba(0,0,0,.08),0 24px 50px -24px rgba(0,0,0,.45);padding:clamp(14px,1.6vw,22px)}
+.B .paper img{width:100%;height:100%;object-fit:contain}
+.B .p1{inset:4% 22% 6% 6%;transform:rotate(-2.2deg)}
+.B .tag{position:absolute;right:2%;bottom:8%;width:min(240px,46%);background:#F7F3EA;color:var(--ink);font:500 12px/1.55 var(--m);padding:28px 16px 14px;transform:rotate(3deg);box-shadow:0 18px 30px -18px rgba(0,0,0,.5);border-top:10px solid var(--red)}
+.B .tag::before{content:"";position:absolute;top:8px;left:50%;width:12px;height:12px;margin-left:-6px;border-radius:50%;background:var(--stone);box-shadow:inset 0 0 0 2px #CFC8BF}
+.B .tag dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:2px 10px}
+.B .tag dt{opacity:.6;text-transform:uppercase;font-size:10.5px;letter-spacing:.06em;padding-top:2px}
+.B .tag dd{margin:0}
+.B .tag .pr{font:800 26px var(--d);font-stretch:100%;margin-top:10px;display:block}
+.B .stamp{display:inline-block;font:600 13px var(--m);letter-spacing:.08em;border:2px solid var(--red);color:var(--red);padding:6px 10px;transform:rotate(-4deg);margin-top:20px}
+.B .leaders{grid-column:1/13;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 clamp(20px,4vw,64px);list-style:none;margin:clamp(8px,2vw,24px) 0 0;padding:0;font:500 14px var(--m);counter-reset:l}
+.B .leaders a{display:flex;align-items:baseline;gap:10px;padding:9px 0;text-decoration:none;counter-increment:l}
+.B .leaders a::before{content:counter(l,decimal-leading-zero);color:var(--red)}
+.B .leaders a i{flex:1;border-bottom:1px dotted currentColor;opacity:.4;transform:translateY(-4px)}
+.B .leaders a:hover span{text-decoration:underline}
+.B .sheet{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.B .sheet figure{margin:0;background:#fff;padding:10px 10px 8px;box-shadow:0 10px 20px -16px rgba(0,0,0,.4)}
+.B .sheet img{aspect-ratio:1;object-fit:contain;width:100%}
+.B .sheet figcaption{font:500 10.5px/1.4 var(--m);text-transform:uppercase;letter-spacing:.04em;display:flex;justify-content:space-between;gap:6px;padding-top:6px;border-top:1px dashed #CFC8BF;margin-top:6px}
+.B .logo-zone{position:absolute;left:41%;top:33%;width:18%;aspect-ratio:1.2;border:2px dashed var(--red);display:grid;place-items:center;font:600 10px/1.2 var(--m);color:var(--red);text-align:center;background:rgba(255,255,255,.6);letter-spacing:.05em}
+.B .tape{position:absolute;z-index:3;background:var(--red);color:#fff;font:600 13px var(--m);letter-spacing:.06em;text-transform:uppercase;padding:9px 14px;box-shadow:0 8px 16px -10px rgba(0,0,0,.6)}
+.B .print{position:absolute;inset:0 18% 9% 0;margin:0;background:#fff;padding:10px 10px 34px;transform:rotate(-1.4deg);box-shadow:0 1px 0 rgba(0,0,0,.08),0 26px 50px -26px rgba(0,0,0,.55)}
+.B .print img{width:100%;height:100%;object-fit:cover}
+.B .print figcaption{position:absolute;left:12px;right:12px;bottom:9px;display:flex;justify-content:space-between;font:500 10px var(--m);letter-spacing:.06em;text-transform:uppercase;color:#7A746C}
+.B .mini{position:absolute;right:0;bottom:2%;width:min(220px,40%);aspect-ratio:1;background:#fff;padding:12px;transform:rotate(3deg);box-shadow:0 18px 30px -18px rgba(0,0,0,.55)}
+.B .mini img{width:100%;height:100%;object-fit:contain}
+.B .mini .logo-zone{left:38%;top:30%;width:24%}
+.B .sheet.row{grid-column:1/13;grid-template-columns:repeat(6,minmax(0,1fr))}
+.B .store{position:absolute;inset:0;filter:grayscale(1) contrast(1.05)}
+.B .store img{width:100%;height:100%;object-fit:cover}
+
+/* ================= C · PREDAJŇA ================= */
+.C{--d:"Schibsted Grotesk",sans-serif;font-family:"Figtree",sans-serif;background:var(--paper)}
+.C .band{position:relative;min-height:clamp(420px,46vw,640px);display:flex;align-items:flex-end;padding:var(--gut);overflow:hidden}
+.C .band>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.C .band::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(20,20,20,0) 40%,rgba(20,20,20,.55))}
+.C .panel{position:relative;z-index:2;background:var(--paper);padding:clamp(20px,2.4vw,34px);width:min(560px,100%)}
+.C .now{display:flex;align-items:center;gap:10px;font:700 14px "Figtree";text-transform:uppercase;letter-spacing:.06em}
+.C .now i{width:10px;height:10px;border-radius:50%;background:#2E8B57;box-shadow:0 0 0 4px rgba(46,139,87,.18)}
+.C .now.closed i{background:var(--red);box-shadow:0 0 0 4px rgba(225,37,27,.15)}
+.C h1{font:800 clamp(34px,4.2vw,64px)/.98 var(--d);letter-spacing:-.03em;margin:12px 0 0;text-wrap:balance}
+.C .facts{display:flex;flex-wrap:wrap;gap:6px 18px;margin-top:14px;font-size:15px;color:#3D3934}
+.C .facts b{color:var(--ink)}
+.C .ctas{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}
+.C .btn{display:inline-flex;align-items:center;gap:8px;font:700 15px "Figtree";text-decoration:none;padding:13px 18px;background:var(--red);color:#fff}
+.C .btn.ghost{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 2px var(--ink)}
+.C .wrapc{padding:clamp(28px,3.4vw,52px) var(--gut) clamp(36px,4vw,64px)}
+.C .aisle{display:flex;flex-wrap:wrap;align-items:flex-end;gap:12px 24px;justify-content:space-between}
+.C .sign{display:inline-block;background:var(--ink);color:#fff;font:700 12px/1 "Figtree";letter-spacing:.12em;text-transform:uppercase;padding:9px 12px}
+.C .aisle h1{margin-top:14px}
+.C .aisle p{margin:8px 0 0;font-size:17px;color:#3D3934}
+.C .shelf{margin-top:clamp(20px,2.4vw,36px);display:grid;grid-auto-flow:column;grid-auto-columns:minmax(150px,1fr);overflow-x:auto;scrollbar-width:thin;padding-bottom:6px}
+.C .item{position:relative;padding:0 10px;display:flex;flex-direction:column;align-items:center}
+.C .item .ph{height:clamp(150px,15vw,230px);width:100%;display:flex;align-items:flex-end;justify-content:center;background:var(--paper);isolation:isolate}
+.C .item img{max-height:100%;object-fit:contain;mix-blend-mode:multiply;transition:transform .4s cubic-bezier(.2,.7,.2,1)}
+.C .item:hover img{transform:translateY(-6px)}
+.C .plank{grid-row:2;height:14px;background:linear-gradient(#2A2622,#141414);margin:0 -1px}
+.C .shelf .item{grid-row:1}
+.C .ptag{margin-top:10px;width:100%;max-width:190px;background:#fff;border:1px solid var(--ink);padding:8px 10px 9px;text-decoration:none;position:relative}
+.C .ptag::before{content:"";position:absolute;top:-6px;left:50%;width:10px;height:10px;background:#fff;border-left:1px solid var(--ink);border-top:1px solid var(--ink);transform:translateX(-50%) rotate(45deg)}
+.C .ptag b{display:block;font:800 24px/1 var(--d);color:var(--red);letter-spacing:-.02em}
+.C .ptag span{display:block;font-size:12.5px;line-height:1.25;margin-top:4px;color:#3D3934;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+.C .signs{display:flex;flex-wrap:wrap;gap:8px;margin-top:clamp(22px,2.6vw,38px)}
+.C .signs a{display:inline-flex;gap:10px;align-items:center;text-decoration:none;font:700 14px "Figtree";padding:10px 14px;background:#fff;border-left:4px solid var(--red);box-shadow:0 1px 0 var(--line)}
+.C .signs a span{font-weight:500;color:var(--mute)}
+.C .split{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(20px,3vw,48px);align-items:start}
+.C .slip{background:#fff;font:500 14px/1.6 "JetBrains Mono",monospace;padding:24px 22px 20px;box-shadow:0 22px 40px -28px rgba(0,0,0,.45);position:relative;max-width:480px;justify-self:end;width:100%}
+.C .slip::after{content:"";position:absolute;left:0;right:0;bottom:-10px;height:10px;background:linear-gradient(-45deg,transparent 7px,#fff 0) 0 0/14px 14px,linear-gradient(45deg,transparent 7px,#fff 0) 0 0/14px 14px}
+.C .slip h3{font:700 12px "JetBrains Mono";letter-spacing:.08em;text-transform:uppercase;margin:0 0 4px;color:var(--mute)}
+.C .slip .row{display:flex;justify-content:space-between;gap:12px;border-bottom:1px dashed #D6D0C7;padding:6px 0}
+.C .slip .tot{display:flex;justify-content:space-between;font-weight:600;padding-top:10px;font-size:15px}
+.C .slip small{display:block;color:var(--mute);margin-top:10px;font-size:11.5px}
+.C .board{background:var(--ink);color:#fff;padding:clamp(22px,2.6vw,36px)}
+.C .board .big{font:900 clamp(48px,7vw,110px)/.85 var(--d);letter-spacing:-.04em;color:#fff}
+.C .board .big.closed{color:#FF6A60}
+.C .board table{width:100%;border-collapse:collapse;margin-top:20px;font-size:16px}
+.C .board td{padding:10px 0;border-bottom:1px solid #3A3631}
+.C .board td+td{text-align:right;font-weight:700}
+.C .board tr.today td{color:#FFD24A}
+.C .storeph{margin:0}
+.C .storeph img{width:100%;aspect-ratio:4/3;object-fit:cover}
+
+/* ---------- mobil ---------- */
+@media (max-width:900px){
+  .B .sheet.row{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .A .lead,.A .idx,.A .cat-l,.A .cat-r,.A .store-ph{grid-column:1/-1}
+  .A .idx{margin-top:32px}
+  .A .strip{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .A .cat-r{margin-top:28px;grid-template-columns:repeat(2,minmax(0,1fr))}
+  .A .store-ph{margin-top:28px}
+  .B .txt,.B .stage{grid-column:1/-1}
+  .B .stage{min-height:min(110vw,520px)}
+  .B .leaders{grid-template-columns:1fr}
+  .C .split{grid-template-columns:1fr}
+  .C .slip{justify-self:stretch}
+}
+@media (max-width:560px){
+  .sw__nav{margin-left:0;width:100%}
+  .A .idx a{grid-template-columns:34px 1fr auto;padding:14px 0}
+  .A .idx .pr{grid-column:2/4;text-align:left}
+  .A .idx img{display:none}
+  .A .strip{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .A .meta .r{margin-left:0}
+  .A .stats dd{font-size:24px}
+  .A .subs{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .A .subs a{font-size:14.5px;padding:12px 10px}
+  .B .p1{inset:2% 14% 16% 2%}
+  .B .tag{width:56%;bottom:2%;font-size:11px}
+  .B .sheet,.B .sheet.row{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .B .print{inset:0 10% 14% 0}
+  .B .mini{width:46%}
+  .B h1.wide{font-size:clamp(48px,15vw,80px)}
+  .C .band{padding:0;min-height:0;display:block}
+  .C .band>img{position:relative;height:300px}
+  .C .band::after{display:none}
+  .C .panel{width:100%}
+  .C .shelf{grid-auto-columns:minmax(140px,44vw)}
+}
+</style>
+</head>
+<body data-dir="A">
+<div class="sw" role="navigation" aria-label="Prepínač smerov">
+  <b>DAMI · alternatívy hero</b>
+  <div class="sw__dir" role="group" aria-label="Smer">
+    <button type="button" data-d="A" aria-pressed="true">A · Katalóg</button>
+    <button type="button" data-d="B" aria-pressed="false">B · Dielňa</button>
+    <button type="button" data-d="C" aria-pressed="false">C · Predajňa</button>
+  </div>
+  <nav class="sw__nav" aria-label="Sekcie">
+    <a href="#uvod" data-go="uvod">Úvod</a><a href="#gastro" data-go="gastro">Gastro</a><a href="#pracovne" data-go="pracovne">Pracovné</a><a href="#doplnky" data-go="doplnky">Doplnky</a><a href="#zdrav" data-go="zdrav">Zdravotníctvo</a><a href="#firmy" data-go="firmy">Pre firmy</a><a href="#predajna" data-go="predajna">Predajňa</a>
+  </nav>
+</div>
+<main>
+  <div class="dir" id="dir-A"></div>
+  <div class="dir" id="dir-B"></div>
+  <div class="dir" id="dir-C"></div>
+</main>
+
+<script src="../../data/catalog.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
+<script>
+(() => {
+const D = window.DAMI_DATA;
+const ALL = Array.isArray(D.products) ? D.products : Object.values(D.products);
+const P = Object.fromEntries(ALL.map(p => [p.id, p]));
+const ROOT = "../../";
+const img = p => ROOT + p.img[0];
+const eur = n => n.toFixed(2).replace(".", ",") + " €";
+const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const short = n => n.replace(/\s+-\s+/g, " ").replace(/,.*$/, "");
+const pick = ids => ids.map(i => P[i]).filter(Boolean);
+const SEC_ORDER = ["gastro", "zdravotnictvo", "pracovne", "obuv", "doplnky"];
+const SEC = {};
+for (const k of SEC_ORDER) {
+  const ps = ALL.filter(p => p.sec.includes(k));
+  const priced = ps.filter(p => p.price > 0);
+  SEC[k] = { key: k, name: D.sections[k].name, count: ps.length, from: Math.min(...priced.map(p => p.price)),
+    brands: [...new Set(ps.map(p => p.brand).filter(Boolean))],
+    subs: D.sections[k].subs.map(c => ({ id: c, name: D.cats[c].name, n: D.cats[c].products.length })) };
+}
+const BRANDS = [...new Set(ALL.map(p => p.brand).filter(Boolean))];
+const catUrl = k => `../kategoria.html?c=${k}`;
+const prodUrl = p => `../produkt.html?p=${encodeURIComponent(p.id)}`;
+const spec = p => {
+  const t = (p.desc || []).join(" \n ");
+  const g = t.match(/(\d{2,3})\s*g\s*\/?\s*m\s*2|(\d{2,3})\s*g\/m²/i);
+  const mm = t.match(/\d{1,3}\s*%\s*[a-záäčďéíľĺňóôŕšťúýž]+(?:\s*[,/]\s*\d{1,3}\s*%\s*[a-záäčďéíľĺňóôŕšťúýž]+)?/i);
+  const n = t.match(/EN\s?(ISO\s?)?\d{3,5}(?:[-:]\d+)?/);
+  const out = [];
+  if (mm) out.push(["Materiál", mm[0].replace(/\s+/g, " ").replace(/\s*,\s*/g, ", ").slice(0, 40)]);
+  if (g) out.push(["Gramáž", (g[1] || g[2]) + " g/m²"]);
+  if (n) out.push(["Norma", n[0]]);
+  if (p.sizes && p.sizes.length) out.push(["Veľkosti", p.sizes.length > 1 ? p.sizes[0] + "–" + p.sizes[p.sizes.length - 1] : p.sizes[0]]);
+  if (p.brand) out.push(["Značka", p.brand]);
+  return out.slice(0, 4);
+};
+/* otváracie hodiny: Po–Pi 9:30–17:00, So 9:00–12:00 */
+const HRS = { 1: [570, 1020], 2: [570, 1020], 3: [570, 1020], 4: [570, 1020], 5: [570, 1020], 6: [540, 720] };
+const DAY = ["nedeľu", "pondelok", "utorok", "stredu", "štvrtok", "piatok", "sobotu"];
+const hm = m => `${Math.floor(m / 60)}:${String(m % 60).padStart(2, "0")}`;
+function status() {
+  const now = new Date(new Date().toLocaleString("en-US", { timeZone: "Europe/Bratislava" }));
+  const d = now.getDay(), m = now.getHours() * 60 + now.getMinutes(), h = HRS[d];
+  if (h && m >= h[0] && m < h[1]) return { open: true, short: "Otvorené", text: `Teraz otvorené · do ${hm(h[1])}`, day: d };
+  for (let i = 0; i < 8; i++) { const dd = (d + i) % 7, hh = HRS[dd]; if (hh && (i > 0 || m < hh[0])) return { open: false, short: "Zatvorené", text: `Teraz zatvorené · otvárame ${i === 0 ? "dnes" : i === 1 ? "zajtra" : "v " + DAY[dd]} o ${hm(hh[0])}`, day: d }; }
+}
+const ST = status();
+const RATING = "4,7", REVIEWS = 42;
+const MAP = "https://www.google.com/maps/search/?api=1&query=Ga%C5%A1tanov%C3%A1+6396+Pie%C5%A1%C5%A5any";
+const STORE_IMG = ROOT + "assets/img/predajna-exterier.webp";
+
+const HEROES = [
+  { id: "uvod", label: "01 Úvod" }, { id: "gastro", label: "02 Kategória Gastro", sec: "gastro" },
+  { id: "pracovne", label: "03 Kategória Pracovné odevy", sec: "pracovne" }, { id: "doplnky", label: "04 Kategória Doplnky", sec: "doplnky" },
+  { id: "zdrav", label: "05 Zdravotníctvo", sec: "zdravotnictvo" }, { id: "firmy", label: "06 Pre firmy" }, { id: "predajna", label: "07 Predajňa" }];
+const PICKS = {
+  uvod: ["kucharsky-rondon-biely-c733-kratky-rukav-a-cvoky", "desman-na-traky", "a91-112-pb-10", "rukavice-magpie", "polokosela-polo-pique-200", "ponco-zastera-zefiro-giblors"],
+  gastro: ["kucharsky-rondon-biely-c733-kratky-rukav-a-cvoky", "kucharske-nohavice-alan-giblors", "ponco-zastera-zefiro-giblors", "kucharska-capica-nela", "kucharsky-rondon-cierny-c733-kratky-rukav-a-cvoky", "zastera-na-krk-biela-dlha"],
+  pracovne: ["desman-na-traky", "carson-bunda-panska", "davida-vesta", "emerton-nohavice", "mikina-fleece", "kratasy-cxs-sirius-brighton"],
+  doplnky: ["rukavice-magpie", "swift-rukavice-pre-extremnu-zataz", "okuliare-basic-5191", "gelove-nakolenniky", "opasok-twana-4-cm-koza", "ciapka-s-plastovu-vystuhu-cxs-callum-zlta-oranzova"],
+  zdravotnictvo: ["a91-112-pb-10", "justina-zdravotnicka-bluza", "tunika-eros-giblors", "damske-kimono-ilaria-giblors", "pudu-slapky-biele", "bambino-zdravotnicka-bluza-farebne-srdiecka"],
+  firmy: ["polokosela-polo-pique-200", "teesta-tricko-unisex", "mikina-fleece", "kucharsky-rondon-cierny-c733-kratky-rukav-a-cvoky", "justina-zdravotnicka-bluza", "davida-vesta"],
+};
+const TITLES = { gastro: "Gastro a biele odevy", pracovne: "Pracovné odevy", doplnky: "Doplnky a ochranné pomôcky", zdravotnictvo: "Zdravotníctvo a wellness" };
+const LEDE = {
+  gastro: "Rondony, nohavice, zástery a obuv pre kuchyne, reštaurácie a cukrárne.",
+  pracovne: "Nohavice, bundy, vesty a tričká na stavbu, do dielne, skladu aj von.",
+  doplnky: "Rukavice, okuliare, nákolenníky, opasky a traky.",
+  zdravotnictvo: "Blúzy, nohavice, kimoná a obuv pre ambulancie, kozmetiku a wellness.",
+};
+const wrap = (dir, h, inner) => `<div class="lbl"><span>${dir} · ${{A: "Katalóg", B: "Dielňa", C: "Predajňa"}[dir]}</span><span>${h.label}</span></div><section class="hero" id="${dir}-${h.id}" data-h="${h.id}">${inner}</section>`;
+
+/* ================= A ================= */
+const aTile = p => `<figure class="tile rv"><a class="ph" href="${prodUrl(p)}"><img src="${img(p)}" alt="${esc(p.name)}" loading="lazy"></a><figcaption><span>${esc(short(p.name))}</span><b>${eur(p.price)}</b></figcaption></figure>`;
+const aMeta = () => `<div class="meta rv"><span>DAMI pracovné odevy</span><span>Gaštanová 6396, Piešťany</span><span>${ALL.length} produktov · ${BRANDS.length} značiek</span><span class="r">★ ${RATING} Google (${REVIEWS})</span></div>`;
+function A(h) {
+  if (h.id === "uvod") return `<div class="A">${aMeta()}
+    <div class="g"><div class="lead"><p class="kick rv">Katalóg 2027</p><h1 class="rv">Pracovné oblečenie pre kuchyne, ambulancie, stavby a dielne.</h1>
+      <p class="sub rv">Predajňa v Piešťanoch a e-shop pre celé Slovensko. Zástery a kuchárske nohavice šijeme sami.</p>
+      <div class="ctas rv"><a class="btn" href="${catUrl("gastro")}">Prezrieť katalóg →</a><a class="lnk" href="../predajna.html">Predajňa a otváracie hodiny</a></div></div>
+      <ol class="idx">${SEC_ORDER.map((k, i) => { const s = SEC[k], p = pick(PICKS[k] || PICKS.uvod)[0] || ALL.find(x => x.sec.includes(k)); return `<li class="rv"><a href="${catUrl(k)}"><span class="n">0${i + 1}</span><span class="t">${esc(s.name)}</span><span class="c">${s.count}</span><span class="pr">od ${eur(s.from)}</span>${p ? `<img src="${img(p)}" alt="">` : ""}</a></li>`; }).join("")}</ol></div>
+    <div class="strip">${pick(PICKS.uvod).map(aTile).join("")}</div></div>`;
+  if (h.sec) { const s = SEC[h.sec], i = SEC_ORDER.indexOf(h.sec) + 1;
+    return `<div class="A"><div class="crumb rv"><a href="../index.html">Domov</a> / ${esc(s.name)}</div>
+    <div class="g"><div class="cat-l"><p class="kick rv">0${i} / 05 · ${s.subs.length} podkategórií</p><h1 class="rv">${TITLES[h.sec]}</h1><p class="sub rv">${LEDE[h.sec]}</p>
+      <dl class="stats rv"><div><dt>Produkty</dt><dd>${s.count}</dd></div><div><dt>Cena od</dt><dd>${eur(s.from)}</dd></div><div><dt>Značky</dt><dd>${s.brands.length}</dd></div></dl></div>
+      <div class="cat-r">${pick(PICKS[h.sec]).slice(0, 4).map(aTile).join("")}</div></div>
+    <nav class="subs" aria-label="Podkategórie">${s.subs.map(c => `<a class="rv" href="../kategoria.html?c=${c.id}">${esc(c.name)}<span>${c.n}</span></a>`).join("")}</nav></div>`; }
+  if (h.id === "firmy") return `<div class="A"><div class="crumb rv"><a href="../index.html">Domov</a> / Pre firmy</div>
+    <div class="g"><div class="cat-l"><p class="kick rv">Pre reštaurácie, ambulancie, stavby a dielne</p><h1 class="rv">Oblečenie pre celý tím. S vaším logom.</h1>
+      <ol class="steps"><li class="rv"><span class="n">01</span><span><b>Výšivka alebo potlač loga</b><span>Na rondony, polokošele, mikiny aj vesty.</span></span></li>
+      <li class="rv"><span class="n">02</span><span><b>Nákup na faktúru na IČO</b><span>Firemné údaje vyplníte priamo v košíku.</span></span></li>
+      <li class="rv"><span class="n">03</span><span><b>Ponuka na mieru</b><span>Poradíme s výberom a pripravíme ponuku pre váš tím.</span></span></li></ol>
+      <div class="ctas rv"><a class="btn" href="../pre-firmy.html">Napísať dopyt →</a><a class="lnk" href="tel:0902482244">0902 482 244</a></div></div>
+      <div class="cat-r" style="grid-template-columns:repeat(3,minmax(0,1fr))">${pick(PICKS.firmy).map(aTile).join("")}</div></div></div>`;
+  if (h.id === "predajna") return `<div class="A"><div class="crumb rv"><a href="../index.html">Domov</a> / Predajňa</div>
+    <div class="g"><div class="cat-l"><p class="kick rv">Predajňa Piešťany</p><h1 class="rv">Príďte si to vyskúšať.</h1><p class="sub rv">Celý sortiment je k dispozícii aj v predajni. Veľkosť si vyskúšate na mieste.</p>
+      <table class="info rv"><tbody><tr><td>Stav</td><td><span class="open ${ST.open ? "" : "closed"}"><i></i>${ST.text}</span></td></tr><tr><td>Adresa</td><td>Gaštanová 6396<br>921 01 Piešťany</td></tr>
+      <tr><td>Po – Pi</td><td>9:30 – 17:00</td></tr><tr><td>Sobota</td><td>9:00 – 12:00</td></tr><tr><td>Telefón</td><td><a href="tel:0902482244">0902 482 244</a></td></tr><tr><td>Hodnotenie</td><td>★ ${RATING} · ${REVIEWS} hodnotení na Google</td></tr></tbody></table>
+      <div class="ctas rv"><a class="btn" href="${MAP}" target="_blank" rel="noopener">Navigovať →</a></div></div>
+      <figure class="store-ph rv"><img src="${STORE_IMG}" alt="Predajňa DAMI na Gaštanovej ulici v Piešťanoch" loading="lazy"><figcaption>Fig. 1 — Predajňa DAMI, Gaštanová 6396, Piešťany</figcaption></figure></div></div>`;
+}
+
+/* ================= B ================= */
+const TICK = () => { const row = SEC_ORDER.map(k => `<span><b>${esc(SEC[k].name)}</b> · ${SEC[k].count} ks · od ${eur(SEC[k].from)}</span>`).join("") + `<span><b>Predajňa</b> · Gaštanová 6396 · ${ST.short.toLowerCase()}</span>`; return `<div class="tick" aria-hidden="true"><div>${row}</div><div>${row}</div></div>`; };
+const bTag = (p, extra = "") => `<div class="tag rv"><dl>${spec(p).map(([k, v]) => `<dt>${k}</dt><dd>${esc(v)}</dd>`).join("")}</dl>${extra}<b class="pr">${eur(p.price)}</b></div>`;
+const DOC = { uvod: "doc-sitie", gastro: "doc-gastro", pracovne: "doc-pracovne", zdravotnictvo: "doc-zdrav", doplnky: "doc-rukavice", firmy: "doc-tim" };
+const bPrint = (k, alt, cap) => `<figure class="print rv"><img src="img/${DOC[k]}.webp" alt="${esc(alt)}" loading="lazy"><figcaption><span>${esc(cap)} · ilustračné foto</span></figcaption></figure>`;
+const bPaper = (p, cls = "p1", inner = "") => `<a class="paper ${cls} rv" href="${prodUrl(p)}"><img src="${img(p)}" alt="${esc(p.name)}" loading="lazy">${inner}</a>`;
+function B(h) {
+  if (h.id === "uvod") { const p = P["zastera-na-krk-cierna-dlha"] || P["ponco-zastera-zefiro-giblors"];
+    return `<div class="B ink">${TICK()}<div class="in"><div class="txt"><p class="k rv"><span>DAMI · Piešťany</span><span>Dielňa a predajňa</span></p>
+      <h1 class="rv">Zástery a kuchárske nohavice šijeme sami.</h1>
+      <p class="sub rv">Ostatné vyberáme od ${BRANDS.slice(0, -1).join(", ")} a ${BRANDS.at(-1)}. ${ALL.length} produktov, ktoré si môžete vyskúšať v predajni.</p>
+      <a class="btn rv" href="../vyroba.html">Vlastná výroba →</a></div>
+      <div class="stage">${bPrint("uvod", "Ruky šijú čiernu látku na priemyselnom šijacom stroji", "Dielňa · šitie záster")}${bTag(p, `<dl style="margin-top:6px"><dt>Pôvod</dt><dd>vlastná výroba</dd></dl>`)}</div></div></div>`; }
+  if (h.sec) { const s = SEC[h.sec], ps = pick(PICKS[h.sec]), dark = h.sec === "pracovne";
+    if (h.sec === "doplnky") return `<div class="B pap">${TICK()}<div class="in"><div class="txt"><p class="k rv"><span>Domov / Doplnky</span><span>${s.count} položiek</span></p>
+      <h1 class="wide rv">Rukavice<br>od ${eur(Math.min(...ALL.filter(p => p.cats.includes("rukavice") && p.price > 0).map(p => p.price)))}</h1>
+      <p class="sub rv">${LEDE.doplnky}</p><ul class="leaders rv" style="grid-template-columns:1fr">${s.subs.map(c => `<li><a href="../kategoria.html?c=${c.id}"><span>${esc(c.name)}</span><i></i>${c.n} ks</a></li>`).join("")}</ul></div>
+      <div class="stage">${bPrint("doplnky", "Ruky si naťahujú obnosené kožené pracovné rukavice pri pracovnom stole", "Dielňa · rukavice")}${bTag(ps[0])}</div>
+      <div class="sheet row">${ps.map(p => `<figure class="rv"><a href="${prodUrl(p)}"><img src="${img(p)}" alt="${esc(p.name)}" loading="lazy"></a><figcaption><span>${esc(short(p.name).split(" ").slice(0, 2).join(" "))}</span><b>${eur(p.price)}</b></figcaption></figure>`).join("")}</div></div></div>`;
+    return `<div class="B ${dark ? "ink" : "pap"}">${TICK()}<div class="in"><div class="txt"><p class="k rv"><span>Domov / ${esc(s.name)}</span><span>${s.count} ks · ${s.brands.length} značiek</span></p>
+      <h1 class="wide rv">${{gastro: "Gastro", pracovne: "Práca", zdravotnictvo: "Zdravie"}[h.sec]}</h1>
+      <p class="sub rv">${LEDE[h.sec]}</p><div class="stamp rv">od ${eur(s.from)}</div></div>
+      <div class="stage">${bPrint(h.sec, {gastro: "Kuchár v zástere utiera nerezový pult v kuchyni reštaurácie", pracovne: "Robotník nesie dosky na stavbe v pracovných nohaviciach", zdravotnictvo: "Sestra v tmavomodrej uniforme kráča nemocničnou chodbou"}[h.sec], {gastro: "Kuchyňa · príprava", pracovne: "Stavba · ráno", zdravotnictvo: "Nemocnica · zmena"}[h.sec])}${bTag(ps[0])}</div>
+      <ul class="leaders rv">${s.subs.map(c => `<li><a href="../kategoria.html?c=${c.id}"><span>${esc(c.name)}</span><i></i>${c.n} ks</a></li>`).join("")}</ul></div></div>`; }
+  if (h.id === "firmy") { const p = P["polokosela-polo-pique-200"];
+    return `<div class="B ink">${TICK()}<div class="in"><div class="txt"><p class="k rv"><span>Pre firmy</span><span>faktúra na IČO</span></p>
+      <h1 class="rv">Vaše logo. Vyšité alebo potlačené.</h1>
+      <p class="sub rv">Pre reštaurácie, ambulancie, stavebné firmy a dielne z Piešťan a okolia. Poradíme s výberom a pripravíme ponuku na mieru.</p>
+      <a class="btn rv" href="../pre-firmy.html">Napísať dopyt →</a></div>
+      <div class="stage">${bPrint("firmy", "Dvaja kuchári a čašníčka pripravujú kuchyňu pred službou", "Hotelová kuchyňa · pred službou")}<a class="mini rv" href="${prodUrl(p)}"><img src="${img(p)}" alt="${esc(p.name)}" loading="lazy"><span class="logo-zone">VAŠE<br>LOGO</span></a></div></div></div>`; }
+  if (h.id === "predajna") return `<div class="B pap">${TICK()}<div class="in"><div class="txt"><p class="k rv"><span>Predajňa</span><span>★ ${RATING} Google (${REVIEWS})</span></p>
+      <h1 class="rv">Predajňa, kde si to vyskúšate.</h1>
+      <p class="sub rv">Gaštanová 6396, Piešťany. Po–Pi 9:30–17:00, So 9:00–12:00. ${ST.text}.</p>
+      <a class="btn rv" href="${MAP}" target="_blank" rel="noopener">Navigovať →</a></div>
+      <div class="stage"><div class="store rv"><img src="${STORE_IMG}" alt="Predajňa DAMI na Gaštanovej ulici v Piešťanoch" loading="lazy"></div>
+      <span class="tape rv" style="left:-8px;top:10%;transform:rotate(-3deg)">Gaštanová 6396</span><span class="tape rv" style="right:-6px;bottom:12%;transform:rotate(2deg);background:${ST.open ? "#1F6B45" : "#141414"}">${ST.short}</span></div></div></div>`;
+}
+
+/* ================= C ================= */
+const cItem = p => `<div class="item rv"><a class="ph" href="${prodUrl(p)}"><img src="${img(p)}" alt="${esc(p.name)}" loading="lazy"></a><a class="ptag" href="${prodUrl(p)}"><b>${eur(p.price)}</b><span>${esc(short(p.name))}</span></a></div>`;
+const cShelf = ps => `<div class="shelf">${ps.map(cItem).join("")}</div>`;
+const cNow = () => `<p class="now ${ST.open ? "" : "closed"}"><i></i>${ST.text}</p>`;
+function C(h) {
+  if (h.id === "uvod") return `<div class="C"><div class="band"><img src="${STORE_IMG}" alt="Predajňa DAMI na Gaštanovej ulici v Piešťanoch">
+      <div class="panel rv">${cNow()}<h1>Pracovné oblečenie, ktoré si vyskúšate.</h1>
+      <p class="facts"><span><b>Gaštanová 6396</b>, Piešťany</span><span>★ <b>${RATING}</b> · ${REVIEWS} hodnotení</span><span><b>${ALL.length}</b> produktov aj online</span></p>
+      <div class="ctas"><a class="btn" href="${catUrl("gastro")}">Nakupovať online</a><a class="btn ghost" href="${MAP}" target="_blank" rel="noopener">Navigovať</a></div></div></div>
+      <div class="wrapc"><span class="sign rv">Z regálu</span>${cShelf(pick(PICKS.uvod))}</div></div>`;
+  if (h.sec) { const s = SEC[h.sec], i = SEC_ORDER.indexOf(h.sec) + 1;
+    return `<div class="C"><div class="wrapc"><div class="aisle"><div><span class="sign rv">Regál ${String(i).padStart(2, "0")} · ${esc(s.name)}</span><h1 class="rv">${TITLES[h.sec]}</h1><p class="rv">${s.count} produktov na regáli, od ${eur(s.from)}. ${h.sec === "zdravotnictvo" ? "Veľkosť si vyskúšate v predajni." : ""}</p></div>${cNow()}</div>
+      ${cShelf(pick(PICKS[h.sec]))}
+      <nav class="signs" aria-label="Podkategórie">${s.subs.map(c => `<a class="rv" href="../kategoria.html?c=${c.id}">${esc(c.name)} <span>${c.n}</span></a>`).join("")}</nav></div></div>`; }
+  if (h.id === "firmy") { const lines = [["polokosela-polo-pique-200", 6], ["teesta-tricko-unisex", 6], ["mikina-fleece", 6]].map(([id, q]) => ({ p: P[id], q })).filter(x => x.p);
+    const tot = lines.reduce((a, x) => a + x.p.price * x.q, 0);
+    return `<div class="C"><div class="wrapc"><div class="split"><div><span class="sign rv">Pre firmy</span><h1 class="rv">Celý tím na jednom bloku. Aj s logom.</h1>
+      <p class="rv" style="font-size:17px;color:#3D3934;max-width:44ch">Výšivka alebo potlač loga, nákup na faktúru na IČO a ponuka na mieru. Vzorky si môžete vyskúšať v predajni.</p>
+      <div class="ctas rv"><a class="btn" href="../pre-firmy.html">Napísať dopyt</a><a class="btn ghost" href="tel:0902482244">0902 482 244</a></div></div>
+      <div class="slip rv"><h3>Príklad · tím 6 ľudí</h3>${lines.map(x => `<div class="row"><span>${x.q}× ${esc(short(x.p.name))}</span><span>${eur(x.p.price * x.q)}</span></div>`).join("")}
+      <div class="row"><span>Výšivka loga</span><span>podľa ponuky</span></div><div class="tot"><span>Spolu bez loga</span><span>${eur(tot)}</span></div><small>Ceny z e-shopu s DPH. Príklad, nie ponuka.</small></div></div>
+      ${cShelf(pick(PICKS.firmy))}</div></div>`; }
+  if (h.id === "predajna") { const rows = [["Pondelok", 1], ["Utorok", 2], ["Streda", 3], ["Štvrtok", 4], ["Piatok", 5], ["Sobota", 6], ["Nedeľa", 0]];
+    return `<div class="C"><div class="wrapc"><div class="split"><div class="board rv"><p class="big ${ST.open ? "" : "closed"}">${ST.short}</p>
+      <p style="margin:10px 0 0;opacity:.8">${ST.text}</p><table><tbody>${rows.map(([n, d]) => `<tr class="${d === ST.day ? "today" : ""}"><td>${n}</td><td>${HRS[d] ? hm(HRS[d][0]) + " – " + hm(HRS[d][1]) : "zatvorené"}</td></tr>`).join("")}</tbody></table></div>
+      <div><span class="sign rv">Predajňa Piešťany</span><h1 class="rv">Gaštanová 6396. Príďte si to vyskúšať.</h1>
+      <p class="facts rv"><span>★ <b>${RATING}</b> · ${REVIEWS} hodnotení na Google</span><span><a href="tel:0902482244"><b>0902 482 244</b></a></span></p>
+      <div class="ctas rv"><a class="btn" href="${MAP}" target="_blank" rel="noopener">Navigovať</a></div>
+      <figure class="storeph rv" style="margin-top:22px"><img src="${STORE_IMG}" alt="Predajňa DAMI na Gaštanovej ulici v Piešťanoch" loading="lazy"></figure></div></div></div></div>`; }
+}
+
+for (const [dir, fn] of [["A", A], ["B", B], ["C", C]]) document.getElementById("dir-" + dir).innerHTML = HEROES.map(h => wrap(dir, h, fn(h))).join("");
+
+/* ---------- prepínanie ---------- */
+const btns = document.querySelectorAll("[data-d]");
+function setDir(d, scroll) {
+  document.body.dataset.dir = d;
+  btns.forEach(b => b.setAttribute("aria-pressed", b.dataset.d === d));
+  try { history.replaceState(null, "", "#" + d); } catch (e) {}
+  if (scroll) window.scrollTo({ top: 0 });
+  if (window.ScrollTrigger) { ScrollTrigger.refresh(); animate(d); }
+}
+btns.forEach(b => b.addEventListener("click", () => setDir(b.dataset.d, false)));
+document.querySelectorAll("[data-go]").forEach(a => a.addEventListener("click", e => {
+  e.preventDefault(); const el = document.getElementById(document.body.dataset.dir + "-" + a.dataset.go);
+  if (el) (window.__lenis ? window.__lenis.scrollTo(el, { offset: -80 }) : el.scrollIntoView({ behavior: "smooth" }));
+}));
+
+/* ---------- pohyb (GSAP + Lenis), len ak to používateľ nevypol ---------- */
+const calm = matchMedia("(prefers-reduced-motion: reduce)").matches;
+const done = new Set();
+function animate(d) {
+  if (calm || !window.gsap || done.has(d)) return; done.add(d);
+  document.querySelectorAll(`#dir-${d} .hero`).forEach(sec => {
+    const items = sec.querySelectorAll(".rv");
+    gsap.from(items, { y: 22, autoAlpha: 0, duration: .8, ease: "power3.out", stagger: .05,
+      scrollTrigger: { trigger: sec, start: "top 85%", once: true } });
+  });
+}
+if (!calm && window.gsap && window.ScrollTrigger) {
+  gsap.registerPlugin(ScrollTrigger);
+  if (window.Lenis) { const lenis = new Lenis({ lerp: .11 }); window.__lenis = lenis; lenis.on("scroll", ScrollTrigger.update); gsap.ticker.add(t => lenis.raf(t * 1000)); gsap.ticker.lagSmoothing(0); }
+}
+const start = (location.hash || "").replace("#", "").toUpperCase();
+setDir(["A", "B", "C"].includes(start) ? start : "A", false);
+})();
+</script>
+</body>
+</html>
