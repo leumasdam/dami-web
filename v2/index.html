@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Figtree:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../assets/css/dami.css">
-<link rel="stylesheet" href="css/dami2.css?v=1121r">
+<link rel="stylesheet" href="css/dami2.css?v=1121x">
 <link rel="stylesheet" href="css/home.css?v=1121w">
 <script src="../data/catalog.js"></script>
 <script src="js/dami.js?v=1121x"></script>
@@ -319,7 +319,9 @@
     <div>${ico("phone")}<a href="tel:${FIRM.phone.replace(/\s/g, "")}">${FIRM.phone}</a></div>`;
   $("[data-map]").href = FIRM.map;
   const CLS = { CXS: "cxs", ARDON: "ardon", Giblors: "giblors", CHEFLINE: "chefline", CESARE: "cesare" };
-  $("[data-brands]").innerHTML = Object.keys(CLS).map(b => `<a href="znacky.html?b=${encodeURIComponent(b)}" aria-label="${b}"><span class="wm wm--${CLS[b]}">${b === "CHEFLINE" ? "CHEF<b>LINE</b>" : b}</span></a>`).join("");
+  /* značky: nekonečný pás v jednom riadku (2 rovnaké polovice, posun o -50 %) */
+  const bl = (hid) => Object.keys(CLS).map(b => `<a href="znacky.html?b=${encodeURIComponent(b)}" aria-label="${b}"${hid ? ' tabindex="-1"' : ""}><span class="wm wm--${CLS[b]}">${b === "CHEFLINE" ? "CHEF<b>LINE</b>" : b}</span></a>`).join("");
+  $("[data-brands]").innerHTML = `<div class="brands__run"><div class="brands__set">${bl()}${bl(1)}</div><div class="brands__set" aria-hidden="true">${bl(1)}${bl(1)}</div></div>`;
 })();
 </script>
 <script>DAMI.mountFooter()</script>

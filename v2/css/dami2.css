@@ -465,3 +465,13 @@ html.is-capped body { max-width: 1440px; margin-inline: auto; overflow-x: visibl
 .tg--line { background-image: none !important; border: 2px solid var(--bc, currentColor); }
 .tg-price--w.tg--line { border-width: 2.5px; }
 .tg.sl__stk, .tg.hv-c__stk, .tg.sl__chip, .tg.sl__live, .tg.catc__offer, .tg.pc__badge, .tg.promo__sale { border-radius: 8px !important; }
+
+/* značky – nekonečný pás */
+.brands__strip:has(.brands__run) { display: block; overflow: hidden; padding: 16px 0; -webkit-mask: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent); mask: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent); }
+.brands__run { display: flex; width: max-content; animation: brands-run 40s linear infinite; }
+.brands__strip:hover .brands__run { animation-play-state: paused; }
+.brands__set { display: flex; }
+.brands__run a { width: 250px; flex: none; border-left: 1px solid #cfcac3; }
+@keyframes brands-run { to { transform: translateX(-50%); } }
+@media (max-width: 760px) { .brands__run a { width: 150px; } .brands__run { animation-duration: 28s; } .brands__run a:nth-child(4) { border-left: 1px solid #cfcac3; } }
+@media (prefers-reduced-motion: reduce) { .brands__run { animation: none; } .brands__strip:has(.brands__run) { overflow-x: auto; } }
