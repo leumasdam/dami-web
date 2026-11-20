@@ -430,8 +430,8 @@
 .pgrid--4.is-rail > .pc { scroll-snap-align: start; }
 .sec--best .sec__hd { align-items: center; }
 .rail-nav { display: flex; gap: 8px; }
-.rail-btn { width: 44px; height: 44px; display: grid; place-items: center; border: 0; background: var(--ink); color: #fff; cursor: pointer; clip-path: polygon(0 0, calc(100% - 9px) 0, 100% 9px, 100% 100%, 9px 100%, 0 calc(100% - 9px)); transition: background .2s; }
-.rail-btn:hover { background: var(--red); }
+.rail-btn { width: 44px; height: 44px; display: grid; place-items: center; border: 1.5px solid #d9d4cd; border-radius: 50%; background: #fff; color: var(--ink); cursor: pointer; transition: border-color .2s, color .2s; }
+.rail-btn:hover { border-color: var(--red); color: var(--red); }
 .rail-btn .ico { width: 22px; height: 22px; stroke-width: 2; }
 @media (max-width: 1340px) { .pgrid--4.is-rail { grid-auto-columns: calc((100% - 32px) / 3); } }
 @media (max-width: 1000px) { .pgrid--4.is-rail { grid-auto-columns: calc((100% - 16px) / 2); } }

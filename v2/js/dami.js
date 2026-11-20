@@ -76,8 +76,8 @@
     refresh: '<path d="M20 8.5A8.5 8.5 0 0 0 4.6 7M4 15.5A8.5 8.5 0 0 0 19.4 17"/><path d="M4 3.5V7.5h4M20 20.5V16.5h-4"/>',
     send: '<path d="M21 3.5 3 10.5l7 3 3 7z"/><path d="m10 13.5 5-5"/>',
     upload: '<path d="M12 15V4"/><path d="m7.5 8.5 4.5-4.5 4.5 4.5"/><path d="M4 15v3.5A1.5 1.5 0 0 0 5.5 20h13a1.5 1.5 0 0 0 1.5-1.5V15"/>',
-    layers: '<path d="M12 3.6 20.4 8 12 12.4 3.6 8z" fill="currentColor" fill-opacity=".14"/><path d="M3.6 12 12 16.4 20.4 12"/><path d="M3.6 16 12 20.4 20.4 16"/>',
-    needle: '<path d="M4.6 19.4 16.7 4.7a1.8 1.8 0 0 1 2.6 2.6z" fill="currentColor" fill-opacity=".14"/><path d="M17.5 6.5l-1.2 1.2"/><path d="M18 6c1.8-1.8 4 .4 2.6 2.4-1.6 2.2-5 1.4-7.4 3.6-2 1.8-3.4 3.4-8.2 3.5" stroke-dasharray="1.8 1.9"/>',
+    layers: '<path d="M12 4l-8 4l8 4l8 -4l-8 -4" fill="currentColor"/><path d="M8 14l-4 2l8 4l8 -4l-4 -2"/><path d="M8 10l-4 2l8 4l8 -4l-4 -2"/>',
+    needle: '<path d="M3 21c-.667 -.667 3.262 -6.236 11.785 -16.709a3.5 3.5 0 1 1 5.078 4.791c-10.575 8.612 -16.196 12.585 -16.863 11.918z"/><path d="M17.5 6.5l-1 1"/><path d="M17 7c-2.333 -2.667 -3.5 -4 -5 -4s-2 1 -2 2c0 4 8.161 8.406 6 11c-1.056 1.268 -3.363 1.285 -5.75 .808"/><path d="M5.739 15.425c-1.393 -.565 -3.739 -1.925 -3.739 -3.425"/><path d="M19.5 9.5l1.5 1.5"/>',
     cart2: '<path d="M3 4h2.2l2.2 10.6a1.4 1.4 0 0 0 1.4 1.1h8.9a1.4 1.4 0 0 0 1.4-1.1L20.6 7H6"/>',
     hanger: '<path d="M12 7.5a2 2 0 1 1 2-2c0 1.3-2 1.6-2 3.5l8.3 6a1.2 1.2 0 0 1-.7 2.2H4.4a1.2 1.2 0 0 1-.7-2.2L12 9"/>',
     boot: '<path d="M5 4.5h6v7.5l7.5 2.5c1.5.5 2.5 1.8 2.5 3.3V19H3.5z"/><path d="M3.5 16h17.5"/>',
@@ -306,7 +306,7 @@
         <div class="pc__price ${sale ? "is-sale" : ""}">${p.price ? eur(p.price) : "Cena na dopyt"}${sale ? `<s>${eur(p.was)}</s>` : ""}</div>
         ${p.sizes.length && !o.noSz ? `<div class="pc__sizes">${p.sizes.slice(0, 5).map(z => `<i>${esc(z)}</i>`).join("")}${p.sizes.length > 5 ? `<i class="more">+${p.sizes.length - 5}</i>` : ""}</div>` : ""}
         ${cols.length && !o.noSw ? `<div class="sw">${cols.map(c => `<i title="${esc(c.n)}" style="background:${c.h.length > 1 ? `linear-gradient(135deg,${c.h[0]} 50%,${c.h[1]} 50%)` : c.h[0]}"></i>`).join("")}${more > 0 ? `<small>+${more}</small>` : ""}</div>` : ""}
-        ${o.add ? (p.price ? `<div class="pc__buy"><button class="pc__add" data-quick="${esc(p.id)}">${ico("cart2")} Do košíka</button>${LOGO_OPT.map(([k, ic, t]) => `<button class="pc__lg" data-quick="${esc(p.id)}" data-logo="${k}" title="Do košíka ${t}" aria-label="Do košíka ${t}"><svg class="fr" viewBox="0 0 40 40" preserveAspectRatio="none" aria-hidden="true"><path d="M.75.75h31.5l7 7v31.5h-31.5l-7-7z"/></svg>${ico(ic)}</button>`).join("")}</div>` : `<a class="pc__add" href="${prodUrl(p.id)}">Opýtať sa na cenu</a>`) : ""}
+        ${o.add ? (p.price ? `<div class="pc__buy"><button class="pc__add" data-quick="${esc(p.id)}">${ico("cart2")} Do košíka</button>${LOGO_OPT.map(([k, ic, t]) => `<button class="pc__lg" data-quick="${esc(p.id)}" data-logo="${k}" title="Do košíka ${t}" aria-label="Do košíka ${t}">${ico(ic)}</button>`).join("")}</div>` : `<a class="pc__add" href="${prodUrl(p.id)}">Opýtať sa na cenu</a>`) : ""}
       </div></article>`;
   }
 
