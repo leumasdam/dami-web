@@ -13,12 +13,14 @@
 
   /* POLOHA SVETIELOK (px od vrchu stránky, pod čiernou lištou). Hodnoty z ladiaceho panela vložiť sem. */
   const DEF = {
-    d: { yL: 70, yR: 190, sag: 16, seg: 170, size: 1.2, per: 3, front: 0 },
+    d: { yL: 1230, yR: 1244, sag: 14, seg: 255, size: 1.5, per: 2, front: 1 },
     m: { yL: 60, yR: 150, sag: 10, seg: 100, size: 1, per: 3, front: 0 },
   };
   let CFG = JSON.parse(JSON.stringify(DEF));
   if (TUNE) try { const s = JSON.parse(localStorage.getItem(CKEY) || "null"); if (s) CFG = { d: { ...DEF.d, ...s.d }, m: { ...DEF.m, ...s.m } }; } catch {}
   const mode = () => innerWidth < 761 ? "m" : "d";
+  /* svetielka visia len na úvode (poloha je naladená na jeho obsah), sneh padá všade */
+  const HOME = /(^|\/)(index\.html)?$/.test(location.pathname);
 
   const css = `
   .topbar { position: relative; z-index: 2; }
@@ -138,7 +140,7 @@
     const set = v => {
       btn.setAttribute("aria-pressed", v); btn.setAttribute("aria-label", v ? "Vypnúť vianočný režim" : "Zapnúť vianočný režim"); btn.title = btn.getAttribute("aria-label");
       document.body.classList.toggle("xm-on", v);
-      if (v) { gl = gl || garland(); sn = sn || snow(); if (TUNE && !tn) tn = tuner(gl); } else { gl?.remove(); gl = null; sn?.stop(); sn = null; tn?.remove(); tn = null; }
+      if (v) { if (HOME) gl = gl || garland(); sn = sn || snow(); if (TUNE && gl && !tn) tn = tuner(gl); } else { gl?.remove(); gl = null; sn?.stop(); sn = null; tn?.remove(); tn = null; }
       try { localStorage.setItem(KEY, v ? "on" : "off"); } catch {}
     };
     btn.onclick = () => set(btn.getAttribute("aria-pressed") !== "true");
