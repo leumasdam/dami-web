@@ -9,7 +9,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Figtree:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../assets/css/dami.css">
 <link rel="stylesheet" href="css/dami2.css?v=1120l">
-<link rel="stylesheet" href="css/home.css?v=1120l">
+<link rel="stylesheet" href="css/home.css?v=1120m">
 <script src="../data/catalog.js"></script>
 <script src="js/dami.js?v=1120b"></script>
 </head>
@@ -31,13 +31,17 @@
         <span class="link">Pozrieť akcie <svg viewBox="0 0 24 24"><path d="M4 12h15M13 6l6 6-6 6"/></svg></span>
         <img src="img/trousers.webp" alt="Kuchárske nohavice PLUTONE Giblors" width="700" height="1055">
       </a>
-      <a class="promo promo--ticket" href="predajna.html">
-        <div>
-          <h2>Odložíme ti tovar <span>z e-shopu.</span></h2>
-          <span class="link link--red">Predajňa Piešťany</span>
-        </div>
-        <span class="stamp" aria-hidden="true"><img src="img/hand-red.svg" alt=""></span>
-      </a>
+      <div class="promo promo--ticket" data-flip>
+        <a class="tk" href="predajna.html">
+          <div><h2>Odložíme ti tovar <span>z e-shopu.</span></h2><span class="link link--red">Predajňa Piešťany</span></div>
+          <span class="stamp" aria-hidden="true"><img src="img/hand-red.svg" alt=""></span></a>
+        <a class="tk" href="pre-firmy.html" aria-hidden="true" tabindex="-1">
+          <div><h2>Vyšijeme vaše <span>logo.</span></h2><span class="link link--red">Pre firmy</span></div>
+          <span class="stamp" aria-hidden="true"><img src="img/hand-red.svg" alt=""></span></a>
+        <a class="tk" href="#registracia" aria-hidden="true" tabindex="-1">
+          <div><h2>Zľava za <span>registráciu.</span></h2><span class="link link--red">Vytvoriť účet</span></div>
+          <span class="stamp" aria-hidden="true"><img src="img/hand-red.svg" alt=""></span></a>
+      </div>
     </div>
     <div class="cats" data-cats></div>
   </section>
@@ -139,22 +143,58 @@
   $("[data-prev]").innerHTML = ico("chevL"); $("[data-next]").innerHTML = ico("chevR");
   let cur = 0, timer;
   const reduce = /[?&]static/.test(location.search) || matchMedia("(prefers-reduced-motion: reduce)").matches;
-  function go(i) {
+  /* 3D kocka (desktop): odchádzajúci slide sa otočí preč, nový príde z druhej steny kocky */
+  const cube = matchMedia("(min-width: 761px)");
+  const setMode = () => car.classList.toggle("car--cube", cube.matches && !reduce);
+  setMode(); cube.addEventListener?.("change", () => { setMode(); go(cur, 0); });
+  let busy = null;
+  function spin(from, to, dir) {
+    const a = track.children[from], b = track.children[to], E = "cubic-bezier(.65,0,.35,1)", T = 900;
+    busy?.forEach(x => x.finish()); [...track.children].forEach(s => s.classList.remove("is-on", "is-in"));
+    a.classList.add("is-in"); b.classList.add("is-on");
+    const W = car.clientWidth;
+    busy = [a.animate([{ transform: "translateX(0) rotateY(0deg)", filter: "brightness(1)" }, { transform: `translateX(${-dir * 100}%) rotateY(${-dir * 90}deg)`, filter: "brightness(.7)" }], { duration: T, easing: E, fill: "forwards" }),
+            b.animate([{ transform: `translateX(${dir * 100}%) rotateY(${dir * 90}deg)`, filter: "brightness(.7)" }, { transform: "translateX(0) rotateY(0deg)", filter: "brightness(1)" }], { duration: T, easing: E })];
+    a.style.transformOrigin = dir > 0 ? "100% 50%" : "0% 50%"; b.style.transformOrigin = dir > 0 ? "0% 50%" : "100% 50%";
+    busy[0].onfinish = () => { a.classList.remove("is-in"); busy[0].cancel(); };
+  }
+  function go(i, dir = 1) {
+    const prev = cur;
     cur = (i + SLIDES.length) % SLIDES.length;
-    track.style.transform = `translateX(${-100 * cur}%)`;
+    if (car.classList.contains("car--cube")) {
+      track.style.transform = "";
+      if (prev !== cur && dir) spin(prev, cur, dir); else { [...track.children].forEach((s, j) => s.classList.toggle("is-on", j === cur)); }
+    } else track.style.transform = `translateX(${-100 * cur}%)`;
     [...dots.children].forEach((d, j) => d.setAttribute("aria-selected", j === cur));
     [...track.children].forEach((s, j) => s.toggleAttribute("inert", j !== cur));
   }
   const play = () => { if (reduce) return; clearInterval(timer); timer = setInterval(() => go(cur + 1), 6500); };
-  $("[data-prev]").onclick = () => { go(cur - 1); play(); };
+  $("[data-prev]").onclick = () => { go(cur - 1, -1); play(); };
   $("[data-next]").onclick = () => { go(cur + 1); play(); };
-  dots.onclick = e => { const b = e.target.closest("button"); if (b) { go([...dots.children].indexOf(b)); play(); } };
+  dots.onclick = e => { const b = e.target.closest("button"); if (b) { const n = [...dots.children].indexOf(b); go(n, n < cur ? -1 : 1); play(); } };
   car.addEventListener("mouseenter", () => clearInterval(timer));
   car.addEventListener("mouseleave", play);
   let x0 = null;
   car.addEventListener("touchstart", e => { x0 = e.touches[0].clientX; clearInterval(timer); }, { passive: true });
-  car.addEventListener("touchend", e => { if (x0 == null) return; const dx = e.changedTouches[0].clientX - x0; x0 = null; if (Math.abs(dx) > 40) go(cur + (dx < 0 ? 1 : -1)); play(); });
-  go(0); play();
+  car.addEventListener("touchend", e => { if (x0 == null) return; const dx = e.changedTouches[0].clientX - x0; x0 = null; if (Math.abs(dx) > 40) go(cur + (dx < 0 ? 1 : -1), dx < 0 ? 1 : -1); play(); });
+  go(0, 0); play();
+
+  /* ---------- lístok vpravo: 3D tabuľa, nová správa sa preklopí zhora dole ---------- */
+  const flip = $("[data-flip]");
+  if (flip) {
+    const F = [...flip.querySelectorAll(".tk")]; let fi = 0, ft;
+    F.forEach((f, j) => f.classList.toggle("is-on", !j));
+    const next = () => {
+      const a = F[fi], b = F[(fi = (fi + 1) % F.length)], E = "cubic-bezier(.65,0,.35,1)";
+      a.style.transformOrigin = "50% 0%"; b.style.transformOrigin = "50% 100%";
+      a.animate([{ transform: "translateY(0) rotateX(0deg)", opacity: 1 }, { transform: "translateY(100%) rotateX(-90deg)", opacity: .4 }], { duration: 800, easing: E, fill: "forwards" }).onfinish = e => { a.classList.remove("is-on"); e.target.cancel(); };
+      b.classList.add("is-on");
+      b.animate([{ transform: "translateY(-100%) rotateX(90deg)", opacity: .4 }, { transform: "translateY(0) rotateX(0deg)", opacity: 1 }], { duration: 800, easing: E });
+      F.forEach(f => { const on = f === b; f.toggleAttribute("aria-hidden", !on); on ? f.removeAttribute("tabindex") : f.setAttribute("tabindex", "-1"); });
+    };
+    const run = () => { if (reduce) return; clearInterval(ft); ft = setInterval(next, 4200); };
+    flip.addEventListener("mouseenter", () => clearInterval(ft)); flip.addEventListener("mouseleave", run); run();
+  }
 
   /* ---------- kategórie s ponukou ---------- */
   const CATS = [
