@@ -90,7 +90,7 @@
         <div class="fitc__price">${eur(x.price)}${x.was > x.price ? `<s>${eur(x.was)}</s>` : ""}</div>
         <button class="pc__add" data-quick="${esc(x.id)}">${ico("cart2")} Do košíka</button></div></article>`;
 
-  const STK = `<a class="pstk" href="predajna.html" aria-label="Príď si ho vyskúšať do predajne v Piešťanoch"><img src="img/hand-white.png" alt="" width="458" height="600"><span>Príď si ${sec === "obuv" ? "ju" : "ho"}<br>vyskúšať</span>
+  const STK = `<a class="pstk" href="predajna.html" aria-label="Príď si ho vyskúšať do predajne v Piešťanoch"><img src="img/hand-white.svg" alt="" width="458" height="600"><span>Príď si ${sec === "obuv" ? "ju" : "ho"}<br>vyskúšať</span>
     <svg viewBox="0 0 160 16" aria-hidden="true"><path d="M3 11c30-5 70-8 150-7" stroke="#fff" stroke-width="3.6" fill="none" stroke-linecap="round"/></svg></a>`;
 
   $("[data-page]").innerHTML = `

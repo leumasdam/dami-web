@@ -119,7 +119,7 @@
     { k: "firmy", label: "Pre firmy", href: "pre-firmy.html" },
     { k: "predajna", label: "Predajňa", href: "predajna.html" },
   ];
-  const LOGO = (cls = "") => `<span class="logo-mk"><img src="img/hand-white.png" alt="" width="458" height="600"></span><span class="logo-t ${cls}"><b>DAMI</b><small>PRACOVNÉ ODEVY</small></span>`;
+  const LOGO = (cls = "") => `<span class="logo-mk"><img src="img/hand-white.svg" alt="" width="458" height="600"></span><span class="logo-t ${cls}"><b>DAMI</b><small>PRACOVNÉ ODEVY</small></span>`;
   function mega(k) {
     const s = D.sections[k]; if (!s) return "";
     const subs = s.subs.filter(c => D.cats[c]?.products.length);
@@ -192,7 +192,7 @@
         ${o.extra || ""}
         ${o.btns ? `<div class="hv-b__btns">${o.btns.map(heroBtn).join("")}</div>` : ""}
         ${o.trust ? `<p class="hv-b__trust">${o.trust.map(t => `<span>${t}</span>`).join("")}</p>` : ""}
-        <img class="hv-b__hand" src="img/hand-white.png" alt="" width="458" height="600"></div>
+        <img class="hv-b__hand" src="img/hand-white.svg" alt="" width="458" height="600"></div>
       <div class="hv-b__ph"><img src="${o.photo}" alt="${esc(o.alt || "")}" style="object-position:${o.pos || "50% 50%"}" fetchpriority="high"></div></section>`;
   }
   /* C: nadpis + veľký produkt s cenovkou a vlastnosťami + pás odporúčaných */
@@ -259,7 +259,7 @@
       <div class="mnav__search"><label class="search">${ico("search", "")}<input type="search" placeholder="Hľadať: rondon, kroksy, S3…" aria-label="Hľadať" data-search><div class="search__res" data-search-res></div></label></div>
       <nav class="mnav__big">${NAV.filter(n => D.sections[n.k]).map(n => `<a href="${n.href}">${esc(D.sections[n.k].name)}${arr}</a>`).join("")}</nav>
       <nav class="mnav__small"><a href="pre-firmy.html">Pre firmy${arr}</a><a href="predajna.html">Predajňa Piešťany${arr}</a><a href="#">Môj účet${arr}</a></nav>
-      <div class="mnav__foot"><span class="logo-mk"><img src="img/hand-white.png" alt=""></span><span><a href="${FIRM.map}" target="_blank" rel="noopener">${FIRM.street}</a> • <a href="tel:${FIRM.phone.replace(/\s/g, "")}">${FIRM.phone}</a></span></div></div>`;
+      <div class="mnav__foot"><span class="logo-mk"><img src="img/hand-white.svg" alt=""></span><span><a href="${FIRM.map}" target="_blank" rel="noopener">${FIRM.street}</a> • <a href="tel:${FIRM.phone.replace(/\s/g, "")}">${FIRM.phone}</a></span></div></div>`;
   }
 
   function chrome() {

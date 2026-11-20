@@ -36,7 +36,7 @@
           <h2>Odložíme ti tovar <span>z e-shopu.</span></h2>
           <span class="link link--red">Predajňa Piešťany</span>
         </div>
-        <span class="stamp" aria-hidden="true"><img src="img/hand-red.png" alt=""></span>
+        <span class="stamp" aria-hidden="true"><img src="img/hand-red.svg" alt=""></span>
       </a>
     </div>
     <div class="cats" data-cats></div>
@@ -124,7 +124,7 @@
     return `<div class="sl__panel"></div>
       <div class="sl__fig sl__fig--${s.mode}"><img src="${s.fig}" alt="" ${lazy}></div>
       ${s.stk ? `<span class="sl__stk ${s.stkCls || ""}">${s.stkOld ? `<s>${s.stkOld}</s>` : ""}<b>${s.stk}</b></span>` : ""}
-      ${s.stamp ? `<span class="sl__stamp" aria-hidden="true"><img src="img/hand-red.png" alt=""></span>` : ""}
+      ${s.stamp ? `<span class="sl__stamp" aria-hidden="true"><img src="img/hand-red.svg" alt=""></span>` : ""}
       ${s.chip ? `<span class="sl__chip">${s.chip}</span>` : ""}`;
   };
   $("[data-car]").classList.add("car--v3");
