@@ -389,7 +389,8 @@
 
 
 /* veľký banner – preklápanie ako tabuľa (desktop) */
-.car--flip .car__track { display: block; position: relative; transform: none !important; perspective: 3200px; }
+.car--flip { perspective: 1800px; perspective-origin: 50% 50%; }
+.car--flip .car__track { display: block; position: relative; transform-style: preserve-3d; }
 .car--flip .slide { position: absolute; inset: 0; visibility: hidden; }
 .car--flip .slide.is-on { visibility: visible; }
 
@@ -568,3 +569,4 @@
   .made--patch:hover .made__ph { transform: scale(1.02); }
   .made--patch .made__ph { transition: transform .6s var(--ease); }
 }
+.car--flip .slide { backface-visibility: hidden; }

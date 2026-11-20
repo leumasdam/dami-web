@@ -9,7 +9,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Figtree:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../assets/css/dami.css">
 <link rel="stylesheet" href="css/dami2.css?v=1121x">
-<link rel="stylesheet" href="css/home.css?v=1121w">
+<link rel="stylesheet" href="css/home.css?v=1121y">
 <script src="../data/catalog.js"></script>
 <script src="js/dami.js?v=1121x"></script>
 <script src="js/track.js?v=1121a"></script>
@@ -208,20 +208,36 @@
   };
   flipMq.addEventListener?.("change", setFlip); snapMq.addEventListener?.("change", () => { setFlip(); go(cur); });
   /* kocka: odchádzajúci slide sa otočí okolo zvislej hrany, nový príde z bočnej steny */
+  /* 3D kocka „s kamerou“: celý banner sa pri otáčaní vzdiali (dolly out), steny sa otočia s tieňom,
+     a vrstvy nového slidu doletia z hĺbky postupne – postava, cenovka, potom text (paralaxa) */
   function flipTo(n, dir) {
-    const a = real[cur], b = real[n], E = "cubic-bezier(.55,0,.25,1)", T = 620;
+    const a = real[cur], b = real[n], T = 900, E = "cubic-bezier(.65,0,.35,1)";
     a.style.transformOrigin = dir > 0 ? "100% 50%" : "0% 50%"; b.style.transformOrigin = dir > 0 ? "0% 50%" : "100% 50%";
     b.classList.add("is-on");
-    a.animate([{ transform: "translateX(0) rotateY(0deg)", opacity: 1 }, { transform: `translateX(${-dir * 100}%) rotateY(${-dir * 90}deg)`, opacity: .55 }], { duration: T, easing: E, fill: "forwards" })
-      .onfinish = e => { a.classList.remove("is-on"); e.target.cancel(); done(); };
-    b.animate([{ transform: `translateX(${dir * 100}%) rotateY(${dir * 90}deg)`, opacity: .55 }, { transform: "translateX(0) rotateY(0deg)", opacity: 1 }], { duration: T, easing: E });
+    /* kamera: track sa vzdiali a vráti */
+    track.animate([{ transform: "translateZ(0)" }, { transform: "translateZ(-260px)", offset: .5 }, { transform: "translateZ(0)" }], { duration: T, easing: "cubic-bezier(.45,0,.25,1)" });
+    a.animate([
+      { transform: "translateX(0) rotateY(0deg)", filter: "brightness(1)" },
+      { transform: `translateX(${-dir * 100}%) rotateY(${-dir * 90}deg)`, filter: "brightness(.45)" }
+    ], { duration: T, easing: E, fill: "forwards" }).onfinish = e => { a.classList.remove("is-on"); e.target.cancel(); done(); };
+    b.animate([
+      { transform: `translateX(${dir * 100}%) rotateY(${dir * 90}deg)`, filter: "brightness(.45)" },
+      { transform: "translateX(0) rotateY(0deg)", filter: "brightness(1)" }
+    ], { duration: T, easing: E });
+    /* vrstvy nového slidu – paralaxa do hĺbky */
+    const L = (sel, from, delay, dur = 700) => b.querySelectorAll(sel).forEach((el, i) => el.animate(
+      [{ transform: from, opacity: 0 }, { transform: "none", opacity: 1 }],
+      { duration: dur, delay: delay + i * 70, easing: "cubic-bezier(.2,.8,.2,1)", fill: "backwards" }));
+    L(".sl__fig img, .sl__panel--photo img", `translateX(${dir * 70}px) scale(1.12)`, T * .45, 850);
+    L(".sl__stk, .sl__stamp, .sl__chip, .sl__live", "scale(.4) rotate(-20deg)", T * .7, 600);
+    L(".sl__txt > *", `translateX(${dir * 46}px)`, T * .5, 650);
   }
   function go(i, dir) {
     if (lock) return;
     const n = ((i % N) + N) % N;
     if (isSnap()) { cur = n; track.scrollTo({ left: real[n].offsetLeft - real[0].offsetLeft, behavior: reduce ? "auto" : "smooth" }); [...dots.children].forEach((d, j) => d.setAttribute("aria-selected", j === cur)); real.forEach(s => s.removeAttribute("inert")); return; }
     if (isFlip()) {
-      if (n !== cur) { lock = true; clearTimeout(lt); lt = setTimeout(() => { real.forEach((s, j) => { s.classList.toggle("is-on", j === n); s.getAnimations().forEach(x => x.cancel()); }); done(); }, 1100); flipTo(n, dir || (i > cur ? 1 : -1)); }
+      if (n !== cur) { lock = true; clearTimeout(lt); lt = setTimeout(() => { real.forEach((s, j) => { s.classList.toggle("is-on", j === n); s.getAnimations({ subtree: true }).forEach(x => x.cancel()); }); done(); }, 1900); flipTo(n, dir || (i > cur ? 1 : -1)); }
       cur = n;
     } else {
       cur = n; pos = i + 1; lock = !reduce; place(!reduce);
