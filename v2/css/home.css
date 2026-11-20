@@ -126,8 +126,8 @@
 .pgrid--4 .pc__add .ico { width: 19px; height: 19px; stroke-width: 1.9; }
 
 /* ---------- vlastná výroba ---------- */
-.made { position: relative; display: block; background-color: #D72317; color: #fff; border-radius: var(--r); overflow: hidden; height: 300px; isolation: isolate; box-shadow: 0 6px 16px rgba(20,20,20,.1); }
-.made__scene { position: absolute; top: 0; right: 0; height: 100%; width: auto; max-width: none; z-index: -2; -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 12%); mask-image: linear-gradient(90deg, transparent 0, #000 12%); }
+.made { position: relative; display: block; background-color: var(--red); color: #fff; border-radius: var(--r); overflow: hidden; height: 300px; isolation: isolate; box-shadow: 0 6px 16px rgba(20,20,20,.1); }
+.made__scene { position: absolute; top: 14px; right: 14px; bottom: 14px; height: calc(100% - 28px); width: 42%; max-width: none; object-fit: cover; object-position: 40% 50%; border-radius: calc(var(--r) - 4px); z-index: 0; }
 .made::before { content: none; }
 .made__txt { position: relative; padding: 24px 40px; display: grid; gap: 0; justify-items: start; max-width: 680px; }
 .made h2 { font-size: 59px; line-height: .93; font-stretch: 86%; letter-spacing: -.015em; }
@@ -248,7 +248,7 @@
   .pgrid--4 .pc__price { font-size: 25px; margin-top: 8px; }
   .pgrid--4 .pc__add { align-self: stretch; height: 40px; margin-top: 10px; font-size: 15.5px; }
   .made { height: auto; display: flex; flex-direction: column; }
-  .made__scene { position: relative; order: 2; height: auto; width: 100%; aspect-ratio: 16 / 9; object-fit: cover; object-position: 75% 50%; margin-top: 16px; }
+  .made__scene { position: relative; top: auto; right: auto; bottom: auto; order: 2; height: auto; width: calc(100% - 28px); margin: 16px 14px 14px; aspect-ratio: 16 / 10; object-fit: cover; object-position: 40% 50%; }
   .made__txt { padding: 22px 18px 0; }
   .made h2 { font-size: 36px; }
   .made p { font-size: 16px; }
