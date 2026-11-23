@@ -401,6 +401,11 @@
 .sl--obuv .sl__stk.tg b { font-size: 36px; }
 .sl__chip.tg { border-radius: 0; background: var(--ink); color: #fff; padding: 9px 14px 8px; }
 .sl__live.tg { border-radius: 0; box-shadow: none; background: #fff; padding: 10px 16px 9px; font-size: 14px; }
+/* stav predajne nikdy nevytečie z fotky: max. šírka panelu, písmo sa zmenší, v najužšom prípade 2 riadky */
+.car--v3 .sl__panel--photo .sl__live.tg, .sl__panel--photo .sl__live.tg { box-sizing: border-box; left: 14px; right: 14px; translate: none; margin-inline: auto; width: fit-content; max-width: calc(100% - 28px);
+  white-space: normal; text-wrap: balance; text-align: center; line-height: 1.15; justify-content: center; font-size: clamp(11px, 0.88vw, 13px); }
+.sl__panel--photo .sl__live.tg { display: block; }
+.sl__panel--photo .sl__live.tg i { display: inline-block; vertical-align: .06em; margin-right: 8px; }
 .catc__offer.tg { border-radius: 0; text-transform: none; letter-spacing: 0; font-size: 24px; padding: 8px 14px 7px; }
 .sl__stk.tg-price--w { background-color: #fff; color: var(--red); --bc: var(--red); --bw: 3px; }
 .promo__sale { position: relative; z-index: 2; align-self: flex-start; font-size: 44px; padding: 10px 18px 8px; margin: -8px 0 4px -4px; }

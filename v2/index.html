@@ -167,7 +167,7 @@
   const art = (s, i) => {
     const lazy = i ? 'loading="lazy"' : 'fetchpriority="high"';
     if (s.photo) return `<div class="sl__panel sl__panel--photo"><img src="${s.photo}" alt="Predajňa DAMI pracovné odevy a obuv na Gaštanovej v Piešťanoch" ${lazy}>
-        <span class="sl__live tg tg--cut2 tg-state ${s.live.open ? "is-open" : ""}"><i></i>${s.live.text}</span></div>`;
+        <span class="sl__live tg tg--cut2 tg-state ${s.live.open ? "is-open" : ""}"><i></i><span>${s.live.text}</span></span></div>`;
     return `<div class="sl__panel"></div>
       <div class="sl__fig sl__fig--${s.mode}"><img src="${s.fig}" alt="" ${lazy}></div>
       ${s.stk ? `<span class="sl__stk tg tg--cut2 tg-price ${s.stkCls || ""}">${s.stkOld ? `<s>predtým ${s.stkOld}</s>` : ""}${/^od /.test(s.stk) ? `<small>od</small><b>${s.stk.slice(3)}</b>` : `<b>${s.stk}</b>`}</span>` : ""}
