@@ -272,15 +272,20 @@
     const F = [...flip.querySelectorAll(".tk")]; let fi = 0, ft;
     F.forEach((f, j) => f.classList.toggle("is-on", !j));
     const next = () => {
+      if (document.hidden) return;
       const a = F[fi], b = F[(fi = (fi + 1) % F.length)], E = "cubic-bezier(.65,0,.35,1)";
+      F.forEach(f => f.getAnimations().forEach(x => x.cancel()));
+      F.forEach(f => f.classList.toggle("is-on", f === a));
       a.style.transformOrigin = "50% 0%"; b.style.transformOrigin = "50% 100%";
-      a.animate([{ transform: "translateY(0) rotateX(0deg)", opacity: 1 }, { transform: "translateY(100%) rotateX(-90deg)", opacity: .4 }], { duration: 800, easing: E, fill: "forwards" }).onfinish = e => { a.classList.remove("is-on"); e.target.cancel(); };
+      a.animate([{ transform: "translateY(0) rotateX(0deg)", opacity: 1 }, { transform: "translateY(100%) rotateX(-90deg)", opacity: .4 }], { duration: 800, easing: E, fill: "forwards" }).onfinish = e => { if (a !== F[fi]) a.classList.remove("is-on"); e.target.cancel(); };
       b.classList.add("is-on");
       b.animate([{ transform: "translateY(-100%) rotateX(90deg)", opacity: .4 }, { transform: "translateY(0) rotateX(0deg)", opacity: 1 }], { duration: 800, easing: E });
       F.forEach(f => { const on = f === b; f.toggleAttribute("aria-hidden", !on); on ? f.removeAttribute("tabindex") : f.setAttribute("tabindex", "-1"); });
     };
     const run = () => { if (reduce) return; clearInterval(ft); ft = setInterval(next, 4200); };
     flip.addEventListener("mouseenter", () => clearInterval(ft)); flip.addEventListener("mouseleave", run); run();
+    /* poistka: po návrate na kartu musí byť vidno práve jednu správu */
+    document.addEventListener("visibilitychange", () => { if (document.hidden) return; F.forEach(f => { f.getAnimations().forEach(x => x.cancel()); f.classList.toggle("is-on", f === F[fi]); }); });
   }
 
   /* ---------- kategórie s ponukou ---------- */
