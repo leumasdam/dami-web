@@ -7,6 +7,11 @@ HANDOFF.md
 
 # v2: zdrojové vrstvy z Higgsfieldu sú veľké, v repe sú len exporty v v2/img
 v2/src/*.png
-alternativy/
+# alternatívy identity: online len stránka + JPG náhľady (PNG zdroje a plagáty ostávajú lokálne)
+alternativy/*
+!alternativy/index.html
+!alternativy/img/
+alternativy/img/*
+!alternativy/img/*.jpg
 v2/src/hero/*.png
 v2/src/

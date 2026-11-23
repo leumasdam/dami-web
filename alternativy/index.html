@@ -1,0 +1,242 @@
+<title>DAMI · tri smery</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+  /* Layout: katalógový list — úzky textový stĺpec, obrázky cez celú šírku, každý smer ako samostatný „diel“ s kódom A/B/C */
+  :root {
+    --bg: #ecebe8;
+    --surface: #f7f6f4;
+    --ink: #151515;
+    --muted: #5d5b57;
+    --line: #cfccc6;
+    --red: #d3241b;
+    --tag: #151515;
+    --tag-ink: #f7f6f4;
+    --display: "Archivo", "Arial Narrow", system-ui, sans-serif;
+    --body: "Archivo", system-ui, -apple-system, "Segoe UI", sans-serif;
+    --mono: "IBM Plex Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #141413; --surface: #1d1c1b; --ink: #efede9; --muted: #a6a29b; --line: #34322f;
+      --red: #ef4a3f; --tag: #efede9; --tag-ink: #141413; color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #141413; --surface: #1d1c1b; --ink: #efede9; --muted: #a6a29b; --line: #34322f;
+    --red: #ef4a3f; --tag: #efede9; --tag-ink: #141413; color-scheme: dark;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    background: var(--bg); color: var(--ink);
+    font: 400 16px/1.55 var(--body);
+    padding-left: max(16px, env(safe-area-inset-left, 0px));
+    padding-right: max(16px, env(safe-area-inset-right, 0px));
+  }
+  .wrap { max-width: 1240px; margin: 0 auto; padding-block: 40px 80px; display: grid; gap: 72px; }
+  h1, h2, h3 { font-family: var(--display); margin: 0; text-wrap: balance; }
+  p { margin: 0; }
+  .mono { font-family: var(--mono); font-size: 12px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+  img { display: block; max-width: 100%; height: auto; }
+
+  /* hlavička */
+  .top { display: grid; gap: 20px; }
+  .top h1 { font-size: clamp(44px, 8vw, 104px); font-weight: 900; font-stretch: 72%; line-height: .9; letter-spacing: -.01em; text-transform: uppercase; }
+  .top h1 span { color: var(--red); }
+  .lead { max-width: 62ch; font-size: 18px; color: var(--muted); }
+  .lead b { color: var(--ink); font-weight: 600; }
+
+  /* názor na súčasný web */
+  .now { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr); gap: 32px; align-items: start; }
+  .now img { border: 1px solid var(--line); }
+  .now h2, .cmp h2, .pick h2 { font-size: 30px; font-weight: 800; font-stretch: 85%; margin-bottom: 14px; }
+  .notes { list-style: none; padding: 0; margin: 0; display: grid; gap: 12px; }
+  .notes li { display: grid; grid-template-columns: 34px minmax(0, 1fr); gap: 8px; }
+  .notes li::before { content: attr(data-k); font-family: var(--mono); font-size: 12px; color: var(--red); padding-top: 3px; }
+  .notes b { font-weight: 600; }
+
+  /* smer */
+  .dir { display: grid; gap: 22px; border-top: 2px solid var(--ink); padding-top: 18px; }
+  .dir-head { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 18px 24px; align-items: start; }
+  .code {
+    font-family: var(--display); font-weight: 900; font-stretch: 62%; font-size: 112px; line-height: .78;
+    color: var(--tag); padding-top: 4px;
+  }
+  .dir h2 { font-size: clamp(34px, 5vw, 56px); font-weight: 900; font-stretch: 75%; line-height: .95; text-transform: uppercase; }
+  .dir .idea { font-size: 19px; max-width: 58ch; margin-top: 10px; }
+  .facts { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+  .facts span { font-family: var(--mono); font-size: 12px; padding: 4px 9px; background: var(--tag); color: var(--tag-ink); }
+  .facts span.sw { display: inline-flex; align-items: center; gap: 7px; background: transparent; color: var(--ink); border: 1px solid var(--line); }
+  .facts i { width: 12px; height: 12px; display: inline-block; border: 1px solid var(--line); }
+  .shot { background: var(--surface); border: 1px solid var(--line); }
+  .row { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2.2fr); gap: 16px; align-items: start; }
+  .stack { display: grid; gap: 16px; }
+  .pros { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px 32px; }
+  .pros h3 { font-size: 13px; font-family: var(--mono); font-weight: 500; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
+  .pros p { max-width: 60ch; }
+
+  /* porovnanie */
+  .tbl { overflow-x: auto; }
+  table { border-collapse: collapse; width: 100%; min-width: 640px; font-size: 15px; }
+  th, td { text-align: left; padding: 11px 14px 11px 0; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { font-family: var(--mono); font-weight: 500; font-size: 12px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+  td:first-child { font-weight: 600; width: 22%; }
+
+  .pick { background: var(--tag); color: var(--tag-ink); padding: 28px max(16px, 3vw); display: grid; gap: 12px; }
+  .pick h2 { color: var(--tag-ink); }
+  .pick p { max-width: 70ch; font-size: 18px; }
+  .pick .mono { color: inherit; opacity: .7; }
+  .foot { font-family: var(--mono); font-size: 12px; color: var(--muted); max-width: 80ch; }
+
+  @media (max-width: 820px) {
+    .now, .row, .pros { grid-template-columns: minmax(0, 1fr); }
+    .dir-head { grid-template-columns: minmax(0, 1fr); }
+    .code { font-size: 72px; }
+  }
+</style>
+
+<div class="wrap">
+
+  <header class="top">
+    <p class="mono">DAMI pracovné odevy · Piešťany · návrh 19. 11. 2026</p>
+    <h1>Tri smery <span>pre nový web</span></h1>
+    <p class="lead">Rovnaký e-shop, rovnaké produkty, tri rôzne povahy značky. Pri každom smere je <b>úvodná stránka na počítači a na mobile, hlavná fotka a značka v praxi</b>: predajňa, taška, štítok. Vyberte jeden smer. Z ostatných si môžeme požičať jednotlivé prvky.</p>
+  </header>
+
+  <section class="now" aria-labelledby="now-h">
+    <img src="img/dnes.jpg" alt="Súčasný návrh webu DAMI" loading="lazy" width="1440" height="1430">
+    <div>
+      <h2 id="now-h">Čo dnes funguje a čo nie</h2>
+      <ul class="notes">
+        <li data-k="+"><span><b>Silná je reálna predajňa.</b> Fotky budovy a regálov sú to najpresvedčivejšie na stránke a dnes sú až v tretej sekcii.</span></li>
+        <li data-k="+"><span><b>Katalóg je kompletný.</b> 330 produktov s variantmi je pripravených, nový vzhľad ich len inak oblečie.</span></li>
+        <li data-k="−"><span><b>Web a Instagram hovoria iným jazykom.</b> Instagram už má výraznú červenú ruku, web je čierny a ruka je na ňom drobná a rozmazaná.</span></li>
+        <li data-k="−"><span><b>Hlavná fotka pôsobí ako fotobanka.</b> Uhladený kuchár môže byť na akomkoľvek webe, nie je z neho cítiť Piešťany ani DAMI.</span></li>
+        <li data-k="−"><span><b>Produkty na šedom pozadí sa strácajú.</b> Rôzne veľké výrezy na šedých kartách pôsobia nejednotne.</span></li>
+        <li data-k="−"><span><b>Na mobile sa nadpis bije s fotkou</b> a cez dlaždice kategórií vyskakuje plávajúca ikona.</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- A -->
+  <section class="dir" aria-labelledby="a-h">
+    <div class="dir-head">
+      <div class="code" aria-hidden="true">A</div>
+      <div>
+        <p class="mono">Smer A</p>
+        <h2 id="a-h">Červená DAMI</h2>
+        <p class="idea">Hlasná, sebavedomá predajňa. Červená ruka z Instagramu prechádza na web aj na fasádu a fotky sú zo skutočnej práce, nie z fotobanky.</p>
+        <div class="facts">
+          <span>Oblečenie, čo maká.</span>
+          <span class="sw"><i style="background:#E1251B"></i>#E1251B</span>
+          <span class="sw"><i style="background:#111111"></i>#111111</span>
+          <span class="sw"><i style="background:#FFFFFF"></i>#FFFFFF</span>
+          <span>úzky tučný grotesk</span>
+        </div>
+      </div>
+    </div>
+    <img class="shot" src="img/a-desktop.jpg" alt="Smer A, úvodná stránka na počítači" loading="lazy" width="2000" height="1131">
+    <div class="row">
+      <img class="shot" src="img/a-mobil.jpg" alt="Smer A, úvodná stránka na mobile" loading="lazy" width="800" height="1415">
+      <div class="stack">
+        <img class="shot" src="img/a-hero.jpg" alt="Smer A, hlavná fotka: kuchár, sestra a robotník po smene" loading="lazy" width="2000" height="857">
+        <img class="shot" src="img/a-brand.jpg" alt="Smer A, značka na predajni, taške, nálepke a nášivke" loading="lazy" width="2000" height="1131">
+      </div>
+    </div>
+    <div class="pros">
+      <div><h3>Prečo áno</h3><p>Nadväzuje na Instagram, ktorý už beží. Predajňa sa dá polepiť rovnako a značka je zrazu rozpoznateľná z ulice aj z mobilu.</p></div>
+      <div><h3>Na čo myslieť</h3><p>Stojí na fotkách skutočných ľudí. Treba jedno popoludnie fotenia so zákazníkmi alebo známymi v práci.</p></div>
+    </div>
+  </section>
+
+  <!-- B -->
+  <section class="dir" aria-labelledby="b-h">
+    <div class="dir-head">
+      <div class="code" aria-hidden="true">B</div>
+      <div>
+        <p class="mono">Smer B</p>
+        <h2 id="b-h">Dielňa</h2>
+        <p class="idea">Pokojná, prémiová krajčírska dielňa. Do popredia ide to, čo iné obchody nemajú: vlastná výroba kuchárskych nohavíc a záster.</p>
+        <div class="facts">
+          <span>Šijeme pre tých, čo pracujú rukami.</span>
+          <span class="sw"><i style="background:#F4F0E8"></i>#F4F0E8</span>
+          <span class="sw"><i style="background:#2B2B2B"></i>#2B2B2B</span>
+          <span class="sw"><i style="background:#B3261E"></i>#B3261E</span>
+          <span>pätkové písmo + grotesk</span>
+        </div>
+      </div>
+    </div>
+    <img class="shot" src="img/b-desktop.jpg" alt="Smer B, úvodná stránka na počítači" loading="lazy" width="2000" height="1131">
+    <div class="row">
+      <img class="shot" src="img/b-mobil.jpg" alt="Smer B, úvodná stránka na mobile" loading="lazy" width="800" height="1415">
+      <div class="stack">
+        <img class="shot" src="img/b-hero.jpg" alt="Smer B, hlavná fotka: šitie zástery na priemyselnom stroji" loading="lazy" width="2000" height="857">
+        <img class="shot" src="img/b-brand.jpg" alt="Smer B, značka na zástere, taške, visačke a predajni" loading="lazy" width="2000" height="1131">
+      </div>
+    </div>
+    <div class="pros">
+      <div><h3>Prečo áno</h3><p>Odlišuje DAMI od veľkých e-shopov s pracovným oblečením. Vlastná výroba je príbeh, ktorý sa dá predať aj reštauráciám.</p></div>
+      <div><h3>Na čo myslieť</h3><p>Je to najväčší posun od dnešného Instagramu. Ruka sa prekreslí do jemnej línie a obsah na sieťach by sa musel upokojiť.</p></div>
+    </div>
+  </section>
+
+  <!-- C -->
+  <section class="dir" aria-labelledby="c-h">
+    <div class="dir-head">
+      <div class="code" aria-hidden="true">C</div>
+      <div>
+        <p class="mono">Smer C</p>
+        <h2 id="c-h">Systém</h2>
+        <p class="idea">Praktický nástroj na nákup. Každé odvetvie má svoju farbu, vyhľadávanie je hore a veľkosti sú hneď na karte produktu.</p>
+        <div class="facts">
+          <span>Vyber si odvetvie. Zvyšok vyriešime my.</span>
+          <span class="sw"><i style="background:#FFFFFF"></i>Gastro</span>
+          <span class="sw"><i style="background:#1F8A8A"></i>Zdravotníctvo</span>
+          <span class="sw"><i style="background:#FF6A13"></i>Pracovné odevy</span>
+          <span class="sw"><i style="background:#3A3D40"></i>Obuv</span>
+        </div>
+      </div>
+    </div>
+    <img class="shot" src="img/c-desktop.jpg" alt="Smer C, úvodná stránka na počítači" loading="lazy" width="2000" height="1131">
+    <div class="row">
+      <img class="shot" src="img/c-mobil.jpg" alt="Smer C, úvodná stránka na mobile" loading="lazy" width="800" height="1415">
+      <div class="stack">
+        <img class="shot" src="img/c-hero.jpg" alt="Smer C, hlavná fotka: štyri profesie na farebných pozadiach" loading="lazy" width="2000" height="857">
+        <img class="shot" src="img/c-brand.jpg" alt="Smer C, farebný systém odvetví na štítkoch, regáloch a balíku" loading="lazy" width="2000" height="1131">
+      </div>
+    </div>
+    <div class="pros">
+      <div><h3>Prečo áno</h3><p>Najrýchlejší nákup pre firmy, ktoré presne vedia, čo chcú. Farby odvetví sa dajú použiť aj v predajni na regáloch.</p></div>
+      <div><h3>Na čo myslieť</h3><p>Pôsobí skôr ako katalóg než ako značka s príbehom. Farby odvetví treba ustriehnuť, aby nezatienili červenú DAMI.</p></div>
+    </div>
+  </section>
+
+  <section class="cmp" aria-labelledby="cmp-h">
+    <h2 id="cmp-h">Porovnanie</h2>
+    <div class="tbl">
+      <table>
+        <thead><tr><th></th><th>A · Červená DAMI</th><th>B · Dielňa</th><th>C · Systém</th></tr></thead>
+        <tbody>
+          <tr><td>Povaha</td><td>Hlasná predajňa</td><td>Prémiová dielňa</td><td>Rýchly katalóg</td></tr>
+          <tr><td>Väzba na Instagram</td><td>Priama, pokračuje v ňom</td><td>Treba ho preladiť</td><td>Čiastočná, cez červenú ruku</td></tr>
+          <tr><td>Fotky</td><td>Ľudia v práci, s bleskom</td><td>Dielňa, ruky, látky</td><td>Ateliér, farebné pozadia</td></tr>
+          <tr><td>Pre koho najlepšie</td><td>Jednotlivci aj firmy z okolia</td><td>Reštaurácie a hotely</td><td>Firmy s opakovaným nákupom</td></tr>
+          <tr><td>Zmena predajne</td><td>Červená fasáda a veľká ruka</td><td>Svetlá fasáda, decentná tabuľa</td><td>Biela fasáda s pruhmi odvetví</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="pick" aria-labelledby="pick-h">
+    <p class="mono">Moje odporúčanie</p>
+    <h2 id="pick-h">Smer A ako základ, z C nákupné pomôcky, z B jedna sekcia</h2>
+    <p>Červená DAMI nadväzuje na Instagram a predajňu. Z C by som zobral vyhľadávanie hore, veľkosti na karte produktu a farebné odvetvia v menu. Z B sekciu o vlastnej výrobe záster a nohavíc, lebo to je skutočná výhoda DAMI.</p>
+  </section>
+
+  <p class="foot">Všetky obrázky sú vizualizácie na posúdenie smeru. Ľudia, produkty a fasády sú generované. Do ostrého webu pôjdu skutočné fotky predajne, vašich produktov a ľudí. Ceny a názvy produktov na obrázkoch sú ilustračné.</p>
+
+</div>
