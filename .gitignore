@@ -13,5 +13,9 @@ alternativy/*
 !alternativy/img/
 alternativy/img/*
 !alternativy/img/*.jpg
+!alternativy/a2/
+alternativy/a2/*
+!alternativy/a2/index.html
+!alternativy/a2/web/
 v2/src/hero/*.png
 v2/src/

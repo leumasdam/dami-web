@@ -1,0 +1,259 @@
+<title>DAMI · smer A</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+  /* Layout: prezentácia smeru A — živý carousel bannerov hore, potom varianty landingu a mapa podstránok (desktop + mobil vedľa seba) */
+  :root {
+    --bg: #faf8f5;
+    --card: #f1efec;
+    --ink: #141414;
+    --muted: #5e5b57;
+    --line: #dedad4;
+    --red: #e1251b;
+    --on-red: #ffffff;
+    --display: "Archivo", "Arial Narrow", system-ui, sans-serif;
+    --body: "Archivo", system-ui, -apple-system, "Segoe UI", sans-serif;
+    --mono: "IBM Plex Mono", ui-monospace, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) { --bg: #131211; --card: #1d1c1a; --ink: #f1eee9; --muted: #a8a39b; --line: #33302c; --red: #ec3a30; color-scheme: dark; }
+  }
+  :root[data-theme="dark"] { --bg: #131211; --card: #1d1c1a; --ink: #f1eee9; --muted: #a8a39b; --line: #33302c; --red: #ec3a30; color-scheme: dark; }
+
+  * { box-sizing: border-box; }
+  body {
+    background: var(--bg); color: var(--ink); font: 400 16px/1.55 var(--body);
+    padding-left: max(16px, env(safe-area-inset-left, 0px));
+    padding-right: max(16px, env(safe-area-inset-right, 0px));
+  }
+  .wrap { max-width: 1280px; margin: 0 auto; padding-block: 36px 80px; display: grid; gap: 64px; }
+  h1, h2, h3 { font-family: var(--display); margin: 0; text-wrap: balance; }
+  p { margin: 0; }
+  img { display: block; max-width: 100%; height: auto; }
+  .mono { font-family: var(--mono); font-size: 12px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+
+  header.top { display: grid; gap: 14px; }
+  header.top h1 { font-size: clamp(42px, 7.5vw, 96px); font-weight: 900; font-stretch: 70%; line-height: .9; text-transform: uppercase; }
+  header.top h1 em { font-style: normal; color: var(--red); }
+  .lead { max-width: 64ch; font-size: 18px; color: var(--muted); }
+  .lead b { color: var(--ink); font-weight: 600; }
+  nav.toc { display: flex; flex-wrap: wrap; gap: 8px; }
+  nav.toc a { font-family: var(--mono); font-size: 12px; color: var(--ink); text-decoration: none; border: 1px solid var(--line); border-radius: 999px; padding: 6px 12px; }
+  nav.toc a:hover, nav.toc a:focus-visible { border-color: var(--red); color: var(--red); outline: none; }
+
+  section { display: grid; gap: 22px; scroll-margin-top: 16px; }
+  .sec-h { display: grid; gap: 8px; border-top: 2px solid var(--ink); padding-top: 16px; }
+  .sec-h h2 { font-size: clamp(30px, 4.4vw, 48px); font-weight: 900; font-stretch: 75%; line-height: 1; text-transform: uppercase; }
+  .sec-h p { max-width: 66ch; color: var(--muted); }
+
+  /* carousel */
+  .car { position: relative; border-radius: 14px; overflow: hidden; background: var(--card); }
+  .track { display: flex; transition: transform .6s cubic-bezier(.2,.7,.2,1); }
+  .slide { flex: 0 0 100%; }
+  .slide img { width: 100%; aspect-ratio: 21 / 9; object-fit: cover; }
+  .arrow {
+    position: absolute; top: 50%; translate: 0 -50%; width: 44px; height: 44px; border-radius: 50%;
+    border: 0; background: #ffffff; color: #141414; font: 600 20px/1 var(--body); cursor: pointer;
+    box-shadow: 0 2px 10px rgba(0,0,0,.18);
+  }
+  .arrow:focus-visible { outline: 3px solid var(--red); outline-offset: 2px; }
+  .arrow.prev { left: 14px; } .arrow.next { right: 14px; }
+  .tabs { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 8px; }
+  .tab {
+    text-align: left; border: 1px solid var(--line); background: transparent; color: var(--ink); border-radius: 10px;
+    padding: 10px 12px; cursor: pointer; font: 600 14px/1.25 var(--body); display: grid; gap: 2px; position: relative; overflow: hidden;
+  }
+  .tab span { font: 400 12px/1.3 var(--mono); color: var(--muted); }
+  .tab[aria-selected="true"] { border-color: var(--red); }
+  .tab::after { content: ""; position: absolute; left: 0; bottom: 0; height: 3px; width: 0; background: var(--red); }
+  .tab[aria-selected="true"]::after { animation: fill 6s linear forwards; }
+  .car.paused ~ .tabs .tab[aria-selected="true"]::after { animation-play-state: paused; }
+  @keyframes fill { to { width: 100%; } }
+  .tab:focus-visible { outline: 3px solid var(--red); outline-offset: 2px; }
+
+  /* varianty a podstránky */
+  .variants { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; align-items: start; }
+  figure { margin: 0; display: grid; gap: 10px; }
+  figcaption { display: grid; gap: 2px; }
+  figcaption b { font-family: var(--display); font-weight: 800; font-stretch: 85%; font-size: 20px; }
+  figcaption span { color: var(--muted); font-size: 14px; }
+  .shot { border: 1px solid var(--line); border-radius: 10px; background: var(--card); }
+  .bset { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+  .tiles { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+  .mobiles { display: grid; grid-template-columns: repeat(2, minmax(0, 280px)); gap: 20px; }
+  .page { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 300px); gap: 20px; align-items: start; padding-top: 18px; border-top: 1px solid var(--line); }
+  .page h3 { font-size: 26px; font-weight: 800; font-stretch: 80%; }
+  .page .meta { display: grid; gap: 6px; margin-bottom: 12px; }
+  .page .meta p { color: var(--muted); max-width: 60ch; }
+  .page-only { grid-template-columns: minmax(0, 1fr); }
+  .foot { font-family: var(--mono); font-size: 12px; color: var(--muted); max-width: 80ch; }
+
+  @media (max-width: 900px) {
+    .variants, .bset, .tiles { grid-template-columns: minmax(0, 1fr); }
+    .tabs { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .page { grid-template-columns: minmax(0, 1fr); }
+    .page .mob { max-width: 300px; }
+  }
+  @media (max-width: 520px) {
+    .tabs { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .arrow { width: 36px; height: 36px; font-size: 17px; }
+    .mobiles { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .track { transition: none; }
+    .tab[aria-selected="true"]::after { animation: none; width: 100%; }
+  }
+</style>
+
+<div class="wrap">
+
+  <header class="top">
+    <p class="mono">DAMI pracovné odevy · smer A · 19. 11. 2026</p>
+    <h1>Červená DAMI, <em>rozvinutá</em></h1>
+    <p class="lead">Pokojnejšia verzia smeru A: <b>svetlý základ, čisté produkty a červená tam, kde má niečo povedať</b>. Hlas značky je sústredený v bannery carouseli, s rukou, nášivkou, nálepkami a vzorom zo sociálnych sietí. Zvyšok webu sa nakupuje ľahko.</p>
+    <nav class="toc" aria-label="Obsah">
+      <a href="#bannery">Bannery</a>
+      <a href="#lahsie">Ľahšie bannery</a>
+      <a href="#varianty">Varianty úvodu</a>
+      <a href="#podstranky">Podstránky</a>
+    </nav>
+  </header>
+
+  <section id="bannery" aria-labelledby="ban-h">
+    <div class="sec-h">
+      <p class="mono">01 · Carousel</p>
+      <h2 id="ban-h">Banner pre každú kategóriu</h2>
+      <p>Šesť slidov, každý s vlastnou ponukou. Prepínajú sa samé každých 6 sekúnd, šípkami alebo kliknutím na kartu pod nimi. Ceny sú z vášho katalógu.</p>
+    </div>
+    <div class="car" id="car" aria-roledescription="carousel" aria-label="Bannery kategórií">
+      <div class="track" id="track">
+        <div class="slide" role="group" aria-roledescription="slide" aria-label="1 zo 6"><img src="web/ban-gastro.jpg" alt="Gastro: Rondon, ktorý zvládne celú smenu" width="2000" height="857"></div>
+        <div class="slide" role="group" aria-roledescription="slide" aria-label="2 zo 6"><img src="web/ban-zdrav.jpg" alt="Zdravotníctvo: Pohodlne celú zmenu" width="2000" height="857" loading="lazy"></div>
+        <div class="slide" role="group" aria-roledescription="slide" aria-label="3 zo 6"><img src="web/ban-pracovne.jpg" alt="Pracovné odevy: Od kuchyne až po stavbu" width="2000" height="857" loading="lazy"></div>
+        <div class="slide" role="group" aria-roledescription="slide" aria-label="4 zo 6"><img src="web/ban-obuv.jpg" alt="Obuv: Istota v každom kroku" width="2000" height="857" loading="lazy"></div>
+        <div class="slide" role="group" aria-roledescription="slide" aria-label="5 zo 6"><img src="web/ban-firmy.jpg" alt="Pre firmy: Vybavíme celý tím, aj s logom" width="2000" height="857" loading="lazy"></div>
+        <div class="slide" role="group" aria-roledescription="slide" aria-label="6 zo 6"><img src="web/ban-predajna.jpg" alt="Predajňa: Nájdeš nás na Gaštanovej" width="2000" height="857" loading="lazy"></div>
+      </div>
+      <button class="arrow prev" id="prev" aria-label="Predchádzajúci banner">←</button>
+      <button class="arrow next" id="next" aria-label="Ďalší banner">→</button>
+    </div>
+    <div class="tabs" role="tablist" aria-label="Kategórie">
+      <button class="tab" role="tab" id="t0">Gastro<span>od 19,90 €</span></button>
+      <button class="tab" role="tab" id="t1">Zdravotníctvo<span>set 29,80 €</span></button>
+      <button class="tab" role="tab" id="t2">Pracovné odevy<span>tričká od 4,50 €</span></button>
+      <button class="tab" role="tab" id="t3">Obuv<span>S1 až S3</span></button>
+      <button class="tab" role="tab" id="t4">Pre firmy<span>logo na výšivke</span></button>
+      <button class="tab" role="tab" id="t5">Predajňa<span>Gaštanová 6396</span></button>
+    </div>
+  </section>
+
+  <section id="lahsie" aria-labelledby="lah-h">
+    <div class="sec-h">
+      <p class="mono">01b · Ľahšie bannery</p>
+      <h2 id="lah-h">Pokojnejšie, zľavové a na podstránky</h2>
+      <p>Druhá sada: jeden produkt, veľa vzduchu, červená len na štítku alebo cene. Hodí sa do carouselu na striedanie s výraznými bannermi, ako hlavička kategórie alebo ako pruh v košíku a na detaile produktu. Zľavy sú z prečiarknutých cien vo vašom katalógu.</p>
+    </div>
+    <div class="bset">
+      <figure><img class="shot" src="web/m-akcia-giblors.jpg" alt="Akcia Giblors, kuchárske nohavice za 16,90 €" width="2000" height="857" loading="lazy"><figcaption><b>Akcia · úvod</b><span>Jeden produkt, prečiarknutá cena.</span></figcaption></figure>
+      <figure><img class="shot" src="web/m-zlava-zdrav.jpg" alt="Zdravotníctvo −14 %, tunika EROS a kimono ILARIA" width="2000" height="857" loading="lazy"><figcaption><b>Zľava · len text</b><span>Červený, ale bez fotky. Na krátke akcie.</span></figcaption></figure>
+      <figure><img class="shot" src="web/m-zima.jpg" alt="Zimná sezóna, zima na stavbe" width="2000" height="857" loading="lazy"><figcaption><b>Sezóna · zima</b><span>Svetlý, s jednou bundou.</span></figcaption></figure>
+      <figure><img class="shot" src="web/m-zdrav.jpg" alt="Zdravotníctvo, set blúza a nohavice za 29,80 €" width="2000" height="857" loading="lazy"><figcaption><b>Zdravotníctvo</b><span>Pastelový podklad, výber farby.</span></figcaption></figure>
+      <figure><img class="shot" src="web/m-rukavice.jpg" alt="Doplnky, rukavice od 0,90 €" width="2000" height="857" loading="lazy"><figcaption><b>Doplnky · tmavý</b><span>Čierny bez fotky ľudí, na striedanie.</span></figcaption></figure>
+      <figure><img class="shot" src="web/m-kat-obuv.jpg" alt="Hlavička kategórie Obuv" width="2000" height="857" loading="lazy"><figcaption><b>Hlavička kategórie</b><span>Nadpis, popis a rýchle filtre.</span></figcaption></figure>
+      <figure><img class="shot" src="web/m-firmy.jpg" alt="Pre firmy, logo na výšivke" width="2000" height="857" loading="lazy"><figcaption><b>Pre firmy</b><span>Biely, detail výšivky.</span></figcaption></figure>
+      <figure><img class="shot" src="web/m-vyroba.jpg" alt="Vlastná výroba, šité v Piešťanoch" width="2000" height="857" loading="lazy"><figcaption><b>Vlastná výroba</b><span>Prešívaná čiara ako jediný ornament.</span></figcaption></figure>
+      <figure><img class="shot" src="web/m-kosik.jpg" alt="Osobný odber v Piešťanoch zadarmo" width="2000" height="857" loading="lazy"><figcaption><b>Košík · pruh</b><span>Informácia namiesto reklamy.</span></figcaption></figure>
+    </div>
+    <div class="tiles">
+      <figure><img class="shot" src="web/t-nazuvaky.jpg" alt="Nazúvaky CXS TREND za 9,90 €" width="1600" height="900" loading="lazy"><figcaption><b>Dlaždica · obuv</b></figcaption></figure>
+      <figure><img class="shot" src="web/t-tricka.jpg" alt="Tričká do kuchyne od 4,50 €" width="1600" height="900" loading="lazy"><figcaption><b>Dlaždica · gastro</b></figcaption></figure>
+      <figure><img class="shot" src="web/t-velkost.jpg" alt="Nevieš veľkosť? Vyskúšaj v predajni" width="1600" height="900" loading="lazy"><figcaption><b>Dlaždica · detail produktu</b></figcaption></figure>
+    </div>
+  </section>
+
+  <section id="varianty" aria-labelledby="var-h">
+    <div class="sec-h">
+      <p class="mono">02 · Úvodná stránka</p>
+      <h2 id="var-h">Tri spôsoby, ako banner posadiť</h2>
+      <p>Rovnaký obsah pod bannerom, líši sa len to, koľko miesta dostane carousel a ako sa prepínajú kategórie.</p>
+    </div>
+    <div class="variants">
+      <figure><img class="shot" src="web/var1.jpg" alt="Variant 1, plný banner cez celú šírku" width="1360" height="2048" loading="lazy"><figcaption><b>1 · Plný banner</b><span>Najväčší dojem. Pod bannerom karty kategórií, ktoré prepínajú slidy.</span></figcaption></figure>
+      <figure><img class="shot" src="web/var2.jpg" alt="Variant 2, banner a dve akčné dlaždice" width="1360" height="2048" loading="lazy"><figcaption><b>2 · Banner + akcie</b><span>Vedľa bannera akcia a predajňa. Každá kategória má ponuku v odznaku.</span></figcaption></figure>
+      <figure><img class="shot" src="web/var3.jpg" alt="Variant 3, banner so zoznamom kategórií vedľa" width="1360" height="2048" loading="lazy"><figcaption><b>3 · Kategórie v hlavnej úlohe</b><span>Zoznam kategórií s ponukami vedľa bannera, pod ním pás nálepiek.</span></figcaption></figure>
+    </div>
+    <div class="mobiles">
+      <figure><img class="shot" src="web/var-mobil-1.jpg" alt="Mobil, banner gastro s ďalším slidom na okraji" width="760" height="1344" loading="lazy"><figcaption><b>Mobil · posúvanie prstom</b><span>Ďalší slide vykukuje z okraja.</span></figcaption></figure>
+      <figure><img class="shot" src="web/var-mobil-2.jpg" alt="Mobil, banner obuv a kategórie s ponukami" width="760" height="1344" loading="lazy"><figcaption><b>Mobil · obuv</b><span>Pod bannerom kategórie s cenou.</span></figcaption></figure>
+    </div>
+  </section>
+
+  <section id="podstranky" aria-labelledby="pod-h">
+    <div class="sec-h">
+      <p class="mono">03 · Podstránky</p>
+      <h2 id="pod-h">Celý web v jednom štýle</h2>
+      <p>Na podstránkach je červená len na tlačidlách, cenách a v jednom výraznom prvku. Produkty sú vždy na rovnakom svetlom podklade, aby sa dalo pokojne vyberať.</p>
+    </div>
+
+    <div class="page"><div><div class="meta"><h3>Úvod</h3><p>Pokojná verzia bez carouselu: veľký nadpis, fotka, kategórie, najpredávanejšie, vlastná výroba, predajňa.</p></div><img class="shot" src="web/uvod-desktop.jpg" alt="Úvodná stránka na počítači" width="1360" height="2048" loading="lazy"></div><img class="shot mob" src="web/uvod-mobil.jpg" alt="Úvodná stránka na mobile" width="760" height="1344" loading="lazy"></div>
+
+    <div class="page"><div><div class="meta"><h3>Kategória · Gastro</h3><p>Podkategórie ako tlačidlá, filtre vľavo, prepínač „Len skladom v predajni“, zľava ako malý štítok.</p></div><img class="shot" src="web/kategoria-desktop.jpg" alt="Kategória Gastro na počítači" width="1360" height="2048" loading="lazy"></div><img class="shot mob" src="web/kategoria-mobil.jpg" alt="Kategória Gastro na mobile" width="760" height="1344" loading="lazy"></div>
+
+    <div class="page"><div><div class="meta"><h3>Detail produktu</h3><p>Veľkosti ako tlačidlá, sklad v predajni, rezervácia na vyskúšanie, k tomu sa hodí.</p></div><img class="shot" src="web/produkt-desktop.jpg" alt="Detail produktu na počítači" width="1360" height="2048" loading="lazy"></div><img class="shot mob" src="web/produkt-mobil.jpg" alt="Detail produktu na mobile" width="760" height="1344" loading="lazy"></div>
+
+    <div class="page"><div><div class="meta"><h3>Košík a pokladňa</h3><p>Najčistejšia stránka webu. Osobný odber v Piešťanoch zadarmo, faktúra na IČO pre firmy.</p></div><img class="shot" src="web/kosik-desktop.jpg" alt="Košík na počítači" width="1360" height="2048" loading="lazy"></div><img class="shot mob" src="web/kosik-mobil.jpg" alt="Košík na mobile" width="760" height="1344" loading="lazy"></div>
+
+    <div class="page"><div><div class="meta"><h3>Predajňa</h3><p>Skutočná budova na Gaštanovej, otváracie hodiny, navigácia a čo v predajni nájdete.</p></div><img class="shot" src="web/predajna-desktop.jpg" alt="Stránka predajne na počítači" width="1360" height="2048" loading="lazy"></div><img class="shot mob" src="web/predajna-mobil.jpg" alt="Stránka predajne na mobile" width="760" height="1344" loading="lazy"></div>
+
+    <div class="page"><div><div class="meta"><h3>Pre firmy</h3><p>Štyri kroky, logo na výšivke, nákup na faktúru a formulár na dopyt.</p></div><img class="shot" src="web/firmy-desktop.jpg" alt="Stránka pre firmy na počítači" width="1360" height="2048" loading="lazy"></div><img class="shot mob" src="web/firmy-mobil.jpg" alt="Stránka pre firmy na mobile" width="760" height="1344" loading="lazy"></div>
+
+    <div class="page"><div><div class="meta"><h3>Zdravotníctvo</h3><p>Mäkšia sekcia pre ambulancie a wellness, s tabuľkou veľkostí.</p></div><img class="shot" src="web/zdravotnictvo-desktop.jpg" alt="Sekcia zdravotníctvo na počítači" width="1360" height="2048" loading="lazy"></div><img class="shot mob" src="web/menu-mobil.jpg" alt="Menu a vyhľadávanie na mobile" width="760" height="1344" loading="lazy"></div>
+
+    <div class="page"><div><div class="meta"><h3>Vlastná výroba</h3><p>Príbeh záster a kuchárskych nohavíc, ktoré DAMI šije samo.</p></div><img class="shot" src="web/vyroba-desktop.jpg" alt="Stránka vlastná výroba na počítači" width="1360" height="2048" loading="lazy"></div><img class="shot mob" src="web/vyroba-mobil.jpg" alt="Stránka vlastná výroba na mobile" width="760" height="1344" loading="lazy"></div>
+  </section>
+
+  <p class="foot">Obrázky sú vizualizácie smeru. Ľudia, fotky výroby a niektoré produkty sú generované. Do ostrého webu pôjdu skutočné fotky predajne, produktov a ľudí. Ceny a názvy produktov sú z katalógu DAMI. Akcie na banneroch sú príklad a nastavíte si ich sami.</p>
+</div>
+
+<script>
+(function () {
+  var track = document.getElementById('track');
+  var car = document.getElementById('car');
+  var tabs = Array.prototype.slice.call(document.querySelectorAll('.tab'));
+  var n = tabs.length, i = 0, timer = null;
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function show(k) {
+    i = (k + n) % n;
+    track.style.transform = 'translateX(' + (-100 * i) + '%)';
+    tabs.forEach(function (t, j) {
+      t.setAttribute('aria-selected', j === i ? 'true' : 'false');
+      t.tabIndex = j === i ? 0 : -1;
+    });
+    // reštart animácie progresu
+    var a = tabs[i]; a.style.animation = 'none'; void a.offsetWidth; a.style.animation = '';
+  }
+  function start() { if (reduce) return; stop(); timer = setInterval(function () { show(i + 1); }, 6000); }
+  function stop() { if (timer) clearInterval(timer); timer = null; }
+
+  document.getElementById('prev').addEventListener('click', function () { show(i - 1); start(); });
+  document.getElementById('next').addEventListener('click', function () { show(i + 1); start(); });
+  tabs.forEach(function (t, j) { t.addEventListener('click', function () { show(j); start(); }); });
+  car.addEventListener('mouseenter', function () { stop(); car.classList.add('paused'); });
+  car.addEventListener('mouseleave', function () { car.classList.remove('paused'); start(); });
+
+  var x0 = null;
+  car.addEventListener('touchstart', function (e) { x0 = e.touches[0].clientX; stop(); }, { passive: true });
+  car.addEventListener('touchend', function (e) {
+    if (x0 === null) return;
+    var dx = e.changedTouches[0].clientX - x0; x0 = null;
+    if (Math.abs(dx) > 40) show(i + (dx < 0 ? 1 : -1));
+    start();
+  });
+
+  show(0); start();
+})();
+</script>
